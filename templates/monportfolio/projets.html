@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Mes Projets" %}{% endblock %}
+
+{% block content %}
+    <section id="projets" class="section py-20" style="background-color: var(--bg-primary);">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 slide-up" style="color: var(--text-primary);">
+                {% trans "Mes Projets" %}
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for projet in projets %}
+                    <div class="content-card rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:shadow-xl hover:-translate-y-2 slide-up" style="transition-delay: {{ forloop.counter0|floatformat:1 }}s">
+                        {% if Projet.image %}
+                            <img src="{{ projet.image.url }}" alt="{{ projet.titre }}" class="w-full h-48 object-cover">
+                        {% else %}
+                            <div class="w-full h-48 projet-placeholder">
+                                {{ projet.titre|truncatewords:3 }}
+                            </div>
+                        {% endif %}
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2" style="color: var(--text-primary);">
+                                {{ projet.titre }}
+                            </h3>
+                            <p class="mb-4 text-sm md:text-base" style="color: var(--text-secondary);">
+                                {{ projet.description|truncatewords:20 }}
+                            </p>
+                            <a href="{% url 'monportfolio:projet_detail' pk=projet.pk %}" class="font-medium hover:text-blue-700 transition" style="color: var(--text-primary);">
+                                {% trans "Voir le projet" %} &rarr;
+                            </a>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p class="text-center col-span-full" style="color: var(--text-secondary);">
+                        {% trans "Aucun projet disponible pour le moment." %}
+                    </p>
+                {% endfor %}
+            </div>
+            <div class="text-center mt-12 slide-up">
+                <a href="#" class="inline-block bg-accent hover:bg-yellow-500 font-semibold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105" style="color: var(--text-primary);">
+                    {% trans "Voir plus de projets" %}
+                </a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

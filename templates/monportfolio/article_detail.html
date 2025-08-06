@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{{ article.titre }}{% endblock %}
+
+{% block content %}
+<section id="article-detail" class="section py-20" style="background-color: var(--bg-primary);">
+    <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto slide-up">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center" style="color: var(--text-primary);">
+                {{ article.titre }}
+            </h2>
+            <div class="flex justify-center mb-6">
+                <span class="text-sm text-accent px-3 py-1 rounded-full" style="background-color: var(--card-bg);">
+                    {{ article.categorie }}
+                </span>
+            </div>
+            {% if article.image %}
+            <img src="{{ article.image.url }}" alt="{{ article.titre }}"
+                class="w-full h-64 md:h-96 object-cover rounded-lg mb-6 shadow-lg" loading="lazy">
+            {% else %}
+            <div
+                class="w-full h-64 md:h-96 projet-placeholder rounded-lg mb-6 shadow-lg flex items-center justify-center">
+                {{ article.titre|truncatewords:3 }}
+            </div>
+            {% endif %}
+            <div class="content-card p-8 rounded-lg shadow-md mb-12" style="background-color: var(--card-bg);">
+                <p class="text-base md:text-lg mb-6" style="color: var(--text-secondary);">
+                    {{ article.contenu|safe }}
+                </p>
+                <p class="text-sm italic" style="color: var(--text-secondary);">
+                    {% trans "Publié le" %} {{ article.date_creation|date:"F d, Y" }}
+                </p>
+                <div class="mt-8 flex justify-between items-center">
+                   
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:text-accent transition" style="color: var(--text-primary);"
+                            aria-label="{% trans 'Partager sur GitHub' %}">
+                            <span class="text-xl">👨‍💻</span>
+                        </a>
+                        <a href="#" class="hover:text-accent transition" style="color: var(--text-primary);"
+                            aria-label="{% trans 'Partager sur LinkedIn' %}">
+                            <span class="text-xl">🔗</span>
+                        </a>
+                        <a href="#" class="hover:text-accent transition" style="color: var(--text-primary);"
+                            aria-label="{% trans 'Partager sur Twitter' %}">
+                            <span class="text-xl">🐦</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comment Section -->
+            <div class="content-card p-8 rounded-lg shadow-md slide-up"
+                style="background-color: var(--card-bg); transition-delay: 0.2s;">
+                <h3 class="text-2xl font-bold mb-6" style="color: var(--text-primary);">
+                    {% trans "Avis" %}
+                </h3>
+                <!-- Comment List -->
+                <div class="space-y-6">
+                    {% for avis in avis %}
+                    <div class="border-l-4 pl-4" style="border-color: var(--bg-accent);">
+                        <p class="text-sm font-medium" style="color: var(--text-primary);">
+                            {{ avis.auteur }}
+                            <span class="text-xs italic" style="color: var(--text-secondary);">
+                                {% trans "le" %} {{ avis.date_creation|date:"F d, Y H:i" }}
+                            </span>
+                        </p>
+                        <p class="mt-2 text-sm md:text-base" style="color: var(--text-secondary);">
+                            {{ avis.contenu }}
+                        </p>
+                        <p class="mt-2 text-sm md:text-base" style="color: var(--text-secondary);">
+                            {{ avis.note }}
+                        </p>
+                    </div>
+                    {% empty %}
+                    <p class="text-center" style="color: var(--text-secondary);">
+                        {% trans "Aucun avis pour le moment." %}
+                    </p>
+                    {% endfor %}
+                </div>
+                <!-- Comment Form -->
+                <form id="comment-form" method="post" class="space-y-6 mb-8">
+                    {% csrf_token %}
+
+                    
+                    <label for="name" class="block mb-2" style="color: var(--text-primary);">
+                            {% trans "Nom" %}
+                    </label>
+                    <input type="text" id="name" name="name" required
+                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+                            style="border-color: var(--input-border);">
+                    
+                    <label for="contenu" class="block mb-2" style="color: var(--text-primary);">
+                            {% trans "Votre Avis" %}
+                    </label>
+                    <textarea id="contenu" name="contenu" rows="5" required
+                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+                            style="border-color: var(--input-border);"></textarea>
+                    
+                    <label for="note" class="block mb-2" style="color: var(--text-primary);">
+                            {% trans "Note" %}
+                    </label>
+                    <input type="number" id="note" name="note" required
+                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+                            style="border-color: var(--input-border);">
+                    
+                    <button type="submit"
+                        class="bg-accent hover:bg-yellow-500 font-semibold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105"
+                        style="color: var(--text-primary);">
+                        {% trans "Envoyer " %}
+                    </button>
+                </form>
+                 <a href="{% url 'monportfolio:home' %}#articles" class="font-medium hover:text-blue-700 transition"
+                        style="color: var(--text-primary);" aria-label="{% trans 'Retour à la liste des articles' %}">
+                        {% trans "Retour aux articles" %} &larr;
+                 </a>
+                <!-- Messages -->
+                {% if messages %}
+                <div class="mb-6">
+                    {% for message in messages %}
+                    <div class="p-4 rounded-lg {% if message.tags == 'success' %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %}"
+                        style="color: var(--text-primary);">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

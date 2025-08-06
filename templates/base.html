@@ -1,0 +1,306 @@
+{% load static i18n %}
+<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% trans 'Portfolio personnel avec projets, articles et contact.' %}">
+    <meta name="keywords" content="{% trans 'portfolio, projets, articles, développeur' %}">
+    <title>{% block title %}{% trans "Mon Portfolio" %}{% endblock %}</title>
+    <link href="{% static 'css/output.css' %}" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            /* Light Theme */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f3f4f6;
+            --bg-accent: #f59e0b; /* Yellow */
+            --bg-accent-hover: #fbbf24;
+            --text-primary: #1e3a8a; /* Blue */
+            --text-secondary: #4b5563;
+            --text-accent: #f59e0b;
+            --navbar-bg: #ffffff;
+            --navbar-text: #1e3a8a;
+            --navbar-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --footer-bg: #1e3a8a;
+            --footer-text: #ffffff;
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme */
+            --bg-primary: #1f2937;
+            --bg-secondary: #374151;
+            --bg-accent: #f59e0b;
+            --bg-accent-hover: #fbbf24;
+            --text-primary: #ffffff;
+            --text-secondary: #d1d5db;
+            --text-accent: #f59e0b;
+            --navbar-bg: #111827;
+            --navbar-text: #ffffff;
+            --navbar-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            --footer-bg: #111827;
+            --footer-text: #d1d5db;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--text-accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--text-accent);
+        }
+
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-accent);
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        select {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <header class="fixed w-full z-50 transition-all duration-300" style="background-color: var(--navbar-bg); box-shadow: var(--navbar-shadow);">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold" style="color: var(--navbar-text);">
+                <span class="text-accent">{% trans "Port" %}</span>{% trans "folio" %}
+            </h1>
+            <div class="flex items-center space-x-4">
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="{% url 'monportfolio:home' %}" class="nav-link px-4 py-2 rounded transition" style="color: var(--navbar-text);">{% trans "Accueil" %}</a>
+                    <a href="{% url 'monportfolio:home' %}#projects" class="nav-link px-4 py-2 rounded transition" style="color: var(--navbar-text);">{% trans "Projets" %}</a>
+                    <a href="{% url 'monportfolio:home' %}#articles" class="nav-link px-4 py-2 rounded transition" style="color: var(--navbar-text);">{% trans "Articles" %}</a>
+                    <a href="{% url 'monportfolio:home' %}#about" class="nav-link px-4 py-2 rounded transition" style="color: var(--navbar-text);">{% trans "À Propos" %}</a>
+                    <a href="{% url 'monportfolio:home' %}#contact" class="nav-link px-4 py-2 rounded transition" style="color: var(--navbar-text);">{% trans "Contact" %}</a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'monportfolio:logout' %}" class="nav-link px-4 py-2 rounded transition" style="color: var(--navbar-text);">{% trans "Déconnexion" %}</a>
+                    {% else %}
+                
+                        <a href="{% url 'admin:index' %}" class="nav-link px-4 py-2 rounded transition" style="color: var(--navbar-text);">{% trans "Connexion" %}</a>
+                    {% endif %}
+                    <div class="relative">
+                        <form action="{% url 'set_language' %}" method="post" class="flex items-center">
+                            {% csrf_token %}
+                            <input name="next" type="hidden" value="{{ request.path|slice:'3:' }}">
+                            <select name="language" onchange="this.form.submit()" class="bg-transparent border-none focus:outline-none text-sm" style="color: var(--navbar-text);">
+                                {% get_current_language as LANGUAGE_CODE %}
+                                {% get_available_languages as LANGUAGES %}
+                                {% get_language_info_list for LANGUAGES as languages %}
+                                {% for language in languages %}
+                                    <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}selected{% endif %} style="color: var(--text-primary);">
+                                        {{ language.name_local }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </form>
+                    </div>
+                    <button id="theme-toggle" class="theme-toggle" title="{% trans 'Toggle Theme' %}">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path id="theme-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <button id="mobile-menu-button" class="md:hidden focus:outline-none" style="color: var(--navbar-text);">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-50 dark:bg-gray-800 mt-2 mx-4 rounded-lg shadow-lg">
+            <div class="flex flex-col space-y-2 p-4">
+                <a href="{% url 'monportfolio:home' %}" class="nav-link px-4 py-2 rounded transition" style="color: var(--navbar-text);">{% trans "Accueil" %}</a>
+                <a href="{% url 'monportfolio:home' %}#project" class="nav-link px-4 py-2 rounded transition" style="color: var(--navbar-text);">{% trans "Projets" %}</a>
+                <a href="{% url 'monportfolio:home' %}#articles" class="nav-link px-4 py-2 rounded transition" style="color: var(--navbar-text);">{% trans "Articles" %}</a>
+                <a href="{% url 'monportfolio:home' %}#about" class="nav-link px-4 py-2 rounded transition" style="color: var(--navbar-text);">{% trans "À Propos" %}</a>
+                <a href="{% url 'monportfolio:home' %}#contact" class="nav-link px-4 py-2 rounded transition" style="color: var(--navbar-text);">{% trans "Contact" %}</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'monportfolio:logout' %}" class="nav-link px-4 py-2 rounded transition" style="color: var(--navbar-text);">{% trans "Déconnexion" %}</a>
+                {% else %}
+                    <a href="{% url 'admin:index' %}" class="nav-link px-4 py-2 rounded transition" style="color: var(--navbar-text);">{% trans "Connexion" %}</a>
+                {% endif %}
+                <select onchange="window.location.href=this.value" class="bg-transparent text-sm border-none focus:outline-none" style="color: var(--navbar-text);">
+                    {% get_available_languages as LANGUAGES %}
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    {% for language in languages %}
+                        <option value="/{{ language.code }}/" {% if language.code == LANGUAGE_CODE %}selected{% endif %} style="color: var(--text-primary);">
+                            {{ language.name_local }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <button id="mobile-theme-toggle" class="theme-toggle text-left px-4 py-2" title="{% trans 'Toggle Theme' %}">
+                    <svg class="w-6 h-6 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path id="mobile-theme-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                    <span class="ml-2" style="color: var(--navbar-text);">{% trans "Thème" %}</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <main class="container mx-auto px-4 pt-24 pb-12 min-h-screen" id="content-container">
+        {% block content %}
+        
+        {% endblock %}
+    </main>
+    <footer class="py-12" style="background-color: var(--footer-bg);">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-sm" style="color: var(--footer-text);">{% trans "© 2025 copal steve. Tous droits réservés." %}</p>
+            
+        </div>
+    </footer>
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-accent w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-opacity duration-300 opacity-0 invisible hover:bg-accent-hover" style="color: var(--text-primary);">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+        </svg>
+    </button>
+    <script>
+        
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const mobileThemeIcon = document.getElementById('mobile-theme-icon');
+
+        const setTheme = (theme) => {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            if (theme === 'dark') {
+                themeIcon?.setAttribute('d', 'M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z');
+                mobileThemeIcon?.setAttribute('d', 'M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z');
+            } else {
+                themeIcon?.setAttribute('d', 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z');
+                mobileThemeIcon?.setAttribute('d', 'M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z');
+            }
+        };
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        setTheme(savedTheme);
+
+        themeToggle?.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            setTheme(currentTheme === 'light' ? 'dark' : 'light');
+        });
+
+        mobileThemeToggle?.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            setTheme(currentTheme === 'light' ? 'dark' : 'light');
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton?.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu .nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (elementPosition < windowHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+        };
+
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+
+        const toggleBackToTop = () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        };
+
+        backToTopButton?.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Initialize animations on load
+        window.addEventListener('load', () => {
+            animateOnScroll();
+            toggleBackToTop();
+        });
+
+        // Event listeners for scroll
+        window.addEventListener('scroll', () => {
+            animateOnScroll();
+            toggleBackToTop();
+        });
+        
+    </script>
+</body>
+</html>

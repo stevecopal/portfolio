@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{{ projet.titre }}{% endblock %}
+
+{% block content %}
+    <section id="projet-detail" class="section py-20" style="background-color: var(--bg-primary);">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto slide-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center" style="color: var(--text-primary);">
+                    {{ projet.titre }}
+                </h2>
+                {% if projet.image %}
+                    <img src="{{ projet.image.url }}" alt="{{ projet.titre }}" class="w-full h-64 md:h-96 object-cover rounded-lg mb-6 shadow-lg" loading="lazy">
+                {% else %}
+                    <div class="w-full h-64 md:h-96 projet-placeholder rounded-lg mb-6 shadow-lg flex items-center justify-center" style="background-color: var(--card-bg);">
+                        {{ projet.titre|truncatewords:3 }}
+                    </div>
+                {% endif %}
+                <div class="content-card p-8 rounded-lg shadow-md" style="background-color: var(--card-bg);">
+                    <p class="text-base md:text-lg mb-6" style="color: var(--text-secondary);">
+                        {{ projet.description}}
+                    </p>
+                    <div class="text-sm mb-6" style="color: var(--text-secondary);">
+                        <p class="italic">
+                            {% trans "ajouter le" %} {{ projet.date_creation|date:"F d, Y" }}
+                        </p>
+                    </div>
+                    {% if projet.url %}
+                        <a href="{{ projet.url }}" class="inline-block bg-accent hover:bg-yellow-500 font-semibold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105 mb-6" style="color: var(--text-primary);" aria-label="{% trans 'Visiter le site du projet' %} {{ projet.titre }}">
+                            {% trans "Visiter le projet" %}
+                        </a>
+                    {% endif %}
+                    <div class="mt-8 flex justify-between items-center">
+                        
+                        <div class="flex space-x-4">
+                            <a href="#" class="hover:text-accent transition" style="color: var(--text-primary);" aria-label="{% trans 'Partager sur GitHub' %}">
+                                <span class="text-xl">👨‍💻</span>
+                            </a>
+                            <a href="#" class="hover:text-accent transition" style="color: var(--text-primary);" aria-label="{% trans 'Partager sur LinkedIn' %}">
+                                <span class="text-xl">🔗</span>
+                            </a>
+                            <a href="#" class="hover:text-accent transition" style="color: var(--text-primary);" aria-label="{% trans 'Partager sur Twitter' %}">
+                                <span class="text-xl">🐦</span>
+                            </a>
+                        </div>
+                        <a href="{% url 'monportfolio:home' %}#projects" class="font-medium hover:text-blue-700 transition" style="color: var(--text-primary);" aria-label="{% trans 'Retour à la liste des projets' %}">
+                            {% trans "Retour aux projets" %} &larr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

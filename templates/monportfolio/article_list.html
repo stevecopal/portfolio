@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Mes Articles" %}{% endblock %}
+
+{% block content %}
+    <section id="articles" class="section py-20" style="background-color: var(--bg-secondary);">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 slide-up" style="color: var(--text-primary);">
+                {% trans "Mes Articles" %}
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for article in articles %}
+                    <div class="content-card rounded-lg overflow-hidden shadow-md hover:shadow-lg transition slide-up" style="transition-delay: {{ forloop.counter0|floatformat:1 }}s">
+                        {% if article.image %}
+                            <img src="{{ article.image.url }}" alt="{{ article.titre }}" class="w-full h-48 object-cover" loading="lazy">
+                        {% else %}
+                            <div class="w-full h-48 projet-placeholder flex items-center justify-center">
+                                {{ article.titre|truncatewords:3 }}
+                            </div>
+                        {% endif %}
+                        <div class="p-6">
+                            <span class="text-sm text-accent">{{ article.categorie }}</span>
+                            <h3 class="text-xl font-bold my-2" style="color: var(--text-primary);">
+                                {{ article.titre }}
+                            </h3>
+                            <p class="mb-4 text-sm md:text-base" style="color: var(--text-secondary);">
+                                {{ article.contenu|truncatewords:20 }}
+                            </p>
+                            <a href="{% url 'monportfolio:article_detail' pk=article.pk %}" class="font-medium hover:text-blue-700 transition" style="color: var(--text-primary);" aria-label="{% trans 'Lire l\'article' %} {{ article.title }}">
+                                {% trans "Lire plus" %} &rarr;
+                            </a>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p class="text-center col-span-full" style="color: var(--text-secondary);">
+                        {% trans "Aucun article disponible pour le moment." %}
+                    </p>
+                {% endfor %}
+            </div>
+            <div class="text-center mt-12 slide-up">
+                <a href="#" class="inline-block bg-accent hover:bg-yellow-500 font-semibold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105" style="color: var(--text-primary);">
+                    {% trans "Voir tous les articles" %}
+                </a>
+            </div>
+        </div>
+    </section>
+{% endblock %}
