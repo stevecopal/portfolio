@@ -48,5 +48,5 @@ Thumbs.db
 node_modules/
 db.post
 db.sqlite3
-
+staticfiles/
 database/
