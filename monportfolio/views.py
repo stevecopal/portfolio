@@ -36,6 +36,8 @@ class ProfilView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['a_propos'] = APropos.objects.first()
+        context['projets'] = Projet.objects.all()[:6] 
         context['titre'] = _("Mon Profil")
         return context
 

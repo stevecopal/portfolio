@@ -9,7 +9,6 @@
     <meta name="keywords" content="{% trans 'portfolio, projets, articles, développeur' %}">
     <title>{% block title %}{% trans "Mon Portfolio" %}{% endblock %}</title>
     <link href="{% static 'css/output.css' %}" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
             /* Light Theme */
@@ -25,22 +24,40 @@
             --navbar-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             --footer-bg: #1e3a8a;
             --footer-text: #ffffff;
+            --card-bg: #ffffff;
+            --card-border: #e5e7eb;
+            --input-bg: #ffffff;
+            --input-border: #d1d5db;
+            --input-text: #1f2937;
+            --button-primary-bg: #1e3a8a;
+            --button-primary-text: #ffffff;
+            --button-secondary-bg: #f3f4f6;
+            --button-secondary-text: #1e3a8a;
         }
 
         [data-theme="dark"] {
             /* Dark Theme */
-            --bg-primary: #1f2937;
-            --bg-secondary: #374151;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
             --bg-accent: #f59e0b;
             --bg-accent-hover: #fbbf24;
-            --text-primary: #ffffff;
+            --text-primary: #f9fafb;
             --text-secondary: #d1d5db;
             --text-accent: #f59e0b;
             --navbar-bg: #111827;
-            --navbar-text: #ffffff;
-            --navbar-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            --navbar-text: #f9fafb;
+            --navbar-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
             --footer-bg: #111827;
             --footer-text: #d1d5db;
+            --card-bg: #1f2937;
+            --card-border: #374151;
+            --input-bg: #1f2937;
+            --input-border: #4b5563;
+            --input-text: #f9fafb;
+            --button-primary-bg: #f59e0b;
+            --button-primary-text: #111827;
+            --button-secondary-bg: #374151;
+            --button-secondary-text: #f9fafb;
         }
 
         body {
@@ -97,6 +114,63 @@
 
         select {
             transition: background-color 0.3s ease, color 0.3s ease;
+            background-color: var(--input-bg);
+            color: var(--input-text);
+            border-color: var(--input-border);
+        }
+
+        /* Cards */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            transition: all 0.3s ease;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background-color: var(--button-primary-bg);
+            color: var(--button-primary-text);
+        }
+
+        .btn-secondary {
+            background-color: var(--button-secondary-bg);
+            color: var(--button-secondary-text);
+        }
+
+        /* Forms */
+        input, textarea {
+            background-color: var(--input-bg);
+            color: var(--input-text);
+            border-color: var(--input-border);
+        }
+
+        /* Main content background */
+        main {
+            background: linear-gradient(
+                to bottom right,
+                var(--bg-primary),
+                var(--bg-secondary)
+            );
+        }
+
+        /* Footer links */
+        footer a {
+            color: var(--footer-text);
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--text-accent);
+        }
+
+        /* Back to top button */
+        #back-to-top {
+            background-color: var(--bg-accent);
+            color: var(--text-primary);
+        }
+
+        #back-to-top:hover {
+            background-color: var(--bg-accent-hover);
         }
     </style>
 </head>
@@ -104,7 +178,7 @@
     <header class="fixed w-full z-50 transition-all duration-300" style="background-color: var(--navbar-bg); box-shadow: var(--navbar-shadow);">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <h1 class="text-2xl font-bold" style="color: var(--navbar-text);">
-                <span class="text-accent">{% trans "Port" %}</span>{% trans "folio" %}
+                <span style="color: var(--text-accent);">{% trans "Port" %}</span>{% trans "folio" %}
             </h1>
             <div class="flex items-center space-x-4">
                 <div class="hidden md:flex items-center space-x-6">
@@ -116,24 +190,23 @@
                     {% if user.is_authenticated %}
                         <a href="{% url 'monportfolio:logout' %}" class="nav-link px-4 py-2 rounded transition" style="color: var(--navbar-text);">{% trans "Déconnexion" %}</a>
                     {% else %}
-                
                         <a href="{% url 'admin:index' %}" class="nav-link px-4 py-2 rounded transition" style="color: var(--navbar-text);">{% trans "Connexion" %}</a>
                     {% endif %}
                     <div class="relative">
-                        <form action="{% url 'set_language' %}" method="post" class="flex items-center">
-                            {% csrf_token %}
-                            <input name="next" type="hidden" value="{{ request.path|slice:'3:' }}">
-                            <select name="language" onchange="this.form.submit()" class="bg-transparent border-none focus:outline-none text-sm" style="color: var(--navbar-text);">
-                                {% get_current_language as LANGUAGE_CODE %}
-                                {% get_available_languages as LANGUAGES %}
-                                {% get_language_info_list for LANGUAGES as languages %}
-                                {% for language in languages %}
-                                    <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}selected{% endif %} style="color: var(--text-primary);">
-                                        {{ language.name_local }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                        </form>
+                        <form id="lang-form" action="{% url 'set_language' %}" method="post" class="flex items-center">
+    {% csrf_token %}
+    <input type="hidden" name="next" id="next-url">
+    <select name="language" id="lang-select" class="bg-transparent border-none focus:outline-none text-sm" style="color: var(--navbar-text);">
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_available_languages as LANGUAGES %}
+        {% get_language_info_list for LANGUAGES as languages %}
+        {% for language in languages %}
+            <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}selected{% endif %}>
+                {{ language.name_local }}
+            </option>
+        {% endfor %}
+    </select>
+</form>
                     </div>
                     <button id="theme-toggle" class="theme-toggle" title="{% trans 'Toggle Theme' %}">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -148,7 +221,7 @@
                 </button>
             </div>
         </nav>
-        <div id="mobile-menu" class="hidden md:hidden bg-gray-50 dark:bg-gray-800 mt-2 mx-4 rounded-lg shadow-lg">
+        <div id="mobile-menu" class="hidden md:hidden" style="background-color: var(--bg-secondary); margin-top: 0.5rem; margin-left: 1rem; margin-right: 1rem; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
             <div class="flex flex-col space-y-2 p-4">
                 <a href="{% url 'monportfolio:home' %}" class="nav-link px-4 py-2 rounded transition" style="color: var(--navbar-text);">{% trans "Accueil" %}</a>
                 <a href="{% url 'monportfolio:home' %}#project" class="nav-link px-4 py-2 rounded transition" style="color: var(--navbar-text);">{% trans "Projets" %}</a>
@@ -160,7 +233,7 @@
                 {% else %}
                     <a href="{% url 'admin:index' %}" class="nav-link px-4 py-2 rounded transition" style="color: var(--navbar-text);">{% trans "Connexion" %}</a>
                 {% endif %}
-                <select onchange="window.location.href=this.value" class="bg-transparent text-sm border-none focus:outline-none" style="color: var(--navbar-text);">
+                <select onchange="window.location.href= this.value" class="bg-transparent text-sm border-none focus:outline-none" style="color: var(--navbar-text);">
                     {% get_available_languages as LANGUAGES %}
                     {% get_language_info_list for LANGUAGES as languages %}
                     {% for language in languages %}
@@ -178,24 +251,21 @@
             </div>
         </div>
     </header>
-    <main class="container mx-auto px-4 pt-24 pb-12 min-h-screen" id="content-container">
+    <main class="min-h-screen pt-20">
         {% block content %}
-        
         {% endblock %}
     </main>
     <footer class="py-12" style="background-color: var(--footer-bg);">
         <div class="container mx-auto px-6 text-center">
             <p class="text-sm" style="color: var(--footer-text);">{% trans "© 2025 copal steve. Tous droits réservés." %}</p>
-            
         </div>
     </footer>
-    <button id="back-to-top" class="fixed bottom-8 right-8 bg-accent w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-opacity duration-300 opacity-0 invisible hover:bg-accent-hover" style="color: var(--text-primary);">
+    <button id="back-to-top" class="fixed bottom-8 right-8 w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-opacity duration-300 opacity-0 invisible" style="background-color: var(--bg-accent); color: var(--text-primary);">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
         </svg>
     </button>
     <script>
-        
         // Theme toggle functionality
         const themeToggle = document.getElementById('theme-toggle');
         const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
@@ -214,8 +284,21 @@
             }
         };
 
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        setTheme(savedTheme);
+        // Initialize theme from localStorage or prefer-color-scheme
+        const initializeTheme = () => {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme) {
+                setTheme(savedTheme);
+            } else if (prefersDark) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+        };
+
+        initializeTheme();
 
         themeToggle?.addEventListener('click', () => {
             const currentTheme = document.documentElement.getAttribute('data-theme');
@@ -225,6 +308,13 @@
         mobileThemeToggle?.addEventListener('click', () => {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             setTheme(currentTheme === 'light' ? 'dark' : 'light');
+        });
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (!localStorage.getItem('theme')) {
+                setTheme(e.matches ? 'dark' : 'light');
+            }
         });
 
         // Mobile menu toggle
@@ -257,18 +347,6 @@
             });
         });
 
-        // Scroll animations
-        const animateOnScroll = () => {
-            const elements = document.querySelectorAll('.fade-in');
-            elements.forEach(element => {
-                const elementPosition = element.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                if (elementPosition < windowHeight - 100) {
-                    element.classList.add('visible');
-                }
-            });
-        };
-
         // Back to top button
         const backToTopButton = document.getElementById('back-to-top');
 
@@ -289,18 +367,29 @@
             });
         });
 
-        // Initialize animations on load
+        // Initialize on load
         window.addEventListener('load', () => {
-            animateOnScroll();
             toggleBackToTop();
         });
 
         // Event listeners for scroll
         window.addEventListener('scroll', () => {
-            animateOnScroll();
             toggleBackToTop();
         });
-        
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+    const langForm = document.getElementById("lang-form");
+    const langSelect = document.getElementById("lang-select");
+    const nextInput = document.getElementById("next-url");
+
+    langSelect.addEventListener("change", function() {
+        // Récupère l'URL actuelle complète (avec query + hash)
+        let currentUrl = window.location.pathname + window.location.search + window.location.hash;
+        nextInput.value = currentUrl;
+        langForm.submit();
+    });
+});
     </script>
 </body>
 </html>

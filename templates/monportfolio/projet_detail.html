@@ -4,52 +4,164 @@
 {% block title %}{{ projet.titre }}{% endblock %}
 
 {% block content %}
-    <section id="projet-detail" class="section py-20" style="background-color: var(--bg-primary);">
-        <div class="container mx-auto px-6">
-            <div class="max-w-4xl mx-auto slide-up">
-                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center" style="color: var(--text-primary);">
+<section id="projet-detail" class="py-20" style="background-color: var(--bg-primary);">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <!-- En-tête du projet -->
+            <div class="text-center mb-12 fade-in slide-up">
+                <span class="text-sm font-semibold tracking-wider uppercase mb-4 inline-block" style="color: var(--text-accent);">
+                    {% trans "Projet" %}
+                </span>
+                <h1 class="text-3xl sm:text-4xl font-bold mb-4" style="color: var(--text-primary);">
                     {{ projet.titre }}
-                </h2>
+                </h1>
+                <div class="h-1 w-20 mx-auto mb-6" style="background: linear-gradient(to right, var(--text-primary), var(--bg-accent));"></div>
+                <p class="text-lg" style="color: var(--text-secondary);">
+                    {% trans "Publié le" %} {{ projet.date_creation|date:"d F Y" }}
+                </p>
+            </div>
+
+            <!-- Image principale -->
+            <div class="rounded-xl overflow-hidden shadow-xl mb-10 fade-in slide-up" style="transition-delay: 0.2s;">
                 {% if projet.image %}
-                    <img src="{{ projet.image.url }}" alt="{{ projet.titre }}" class="w-full h-64 md:h-96 object-cover rounded-lg mb-6 shadow-lg" loading="lazy">
+                <img src="{{ projet.image.url }}" alt="{{ projet.titre }}" 
+                     class="w-full h-auto object-cover"
+                     loading="lazy">
                 {% else %}
-                    <div class="w-full h-64 md:h-96 projet-placeholder rounded-lg mb-6 shadow-lg flex items-center justify-center" style="background-color: var(--card-bg);">
-                        {{ projet.titre|truncatewords:3 }}
-                    </div>
+                <div class="w-full h-64 md:h-96 flex items-center justify-center" style="background-color: var(--bg-accent);">
+                    <span class="text-xl font-medium" style="color: var(--text-primary);">{{ projet.titre|truncatewords:3 }}</span>
+                </div>
                 {% endif %}
-                <div class="content-card p-8 rounded-lg shadow-md" style="background-color: var(--card-bg);">
-                    <p class="text-base md:text-lg mb-6" style="color: var(--text-secondary);">
-                        {{ projet.description}}
-                    </p>
-                    <div class="text-sm mb-6" style="color: var(--text-secondary);">
-                        <p class="italic">
-                            {% trans "ajouter le" %} {{ projet.date_creation|date:"F d, Y" }}
-                        </p>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="grid md:grid-cols-5 gap-8">
+                <!-- Colonne de gauche (technologies) -->
+                <div class="md:col-span-1 fade-in slide-up" style="transition-delay: 0.4s;">
+                    {% if projet.technologies.all %}
+                    <div class="sticky top-6">
+                        <h3 class="text-lg font-semibold mb-4" style="color: var(--text-accent);">
+                            {% trans "Technologies" %}
+                        </h3>
+                        <ul class="space-y-3">
+                            {% for tech in projet.technologies.all %}
+                            <li class="flex items-center">
+                                <svg class="w-4 h-4 mr-2 flex-shrink-0" style="color: var(--text-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span style="color: var(--text-primary);">{{ tech.nom }}</span>
+                            </li>
+                            {% endfor %}
+                        </ul>
                     </div>
-                    {% if projet.url %}
-                        <a href="{{ projet.url }}" class="inline-block bg-accent hover:bg-yellow-500 font-semibold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105 mb-6" style="color: var(--text-primary);" aria-label="{% trans 'Visiter le site du projet' %} {{ projet.titre }}">
-                            {% trans "Visiter le projet" %}
-                        </a>
                     {% endif %}
-                    <div class="mt-8 flex justify-between items-center">
-                        
-                        <div class="flex space-x-4">
-                            <a href="#" class="hover:text-accent transition" style="color: var(--text-primary);" aria-label="{% trans 'Partager sur GitHub' %}">
-                                <span class="text-xl">👨‍💻</span>
-                            </a>
-                            <a href="#" class="hover:text-accent transition" style="color: var(--text-primary);" aria-label="{% trans 'Partager sur LinkedIn' %}">
-                                <span class="text-xl">🔗</span>
-                            </a>
-                            <a href="#" class="hover:text-accent transition" style="color: var(--text-primary);" aria-label="{% trans 'Partager sur Twitter' %}">
-                                <span class="text-xl">🐦</span>
-                            </a>
-                        </div>
-                        <a href="{% url 'monportfolio:home' %}#projects" class="font-medium hover:text-blue-700 transition" style="color: var(--text-primary);" aria-label="{% trans 'Retour à la liste des projets' %}">
-                            {% trans "Retour aux projets" %} &larr;
+                </div>
+
+                <!-- Colonne de droite (description) -->
+                <div class="md:col-span-4 fade-in slide-up" style="transition-delay: 0.6s;">
+                    <div class="prose max-w-none mb-10" style="color: var(--text-primary);">
+                        {{ projet.description|safe }}
+                    </div>
+
+                    <!-- Bouton de visite -->
+                    {% if projet.url %}
+                    <div class="mb-10">
+                        <a href="{{ projet.url }}" target="_blank" rel="noopener noreferrer"
+                           class="inline-flex items-center px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 hover:shadow-lg"
+                           style="background-color: var(--bg-accent); color: var(--text-primary);">
+                           {% trans "Visiter le projet" %}
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                           </svg>
                         </a>
                     </div>
+                    {% endif %}
+
+                    <!-- Galerie d'images secondaires -->
+                    {% if projet.images.all %}
+                    <div class="mb-10">
+                        <h3 class="text-lg font-semibold mb-4" style="color: var(--text-accent);">
+                            {% trans "Galerie" %}
+                        </h3>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            {% for image in projet.images.all %}
+                            <div class="rounded-lg overflow-hidden shadow-md">
+                                <img src="{{ image.image.url }}" alt="{% trans 'Capture du projet' %} {{ projet.titre }}" 
+                                     class="w-full h-40 object-cover transition-transform duration-300 hover:scale-105"
+                                     loading="lazy">
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
+
+            <!-- Pied de page -->
+            <div class="flex flex-col sm:flex-row justify-between items-center mt-12 pt-6 border-t fade-in slide-up" style="border-color: var(--bg-accent); transition-delay: 0.8s;">
+                <!-- Boutons de partage -->
+                <div class="flex space-x-4 mb-4 sm:mb-0">
+                    <a href="#" class="p-3 rounded-full transition-colors duration-300 hover:bg-opacity-10"
+                       style="background-color: var(--bg-accent); color: var(--text-primary);"
+                       aria-label="{% trans 'Partager sur Twitter' %}">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+                        </svg>
+                    </a>
+                    <a href="#" class="p-3 rounded-full transition-colors duration-300 hover:bg-opacity-10"
+                       style="background-color: var(--bg-accent); color: var(--text-primary);"
+                       aria-label="{% trans 'Partager sur LinkedIn' %}">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Bouton de retour -->
+                <a href="{% url 'monportfolio:home' %}#projects" 
+                   class="inline-flex items-center text-sm font-medium transition-all duration-300 hover:pl-2"
+                   style="color: var(--text-accent);">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    {% trans "Retour aux projets" %}
+                </a>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const animateElements = () => {
+            document.querySelectorAll('.fade-in').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.8) {
+                    el.classList.add('visible');
+                    if (el.classList.contains('slide-up')) {
+                        el.style.transform = 'translateY(0)';
+                    }
+                }
+            });
+        };
+
+        window.addEventListener('scroll', animateElements);
+        animateElements();
+    });
+</script>
+
+<style>
+    .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .slide-up {
+        transition-delay: calc(var(--order) * 0.1s);
+    }
+</style>
 {% endblock %}

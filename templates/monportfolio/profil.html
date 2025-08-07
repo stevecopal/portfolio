@@ -4,99 +4,280 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-    <section id="profile" class="max-h-screen flex items-center justify-center py-12">
-        <div class="w-full px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-        
-
-            <!-- Carte Photo, Nom, Titre -->
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 text-center fade-in slide-up hover:shadow-xl" style="transition-delay: 0.4s;">
-                 <h2 class="text-3xl md:text-4xl font-bold mb-6" style="color: var(--bg-accent);" aria-label="{% trans 'Mon Profil' %}">
-                    {% trans "Mon Profil" %}
-                </h2>
-                {% if profil.photo %}
-                    <img src="{{ profil.photo.url }}" alt="{% trans 'Photo de profil de' %} {{ profil.nom }}" class="w-48 h-48 rounded-full mx-auto mb-6 border-4 border-accent transition transform hover:scale-105 animate-pulse" style="animation-duration: 1s; animation-iteration-count: 2;">
-                {% endif %}
-                <h3 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--bg-accent);">
-                    {{ profil.nom }}
-                </h3>
-                <p class="text-xl md:text-2xl font-semibold" style="color: var(--text-secondary);">
-                    {{ profil.titre }}
-                </p>
-            </div>
-
-
-            <!-- Carte Contact -->
-            <div class="bg-white dark:bg-gray-800 text-center rounded-lg shadow-lg p-6 fade-in slide-up hover:shadow-xl" style="transition-delay: 0.8s;">
-                <h4 class="text-4xl font-bold mb-4" style="color: var(--bg-accent);">
-                    {% trans "Contact" %}
-                </h4>
+<section id="profile" class="py-24" style="background-color: var(--bg-primary);">
+    <div class="container mx-auto px-5 sm:px-8 lg:px-12">
+        <!-- Grid Principale -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-10 max-w-7xl mx-auto">
+            
+            <!-- Colonne Gauche (Profil & Contact) -->
+            <div class="lg:col-span-1 space-y-8">
+                <!-- Carte Profil -->
+                <div class="rounded-2xl shadow-xl overflow-hidden fade-in slide-up transition-all duration-500 hover:shadow-2xl" 
+                     style="background-color: var(--bg-secondary); transition-delay: 0.2s;">
+                    
+                    <div class="p-8 text-center space-y-6">
+                        <!-- Photo -->
+                        <div class="relative mx-auto w-52 h-52">
+                            {% if profil.photo %}
+                                <img src="{{ profil.photo.url }}" alt="{% trans 'Photo de profil de' %} {{ profil.nom }}" 
+                                     class="w-full h-full rounded-full object-cover border-[6px] transition-transform duration-500 hover:scale-105"
+                                     style="border-color: var(--bg-accent);">
+                            {% else %}
+                                <div class="w-full h-full rounded-full flex items-center justify-center border-[6px]"
+                                     style="border-color: var(--bg-accent); background-color: var(--bg-accent);">
+                                    <span class="text-5xl font-bold" style="color: var(--text-primary);">
+                                        {{ profil.nom|first|upper }}
+                                    </span>
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Nom & Titre -->
+                        <div class="space-y-3">
+                            <h1 class="text-2xl font-bold tracking-tight" style="color: var(--text-primary);">
+                                {{ profil.nom }}
+                            </h1>
+                            <p class="text-lg font-medium" style="color: var(--text-accent);">
+                                {{ profil.titre }}
+                            </p>
+                        </div>
+                        
+                        <!-- Réseaux Sociaux -->
+                        {% if profil.reseaux_sociaux.all %}
+                        <div class="flex justify-center space-x-5 pt-4">
+                            {% for reseau in profil.reseaux_sociaux.all %}
+                            <a href="{{ reseau.url }}" target="_blank" rel="noopener noreferrer"
+                               class="p-3 rounded-full transition-all duration-300 hover:scale-110"
+                               style="background-color: var(--bg-primary); color: var(--text-accent); box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                                {% if reseau.nom == 'LinkedIn' %}
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                </svg>
+                                {% elif reseau.nom == 'GitHub' %}
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                                {% else %}
+                                {{ reseau.nom }}
+                                {% endif %}
+                            </a>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
                 
-
-                <div class=" space-y-10 text-[var(--text-primary)]">
-                    <p >
-                        {% trans "Email" %}:</span> <a href="mailto:{{ profil.email }}" class="hover:underline">{{ profil.email }}</a>
-                    </p>
-                    {% if profil.telephone %}
-                        <p>{% trans "Téléphone" %}: {{ profil.telephone }}</p>
-                    {% endif %}
-                    {% if profil.localisation %}
-                        <p>{% trans "Localisation" %}: {{ profil.localisation }}</p>
-                    {% endif %}
-                    {% for reseau in profil.reseaux_sociaux.all %}
-                        <p> <a href="{{ reseau.url }}" class="text-[var(--text-primary)] hover:text-accent transition transform hover:scale-105" aria-label="{% trans 'Profil' %} {{ reseau.nom }}">
-                            {{ reseau.nom }}: {{ reseau.url }}
-                        </a></p>
-                    {% endfor %}
+                <!-- Carte Contact -->
+                <div class="rounded-2xl shadow-xl overflow-hidden fade-in slide-up transition-all duration-500 hover:shadow-2xl" 
+                     style="background-color: var(--bg-secondary); transition-delay: 0.4s;">
+                    
+                    <div class="p-8 space-y-6">
+                        <h2 class="text-xl font-bold text-center pb-4 border-b" 
+                            style="color: var(--text-accent); border-color: var(--bg-accent);">
+                            {% trans "Contact" %}
+                        </h2>
+                        
+                        <div class="space-y-5">
+                            <!-- Email -->
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 pt-1">
+                                    <svg class="w-6 h-6" style="color: var(--text-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-sm font-semibold uppercase tracking-wider mb-1" style="color: var(--text-accent);">
+                                        {% trans "Email" %}
+                                    </h3>
+                                    <a href="mailto:{{ profil.email }}" class="text-base hover:underline" style="color: var(--text-primary);">
+                                        {{ profil.email }}
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <!-- Téléphone -->
+                            {% if profil.telephone %}
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 pt-1">
+                                    <svg class="w-6 h-6" style="color: var(--text-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-sm font-semibold uppercase tracking-wider mb-1" style="color: var(--text-accent);">
+                                        {% trans "Téléphone" %}
+                                    </h3>
+                                    <p class="text-base" style="color: var(--text-primary);">
+                                        {{ profil.telephone }}
+                                    </p>
+                                </div>
+                            </div>
+                            {% endif %}
+                            
+                            <!-- Localisation -->
+                            {% if profil.localisation %}
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 pt-1">
+                                    <svg class="w-6 h-6" style="color: var(--text-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-sm font-semibold uppercase tracking-wider mb-1" style="color: var(--text-accent);">
+                                        {% trans "Localisation" %}
+                                    </h3>
+                                    <p class="text-base" style="color: var(--text-primary);">
+                                        {{ profil.localisation }}
+                                    </p>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
             </div>
+            
+            <!-- Colonne Droite (Contenu Principal) -->
+            <div class="lg:col-span-3 space-y-8">
+                <!-- Section À Propos -->
+                <div class="rounded-2xl shadow-xl overflow-hidden fade-in slide-up transition-all duration-500 hover:shadow-2xl" 
+                     style="background-color: var(--bg-secondary); transition-delay: 0.6s;">
+                    
+                    <div class="p-10">
+                        <h2 class="text-2xl font-bold mb-8 pb-4 border-b" 
+                            style="color: var(--text-accent); border-color: var(--bg-accent);">
+                            {% trans "À propos de moi" %}
+                        </h2>
+                        
+                        <div class="prose max-w-none text-lg leading-relaxed space-y-5" style="color: var(--text-primary);">
+                            {{ profil.description|safe }}
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Section Compétences -->
+                {% if a_propos.competences.all %}
+                    <div class="mt-8">
+                        <h3 class="text-xl font-semibold mb-4" style="color: var(--text-primary);">
+                            {% trans "Mes Compétences" %}
+                        </h3>
+                        <div class="flex flex-wrap gap-3">
+                            {% for competence in a_propos.competences.all %}
+                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium"
+                                style="background-color: var(--bg-secondary); color: var(--text-primary);">
+                                <svg class="w-4 h-4 mr-2" style="color: var(--text-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                {{ competence.nom }}
+                            </span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                
+                <!-- Section Projets Récents -->
+                {% if projets %}
+                <div class="rounded-2xl shadow-xl overflow-hidden fade-in slide-up transition-all duration-500 hover:shadow-2xl" 
+                     style="background-color: var(--bg-secondary); transition-delay: 1s;">
+                    
+                    <div class="p-10">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 pb-4 border-b"
+                             style="border-color: var(--bg-accent);">
+                            <h2 class="text-2xl font-bold" style="color: var(--text-accent);">
+                                {% trans "Mes Projets Récents" %}
+                            </h2>
+                            <a href="{% url 'monportfolio:projets' %}" 
+                               class="mt-3 md:mt-0 inline-flex items-center text-base font-medium hover:underline"
+                               style="color: var(--text-accent);">
+                                {% trans "Voir tous mes projets" %}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            {% for projet in projets|slice:":4" %}
+                            <div class="group relative overflow-hidden rounded-xl shadow-lg transition-all duration-500 hover:shadow-xl">
+                                {% if projet.image %}
+                                <div class="h-48 overflow-hidden">
+                                    <img src="{{ projet.image.url }}" alt="{{ projet.titre }}" 
+                                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                                </div>
+                                {% else %}
+                                <div class="h-48 flex items-center justify-center" 
+                                     style="background-color: var(--bg-accent);">
+                                    <span class="text-xl font-medium" style="color: var(--text-primary);">
+                                        {{ projet.titre|truncatewords:3 }}
+                                    </span>
+                                </div>
+                                {% endif %}
+                                
+                                <div class="p-6">
+                                    <div class="flex justify-between items-start mb-3">
+                                        <h3 class="text-xl font-bold" style="color: var(--text-primary);">
+                                            {{ projet.titre }}
+                                        </h3>
+                                        <span class="text-xs font-semibold px-2 py-1 rounded-full"
+                                              style="background-color: var(--bg-accent); color: var(--text-primary);">
+                                            {{ projet.date_creation|date:"Y" }}
+                                        </span>
+                                    </div>
+                                    
+                                    <p class="text-base mb-4" style="color: var(--text-secondary);">
+                                        {{ projet.description|truncatewords:20 }}
+                                    </p>
+                                    
+                                    <a href="{% url 'monportfolio:projet_detail' pk=projet.pk %}" 
+                                       class="inline-flex items-center font-medium group-hover:pl-2 transition-all duration-300"
+                                       style="color: var(--text-accent);">
+                                        {% trans "Voir le projet" %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
         </div>
-    </section>
-    <script>
-        // Animations de défilement
-        document.addEventListener('DOMContentLoaded', () => {
-            const elements = document.querySelectorAll('.fade-in');
-            const animateOnScroll = () => {
-                elements.forEach(element => {
-                    const rect = element.getBoundingClientRect();
-                    if (rect.top < window.innerHeight - 100) {
-                        element.classList.add('visible');
-                        if (element.classList.contains('slide-up')) {
-                            element.style.transform = 'translateY(0)';
-                        }
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const animateElements = () => {
+            document.querySelectorAll('.fade-in').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.85) {
+                    el.classList.add('visible');
+                    if (el.classList.contains('slide-up')) {
+                        el.style.transform = 'translateY(0)';
                     }
-                });
-            };
+                }
+            });
+        };
 
-            window.addEventListener('scroll', animateOnScroll);
-            window.addEventListener('load', animateOnScroll);
-        });
-    </script>
-    <style>
-        .fade-in {
-            opacity: 0;
-            transition: opacity 0.6s ease-out;
-        }
+        window.addEventListener('scroll', animateElements);
+        animateElements(); // Trigger au chargement
+    });
+</script>
 
-        .fade-in.visible {
-            opacity: 1;
-        }
-
-        .slide-up {
-            transform: translateY(20px);
-            transition: transform 0.6s ease-out;
-        }
-
-        .slide-up.visible {
-            transform: translateY(0);
-        }
-
-        .animate-pulse {
-            animation: pulse 1s ease-in-out;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-    </style>
-{% endblock %} 
+<style>
+    .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
+{% endblock %}

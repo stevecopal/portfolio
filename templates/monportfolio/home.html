@@ -5,228 +5,522 @@
 
 {% block content %}
     <!-- Home Section -->
-   <section id="home" class="max-h-screen flex items-center justify-center py-12">
-        <div class=" max-h-screen text-center  mx-auto px-4">
-            <h2 class=" max-h-screen text-4xl md:text-5xl font-bold mb-8 " style="color: var(--bg-accent);"
-                aria-label="{% trans 'Bienvenue sur mon portfolio professionnel' %}">
-                {% trans "Bienvenue sur mon Portfolio " %} <br><br> {% trans "Je suis " %} {{ profil.nom|truncatewords:30 }}
-                <br><br><span id="typed-tex"></span><br>
-
-            </h2><br>
-            {% if profil %}
-
-            <a href="{% url 'monportfolio:home' %}#about"
-                class="inline-block bg-[var(--text-primary)] text-black font-bold py-3 px-6 rounded-lg hover:bg-blue-800 dark:hover:bg-white-700 transition duration-300 transform hover:scale-105"
-                aria-label="{% trans 'En savoir plus sur mon profil' %}">
-                {% trans "En savoir plus" %}
-            </a>
-            {% endif %}
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden py-20">
+        <!-- Fond animé optionnel -->
+        <div class="absolute inset-0 z-0 opacity-10">
+            <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-transparent via-transparent to-[var(--bg-accent)] animate-pulse"></div>
         </div>
+
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between gap-12 relative z-10">
+            <!-- Contenu texte -->
+            <div class="lg:w-1/2 text-center lg:text-left">
+                <!-- Texte d'accueil -->
+            
+
+                <!-- Titre principal -->
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-6 fade-in slide-up" style="color: var(--text-primary); transition-delay: 0.4s;">
+                    {% trans "Bonjour, Je Suis" %} <br>
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r" style="background-image: linear-gradient(to right, var(--text-primary), var(--bg-accent));">
+                        {{ profil.nom }}
+                    </span>
+                </h1>
+
+                <!-- Texte animé -->
+                <div class="h-16 md:h-20 flex items-center justify-center lg:justify-start mb-8 fade-in" style="transition-delay: 0.6s;">
+                    <span id="typed-text" class="text-xl md:text-2xl font-medium" style="color: var(--text-accent);"></span>
+                </div>
+
+                <!-- Bouton CTA -->
+                {% if profil %}
+                <div class="fade-in" style="transition-delay: 0.8s;">
+                    <a href="{% url 'monportfolio:home' %}#about"
+                    class="inline-flex items-center px-8 py-4 rounded-full text-lg font-bold transition-all duration-300 hover:shadow-xl"
+                    style="background-color: var(--bg-accent); color: var(--text-primary);"
+                    aria-label="{% trans 'En savoir plus sur mon profil' %}">
+                    {% trans "Qui suis-je?" %}
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                    </svg>
+                    </a>
+                </div>
+                {% endif %}
+
+                <!-- Réseaux sociaux -->
+                <div class="mt-12 flex justify-center lg:justify-start space-x-6 fade-in" style="transition-delay: 1s;">
+                    <a href="#" class="p-3 rounded-full transition-colors duration-300 hover:bg-opacity-10 hover:bg-white"
+                    style="color: var(--text-accent);"
+                    aria-label="LinkedIn">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="p-3 rounded-full transition-colors duration-300 hover:bg-opacity-10 hover:bg-white"
+                    style="color: var(--text-accent);"
+                    aria-label="GitHub">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Photo de profil -->
+            <div class="lg:w-1/2 flex justify-center fade-in" style="transition-delay: 1.2s;">
+                <div class="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-full overflow-hidden border-4" style="border-color: var(--bg-accent); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);">
+                    {% if profil.photo %}
+                        <img src="{{ profil.photo.url }}" alt="{{ profil.nom }}" class="w-full h-full object-cover object-center">
+                    {% else %}
+                        <div class="w-full h-full flex items-center justify-center" style="background-color: var(--bg-accent);">
+                            <span class="text-4xl font-bold" style="color: var(--text-primary);">
+                                {{ profil.nom|first|upper }}
+                            </span>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Script Typed.js -->
         <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
         <script>
-            // Typed.js pour l'effet de texte dynamique en une seule ligne
             document.addEventListener('DOMContentLoaded', () => {
-                const typed = new Typed('#typed-tex', {
+                // Animation texte dynamique
+                new Typed('#typed-text', {
                     strings: [
-                        '{% trans "Développeur web junior" %}',
-                        '{% trans "Créateur Innovant" %}',
-
+                        '{% trans "Développeur Web Junior" %}',
+                        '{% trans "Spécialise en backend " %}',
+                        '{% trans "avec des connaissances au cote frontend " %}',
+                        '{% trans "Passionné par la technologie" %}'
                     ],
-                    typeSpeed: 100,
-                    backSpeed: 100,
-                    backDelay: 200,
-                    loop: true
+                    typeSpeed: 10000,
+                    backSpeed: 10000,
+                    backDelay: 70000,
+                    loop: true,
+                    showCursor: false,
+                    cursorChar: ''
                 });
 
-                // Animations de défilement
-                const elements = document.querySelectorAll('.fade-in');
-                const animateOnScroll = () => {
-                    elements.forEach(element => {
-                        const rect = element.getBoundingClientRect();
-                        if (rect.top < window.innerHeight - 100) {
-                            element.classList.add('visible');
-                            if (element.classList.contains('slide-up')) {
-                                element.style.transform = 'translateY(0)';
-                            }
+                // Animation au scroll
+                const animateElements = () => {
+                    document.querySelectorAll('.fade-in').forEach(el => {
+                        const rect = el.getBoundingClientRect();
+                        if (rect.top < window.innerHeight * 0.8) {
+                            el.classList.add('visible');
                         }
                     });
                 };
 
-                window.addEventListener('scroll', animateOnScroll);
-                window.addEventListener('load', animateOnScroll);
+                window.addEventListener('scroll', animateElements);
+                animateElements(); // Trigger au chargement
             });
         </script>
+
+        <!-- Styles CSS -->
         <style>
             .fade-in {
                 opacity: 0;
-                transition: opacity 0.6s ease-out;
+                transform: translateY(20px);
+                transition: opacity 0.8s ease-out, transform 0.8s ease-out;
             }
-
             .fade-in.visible {
                 opacity: 1;
-            }
-
-            .slide-up {
-                transform: translateY(20px);
-                transition: transform 0.6s ease-out;
-            }
-
-            .slide-up.visible {
                 transform: translateY(0);
+            }
+            #home {
+                background-color: var(--bg-primary);
             }
         </style>
     </section>
-
     <!-- Services Section -->
     <section id="services" class="py-20" style="background-color: var(--bg-secondary);">
-        <div class="container mx-auto px-6 max-w-6xl">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+            <!-- Section Header -->
             <div class="text-center mb-16">
-                <span class="text-sm font-semibold tracking-wider uppercase" style="color: var(--text-accent);">{% trans "What I Do" %}</span>
-                <h2 class="mt-2 text-3xl font-bold sm:text-4xl" style="color: var(--text-primary);">{% trans "My Services" %}</h2>
+                <span class="text-sm font-semibold tracking-wider uppercase" style="color: var(--text-accent);">{% trans "Expertise" %}</span>
+                <h2 class="mt-2 text-3xl font-bold sm:text-4xl" style="color: var(--text-primary);">{% trans "Mes Services" %}</h2>
                 <div class="mt-4 h-1 w-20 mx-auto" style="background: linear-gradient(to right, var(--text-primary), var(--bg-accent));"></div>
+                <p class="mt-6 max-w-2xl mx-auto text-lg" style="color: var(--text-secondary);">
+                    {% trans "Des solutions sur mesure pour répondre à vos besoins digitaux." %}
+                </p>
             </div>
             
+            <!-- Services Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 group" style="background-color: var(--bg-primary);">
-                    <div class="w-14 h-14 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300"
-                         style="background-color: var(--bg-secondary); color: var(--text-accent);">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                        </svg>
+                <!-- Service 1 -->
+                <div class="relative overflow-hidden rounded-xl shadow-lg group transition-all duration-500 hover:shadow-xl" style="background-color: var(--bg-primary);">
+                    <div class="absolute top-0 left-0 w-full h-1" style="background-color: var(--bg-accent);"></div>
+                    <div class="p-8">
+                        <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-6 transition-transform duration-500 group-hover:rotate-6"
+                            style="background-color: var(--bg-secondary); color: var(--text-accent);">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4" style="color: var(--text-primary);">{% trans "Développement Web" %}</h3>
+                        <p class="mb-6" style="color: var(--text-secondary);">
+                            {% trans "Création de sites web sur mesure avec les technologies modernes pour des performances optimales." %}
+                        </p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 mt-0.5 mr-2 flex-shrink-0" style="color: var(--text-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span style="color: var(--text-secondary);">{% trans "Sites vitrines" %}</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 mt-0.5 mr-2 flex-shrink-0" style="color: var(--text-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span style="color: var(--text-secondary);">{% trans "Applications web" %}</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 mt-0.5 mr-2 flex-shrink-0" style="color: var(--text-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span style="color: var(--text-secondary);">{% trans "E-commerce" %}</span>
+                            </li>
+                        </ul>
                     </div>
-                    <h3 class="text-xl font-bold mb-3" style="color: var(--text-primary);">{% trans "Web Development" %}</h3>
-                    <p style="color: var(--text-secondary);">{% trans "Custom website development with modern frameworks and technologies for optimal performance and user experience." %}</p>
                 </div>
                 
-                <div class="p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 group" style="background-color: var(--bg-primary);">
-                    <div class="w-14 h-14 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300"
-                         style="background-color: var(--bg-secondary); color: var(--text-accent);">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
-                        </svg>
+                <!-- Service 2 -->
+                <div class="relative overflow-hidden rounded-xl shadow-lg group transition-all duration-500 hover:shadow-xl" style="background-color: var(--bg-primary);">
+                    <div class="absolute top-0 left-0 w-full h-1" style="background-color: var(--bg-accent);"></div>
+                    <div class="p-8">
+                        <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-6 transition-transform duration-500 group-hover:rotate-6"
+                            style="background-color: var(--bg-secondary); color: var(--text-accent);">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4" style="color: var(--text-primary);">{% trans "Design UI/UX" %}</h3>
+                        <p class="mb-6" style="color: var(--text-secondary);">
+                            {% trans "Interfaces intuitives conçues pour optimiser l'expérience utilisateur et maximiser l'engagement." %}
+                        </p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 mt-0.5 mr-2 flex-shrink-0" style="color: var(--text-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span style="color: var(--text-secondary);">{% trans "Maquettes interactives" %}</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 mt-0.5 mr-2 flex-shrink-0" style="color: var(--text-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span style="color: var(--text-secondary);">{% trans "Design responsive" %}</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 mt-0.5 mr-2 flex-shrink-0" style="color: var(--text-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span style="color: var(--text-secondary);">{% trans "Tests utilisateurs" %}</span>
+                            </li>
+                        </ul>
                     </div>
-                    <h3 class="text-xl font-bold mb-3" style="color: var(--text-primary);">{% trans "UI/UX Design" %}</h3>
-                    <p style="color: var(--text-secondary);">{% trans "Beautiful and intuitive user interfaces designed to enhance user experience and drive engagement." %}</p>
                 </div>
                 
-                <div class="p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 group" style="background-color: var(--bg-primary);">
-                    <div class="w-14 h-14 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300"
-                         style="background-color: var(--bg-secondary); color: var(--text-accent);">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                        </svg>
+                <!-- Service 3 -->
+                <div class="relative overflow-hidden rounded-xl shadow-lg group transition-all duration-500 hover:shadow-xl" style="background-color: var(--bg-primary);">
+                    <div class="absolute top-0 left-0 w-full h-1" style="background-color: var(--bg-accent);"></div>
+                    <div class="p-8">
+                        <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-6 transition-transform duration-500 group-hover:rotate-6"
+                            style="background-color: var(--bg-secondary); color: var(--text-accent);">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4" style="color: var(--text-primary);">{% trans "Maintenance" %}</h3>
+                        <p class="mb-6" style="color: var(--text-secondary);">
+                            {% trans "Suivi et maintenance pour garantir la sécurité et les performances de votre site web." %}
+                        </p>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 mt-0.5 mr-2 flex-shrink-0" style="color: var(--text-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span style="color: var(--text-secondary);">{% trans "Mises à jour" %}</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 mt-0.5 mr-2 flex-shrink-0" style="color: var(--text-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span style="color: var(--text-secondary);">{% trans "Sauvegardes" %}</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 mt-0.5 mr-2 flex-shrink-0" style="color: var(--text-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span style="color: var(--text-secondary);">{% trans "Support technique" %}</span>
+                            </li>
+                        </ul>
                     </div>
-                    <h3 class="text-xl font-bold mb-3" style="color: var(--text-primary);">{% trans "Maintenance" %}</h3>
-                    <p style="color: var(--text-secondary);">{% trans "Ongoing support and maintenance to keep your website running smoothly and securely." %}</p>
                 </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="text-center mt-16">
+                <a href="#contact" 
+                class="inline-flex items-center px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 hover:shadow-lg"
+                style="background-color: var(--bg-accent); color: var(--text-primary);">
+                    {% trans "Discutons de votre projet" %}
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Projects Section -->
     <section id="projects" class="py-20" style="background-color: var(--bg-primary);">
-        <div class="container mx-auto px-6 max-w-6xl">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
             <div class="text-center mb-16">
-                <span class="text-sm font-semibold tracking-wider uppercase" style="color: var(--text-accent);">{% trans "My Work" %}</span>
-                <h2 class="mt-2 text-3xl font-bold sm:text-4xl" style="color: var(--text-primary);">{% trans "Featured Projects" %}</h2>
+                <span class="text-sm font-semibold tracking-wider uppercase" style="color: var(--text-accent);">{% trans "Portfolio" %}</span>
+                <h2 class="mt-2 text-3xl font-bold sm:text-4xl" style="color: var(--text-primary);">{% trans "Mes Projets" %}</h2>
                 <div class="mt-4 h-1 w-20 mx-auto" style="background: linear-gradient(to right, var(--text-primary), var(--bg-accent));"></div>
-                <p class="mt-4 text-lg max-w-2xl mx-auto" style="color: var(--text-secondary);">{% trans "Here are some of my recent projects that showcase my skills and expertise." %}</p>
+                <p class="mt-4 text-lg max-w-2xl mx-auto" style="color: var(--text-secondary);">
+                    {% trans "Découvrez une sélection de mes réalisations les plus significatives." %}
+                </p>
             </div>
-            
+
+            <!-- Projects Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {% for projet in projets %}
-                    <div class="content-card rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:shadow-xl hover:-translate-y-2 slide-up" style="transition-delay: {{ forloop.counter0|floatformat:1 }}s">
+                <div class="group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2" style="background-color: var(--bg-secondary);">
+                    <!-- Technologies Badges -->
+                    <div class="absolute top-4 left-4 z-10 flex flex-wrap gap-2">
+                        {% for technologie in projet.technologies.all|slice:":2" %}
+                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium" 
+                            style="background-color: var(--bg-accent); color: var(--text-primary);">
+                            {{ technologie.nom }}
+                        </span>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Image Container -->
+                    <div class="relative h-56 w-full overflow-hidden">
                         {% if projet.image %}
-                            <img src="{{ projet.image.url }}" alt="{{ projet.titre }}" class="w-full h-48 object-cover" loading="lazy">
+                        <img src="{{ projet.image.url }}" alt="{{ projet.titre }}" 
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            loading="lazy">
                         {% else %}
-                            <div class="w-full h-48 projet-placeholder flex items-center justify-center">
-                                {{ projet.titre|truncatewords:3 }}
-                            </div>
+                        <div class="w-full h-full flex items-center justify-center" style="background-color: var(--bg-accent);">
+                            <span class="text-lg font-medium" style="color: var(--text-primary);">{{ projet.titre|truncatewords:3 }}</span>
+                        </div>
                         {% endif %}
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2" style="color: var(--text-primary);">
+                    </div>
+                    
+                    <!-- Content -->
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-3" style="color: var(--text-primary);">
+                            <a href="{% url 'monportfolio:projet_detail' pk=projet.pk %}" class="hover:underline">
                                 {{ projet.titre }}
-                            </h3>
-                            <p class="mb-4 text-sm md:text-base" style="color: var(--text-secondary);">
-                                {{ projet.description|truncatewords:20 }}
-                            </p>
-                            <a href="{% url 'monportfolio:projet_detail' pk=projet.pk %}" class="font-medium hover:text-blue-700 transition" style="color: var(--text-primary);" aria-label="{% trans 'Voir le projet' %} {{ projct.tite }}">
-                                {% trans "Voir le projet" %} &rarr;
                             </a>
+                        </h3>
+                        <p class="mb-4 text-sm" style="color: var(--text-secondary);">
+                            {{ projet.description|striptags|truncatewords:20 }}
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <a href="{% url 'monportfolio:projet_detail' pk=projet.pk %}" 
+                            class="inline-flex items-center font-medium transition-all duration-300 hover:pl-2"
+                            style="color: var(--text-accent);"
+                            aria-label="{% trans 'Voir le projet' %} {{ projet.titre }}">
+                                {% trans "Voir le projet" %}
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                            {% if projet.url %}
+                            <a href="{{ projet.url }}" target="_blank" rel="noopener noreferrer"
+                            class="text-sm inline-flex items-center px-3 py-1 rounded-full transition-all"
+                            style="background-color: var(--bg-accent); color: var(--text-primary);">
+                                Demo
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                            </a>
+                            {% endif %}
                         </div>
                     </div>
+                </div>
                 {% empty %}
-                    <p class="text-center col-span-full" style="color: var(--text-secondary);">
+                <div class="col-span-full text-center py-12">
+                    <p class="text-lg" style="color: var(--text-secondary);">
                         {% trans "Aucun projet disponible pour le moment." %}
                     </p>
+                </div>
                 {% endfor %}
             </div>
-    </section>
 
-    <!-- Articles Section -->
-    <section id="articles" class="section py-20" style="background-color: var(--bg-secondary);">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 slide-up" style="color: var(--text-primary);">
-                {% trans "Mes Articles" %}
-            </h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {% for article in articles %}
-                    <div class="content-card rounded-lg overflow-hidden shadow-md hover:shadow-lg transition slide-up" style="transition-delay: {{ forloop.counter0|floatformat:1 }}s">
-                        {% if article.image %}
-                            <img src="{{ article.image.url }}" alt="{{ article.titre }}" class="w-full h-48 object-cover" loading="lazy">
-                        {% else %}
-                            <div class="w-full h-48 projet-placeholder flex items-center justify-center">
-                                {{ article.titre|truncatewords:3 }}
-                            </div>
-                        {% endif %}
-                        <div class="p-6">
-                            <span class="text-sm text-accent">{{ article.categorie }}</span>
-                            <h3 class="text-xl font-bold my-2" style="color: var(--text-primary);">
-                                {{ article.titre }}
-                            </h3>
-                            <p class="mb-4 text-sm md:text-base" style="color: var(--text-secondary);">
-                                {{ article.contenu|truncatewords:20 }}
-                            </p>
-                            <a href="{% url 'monportfolio:article_detail' pk=article.pk %}" class="font-medium hover:text-blue-700 transition" style="color: var(--text-primary);" aria-label="{% trans 'Lire l\'article' %} {{ article.title }}">
-                                {% trans "Lire plus" %} &rarr;
-                            </a>
-                        </div>
-                    </div>
-                {% empty %}
-                    <p class="text-center col-span-full" style="color: var(--text-secondary);">
-                        {% trans "Aucun article disponible pour le moment." %}
-                    </p>
-                {% endfor %}
-            </div>
-            <div class="text-center mt-12 slide-up">
-                <a href="#" class="inline-block bg-accent hover:bg-yellow-500 font-semibold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105" style="color: var(--text-primary);">
-                    {% trans "Voir tous les articles" %}
+            <!-- View More Button -->
+            <div class="text-center mt-16">
+                <a href="#" 
+                class="inline-flex items-center px-6 py-3 border rounded-full text-sm font-medium transition-all duration-300 hover:shadow-lg"
+                style="border-color: var(--text-accent); color: var(--text-primary); background-color: var(--bg-primary);">
+                    {% trans "Voir plus de projets" %}
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
                 </a>
             </div>
         </div>
     </section>
+    <!-- Articles Section -->
+    <section id="articles" class="py-20" style="background-color: var(--bg-secondary);">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <span class="text-sm font-semibold tracking-wider uppercase" style="color: var(--text-accent);">{% trans "Blog" %}</span>
+                <h2 class="mt-2 text-3xl font-bold sm:text-4xl" style="color: var(--text-primary);">{% trans "Mes Articles" %}</h2>
+                <div class="mt-4 h-1 w-20 mx-auto" style="background: linear-gradient(to right, var(--text-primary), var(--bg-accent));"></div>
+            </div>
 
+            <!-- Articles Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for article in articles %}
+                <article class="group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2" style="background-color: var(--bg-primary);">
+                    <!-- Category Badge -->
+                    <div class="absolute top-4 right-4 z-10">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold" style="background-color: var(--bg-accent); color: var(--text-primary);">
+                            {{ article.categorie }}
+                        </span>
+                    </div>
+                    
+                    <!-- Image Container (Fixed Aspect Ratio) -->
+                    <div class="relative h-56 w-full overflow-hidden">
+                        {% if article.image %}
+                        <img src="{{ article.image.url }}" alt="{{ article.titre }}" 
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            loading="lazy">
+                        {% else %}
+                        <div class="w-full h-full flex items-center justify-center" style="background-color: var(--bg-accent);">
+                            <span class="text-lg font-medium" style="color: var(--text-primary);">{{ article.titre|truncatewords:3 }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Content -->
+                    <div class="p-6">
+                        <div class="flex items-center text-sm mb-2" style="color: var(--text-accent);">
+                            <span>{{ article.date_creation|date:"d F Y" }}</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3" style="color: var(--text-primary);">
+                            <a href="{% url 'monportfolio:article_detail' pk=article.pk %}" class="hover:underline">
+                                {{ article.titre }}
+                            </a>
+                        </h3>
+                        <p class="mb-4 text-sm" style="color: var(--text-secondary);">
+                            {{ article.contenu|striptags|truncatewords:20 }}
+                        </p>
+                        <a href="{% url 'monportfolio:article_detail' pk=article.pk %}" 
+                        class="inline-flex items-center font-medium transition-all duration-300 hover:pl-2"
+                        style="color: var(--text-accent);"
+                        aria-label="{% trans 'Lire l\'article' %} {{ article.titre }}">
+                            {% trans "Lire plus" %}
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+                {% empty %}
+                <div class="col-span-full text-center py-12">
+                    <p class="text-lg" style="color: var(--text-secondary);">
+                        {% trans "Aucun article disponible pour le moment." %}
+                    </p>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- View All Button -->
+            <div class="text-center mt-16">
+                <a href="#" class="inline-flex items-center px-6 py-3 border rounded-full text-sm font-medium transition-all duration-300 hover:shadow-lg"
+                style="border-color: var(--text-accent); color: var(--text-primary); background-color: var(--bg-primary);">
+                    {% trans "Voir tous les articles" %}
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
     <!-- About Section -->
-     <section id="about" class="py-20" style="background-color: var(--bg-primary);">
-        <div class="text-center mb-16">
+    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8" style="background-color: var(--bg-primary);">
+        <div class="max-w-6xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
                 <span class="text-sm font-semibold tracking-wider uppercase" style="color: var(--text-accent);">{% trans "About Me" %}</span>
                 <h2 class="mt-2 text-3xl font-bold sm:text-4xl" style="color: var(--text-primary);">{% trans "Professional Profile" %}</h2>
                 <div class="mt-4 h-1 w-20 mx-auto" style="background: linear-gradient(to right, var(--text-primary), var(--bg-accent));"></div>
-        </div>
-        <div>
-            <p class="text-lg mb-4">{{ a_propos.contenu }}</p>
-            {% if a_propos.competences.all %}
-            <h3 class="text-xl font-semibold mb-2">{% trans " Mes Compétences" %}</h3>
-            {% endif%}
-            <ul class="list-disc pl-5">
-                {% for competence in a_propos.competences.all %}
-                <li>{{ competence.nom }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-        
+            </div>
 
-       
+            <!-- Content -->
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Photo de profil + bouton -->
+                <div class="order-1 md:order-none flex flex-col items-center">
+                    <div class="w-64 h-64 rounded-full overflow-hidden border-4 mb-8" style="border-color: var(--bg-accent);">
+                        {% if profil.photo %}
+                            <img src="{{ profil.photo.url }}" alt="{{ profil.nom }}" class="w-full h-full object-cover">
+                        {% else %}
+                            <div class="w-full h-full flex items-center justify-center" style="background-color: var(--bg-accent);">
+                                <span class="text-4xl font-bold" style="color: var(--text-primary);">
+                                    {{ profil.nom|first|upper }}
+                                </span>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <a href="{% url 'monportfolio:profil' %}" 
+                    class="inline-flex items-center px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 hover:shadow-lg"
+                    style="background-color: var(--bg-accent); color: var(--text-primary);">
+                    {% trans "Voir mon profil complet" %}
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                    </a>
+                </div>
+
+                <!-- Text Content -->
+                <div class="order-2 md:order-none">
+                    <p class="text-lg mb-6 leading-relaxed" style="color: var(--text-primary);">
+                        {{ a_propos.contenu }}
+                    </p>
+                    
+                    <!-- Skills -->
+                    {% if a_propos.competences.all %}
+                    <div class="mt-8">
+                        <h3 class="text-xl font-semibold mb-4" style="color: var(--text-primary);">
+                            {% trans "Mes Compétences" %}
+                        </h3>
+                        <div class="flex flex-wrap gap-3">
+                            {% for competence in a_propos.competences.all %}
+                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium"
+                                style="background-color: var(--bg-secondary); color: var(--text-primary);">
+                                <svg class="w-4 h-4 mr-2" style="color: var(--text-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                {{ competence.nom }}
+                            </span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Additional Info -->
+                    <div class="mt-8 grid grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="text-sm font-semibold uppercase mb-2" style="color: var(--text-accent);">{% trans "Email" %}</h4>
+                            <p style="color: var(--text-primary);">{{ profil.email }}</p>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-semibold uppercase mb-2" style="color: var(--text-accent);">{% trans "Téléphone" %}</h4>
+                            <p style="color: var(--text-primary);">{{ profil.telephone }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
     
     <!-- Contact Section -->
@@ -297,7 +591,7 @@
                                 </div>
                                 <div class="ml-4">
                                     <p class="text-sm font-medium" style="color: var(--text-secondary);">{% trans "Resume" %}</p>
-                                    <a href="{{ profil.cv.url }}" class="text-base font-medium hover:underline" style="color: var(--text-accent);" aria-label="{% trans 'Download CV' %}">{% trans "Download CV" %}</a>
+                                    <a href="{{ profil.cv.url }}" class="text-base font-medium hover:underline" style="color: var(--text-accent);" aria-label="{% trans 'See CV' %}">{% trans "Voir CV" %}</a>
                                 </div>
                             </div>
                             {% endif %}
@@ -366,10 +660,10 @@
             // Typed.js initialization
             const typed = new Typed('#typed-text', {
                 strings: [
-                    '{% trans "Web Developer" %}',
-                    '{% trans "UI/UX Designer" %}',
-                    '{% trans "Problem Solver" %}',
-                    '{% trans "Creative Thinker" %}'
+                    '{% trans "Développeur Web Junior" %}',
+                        '{% trans "Spécialise en backend " %}',
+                        '{% trans "avec des connaissances au cote frontend " %}',
+                        '{% trans "Passionné par la technologie" %}'
                 ],
                 typeSpeed: 50,
                 backSpeed: 30,
