@@ -50,4 +50,4 @@ db.post
 db.sqlite3
 staticfiles/
 database/
-medie/
+media/
