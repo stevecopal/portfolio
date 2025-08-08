@@ -85,7 +85,7 @@ class Profil(BaseModel):
         verbose_name=_("Localisation")
     )
     cv = models.FileField(
-        upload_to='cv/',
+        upload_to='articles/',
         blank=True,
         null=True,
         verbose_name=_("CV")
