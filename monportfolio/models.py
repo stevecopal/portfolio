@@ -66,7 +66,7 @@ class Profil(BaseModel):
         verbose_name=_("Description")
     )
     photo = models.ImageField(
-        upload_to='media/profil',
+        upload_to='articles/',
         blank=True,
         null=True,
         verbose_name=_("Photo de profil")
@@ -141,7 +141,7 @@ class Projet(BaseModel):
         verbose_name=_("Description")
     )
     image = models.ImageField(
-        upload_to='media/projets',
+        upload_to='articles/',
         blank=True,
         null=True,
         verbose_name=_("Image")
@@ -177,7 +177,7 @@ class Article(BaseModel):
         verbose_name=_("Contenu")
     )
     image = models.ImageField(
-        upload_to='media/articles',
+        upload_to='articles/',
         blank=True,
         null=True,
         verbose_name=_("Image")
