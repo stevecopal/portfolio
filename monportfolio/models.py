@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from uuid import uuid4
 from django.core.validators import MinValueValidator, MaxValueValidator
-
+from ckeditor.fields import RichTextField
 class BaseModel(models.Model):
     """
     Classe abstraite de base pour tous les modèles.
@@ -173,7 +173,7 @@ class Article(BaseModel):
         max_length=200,
         verbose_name=_("Titre")
     )
-    contenu = models.TextField(
+    contenu = RichTextField(
         verbose_name=_("Contenu")
     )
     image = models.ImageField(

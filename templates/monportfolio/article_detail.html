@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
-
+{% load static %}
 {% block title %}{{ article.titre }}{% endblock %}
 
 {% block content %}
@@ -15,7 +15,7 @@
                      loading="lazy">
                 {% else %}
                 <div class="w-full h-64 sm:h-80 md:h-96 flex items-center justify-center" style="background-color: var(--bg-accent);">
-                    <span class="text-xl font-medium" style="color: var(--text-primary);">{{ article.titre|truncatewords:3 }}</span>
+                    <span class="text-xl font-medium" style="color: var(--text-primary);">{{ article.titre }}</span>
                 </div>
                 {% endif %}
                 <!-- Category Badge - Top Right Corner -->

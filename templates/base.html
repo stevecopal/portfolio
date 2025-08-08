@@ -1,4 +1,5 @@
-{% load static i18n %}
+{% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 {% get_current_language as LANGUAGE_CODE %}
 <html lang="{{ LANGUAGE_CODE }}" data-theme="light">
@@ -172,7 +173,9 @@
         #back-to-top:hover {
             background-color: var(--bg-accent-hover);
         }
+        
     </style>
+    
 </head>
 <body>
     <header class="fixed w-full z-50 transition-all duration-300" style="background-color: var(--navbar-bg); box-shadow: var(--navbar-shadow);">
