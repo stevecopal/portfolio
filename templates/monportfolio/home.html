@@ -644,7 +644,7 @@
                     </div>
                     
                     <div class="md:w-1/2 p-8 md:p-12" style="background-color: var(--bg-primary);">
-                        <form method="post" class="space-y-6">
+                        <form method="post" action="{% url 'monportfolio:contact' %}" class="space-y-6">
                             {% csrf_token %}
                             {{ form.as_p }}
                             <div>

@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import redirect, render
 from django.views.generic import TemplateView, DetailView, ListView, FormView
 from django.http import HttpResponseRedirect, JsonResponse
@@ -8,7 +9,8 @@ from .forms import ContactForm, LoginForm
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import logout
 from django.contrib import messages
-
+from django.contrib.auth.models import User
+from django.core.mail import send_mail
 
 # Create your views here.
 
@@ -114,7 +116,7 @@ class AProposView(DetailView):
 class ContactView(FormView):
     template_name = 'monportfolio/contact.html'
     form_class = ContactForm
-    success_url = reverse_lazy('monportfolio:contact')
+    success_url = reverse_lazy('monportfolio:home')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -123,7 +125,29 @@ class ContactView(FormView):
         return context
 
     def form_valid(self, form):
-        form.save()
+        # Save the form first
+        message = form.save()
+        
+        # Get all superusers
+        superusers = User.objects.filter(is_superuser=True)
+        
+        # Send email to each superuser
+        for user in superusers:
+            send_mail(
+                subject=f"New Contact Form Submission from {message.nom}",
+                message=f"""
+                You have received a new contact form submission:
+                
+                Name: {message.nom}
+                Email: {message.email}
+                Message: {message.message}
+                
+                """,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[user.email],
+                fail_silently=False,
+            )
+        
         return super().form_valid(form)
 
 class ProjetListAPI(ListView):

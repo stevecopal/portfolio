@@ -14,7 +14,8 @@ from pathlib import Path
 import os
 from django.urls import reverse_lazy 
 import dj_database_url
-
+from dotenv import load_dotenv
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -240,3 +241,14 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # Optionnel : configuration des fichiers statiques
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # Pour un vrai envoi SMTP
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Pour tester dans la console (commenter pour production)
+DEFAULT_FROM_EMAIL = 'stevesatcheme@gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'  # Exemple pour Gmail ; change pour ton provider
+EMAIL_PORT = 587  # Port TLS pour Gmail
+EMAIL_USE_TLS = True  # Ou EMAIL_USE_SSL = True si besoin
+EMAIL_HOST_USER = 'stevesatcheme@gmail.com'  # Ton email expéditeur
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD') # Mot de passe ou App Password pour Gmail (active 2FA et utilise App Password)
+
+# Adresse email où recevoir les messages du formulaire
+ADMIN_EMAIL = 'stevesatcheme@gmail.com'
