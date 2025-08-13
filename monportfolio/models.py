@@ -3,7 +3,6 @@ from django.utils.translation import gettext_lazy as _
 from uuid import uuid4
 from django.core.validators import MinValueValidator, MaxValueValidator
 from ckeditor.fields import RichTextField
-from cloudinary.models import CloudinaryField
 class BaseModel(models.Model):
     """
     Classe abstraite de base pour tous les modèles.
@@ -85,11 +84,11 @@ class Profil(BaseModel):
         blank=True,
         verbose_name=_("Localisation")
     )
-    cv = CloudinaryField(
-        resource_type='raw',  # Spécifique pour les fichiers (PDF, ZIP, etc.)
-        folder='monportfolio/cv/',  # Optionnel : organisez vos fichiers
+    cv = models.FileField(
+        upload_to='media/',
         blank=True,
-        null=True
+        null=True,
+        verbose_name=_("CV")
     )
 
     def __str__(self):

@@ -200,7 +200,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 STORAGES = {
     "default": {
-        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage"
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+        "BACKEND":"django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
@@ -213,7 +214,12 @@ CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'full',
         'height': 400,
-        'width': '100%',
+        'width': '100%',cv = models.FileField(
+        upload_to='media/',
+        blank=True,
+        null=True,
+        verbose_name=_("CV")
+    )
         'extraPlugins': ','.join([
             'autolink',
             'autoembed',
