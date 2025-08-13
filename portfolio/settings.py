@@ -214,12 +214,7 @@ CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'full',
         'height': 400,
-        'width': '100%',cv = models.FileField(
-        upload_to='media/',
-        blank=True,
-        null=True,
-        verbose_name=_("CV")
-    )
+        'width': '100%',
         'extraPlugins': ','.join([
             'autolink',
             'autoembed',
