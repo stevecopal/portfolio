@@ -256,10 +256,9 @@ ADMIN_EMAIL = 'stevesatcheme@gmail.com'
 
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://mrcopal-tc67.onrender.com',
-    'http://mrcopal-tc67.onrender.com',
+    "https://monportfolio.onrender.com",
+    "http://monportfolio.onrender.com",
 ]
-
 # Si vous utilisez HTTPS (obligatoire sur Render)
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = True
