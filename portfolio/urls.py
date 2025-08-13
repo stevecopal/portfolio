@@ -23,10 +23,10 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
 urlpatterns = i18n_patterns(
-    path('i18n/', include('django.conf.urls.i18n')),  # URL pour changer la langue
-
+    path('i18n/', include('django.conf.urls.i18n')),
     path('admin/', admin.site.urls),
-    path('', include('monportfolio.urls')),  # Inclut les URLs de votre application
+    path('contact/', include('monportfolio.urls')),  # Déplacez contact au niveau principal
+    path('', include('monportfolio.urls')),  # Pour les autres URLs
 )
 
 # Servir les fichiers médias en développement

@@ -256,8 +256,8 @@ ADMIN_EMAIL = 'stevesatcheme@gmail.com'
 
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://*.onrender.com',
-    'https://monportfolio.onrender.com',
+    'https://mrcopal-tc67.onrender.com',
+    'http://mrcopal-tc67.onrender.com',
 ]
 
 # Si vous utilisez HTTPS (obligatoire sur Render)
