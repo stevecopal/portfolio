@@ -252,3 +252,15 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD') # Mot de passe ou App Passwo
 
 # Adresse email où recevoir les messages du formulaire
 ADMIN_EMAIL = 'stevesatcheme@gmail.com'
+
+
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.onrender.com',
+    'https://monportfolio.onrender.com',
+]
+
+# Si vous utilisez HTTPS (obligatoire sur Render)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
