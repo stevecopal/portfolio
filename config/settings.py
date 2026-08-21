@@ -142,14 +142,6 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Email
-# https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
-
-MAILERS = {
-    'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
-    },
-}
 
 
 KEDITOR_CONFIGS = {
@@ -166,5 +158,15 @@ KEDITOR_CONFIGS = {
 }
 
 # SEO and Meta Tags
-SITE_NAME = "copal Satcheme | Portfolio"
+SITE_NAME = "copal Satcheme "
 SITE_DESCRIPTION = "Developer & Digital Solutions Builder"
+
+
+
+# ==================== EMAIL CONFIGURATION (SMTP - Gmail) ====================
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"  # Serveur SMTP de Gmail
+EMAIL_PORT = 587  # Port TLS
+EMAIL_USE_TLS = True  # Sécurité TLS
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")  # ✅ Remplace par TON email Gmail
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")  # ✅ Mot de passe d'application (voir étape 2)

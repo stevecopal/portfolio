@@ -124,9 +124,10 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
             {% for image in project.images.all %}
             <div class="overflow-hidden rounded-sm">
+                <!-- Remplacement de project_image par image ici -->
                 <img 
-                    src="{{ project_image.image.url }}" 
-                    alt="{{ project_image.caption|default:project.title }}" 
+                    src="{{ image.image.url }}" 
+                    alt="{{ image.caption|default:project.title }}" 
                     class="w-full h-64 md:h-80 object-cover"
                     loading="lazy"
                 >
@@ -141,7 +142,6 @@
     </div>
 </section>
 {% endif %}
-
 
 <!-- Project Content -->
 <section class="pb-24">
@@ -197,37 +197,6 @@
 </section>
 
 
-<!-- Related Projects -->
-{% if related_projects %}
-<section class="py-24 bg-gray-50">
-    <div class="container mx-auto px-6">
-        <h2 class="text-2xl font-space-grotesk font-bold mb-8">
-            {% trans "Related Projects" %}
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {% for related_project in related_projects %}
-            <a 
-                href="{% url 'portfolio:project_detail' related_project.slug %}" 
-                class="group block border border-gray-200 hover:border-black transition-colors overflow-hidden"
-            >
-                <div class="overflow-hidden">
-                    <img 
-                        src="{% if related_project.cover_image %}{{ related_project.cover_image.url }}{% else %}{% static 'images/project-placeholder.png' %}{% endif %}" 
-                        alt="{{ related_project.title }}" 
-                        class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
-                        loading="lazy"
-                    >
-                </div>
-                <div class="p-4">
-                    <h3 class="font-space-grotesk font-semibold">{{ related_project.title }}</h3>
-                    <p class="text-gray-600 text-sm mt-2">{{ related_project.short_description|truncatewords:8 }}</p>
-                </div>
-            </a>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-{% endif %}
 
 
 <!-- CTA Section -->

@@ -795,6 +795,10 @@ h1, h2, h3, h4, h5, h6 {
   bottom: 2rem;
 }
 
+.bottom-\[-10\%\]{
+  bottom: -10%;
+}
+
 .left-0{
   left: 0px;
 }
@@ -805,6 +809,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .left-4{
   left: 1rem;
+}
+
+.left-\[-10\%\]{
+  left: -10%;
 }
 
 .left-\[18px\]{
@@ -823,8 +831,16 @@ h1, h2, h3, h4, h5, h6 {
   right: 2rem;
 }
 
+.right-\[-10\%\]{
+  right: -10%;
+}
+
 .top-0{
   top: 0px;
+}
+
+.top-\[-10\%\]{
+  top: -10%;
 }
 
 .top-\[18px\]{
@@ -1000,6 +1016,10 @@ h1, h2, h3, h4, h5, h6 {
   height: 2rem;
 }
 
+.h-\[50\%\]{
+  height: 50%;
+}
+
 .h-auto{
   height: auto;
 }
@@ -1050,6 +1070,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .w-8{
   width: 2rem;
+}
+
+.w-\[50\%\]{
+  width: 50%;
 }
 
 .w-full{
@@ -1143,6 +1167,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .transform{
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.select-none{
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 
 .grid-cols-1{
@@ -1352,6 +1382,11 @@ h1, h2, h3, h4, h5, h6 {
   border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
 }
 
+.border-gray-400{
+  --tw-border-opacity: 1;
+  border-color: rgb(156 163 175 / var(--tw-border-opacity, 1));
+}
+
 .border-green-500{
   --tw-border-opacity: 1;
   border-color: rgb(34 197 94 / var(--tw-border-opacity, 1));
@@ -1391,6 +1426,10 @@ h1, h2, h3, h4, h5, h6 {
   background-color: rgb(219 234 254 / var(--tw-bg-opacity, 1));
 }
 
+.bg-blue-500\/20{
+  background-color: rgb(59 130 246 / 0.2);
+}
+
 .bg-gray-100{
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
@@ -1421,6 +1460,10 @@ h1, h2, h3, h4, h5, h6 {
   background-color: rgb(34 197 94 / var(--tw-bg-opacity, 1));
 }
 
+.bg-green-500\/20{
+  background-color: rgb(34 197 94 / 0.2);
+}
+
 .bg-neutral-100{
   --tw-bg-opacity: 1;
   background-color: rgb(245 245 245 / var(--tw-bg-opacity, 1));
@@ -1431,6 +1474,10 @@ h1, h2, h3, h4, h5, h6 {
   background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1));
 }
 
+.bg-transparent{
+  background-color: transparent;
+}
+
 .bg-white{
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
@@ -1438,6 +1485,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .bg-white\/95{
   background-color: rgb(255 255 255 / 0.95);
+}
+
+.bg-gradient-to-b{
+  background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 }
 
 .bg-gradient-to-br{
@@ -1460,12 +1511,27 @@ h1, h2, h3, h4, h5, h6 {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
+.from-transparent{
+  --tw-gradient-from: transparent var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(0 0 0 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.via-transparent{
+  --tw-gradient-to: rgb(0 0 0 / 0)  var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), transparent var(--tw-gradient-via-position), var(--tw-gradient-to);
+}
+
 .to-black{
   --tw-gradient-to: #000000 var(--tw-gradient-to-position);
 }
 
 .to-transparent{
   --tw-gradient-to: transparent var(--tw-gradient-to-position);
+}
+
+.to-white\/90{
+  --tw-gradient-to: rgb(255 255 255 / 0.9) var(--tw-gradient-to-position);
 }
 
 .object-contain{
@@ -1654,6 +1720,10 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
 }
 
+.uppercase{
+  text-transform: uppercase;
+}
+
 .italic{
   font-style: italic;
 }
@@ -1777,6 +1847,11 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+.blur-\[100px\]{
+  --tw-blur: blur(100px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
 .grayscale{
   --tw-grayscale: grayscale(100%);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
@@ -1881,6 +1956,118 @@ h1, h2, h3, h4, h5, h6 {
 
   to {
     transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ============================================
+   ARRIÈRE-PLAN TECH GRILLE ANIMÉE
+   Bleu ↔ Vert, léger et élégant
+   ============================================ */
+
+.tech-grid {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  /* derrière tout le contenu */
+  pointer-events: none;
+  /* Grille fine neutre (traits légèrement visibles) */
+  background-image:
+        linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+        linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  background-size:
+        40px 40px,
+        40px 40px,
+        80px 80px,
+        80px 80px;
+  background-position:
+        0 0,
+        0 0,
+        20px 20px,
+        20px 20px;
+  animation: gridMove 25s linear infinite;
+}
+
+/* Sur‑couches colorées (bleu et vert) qui se fondent */
+
+.tech-grid::before,
+.tech-grid::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: multiply;
+  /* en mode clair */
+  pointer-events: none;
+}
+
+.tech-grid::before {
+  background: linear-gradient(120deg, rgba(0, 102, 255, 0.08), rgba(0, 102, 255, 0.02));
+  animation: colorPulseBlue 10s ease-in-out infinite;
+}
+
+.tech-grid::after {
+  background: linear-gradient(120deg, rgba(0, 255, 102, 0.08), rgba(0, 255, 102, 0.02));
+  animation: colorPulseGreen 10s ease-in-out infinite;
+  animation-delay: -5s;
+  /* décalage pour le fondu croisé */
+}
+
+/* Mode sombre : on adapte les opacités et le mix-blend-mode */
+
+.dark .tech-grid {
+  background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+
+.dark .tech-grid::before,
+.dark .tech-grid::after {
+  mix-blend-mode: screen;
+  /* les couleurs ressortent mieux sur fond sombre */
+  opacity: 0.6;
+  /* réduction globale pour rester discret */
+}
+
+.dark .tech-grid::before {
+  background: linear-gradient(120deg, rgba(0, 102, 255, 0.12), rgba(0, 102, 255, 0.03));
+}
+
+.dark .tech-grid::after {
+  background: linear-gradient(120deg, rgba(0, 255, 102, 0.12), rgba(0, 255, 102, 0.03));
+}
+
+/* Animations */
+
+@keyframes gridMove {
+  0%   {
+    background-position: 0 0, 0 0, 20px 20px, 20px 20px;
+  }
+
+  100% {
+    background-position: 40px 40px, 40px 40px, 100px 100px, 100px 100px;
+  }
+}
+
+@keyframes colorPulseBlue {
+  0%, 100% {
+    opacity: 1;
+  }
+
+  50%      {
+    opacity: 0.15;
+  }
+}
+
+@keyframes colorPulseGreen {
+  0%, 100% {
+    opacity: 0.15;
+  }
+
+  50%      {
     opacity: 1;
   }
 }
@@ -2021,6 +2208,10 @@ h1, h2, h3, h4, h5, h6 {
 .dark\:bg-white:is(.dark *){
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+
+.dark\:to-black\/90:is(.dark *){
+  --tw-gradient-to: rgb(0 0 0 / 0.9) var(--tw-gradient-to-position);
 }
 
 @media (min-width: 640px){
@@ -2256,9 +2447,3 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1;
   }
 }
-
-
-
-
-
-

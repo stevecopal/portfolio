@@ -14,12 +14,7 @@
                     </p>
                     <h1 class="text-3xl md:text-4xl font-space-grotesk font-bold">{{ article.title }}</h1>
                 </div>
-                <a 
-                    href="{% url 'portfolio:blog' %}" 
-                    class="text-sm font-space-grotesk tracking-wider hover:text-gray-600 transition-colors"
-                >
-                    {% trans "BACK TO ARTICLES" %}
-                </a>
+                
             </div>
             
             <!-- Article Metadata -->
@@ -76,6 +71,12 @@
                 </svg>
                 <span id="copyButtonText">{% trans "COPY LINK" %}</span>
             </button>
+            <a 
+                href="{% url 'portfolio:blog' %}" 
+                class=" font-space-grotesk tracking-wider hover:text-gray-600 transition-colors space-x-2 px-3 py-2 border border-gray-300 text-gray-600 hover:border-black hover:text-black transition-colors rounded-sm"
+            >
+                {% trans "BACK TO ARTICLES" %}
+            </a>
         </div>
 
         <!-- Script pour copier le lien -->
@@ -114,36 +115,7 @@
         </script>
 
 
-        <!-- Related Articles -->
-        {% if related_articles %}
-        <div class="mb-16">
-            <h2 class="text-2xl font-space-grotesk font-bold mb-8">{% trans "You may also like" %}</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {% for related_article in related_articles %}
-                <a href="{% url 'portfolio:article_detail' related_article.slug %}" class="group block space-y-4">
-                    <div class="overflow-hidden rounded-sm">
-                        <img 
-                            src="{% if related_article.cover_image %}{{ related_article.cover_image.url }}{% else %}{% static 'images/article-placeholder.png' %}{% endif %}" 
-                            alt="{{ related_article.title }}" 
-                            class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                        >
-                    </div>
-                    <div class="space-y-2">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-ibm-plex-mono rounded-sm">{{ related_article.category }}</span>
-                            {% for tag in related_article.tags.all %}
-                            <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-ibm-plex-mono rounded-sm">{{ tag.name }}</span>
-                            {% endfor %}
-                        </div>
-                        <h3 class="text-xl font-space-grotesk font-semibold">{{ related_article.title }}</h3>
-                        <p class="text-gray-600 text-sm">{{ related_article.excerpt|truncatewords:20 }}</p>
-                        <p class="text-sm text-gray-500 font-ibm-plex-mono">{{ related_article.published_at|date:"F j, Y" }} • {{ related_article.reading_time }} {% trans "min read" %}</p>
-                    </div>
-                </a>
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
+        
     </div>
 </section>
 {% endblock %}

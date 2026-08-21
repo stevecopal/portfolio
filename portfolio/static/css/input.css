@@ -98,8 +98,95 @@
     }
 }
 
+/* ============================================
+   ARRIÈRE-PLAN TECH GRILLE ANIMÉE
+   Bleu ↔ Vert, léger et élégant
+   ============================================ */
 
+.tech-grid {
+    position: fixed;
+    inset: 0;
+    z-index: -1;                /* derrière tout le contenu */
+    pointer-events: none;
 
+    /* Grille fine neutre (traits légèrement visibles) */
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+        linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
 
+    background-size:
+        40px 40px,
+        40px 40px,
+        80px 80px,
+        80px 80px;
 
+    background-position:
+        0 0,
+        0 0,
+        20px 20px,
+        20px 20px;
 
+    animation: gridMove 25s linear infinite;
+}
+
+/* Sur‑couches colorées (bleu et vert) qui se fondent */
+.tech-grid::before,
+.tech-grid::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    mix-blend-mode: multiply;   /* en mode clair */
+    pointer-events: none;
+}
+
+.tech-grid::before {
+    background: linear-gradient(120deg, rgba(0, 102, 255, 0.08), rgba(0, 102, 255, 0.02));
+    animation: colorPulseBlue 10s ease-in-out infinite;
+}
+
+.tech-grid::after {
+    background: linear-gradient(120deg, rgba(0, 255, 102, 0.08), rgba(0, 255, 102, 0.02));
+    animation: colorPulseGreen 10s ease-in-out infinite;
+    animation-delay: -5s;       /* décalage pour le fondu croisé */
+}
+
+/* Mode sombre : on adapte les opacités et le mix-blend-mode */
+.dark .tech-grid {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+
+.dark .tech-grid::before,
+.dark .tech-grid::after {
+    mix-blend-mode: screen;     /* les couleurs ressortent mieux sur fond sombre */
+    opacity: 0.6;               /* réduction globale pour rester discret */
+}
+
+.dark .tech-grid::before {
+    background: linear-gradient(120deg, rgba(0, 102, 255, 0.12), rgba(0, 102, 255, 0.03));
+}
+
+.dark .tech-grid::after {
+    background: linear-gradient(120deg, rgba(0, 255, 102, 0.12), rgba(0, 255, 102, 0.03));
+}
+
+/* Animations */
+@keyframes gridMove {
+    0%   { background-position: 0 0, 0 0, 20px 20px, 20px 20px; }
+    100% { background-position: 40px 40px, 40px 40px, 100px 100px, 100px 100px; }
+}
+
+@keyframes colorPulseBlue {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.15; }
+}
+
+@keyframes colorPulseGreen {
+    0%, 100% { opacity: 0.15; }
+    50%      { opacity: 1; }
+}

@@ -6,7 +6,7 @@
 <section class="py-24">
     <div class="container mx-auto px-6">
         <h1 class="text-3xl md:text-4xl font-space-grotesk font-bold mb-12">
-            <span class="text-sm font-ibm-plex-mono tracking-wider mr-4">05</span>
+            <span class="text-sm font-ibm-plex-mono tracking-wider mr-4"></span>
             {% trans "ARTICLES" %}
         </h1>
         
@@ -36,36 +36,6 @@
             {% endfor %}
         </div>
         
-        <!-- Featured Articles -->
-        {% if featured_articles %}
-        <div class="mb-16">
-            <h2 class="text-2xl font-space-grotesk font-bold mb-8">{% trans "Featured Articles" %}</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {% for article in featured_articles %}
-                <a href="{% url 'portfolio:article_detail' article.slug %}" class="group block space-y-4">
-                    <div class="overflow-hidden rounded-sm">
-                        <img 
-                            src="{% if article.cover_image %}{{ article.cover_image.url }}{% else %}{% static 'images/article-placeholder.png' %}{% endif %}" 
-                            alt="{{ article.title }}" 
-                            class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                        >
-                    </div>
-                    <div class="space-y-2">
-                        <div class="flex flex-wrap gap-2">
-                            <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-ibm-plex-mono rounded-sm">{{ article.category }}</span>
-                            {% for tag in article.tags.all %}
-                            <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-ibm-plex-mono rounded-sm">{{ tag.name }}</span>
-                            {% endfor %}
-                        </div>
-                        <h3 class="text-xl font-space-grotesk font-semibold">{{ article.title }}</h3>
-                        <p class="text-gray-600 text-sm">{{ article.excerpt|truncatewords:20 }}</p>
-                        <p class="text-sm text-gray-500 font-ibm-plex-mono">{{ article.published_at|date:"F j, Y" }} • {{ article.reading_time }} {% trans "min read" %}</p>
-                    </div>
-                </a>
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
         
         <!-- All Articles -->
         <div class="space-y-8">

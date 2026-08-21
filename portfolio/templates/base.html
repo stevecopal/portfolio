@@ -31,11 +31,26 @@
     <title>{{ site_settings.seo_title|default:'Steve Satcheme | Portfolio' }}</title>
 </head>
 
-<body class="bg-white text-black font-dm-sans antialiased ">    <!-- Navigation -->
+<body class="bg-white text-black font-dm-sans antialiased ">
+    <!-- Tech Grid Background -->
+    <div class="tech-grid fixed inset-0 z-0 pointer-events-none select-none overflow-hidden">
+        
+        <!-- Halos lumineux en arrière-plan pour l'ambiance Tech -->
+        <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-500/20 blur-[100px] rounded-full"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-green-500/20 blur-[100px] rounded-full"></div>
+
+        <!-- La Grille -->
+        <div class="absolute inset-0 bg-tech-grid"></div>
+
+        <!-- Masque dégradé pour adoucir la grille vers le bas -->
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/90 dark:to-black/90"></div>
+        
+    </div>
+        <!-- Navigation -->
     {% include 'components/navbar.html' %}
     
     <!-- Main Content -->
-    <main class="min-h-screen">
+    <main class="min-h-screen relative z-10 bg-transparent">
         {% block content %}{% endblock %}
     </main>
     
@@ -47,7 +62,7 @@
     <!-- Theme Switcher -->
     
     <!-- Back to Top Button -->
-    <button id="backToTop" class="fixed bottom-8 right-8 p-3 bg-green-500 text-white rounded-lg opacity-0 transition-opacity duration-300 hover:bg-green-600">
+    <button id="backToTop" class="fixed bottom-8 z-50 right-8 p-3 bg-green-500 text-white rounded-lg opacity-0 transition-opacity duration-300 hover:bg-green-600">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
         </svg>

@@ -6,7 +6,7 @@
 <section class="py-24">
     <div class="container mx-auto px-6">
         <h1 class="text-3xl md:text-4xl font-space-grotesk font-bold mb-12">
-            <span class="text-sm font-ibm-plex-mono tracking-wider mr-4">02</span>
+            <span class="text-sm font-ibm-plex-mono tracking-wider mr-4"></span>
             {% trans "MY SERVICES" %}
         </h1>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -18,10 +18,11 @@
                     {% endif %}
                     <h3 class="text-xl font-space-grotesk font-semibold">{{ service.title }}</h3>
                 </div>
-                <p class="text-gray-600">{{ service.short_description }}</p>
+                <p class="text-gray-600">{{ service.short_description }}</p> 
                 <a 
                     href="{% url 'portfolio:service_detail' service.slug %}" 
-                    class="text-sm font-space-grotesk tracking-wider hover:text-gray-600 transition-colors"
+                    class="text-sm  text-right font-space-grotesk tracking-wider hover:text-gray-600 transition-colors "
+                    
                 >
                     {% trans "LEARN MORE" %}
                 </a>

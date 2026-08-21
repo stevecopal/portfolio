@@ -1,0 +1,121 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ site_settings.site_name|default:"Portfolio Contact" }}</title>
+    <style>
+        body {
+            font-family: 'DM Sans', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .header {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            border-radius: 20px
+        }
+        .content {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+        }
+        .field {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .field-label {
+            font-weight: 600;
+            color: #000000;
+            font-family: 'Space Grotesk', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+        }
+        .field-value {
+            color: #555;
+            margin-top: 5px;
+        }
+        .message {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-left: 3px solid #0066FF;
+        }
+        .footer {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #888;
+        }
+        .highlight {
+            color: #0066FF;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- En-tête -->
+    <div class="header">
+        <h1 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; margin: 0; font-size: 1rem;">
+            NOUVEAU MESSAGE
+        </h1>
+        
+    </div>
+
+    <!-- Contenu -->
+    <div class="content">
+        <div class="field">
+            <div class="field-label">{% trans "From" %}:</div>
+            <div class="field-value">
+                <strong>{{ first_name }} {{ last_name }}</strong> &lt;<a href="mailto:{{ email }}">{{ email }}</a>&gt;
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="field-label">{% trans "Subject" %}:</div>
+            <div class="field-value">{{ subject }}</div>
+        </div>
+
+        {% if service %}
+        <div class="field">
+            <div class="field-label">{% trans "Service" %}:</div>
+            <div class="field-value">{{ service }}</div>
+        </div>
+        {% endif %}
+
+        {% if budget %}
+        <div class="field">
+            <div class="field-label">{% trans "Budget" %}:</div>
+            <div class="field-value"><span class="highlight">{{ budget }}</span></div>
+        </div>
+        {% endif %}
+
+        <div class="field">
+            <div class="field-label">{% trans "Message" %}:</div>
+            <div class="field-value">
+                {{ message|linebreaks }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Pied de page -->
+    <div class="footer">
+        <p>
+            {% trans "Sent from" %} <a href="{{ request.scheme }}://{{ request.get_host }}" style="color: #0066FF;">{{ request.get_host }}</a>
+            | {% trans "Date" %}: {{ now|date:"F j, Y H:i" }}
+        </p>
+    </div>
+</body>
+</html>
