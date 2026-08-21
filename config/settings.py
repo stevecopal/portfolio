@@ -27,6 +27,7 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="", cast=lambda v: [s.strip() for s in v.split(",") if s.strip()])
 
+CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", default="", cast=lambda v: [s.strip() for s in v.split(",") if s.strip()])
 
 # Application definition
 
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "django.middleware.locale.LocaleMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -51,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "django.middleware.locale.LocaleMiddleware",
     "portfolio.middleware.LanguageMiddleware",
-    "django.middleware.locale.LocaleMiddleware",
+    
 ]
 
 ROOT_URLCONF = 'config.urls'

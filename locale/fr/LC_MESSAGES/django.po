@@ -1,0 +1,1087 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-21 14:20+0000\n"
+"PO-Revision-Date: 2026-08-21 16:30+0100\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: French <fr@li.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: portfolio/admin/custom_admin.py:32
+msgid "Identity"
+msgstr "Identité"
+
+#: portfolio/admin/custom_admin.py:35 portfolio/models/identity.py:9
+msgid "Biography"
+msgstr "Biographie"
+
+#: portfolio/admin/custom_admin.py:38 portfolio/models/experience.py:14
+#: portfolio/models/identity.py:16 portfolio/templates/pages/contact.html:72
+#: portfolio/templates/pages/home.html:597
+msgid "Location"
+msgstr "Localisation"
+
+#: portfolio/admin/custom_admin.py:41
+msgid "Contact"
+msgstr "Contact"
+
+#: portfolio/admin/custom_admin.py:44
+msgid "Availability"
+msgstr "Disponibilité"
+
+#: portfolio/admin/custom_admin.py:47
+msgid "Resume"
+msgstr "CV"
+
+#: portfolio/forms/contact.py:7
+msgid "Select Budget"
+msgstr "Sélectionner un budget"
+
+#: portfolio/forms/contact.py:8
+msgid "Low ($1K - $5K)"
+msgstr "Faible (1k$ - 5k$)"
+
+#: portfolio/forms/contact.py:9
+msgid "Medium ($5K - $20K)"
+msgstr "Moyen (5k$ - 20k$)"
+
+#: portfolio/forms/contact.py:10
+msgid "High ($20K+)"
+msgstr "Élevé (20k$+)"
+
+#: portfolio/forms/contact.py:11
+msgid "Custom Project"
+msgstr "Projet sur mesure"
+
+#: portfolio/forms/contact.py:15 portfolio/models/contact.py:12
+#: portfolio/templates/pages/contact.html:114
+msgid "First Name"
+msgstr "Prénom"
+
+#: portfolio/forms/contact.py:19
+msgid "Your first name"
+msgstr "Votre prénom"
+
+#: portfolio/forms/contact.py:23 portfolio/models/contact.py:13
+#: portfolio/templates/pages/contact.html:118
+msgid "Last Name"
+msgstr "Nom"
+
+#: portfolio/forms/contact.py:27
+msgid "Your last name"
+msgstr "Votre nom"
+
+#: portfolio/forms/contact.py:31 portfolio/forms/newsletter.py:16
+#: portfolio/models/contact.py:14 portfolio/models/identity.py:19
+#: portfolio/models/newsletter.py:5 portfolio/templates/pages/contact.html:28
+#: portfolio/templates/pages/contact.html:122
+#: portfolio/templates/pages/home.html:553
+msgid "Email"
+msgstr "E-mail"
+
+#: portfolio/forms/contact.py:34
+msgid "your@email.com"
+msgstr "votre@email.com"
+
+#: portfolio/forms/contact.py:38 portfolio/models/contact.py:15
+#: portfolio/templates/emails/contact_message.html:87
+#: portfolio/templates/pages/contact.html:126
+msgid "Subject"
+msgstr "Sujet"
+
+#: portfolio/forms/contact.py:42
+msgid "Your subject"
+msgstr "Votre sujet"
+
+#: portfolio/forms/contact.py:46 portfolio/models/contact.py:22
+#: portfolio/models/services.py:24 portfolio/models/services.py:42
+#: portfolio/templates/emails/contact_message.html:93
+#: portfolio/templates/pages/contact.html:130
+msgid "Service"
+msgstr "Service"
+
+#: portfolio/forms/contact.py:54 portfolio/models/contact.py:28
+#: portfolio/templates/emails/contact_message.html:100
+#: portfolio/templates/pages/contact.html:134
+msgid "Budget"
+msgstr "Budget"
+
+#: portfolio/forms/contact.py:61 portfolio/models/contact.py:30
+#: portfolio/templates/emails/contact_message.html:106
+#: portfolio/templates/pages/contact.html:139
+msgid "Message"
+msgstr "Message"
+
+#: portfolio/forms/contact.py:64
+msgid "Your message..."
+msgstr "Votre message..."
+
+#: portfolio/forms/newsletter.py:11
+msgid "Your Email"
+msgstr "Votre e-mail"
+
+#: portfolio/models/articles.py:7 portfolio/models/articles.py:26
+#: portfolio/models/projects.py:6 portfolio/models/skills.py:5
+#: portfolio/models/skills.py:25 portfolio/models/social.py:11
+#: portfolio/models/testimonials.py:5
+msgid "Name"
+msgstr "Nom"
+
+#: portfolio/models/articles.py:8 portfolio/models/articles.py:27
+#: portfolio/models/articles.py:50 portfolio/models/projects.py:27
+#: portfolio/models/services.py:7
+msgid "Slug"
+msgstr "Slug"
+
+#: portfolio/models/articles.py:9 portfolio/models/experience.py:29
+#: portfolio/models/projects.py:8 portfolio/models/projects.py:85
+#: portfolio/models/services.py:19 portfolio/models/services.py:46
+#: portfolio/models/skills.py:6 portfolio/models/skills.py:46
+#: portfolio/models/social.py:20 portfolio/models/statistics.py:9
+#: portfolio/models/testimonials.py:21
+msgid "Display Order"
+msgstr "Ordre d'affichage"
+
+#: portfolio/models/articles.py:12 portfolio/models/articles.py:73
+#: portfolio/models/skills.py:32
+msgid "Category"
+msgstr "Catégorie"
+
+#: portfolio/models/articles.py:13
+msgid "Categories"
+msgstr "Catégories"
+
+#: portfolio/models/articles.py:30
+msgid "Tag"
+msgstr "Tag"
+
+#: portfolio/models/articles.py:31 portfolio/models/articles.py:78
+msgid "Tags"
+msgstr "Tags"
+
+#: portfolio/models/articles.py:49 portfolio/models/experience.py:12
+#: portfolio/models/projects.py:26 portfolio/models/services.py:6
+msgid "Title"
+msgstr "Titre"
+
+#: portfolio/models/articles.py:51
+msgid "Excerpt"
+msgstr "Extrait"
+
+#: portfolio/models/articles.py:52
+msgid "Content"
+msgstr "Contenu"
+
+#: portfolio/models/articles.py:55 portfolio/models/projects.py:35
+msgid "Cover Image"
+msgstr "Image de couverture"
+
+#: portfolio/models/articles.py:65
+msgid "Author"
+msgstr "Auteur"
+
+#: portfolio/models/articles.py:84 portfolio/models/projects.py:45
+msgid "Status"
+msgstr "Statut"
+
+#: portfolio/models/articles.py:87
+msgid "Published At"
+msgstr "Publié le"
+
+#: portfolio/models/articles.py:91 portfolio/models/identity.py:41
+#: portfolio/models/projects.py:57 portfolio/models/services.py:21
+msgid "Updated At"
+msgstr "Mis à jour le"
+
+#: portfolio/models/articles.py:94
+msgid "Reading Time (minutes)"
+msgstr "Temps de lecture (minutes)"
+
+#: portfolio/models/articles.py:96 portfolio/models/projects.py:54
+#: portfolio/models/services.py:17 portfolio/models/skills.py:47
+#: portfolio/models/testimonials.py:19
+msgid "Is Featured"
+msgstr "Mis en avant"
+
+#: portfolio/models/articles.py:99 portfolio/models/seo.py:6
+msgid "SEO Title"
+msgstr "Titre SEO"
+
+#: portfolio/models/articles.py:104 portfolio/models/seo.py:7
+msgid "SEO Description"
+msgstr "Description SEO"
+
+#: portfolio/models/articles.py:108 portfolio/models/contact.py:32
+#: portfolio/models/projects.py:56 portfolio/models/services.py:20
+msgid "Created At"
+msgstr "Créé le"
+
+#: portfolio/models/articles.py:111
+msgid "Article"
+msgstr "Article"
+
+#: portfolio/models/articles.py:112
+msgid "Articles"
+msgstr "Articles"
+
+#: portfolio/models/contact.py:31
+msgid "Is Read"
+msgstr "Est lu"
+
+#: portfolio/models/contact.py:35
+msgid "Contact Message"
+msgstr "Message de contact"
+
+#: portfolio/models/contact.py:36
+msgid "Contact Messages"
+msgstr "Messages de contact"
+
+#: portfolio/models/experience.py:13 portfolio/models/testimonials.py:7
+msgid "Company"
+msgstr "Entreprise"
+
+#: portfolio/models/experience.py:15 portfolio/models/projects.py:29
+#: portfolio/models/services.py:9 portfolio/models/services.py:45
+#: portfolio/models/skills.py:45 portfolio/models/statistics.py:8
+msgid "Description"
+msgstr "Description"
+
+#: portfolio/models/experience.py:16
+msgid "Start Date"
+msgstr "Date de début"
+
+#: portfolio/models/experience.py:18
+msgid "End Date"
+msgstr "Date de fin"
+
+#: portfolio/models/experience.py:22
+msgid "Is Current"
+msgstr "En cours"
+
+#: portfolio/models/experience.py:27
+msgid "Type"
+msgstr "Type"
+
+#: portfolio/models/experience.py:32
+msgid "Experience"
+msgstr "Expérience"
+
+#: portfolio/models/experience.py:33
+msgid "Experiences"
+msgstr "Expériences"
+
+#: portfolio/models/identity.py:5
+msgid "Full Name"
+msgstr "Nom complet"
+
+#: portfolio/models/identity.py:6
+msgid "Professional Name"
+msgstr "Nom professionnel"
+
+#: portfolio/models/identity.py:7
+msgid "Professional Title"
+msgstr "Titre professionnel"
+
+#: portfolio/models/identity.py:8
+msgid "Short Bio"
+msgstr "Courte bio"
+
+#: portfolio/models/identity.py:12
+msgid "Profile Image"
+msgstr "Image de profil"
+
+#: portfolio/models/identity.py:17
+msgid "Country"
+msgstr "Pays"
+
+#: portfolio/models/identity.py:18
+msgid "City"
+msgstr "Ville"
+
+#: portfolio/models/identity.py:20 portfolio/templates/pages/contact.html:42
+#: portfolio/templates/pages/home.html:567
+msgid "Phone"
+msgstr "Téléphone"
+
+#: portfolio/models/identity.py:21
+#: portfolio/templates/components/footer.html:45
+#: portfolio/templates/pages/contact.html:57
+#: portfolio/templates/pages/home.html:582
+msgid "WhatsApp"
+msgstr "WhatsApp"
+
+#: portfolio/models/identity.py:22
+msgid "Available"
+msgstr "Disponible"
+
+#: portfolio/models/identity.py:25
+msgid "Availability Message"
+msgstr "Message de disponibilité"
+
+#: portfolio/models/identity.py:31
+msgid "Resume File"
+msgstr "Fichier CV"
+
+#: portfolio/models/identity.py:37
+msgid "Logo"
+msgstr "Logo"
+
+#: portfolio/models/identity.py:44
+msgid "Profile"
+msgstr "Profil"
+
+#: portfolio/models/identity.py:45
+msgid "Profiles"
+msgstr "Profils"
+
+#: portfolio/models/newsletter.py:6 portfolio/models/services.py:18
+#: portfolio/models/settings.py:12 portfolio/models/skills.py:48
+#: portfolio/models/social.py:19 portfolio/models/statistics.py:10
+#: portfolio/models/testimonials.py:20
+msgid "Is Active"
+msgstr "Est actif"
+
+#: portfolio/models/newsletter.py:7
+msgid "Subscribed At"
+msgstr "Abonné le"
+
+#: portfolio/models/newsletter.py:10
+msgid "Newsletter Subscriber"
+msgstr "Abonné à la newsletter"
+
+#: portfolio/models/newsletter.py:11
+msgid "Newsletter Subscribers"
+msgstr "Abonnés à la newsletter"
+
+#: portfolio/models/projects.py:7 portfolio/models/services.py:10
+#: portfolio/models/skills.py:34 portfolio/models/social.py:18
+#: portfolio/models/statistics.py:7
+msgid "Icon"
+msgstr "Icône"
+
+#: portfolio/models/projects.py:11
+msgid "Technology"
+msgstr "Technologie"
+
+#: portfolio/models/projects.py:12 portfolio/models/projects.py:52
+msgid "Technologies"
+msgstr "Technologies"
+
+#: portfolio/models/projects.py:28 portfolio/models/services.py:8
+#: portfolio/models/settings.py:7
+msgid "Short Description"
+msgstr "Courte description"
+
+#: portfolio/models/projects.py:30
+msgid "Challenge"
+msgstr "Défi"
+
+#: portfolio/models/projects.py:31
+msgid "Solution"
+msgstr "Solution"
+
+#: portfolio/models/projects.py:32
+#: portfolio/templates/projects/project_detail.html:188
+msgid "Results"
+msgstr "Résultats"
+
+#: portfolio/models/projects.py:39
+msgid "Client Name"
+msgstr "Nom du client"
+
+#: portfolio/models/projects.py:40
+msgid "Project Date"
+msgstr "Date du projet"
+
+#: portfolio/models/projects.py:47
+msgid "Live URL"
+msgstr "URL en ligne"
+
+#: portfolio/models/projects.py:48
+msgid "GitHub URL"
+msgstr "URL GitHub"
+
+#: portfolio/models/projects.py:55
+msgid "Is Published"
+msgstr "Est publié"
+
+#: portfolio/models/projects.py:60 portfolio/models/projects.py:78
+msgid "Project"
+msgstr "Projet"
+
+#: portfolio/models/projects.py:61
+msgid "Projects"
+msgstr "Projets"
+
+#: portfolio/models/projects.py:82 portfolio/models/services.py:13
+msgid "Image"
+msgstr "Image"
+
+#: portfolio/models/projects.py:84
+msgid "Caption"
+msgstr "Légende"
+
+#: portfolio/models/projects.py:88
+msgid "Project Image"
+msgstr "Image du projet"
+
+#: portfolio/models/projects.py:89
+msgid "Project Images"
+msgstr "Images du projet"
+
+#: portfolio/models/seo.py:5
+msgid "Page"
+msgstr "Page"
+
+#: portfolio/models/seo.py:8
+msgid "Canonical URL"
+msgstr "URL canonique"
+
+#: portfolio/models/seo.py:11
+msgid "Open Graph Image"
+msgstr "Image Open Graph"
+
+#: portfolio/models/seo.py:17 portfolio/models/seo.py:18
+msgid "SEO"
+msgstr "SEO"
+
+#: portfolio/models/services.py:25
+msgid "Services"
+msgstr "Services"
+
+#: portfolio/models/services.py:44
+msgid "Feature"
+msgstr "Fonctionnalité"
+
+#: portfolio/models/services.py:49
+msgid "Service Feature"
+msgstr "Fonctionnalité du service"
+
+#: portfolio/models/services.py:50
+msgid "Service Features"
+msgstr "Fonctionnalités du service"
+
+#: portfolio/models/settings.py:5
+msgid "Site Name"
+msgstr "Nom du site"
+
+#: portfolio/models/settings.py:6
+msgid "Slogan"
+msgstr "Slogan"
+
+#: portfolio/models/settings.py:8
+msgid "Footer Text"
+msgstr "Texte du pied de page"
+
+#: portfolio/models/settings.py:9
+msgid "Copyright Text"
+msgstr "Texte de copyright"
+
+#: portfolio/models/settings.py:10
+msgid "Primary Email"
+msgstr "E-mail principal"
+
+#: portfolio/models/settings.py:11
+msgid "Year"
+msgstr "Année"
+
+#: portfolio/models/settings.py:13
+msgid "Maintenance Mode"
+msgstr "Mode maintenance"
+
+#: portfolio/models/settings.py:16 portfolio/models/settings.py:17
+msgid "Site Settings"
+msgstr "Paramètres du site"
+
+#: portfolio/models/skills.py:9
+msgid "Skill Category"
+msgstr "Catégorie de compétence"
+
+#: portfolio/models/skills.py:10
+msgid "Skill Categories"
+msgstr "Catégories de compétences"
+
+#: portfolio/models/skills.py:39
+msgid "Level"
+msgstr "Niveau"
+
+#: portfolio/models/skills.py:43
+msgid "Years of Experience"
+msgstr "Années d'expérience"
+
+#: portfolio/models/skills.py:51
+msgid "Skill"
+msgstr "Compétence"
+
+#: portfolio/models/skills.py:52
+msgid "Skills"
+msgstr "Compétences"
+
+#: portfolio/models/social.py:15
+msgid "Platform"
+msgstr "Plateforme"
+
+#: portfolio/models/social.py:17
+msgid "URL"
+msgstr "URL"
+
+#: portfolio/models/social.py:23
+msgid "Social Link"
+msgstr "Lien social"
+
+#: portfolio/models/social.py:24
+msgid "Social Links"
+msgstr "Liens sociaux"
+
+#: portfolio/models/statistics.py:5
+msgid "Label"
+msgstr "Libellé"
+
+#: portfolio/models/statistics.py:6
+msgid "Value"
+msgstr "Valeur"
+
+#: portfolio/models/statistics.py:13
+msgid "Statistic"
+msgstr "Statistique"
+
+#: portfolio/models/statistics.py:14
+msgid "Statistics"
+msgstr "Statistiques"
+
+#: portfolio/models/testimonials.py:6
+msgid "Position"
+msgstr "Poste"
+
+#: portfolio/models/testimonials.py:10
+msgid "Photo"
+msgstr "Photo"
+
+#: portfolio/models/testimonials.py:14 portfolio/models/testimonials.py:24
+msgid "Testimonial"
+msgstr "Témoignage"
+
+#: portfolio/models/testimonials.py:17
+msgid "Rating"
+msgstr "Note"
+
+#: portfolio/models/testimonials.py:25
+msgid "Testimonials"
+msgstr "Témoignages"
+
+#: portfolio/templates/blog/article_detail.html:13
+#: portfolio/templates/pages/search.html:48
+msgid "ARTICLE"
+msgstr "ARTICLE"
+
+#: portfolio/templates/blog/article_detail.html:23
+msgid "PUBLISHED"
+msgstr "PUBLIÉ"
+
+#: portfolio/templates/blog/article_detail.html:27
+msgid "READING TIME"
+msgstr "TEMPS DE LECTURE"
+
+#: portfolio/templates/blog/article_detail.html:28
+msgid "min"
+msgstr "min"
+
+#: portfolio/templates/blog/article_detail.html:31
+msgid "AUTHOR"
+msgstr "AUTEUR"
+
+#: portfolio/templates/blog/article_detail.html:72
+msgid "COPY LINK"
+msgstr "COPIER LE LIEN"
+
+#: portfolio/templates/blog/article_detail.html:78
+msgid "BACK TO ARTICLES"
+msgstr "RETOUR AUX ARTICLES"
+
+#: portfolio/templates/blog/article_detail.html:95
+msgid "COPIED!"
+msgstr "COPIÉ !"
+
+#: portfolio/templates/components/footer.html:7
+#: portfolio/templates/components/navbar.html:20
+#: portfolio/templates/components/navbar.html:77
+#: portfolio/templates/pages/home.html:108
+msgid "ABOUT"
+msgstr "À PROPOS"
+
+#: portfolio/templates/components/footer.html:10
+msgid "Based in"
+msgstr "Basé à"
+
+#: portfolio/templates/components/footer.html:13
+msgid "Working worldwide"
+msgstr "Disponible à l'international"
+
+#: portfolio/templates/components/footer.html:21
+#: portfolio/templates/components/navbar.html:26
+#: portfolio/templates/components/navbar.html:83
+#: portfolio/templates/pages/home.html:275
+msgid "SERVICES"
+msgstr "SERVICES"
+
+#: portfolio/templates/components/footer.html:33
+#: portfolio/templates/components/navbar.html:38
+#: portfolio/templates/components/navbar.html:98
+msgid "CONTACT"
+msgstr "CONTACT"
+
+#: portfolio/templates/components/navbar.html:17
+#: portfolio/templates/components/navbar.html:74
+#: portfolio/templates/projects/project_detail.html:10
+msgid "HOME"
+msgstr "ACCUEIL"
+
+#: portfolio/templates/components/navbar.html:23
+#: portfolio/templates/components/navbar.html:80
+#: portfolio/templates/pages/resume.html:53
+msgid "SKILLS"
+msgstr "COMPÉTENCES"
+
+#: portfolio/templates/components/navbar.html:29
+#: portfolio/templates/components/navbar.html:86
+msgid "WORK"
+msgstr "RÉALISATIONS"
+
+#: portfolio/templates/components/navbar.html:32
+#: portfolio/templates/components/navbar.html:89
+#: portfolio/templates/pages/home.html:377
+#: portfolio/templates/pages/resume.html:75
+msgid "EXPERIENCE"
+msgstr "EXPÉRIENCE"
+
+#: portfolio/templates/components/navbar.html:35
+#: portfolio/templates/components/navbar.html:92
+#: portfolio/templates/pages/blog.html:10
+#: portfolio/templates/pages/home.html:432
+msgid "ARTICLES"
+msgstr "ARTICLES"
+
+#: portfolio/templates/components/navbar.html:41
+#: portfolio/templates/components/navbar.html:95
+msgid "RESUME"
+msgstr "CV"
+
+#: portfolio/templates/components/navbar.html:53
+msgid "LET'S TALK"
+msgstr "PARLONS-EN"
+
+#: portfolio/templates/emails/contact_message.html:80
+msgid "From"
+msgstr "De"
+
+#: portfolio/templates/emails/contact_message.html:116
+msgid "Sent from"
+msgstr "Envoyé depuis"
+
+#: portfolio/templates/emails/contact_message.html:117
+msgid "Date"
+msgstr "Date"
+
+#: portfolio/templates/errors/404.html:8
+msgid "This page doesn't exist"
+msgstr "Cette page n'existe pas"
+
+#: portfolio/templates/errors/404.html:9
+msgid "The page you're looking for has been moved, deleted, or never existed."
+msgstr "La page que vous recherchez a été déplacée, supprimée ou n'a jamais existé."
+
+#: portfolio/templates/errors/404.html:12
+#: portfolio/templates/errors/500.html:12
+msgid "GO HOME"
+msgstr "RETOUR À L'ACCUEIL"
+
+#: portfolio/templates/errors/404.html:15
+#: portfolio/templates/errors/500.html:15
+#: portfolio/templates/pages/contact.html:13
+msgid "CONTACT ME"
+msgstr "ME CONTACTER"
+
+#: portfolio/templates/errors/500.html:8
+msgid "Server Error"
+msgstr "Erreur Serveur"
+
+#: portfolio/templates/errors/500.html:9
+msgid "Something went wrong on our end. Please try again later."
+msgstr "Un problème est survenu de notre côté. Veuillez réessayer plus tard."
+
+#: portfolio/templates/pages/about.html:33
+msgid "ABOUT ME"
+msgstr "À PROPOS DE MOI"
+
+#: portfolio/templates/pages/about.html:39
+msgid "NAME"
+msgstr "NOM"
+
+#: portfolio/templates/pages/about.html:43
+msgid "PROFESSIONAL TITLE"
+msgstr "TITRE PROFESSIONNEL"
+
+#: portfolio/templates/pages/about.html:47
+#: portfolio/templates/pages/home.html:163
+msgid "LOCATION"
+msgstr "LOCALISATION"
+
+#: portfolio/templates/pages/about.html:51
+#: portfolio/templates/pages/home.html:167
+msgid "AVAILABILITY"
+msgstr "DISPONIBILITÉ"
+
+#: portfolio/templates/pages/about.html:61
+#: portfolio/templates/pages/home.html:175
+msgid "Not available"
+msgstr "Non disponible"
+
+#: portfolio/templates/pages/about.html:75
+msgid "DOWNLOAD CV"
+msgstr "TÉLÉCHARGER CV"
+
+#: portfolio/templates/pages/about.html:92
+#: portfolio/templates/pages/home.html:206
+#: portfolio/templates/pages/skills.html:11
+msgid "MY SKILLS"
+msgstr "MES COMPÉTENCES"
+
+#: portfolio/templates/pages/about.html:108
+#: portfolio/templates/pages/home.html:250
+#: portfolio/templates/pages/resume.html:63
+#: portfolio/templates/pages/skills.html:45
+msgid "years"
+msgstr "ans"
+
+#: portfolio/templates/pages/blog.html:19
+#: portfolio/templates/pages/projects.html:31
+msgid "ALL"
+msgstr "TOUT"
+
+#: portfolio/templates/pages/blog.html:60
+#: portfolio/templates/pages/home.html:472
+#: portfolio/templates/pages/search.html:51
+msgid "min read"
+msgstr "min de lecture"
+
+#: portfolio/templates/pages/blog.html:75
+#: portfolio/templates/pages/projects.html:125
+#: portfolio/templates/pages/search.html:73
+msgid "PREVIOUS"
+msgstr "PRÉCÉDENT"
+
+#: portfolio/templates/pages/blog.html:86
+#: portfolio/templates/pages/projects.html:138
+#: portfolio/templates/pages/search.html:84
+msgid "NEXT"
+msgstr "SUIVANT"
+
+#: portfolio/templates/pages/contact.html:16
+msgid ""
+"I'm here to help you build modern, scalable, and user-focused digital "
+"solutions. Fill out the form below or use the contact information to get in "
+"touch."
+msgstr "Je suis là pour vous aider à créer des solutions numériques modernes, évolutives et centrées sur l'utilisateur. Remplissez le formulaire ci-dessous ou utilisez les coordonnées pour me contacter."
+
+#: portfolio/templates/pages/contact.html:96
+#: portfolio/templates/pages/home.html:648
+#: portfolio/templates/pages/projects.html:203
+#: portfolio/templates/pages/skills.html:93
+#: portfolio/templates/projects/project_detail.html:222
+msgid "START A PROJECT"
+msgstr "DÉMARRER UN PROJET"
+
+#: portfolio/templates/pages/contact.html:97
+msgid "Fill out the form below and I'll get back to you as soon as possible."
+msgstr "Remplissez le formulaire ci-dessous et je vous répondrai dans les plus brefs délais."
+
+#: portfolio/templates/pages/contact.html:146
+msgid "SEND MESSAGE"
+msgstr "ENVOYER LE MESSAGE"
+
+#: portfolio/templates/pages/experience.html:10
+msgid "MY EXPERIENCE"
+msgstr "MON EXPÉRIENCE"
+
+#: portfolio/templates/pages/experience.html:13
+msgid ""
+"Here's a summary of my professional journey, including my roles, "
+"responsibilities, and the technologies I've worked with."
+msgstr "Voici un résumé de mon parcours professionnel, incluant mes rôles, responsabilités et les technologies avec lesquelles j'ai travaillé."
+
+#: portfolio/templates/pages/experience.html:85
+#: portfolio/templates/pages/home.html:404
+#: portfolio/templates/pages/resume.html:82
+msgid "PRESENT"
+msgstr "PRÉSENT"
+
+#: portfolio/templates/pages/experience.html:103
+msgid "No experience yet"
+msgstr "Aucune expérience pour le moment"
+
+#: portfolio/templates/pages/experience.html:104
+msgid "Check back soon for updates."
+msgstr "Revenez bientôt pour les mises à jour."
+
+#: portfolio/templates/pages/experience.html:114
+msgid "Want to work with me?"
+msgstr "Vous souhaitez travailler avec moi ?"
+
+#: portfolio/templates/pages/experience.html:117
+msgid "Let's discuss how my experience can help your project succeed."
+msgstr "Discutons de la manière dont mon expérience peut contribuer au succès de votre projet."
+
+#: portfolio/templates/pages/experience.html:123
+#: portfolio/templates/pages/home.html:537
+#: portfolio/templates/services/service_detail.html:38
+msgid "GET IN TOUCH"
+msgstr "CONTACTEZ-MOI"
+
+#: portfolio/templates/pages/home.html:40
+msgid "VIEW MY WORK"
+msgstr "VOIR MON TRAVAIL"
+
+#: portfolio/templates/pages/home.html:46
+msgid "LET'S WORK TOGETHER"
+msgstr "TRAVAILLONS ENSEMBLE"
+
+#: portfolio/templates/pages/home.html:114
+#: portfolio/templates/pages/home.html:299
+#: portfolio/templates/pages/services.html:27
+#: portfolio/templates/services/service_detail.html:56
+msgid "LEARN MORE"
+msgstr "EN SAVOIR PLUS"
+
+#: portfolio/templates/pages/home.html:150
+msgid "Key Skills"
+msgstr "Compétences clés"
+
+#: portfolio/templates/pages/home.html:186
+msgid "MORE ABOUT ME"
+msgstr "PLUS SUR MOI"
+
+#: portfolio/templates/pages/home.html:212
+#: portfolio/templates/pages/home.html:281
+#: portfolio/templates/pages/home.html:322
+#: portfolio/templates/pages/home.html:383
+#: portfolio/templates/pages/home.html:438
+msgid "VIEW ALL"
+msgstr "VOIR TOUT"
+
+#: portfolio/templates/pages/home.html:316
+msgid "SELECTED WORK"
+msgstr "SÉLECTION DE PROJETS"
+
+#: portfolio/templates/pages/home.html:345
+msgid "Completed"
+msgstr "Terminé"
+
+#: portfolio/templates/pages/home.html:349
+msgid "In Progress"
+msgstr "En cours"
+
+#: portfolio/templates/pages/home.html:489
+msgid "WHY TRUST ME"
+msgstr "POURQUOI ME FAIRE CONFIANCE"
+
+#: portfolio/templates/pages/home.html:540
+msgid ""
+"I'm here to help you build modern, scalable, and user-focused digital "
+"solutions. Let's discuss your project."
+msgstr "Je suis là pour vous aider à créer des solutions numériques modernes, évolutives et centrées sur l'utilisateur. Discutons de votre projet."
+
+#: portfolio/templates/pages/home.html:632
+msgid "LET'S BUILD SOMETHING AMAZING"
+msgstr "CRÉONS QUELQUE CHOSE D'INCROYABLE"
+
+#: portfolio/templates/pages/home.html:635
+msgid ""
+"I'm here to help you build modern, scalable, and user-focused digital "
+"solutions. Let's discuss your project and how we can work together."
+msgstr "Je suis là pour vous aider à créer des solutions numériques modernes, évolutives et centrées sur l'utilisateur. Discutons de votre projet et de notre future collaboration."
+
+#: portfolio/templates/pages/home.html:642
+#: portfolio/templates/pages/services.html:10
+#: portfolio/templates/projects/project_detail.html:216
+msgid "MY SERVICES"
+msgstr "MES SERVICES"
+
+#: portfolio/templates/pages/projects.html:11
+msgid "MY WORK"
+msgstr "MON TRAVAIL"
+
+#: portfolio/templates/pages/projects.html:14
+msgid ""
+"Here are some of the projects I've worked on. Each project represents a "
+"unique challenge and solution."
+msgstr "Voici quelques-uns des projets sur lesquels j'ai travaillé. Chaque projet représente un défi et une solution uniques."
+
+#: portfolio/templates/pages/projects.html:39
+msgid "FEATURED"
+msgstr "MIS EN AVANT"
+
+#: portfolio/templates/pages/projects.html:83
+msgid "Featured"
+msgstr "En vedette"
+
+#: portfolio/templates/pages/projects.html:106
+msgid "VIEW PROJECT"
+msgstr "VOIR LE PROJET"
+
+#: portfolio/templates/pages/projects.html:147
+msgid "No projects found."
+msgstr "Aucun projet trouvé."
+
+#: portfolio/templates/pages/projects.html:152
+#: portfolio/templates/pages/search.html:95
+msgid "BACK TO HOME"
+msgstr "RETOUR À L'ACCUEIL"
+
+#: portfolio/templates/pages/projects.html:164
+msgid "What Clients Say"
+msgstr "Ce que disent les clients"
+
+#: portfolio/templates/pages/projects.html:194
+msgid "Interested in working together?"
+msgstr "Intéressé par une collaboration ?"
+
+#: portfolio/templates/pages/projects.html:197
+msgid "Let's discuss your project and how I can help bring your ideas to life."
+msgstr "Discutons de votre projet et de la manière dont je peux vous aider à donner vie à vos idées."
+
+#: portfolio/templates/pages/resume.html:43
+msgid "PROFESSIONAL SUMMARY"
+msgstr "RÉSUMÉ PROFESSIONNEL"
+
+#: portfolio/templates/pages/resume.html:98
+msgid "EDUCATION"
+msgstr "FORMATION"
+
+#: portfolio/templates/pages/resume.html:121
+msgid "SELECTED PROJECTS"
+msgstr "SÉLECTION DE PROJETS"
+
+#: portfolio/templates/pages/resume.html:150
+msgid "DOWNLOAD FULL RESUME"
+msgstr "TÉLÉCHARGER LE CV COMPLET"
+
+#: portfolio/templates/pages/search.html:9
+msgid "Search Results"
+msgstr "Résultats de recherche"
+
+#: portfolio/templates/pages/search.html:15
+msgid "Results for"
+msgstr "Résultats pour"
+
+#: portfolio/templates/pages/search.html:33
+#: portfolio/templates/projects/project_detail.html:21
+msgid "PROJECT"
+msgstr "PROJET"
+
+#: portfolio/templates/pages/search.html:56
+msgid "SERVICE"
+msgstr "SERVICE"
+
+#: portfolio/templates/pages/search.html:93
+msgid "No results found for your search."
+msgstr "Aucun résultat trouvé pour votre recherche."
+
+#: portfolio/templates/pages/skills.html:14
+msgid ""
+"Here are the technologies and tools I use to build modern, scalable, and "
+"user-focused digital solutions."
+msgstr "Voici les technologies et outils que j'utilise pour créer des solutions numériques modernes, évolutives et centrées sur l'utilisateur."
+
+#: portfolio/templates/pages/skills.html:66
+msgid "Featured Skills"
+msgstr "Compétences clés"
+
+#: portfolio/templates/pages/skills.html:87
+msgid "Interested in working with these technologies?"
+msgstr "Intéressé pour travailler avec ces technologies ?"
+
+#: portfolio/templates/projects/project_detail.html:12
+msgid "PROJECTS"
+msgstr "PROJETS"
+
+#: portfolio/templates/projects/project_detail.html:39
+msgid "LIVE DEMO"
+msgstr "DÉMO EN LIGNE"
+
+#: portfolio/templates/projects/project_detail.html:53
+msgid "VIEW CODE"
+msgstr "VOIR LE CODE"
+
+#: portfolio/templates/projects/project_detail.html:61
+msgid "CLIENT"
+msgstr "CLIENT"
+
+#: portfolio/templates/projects/project_detail.html:65
+msgid "DATE"
+msgstr "DATE"
+
+#: portfolio/templates/projects/project_detail.html:69
+msgid "STATUS"
+msgstr "STATUT"
+
+#: portfolio/templates/projects/project_detail.html:76
+msgid "LINKS"
+msgstr "LIENS"
+
+#: portfolio/templates/projects/project_detail.html:139
+msgid "images"
+msgstr "images"
+
+#: portfolio/templates/projects/project_detail.html:153
+msgid "Project Overview"
+msgstr "Aperçu du projet"
+
+#: portfolio/templates/projects/project_detail.html:164
+msgid "The Challenge"
+msgstr "Le défi"
+
+#: portfolio/templates/projects/project_detail.html:176
+msgid "The Solution"
+msgstr "La solution"
+
+#: portfolio/templates/projects/project_detail.html:206
+msgid "Like this project?"
+msgstr "Vous aimez ce projet ?"
+
+#: portfolio/templates/projects/project_detail.html:209
+msgid "Let's discuss how we can build something similar for your business."
+msgstr "Discutons de la façon dont nous pouvons créer quelque chose de similaire pour votre entreprise."
+
+#: portfolio/templates/projects/project_detail.html:219
+msgid "Hi, I saw your project"
+msgstr "Bonjour, j'ai vu votre projet"
+
+#: portfolio/templates/projects/project_detail.html:219
+msgid "and I would like to discuss a similar project."
+msgstr "et j'aimerais discuter d'un projet similaire."
+
+#: portfolio/templates/services/service_detail.html:19
+msgid "Features"
+msgstr "Fonctionnalités"
+
+#: portfolio/templates/services/service_detail.html:46
+msgid "Related Services"
+msgstr "Services liés"
+
+#: portfolio/views/contact.py:62
+msgid "Thank you! Your message has been sent successfully."
+msgstr "Merci ! Votre message a été envoyé avec succès."
+
+#: portfolio/views/contact.py:66
+msgid "Sorry, there was an error sending your message. Please try again."
+msgstr "Désolé, une erreur s'est produite lors de l'envoi de votre message. Veuillez réessayer."
