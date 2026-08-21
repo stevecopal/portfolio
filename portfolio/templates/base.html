@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% load static i18n %}
+<html lang="{{ request.LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ site_settings.seo_description|default:'Steve Satcheme | Full-Stack Developer & Digital Solutions Builder' }}">
+    <meta name="keywords" content="Full-Stack Developer, Django, Python, Web Development, Digital Solutions">
+    <meta name="author" content="{{ profile.full_name|default:'Steve Satcheme' }}">
+    <meta property="og:title" content="{{ site_settings.seo_title|default:'Steve Satcheme | Portfolio' }}">
+    <meta property="og:description" content="{{ site_settings.seo_description|default:'Full-Stack Developer & Digital Solutions Builder' }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}">
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% if branding.og_image %}{{ branding.og_image.url }}{% else %}{% static 'images/og-default.png' %}{% endif %}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ site_settings.seo_title|default:'Steve Satcheme | Portfolio' }}">
+    <meta name="twitter:description" content="{{ site_settings.seo_description|default:'Full-Stack Developer & Digital Solutions Builder' }}">
+    <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% if branding.og_image %}{{ branding.og_image.url }}{% else %}{% static 'images/og-default.png' %}{% endif %}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% if profile.profile_image %}{{ profile.profile_image.url }}{% else %}{% static 'images/logo.jpg' %}{% endif %}">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+
+    <title>{{ site_settings.seo_title|default:'Steve Satcheme | Portfolio' }}</title>
+</head>
+
+<body class="bg-white text-black font-dm-sans antialiased ">    <!-- Navigation -->
+    {% include 'components/navbar.html' %}
+    
+    <!-- Main Content -->
+    <main class="min-h-screen">
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    {% include 'components/footer.html' %}
+    
+    <!-- Language Switcher -->
+    
+    <!-- Theme Switcher -->
+    
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="fixed bottom-8 right-8 p-3 bg-green-500 text-white rounded-lg opacity-0 transition-opacity duration-300 hover:bg-green-600">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+        </svg>
+    </button>
+    
+    <!-- Scripts -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/navigation.js' %}"></script>
+    <script src="{% static 'js/theme.js' %}"></script>
+    <script src="{% static 'js/animations.js' %}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

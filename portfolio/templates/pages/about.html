@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block content %}
+<!-- About Section -->
+<section class="py-24">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Hero Image -->
+            <div class="relative z-10 flex justify-center lg:justify-end">
+                <div class="profile-frame group relative isolate w-full max-w-[420px] aspect-[4/5] md:max-w-[380px] sm:max-w-[340px]">
+                    <!-- Accent vert décalé -->
+                    <div class="absolute top-[18px] left-[18px] w-full h-full bg-green-500 [border-radius:2px_35px_2px_35px] z-0 rotate-[2deg] transition-all duration-[400ms] group-hover:top-[12px] group-hover:left-[12px] group-hover:rotate-[4deg] sm:top-[12px] sm:left-[12px]"></div>
+
+                    <!-- Cadre noir -->
+                    <div class="absolute top-[8px] left-[8px] w-full h-full bg-black [border-radius:2px_30px_2px_30px] z-10 -rotate-[1deg] transition-all duration-[400ms] group-hover:top-[5px] group-hover:left-[5px] group-hover:-rotate-[2deg] sm:top-[6px] sm:left-[6px]"></div>
+
+                    <!-- Image -->
+                    <div class="relative w-full h-full overflow-hidden bg-gray-200 [border-radius:2px_28px_2px_28px] border-2 border-black z-20 shadow-[0_0_0_1px_rgba(34,197,94,0.4)] transition-all duration-[400ms]">
+                        <img src="{% if profile.profile_image %}{{ profile.profile_image.url }}{% else %}{% static 'images/profile.png' %}{% endif %}" alt="{{ profile.full_name }}" class="block w-full h-full object-cover grayscale transition-all duration-[500ms] group-hover:grayscale-0 group-hover:scale-[1.03]">
+                    </div>
+
+                    <!-- Petits détails graphiques -->
+                    <div class="absolute -top-3 -right-3 w-8 h-8 border-t-[3px] border-r-[3px] border-green-500 z-30 pointer-events-none sm:-top-2 sm:-right-2"></div>
+                    <div class="absolute -bottom-3 -left-3 w-8 h-8 border-b-[3px] border-l-[3px] border-black z-30 pointer-events-none sm:-bottom-2 sm:-left-2"></div>
+                </div>
+            </div>
+            
+            <!-- About Content -->
+            <div class="space-y-6">
+                <h1 class="text-3xl md:text-4xl font-space-grotesk font-bold">
+                    <span class="text-sm font-ibm-plex-mono tracking-wider mr-4">01</span>
+                    {% trans "ABOUT ME" %}
+                </h1>
+                <p class="text-lg text-gray-600">{{ profile.biography }}</p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <h3 class="text-sm font-ibm-plex-mono tracking-wider text-gray-500">{% trans "NAME" %}</h3>
+                        <p class="font-space-grotesk">{{ profile.full_name }}</p>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-sm font-ibm-plex-mono tracking-wider text-gray-500">{% trans "PROFESSIONAL TITLE" %}</h3>
+                        <p class="font-space-grotesk">{{ profile.professional_title }}</p>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-sm font-ibm-plex-mono tracking-wider text-gray-500">{% trans "LOCATION" %}</h3>
+                        <p class="font-space-grotesk">{{ profile.location }}, {{ profile.country }}</p>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-sm font-ibm-plex-mono tracking-wider text-gray-500">{% trans "AVAILABILITY" %}</h3>
+                        <p class="font-space-grotesk">
+                            {% if profile.availability_status %}
+                                <span class="flex items-center space-x-2">
+                                    <span class="h-2 w-2 bg-green-500 rounded-full"></span>
+                                    <span>{{ profile.availability_message|default:"Available for work" }}</span>
+                                </span>
+                            {% else %}
+                                <span class="flex items-center space-x-2">
+                                    <span class="h-2 w-2 bg-red-500 rounded-full"></span>
+                                    <span>{% trans "Not available" %}</span>
+                                </span>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Download CV Button -->
+                {% if profile.resume_file %}
+                <a 
+                    href="{{ profile.resume_file.url }}" 
+                    download 
+                    class="inline-flex items-center space-x-2 px-6 py-3 border border-black text-black font-space-grotesk tracking-wider hover:bg-black hover:text-white transition-colors"
+                >
+                    <span>{% trans "DOWNLOAD CV" %}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Section -->
+{% if skills %}
+<section class="py-24 bg-gray-50">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl md:text-4xl font-space-grotesk font-bold mb-12">
+            <span class="text-sm font-ibm-plex-mono tracking-wider mr-4">02</span>
+            {% trans "MY SKILLS" %}
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for category in skill_categories %}
+            <div class="space-y-6">
+                <h3 class="text-lg font-space-grotesk font-semibold border-b border-gray-200 pb-2">{{ category.name }}</h3>
+                <div class="space-y-4">
+                    {% for skill in category.skills.all %}
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center space-x-3">
+                            {% if skill.icon %}
+                            <i class="{{ skill.icon }}"></i>
+                            {% endif %}
+                            <span class="font-dm-sans">{{ skill.name }}</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-sm text-gray-500">{{ skill.years_experience }}+ {% trans "years" %}</span>
+                            <span class="text-sm font-ibm-plex-mono text-gray-400">{{ skill.level }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

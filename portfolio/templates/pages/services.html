@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block content %}
+<!-- Services Section -->
+<section class="py-24">
+    <div class="container mx-auto px-6">
+        <h1 class="text-3xl md:text-4xl font-space-grotesk font-bold mb-12">
+            <span class="text-sm font-ibm-plex-mono tracking-wider mr-4">02</span>
+            {% trans "MY SERVICES" %}
+        </h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for service in services %}
+            <div class="space-y-4 p-6 border border-gray-200 group hover:border-black transition-colors">
+                <div class="flex items-center space-x-4">
+                    {% if service.icon %}
+                    <i class="{{ service.icon }} text-2xl"></i>
+                    {% endif %}
+                    <h3 class="text-xl font-space-grotesk font-semibold">{{ service.title }}</h3>
+                </div>
+                <p class="text-gray-600">{{ service.short_description }}</p>
+                <a 
+                    href="{% url 'portfolio:service_detail' service.slug %}" 
+                    class="text-sm font-space-grotesk tracking-wider hover:text-gray-600 transition-colors"
+                >
+                    {% trans "LEARN MORE" %}
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

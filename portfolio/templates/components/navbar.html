@@ -1,0 +1,105 @@
+{% load static i18n %}
+<header id="navbar" class="fixed top-0 z-[100] left-0 right-0 bg-white/95 dark:bg-black/95 backdrop-blur-sm transition-transform duration-300">
+    <div class="container mx-auto px-4 py-4">
+        <div class="flex justify-between items-center">
+            <!-- Logo -->
+            <a href="{% url 'portfolio:home' %}" class="flex items-center space-x-2">
+                <img 
+                    src="{% if profile.logo %}{{ profile.logo.url }}{% else %}{% static 'images/logo.jpg' %}{% endif %}" 
+                    alt="{{ site_settings.site_name|default:'Portfolio' }}" 
+                    style="max-height: 44px; max-width: auto;"
+                >
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="{% url 'portfolio:home' %}" class="text-sm font-space-grotesk tracking-wider hover:text-gray-600 transition-colors">
+                    {% trans "HOME" %}
+                </a>
+                <a href="{% url 'portfolio:about' %}" class="text-sm font-space-grotesk tracking-wider hover:text-gray-600 transition-colors">
+                    {% trans "ABOUT" %}
+                </a>
+                <a href="{% url 'portfolio:skills' %}" class="text-sm font-space-grotesk tracking-wider hover:text-gray-600 transition-colors">
+                    {% trans "SKILLS" %}
+                </a>
+                <a href="{% url 'portfolio:services' %}" class="text-sm font-space-grotesk tracking-wider hover:text-gray-600 transition-colors">
+                    {% trans "SERVICES" %}
+                </a>
+                <a href="{% url 'portfolio:projects' %}" class="text-sm font-space-grotesk tracking-wider hover:text-gray-600 transition-colors">
+                    {% trans "WORK" %}
+                </a>
+                <a href="{% url 'portfolio:experience' %}" class="text-sm font-space-grotesk tracking-wider hover:text-gray-600 transition-colors">
+                    {% trans "EXPERIENCE" %}
+                </a>
+                <a href="{% url 'portfolio:blog' %}" class="text-sm font-space-grotesk tracking-wider hover:text-gray-600 transition-colors">
+                    {% trans "ARTICLES" %}
+                </a>
+                <a href="{% url 'portfolio:contact' %}" class="text-sm font-space-grotesk tracking-wider hover:text-gray-600 transition-colors">
+                    {% trans "CONTACT" %}
+                </a>
+                <a href="{% url 'portfolio:resume' %}" class="text-sm font-space-grotesk tracking-wider hover:text-gray-600 transition-colors">
+                    {% trans "RESUME" %}
+                </a>
+            </nav>
+            
+            <!-- Right Side -->
+            <div class="flex items-center space-x-4">
+                <!-- Language Switcher -->
+                
+                
+                
+                <!-- CTA Button -->
+                <a href="{% url 'portfolio:contact' %}" class="hidden md:inline-block px-4 py-2 border border-black text-black text-sm font-space-grotesk tracking-wider hover:bg-black hover:text-white transition-colors">
+                    {% trans "LET'S TALK" %}
+                </a>
+
+                <div class="">
+                    {% include 'components/language_switcher.html' %}
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuButton" class="md:hidden p-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4">
+            <nav class="flex flex-col space-y-4">
+                <a href="{% url 'portfolio:home' %}" class="text-sm font-space-grotesk tracking-wider py-2">
+                    {% trans "HOME" %}
+                </a>
+                <a href="{% url 'portfolio:about' %}" class="text-sm font-space-grotesk tracking-wider py-2">
+                    {% trans "ABOUT" %}
+                </a>
+                <a href="{% url 'portfolio:skills' %}" class="text-sm font-space-grotesk tracking-wider py-2">
+                    {% trans "SKILLS" %}
+                </a>
+                <a href="{% url 'portfolio:services' %}" class="text-sm font-space-grotesk tracking-wider py-2">
+                    {% trans "SERVICES" %}
+                </a>
+                <a href="{% url 'portfolio:projects' %}" class="text-sm font-space-grotesk tracking-wider py-2">
+                    {% trans "WORK" %}
+                </a>
+                <a href="{% url 'portfolio:experience' %}" class="text-sm font-space-grotesk tracking-wider py-2">
+                    {% trans "EXPERIENCE" %}
+                </a>
+                <a href="{% url 'portfolio:blog' %}" class="text-sm font-space-grotesk tracking-wider py-2">
+                    {% trans "ARTICLES" %}
+                </a>
+                <a href="{% url 'portfolio:resume' %}" class="text-sm font-space-grotesk tracking-wider py-2">
+                    {% trans "RESUME" %}
+                </a>
+                <a href="{% url 'portfolio:contact' %}" class="text-sm font-space-grotesk tracking-wider py-2">
+                    {% trans "CONTACT" %}
+                </a>
+                
+                
+            </nav>
+        </div>
+    </div>
+</header>

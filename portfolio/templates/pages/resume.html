@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block content %}
+<!-- Resume Section -->
+<section class="py-24">
+    <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto">
+            <!-- Resume Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-3xl md:text-4xl font-space-grotesk font-bold mb-4">{{ profile.full_name }}</h1>
+                <p class="text-xl text-gray-600">{{ profile.professional_title }}</p>
+                <div class="flex justify-center space-x-4 mt-6">
+                    <a href="mailto:{{ profile.email }}" class="text-gray-600 hover:text-black transition-colors">{{ profile.email }}</a>
+                    {% if profile.phone %}
+                    <span class="text-gray-400">|</span>
+                    <a href="tel:{{ profile.phone }}" class="text-gray-600 hover:text-black transition-colors">{{ profile.phone }}</a>
+                    {% endif %}
+                    {% if profile.whatsapp %}
+                    <span class="text-gray-400">|</span>
+                    <a href="https://wa.me/{{ profile.whatsapp }}" class="text-gray-600 hover:text-black transition-colors">{{ profile.whatsapp }}</a>
+                    {% endif %}
+                </div>
+                <div class="flex justify-center space-x-4 mt-4">
+                    {% for link in social_links %}
+                    <a 
+                        href="{{ link.url }}" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="text-gray-400 hover:text-black transition-colors"
+                    >
+                        <i class="fab fa-{{ link.platform }}"></i>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <!-- Resume Content -->
+            <div class="space-y-12">
+                <!-- Professional Summary -->
+                <div>
+                    <h2 class="text-2xl font-space-grotesk font-bold mb-6 border-b border-gray-200 pb-2">
+                        {% trans "PROFESSIONAL SUMMARY" %}
+                    </h2>
+                    <div class="prose max-w-none">
+                        {{ profile.biography|safe }}
+                    </div>
+                </div>
+                
+                <!-- Skills -->
+                <div>
+                    <h2 class="text-2xl font-space-grotesk font-bold mb-6 border-b border-gray-200 pb-2">
+                        {% trans "SKILLS" %}
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {% for category in skill_categories %}
+                        <div>
+                            <h3 class="font-space-grotesk font-semibold mb-4">{{ category.name }}</h3>
+                            <ul class="space-y-2">
+                                {% for skill in category.skills.all %}
+                                <li class="flex justify-between">
+                                    <span>{{ skill.name }}</span>
+                                    <span class="text-sm text-gray-500">{{ skill.years_experience }}+ {% trans "years" %}</span>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <!-- Experience -->
+                <div>
+                    <h2 class="text-2xl font-space-grotesk font-bold mb-6 border-b border-gray-200 pb-2">
+                        {% trans "EXPERIENCE" %}
+                    </h2>
+                    <div class="space-y-8">
+                        {% for experience in experiences %}
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <div class="md:col-span-1">
+                                <p class="font-space-grotesk font-semibold">{{ experience.start_date|date:"Y" }} - 
+                                    {% if experience.end_date %}{{ experience.end_date|date:"Y" }}{% else %}{% trans "PRESENT" %}{% endif %}
+                                </p>
+                            </div>
+                            <div class="md:col-span-3">
+                                <h3 class="font-space-grotesk font-semibold">{{ experience.title }}</h3>
+                                <p class="text-gray-600">{{ experience.company }} - {{ experience.location }}</p>
+                                <p class="text-gray-600 mt-2">{{ experience.description }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <!-- Education -->
+                <div>
+                    <h2 class="text-2xl font-space-grotesk font-bold mb-6 border-b border-gray-200 pb-2">
+                        {% trans "EDUCATION" %}
+                    </h2>
+                    <div class="space-y-6">
+                        {% for experience in experiences %}
+                        {% if experience.type == "academic" %}
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <div class="md:col-span-1">
+                                <p class="font-space-grotesk font-semibold">{{ experience.start_date|date:"Y" }} - {{ experience.end_date|date:"Y" }}</p>
+                            </div>
+                            <div class="md:col-span-3">
+                                <h3 class="font-space-grotesk font-semibold">{{ experience.title }}</h3>
+                                <p class="text-gray-600">{{ experience.company }}</p>
+                                <p class="text-gray-600 mt-2">{{ experience.description }}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <!-- Projects -->
+                <div>
+                    <h2 class="text-2xl font-space-grotesk font-bold mb-6 border-b border-gray-200 pb-2">
+                        {% trans "SELECTED PROJECTS" %}
+                    </h2>
+                    <div class="space-y-6">
+                        {% for project in featured_projects %}
+                        <div class="space-y-2">
+                            <h3 class="font-space-grotesk font-semibold">{{ project.title }}</h3>
+                            <p class="text-gray-600">{{ project.short_description }}</p>
+                            <div class="flex flex-wrap gap-2">
+                                {% for tech in project.technologies.all %}
+                                <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-ibm-plex-mono rounded-sm">{{ tech.name }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Download Button -->
+            <div class="text-center mt-12">
+                {% if profile.resume_file %}
+                <a 
+                    href="{{ profile.resume_file.url }}" 
+                    download 
+                    class="inline-flex items-center space-x-2 px-6 py-3 bg-black text-white font-space-grotesk tracking-wider hover:bg-gray-800 transition-colors"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    <span>{% trans "DOWNLOAD FULL RESUME" %}</span>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

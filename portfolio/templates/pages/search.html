@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block content %}
+<!-- Search Section -->
+<section class="py-24">
+    <div class="container mx-auto px-6">
+        <h1 class="text-3xl md:text-4xl font-space-grotesk font-bold mb-12">
+            {% trans "Search Results" %}
+        </h1>
+        
+        <!-- Search Query -->
+        <div class="mb-8">
+            <p class="text-gray-600">
+                {% trans "Results for" %}: <span class="font-space-grotesk font-semibold">{{ query }}</span>
+            </p>
+        </div>
+        
+        <!-- Results -->
+        {% if results %}
+        <div class="space-y-8">
+            {% for result in results %}
+            {% if result|get_model_name == "Project" %}
+            <a href="{% url 'portfolio:project_detail' result.slug %}" class="group flex flex-col md:flex-row items-start space-y-4 md:space-y-0 md:space-x-6 p-6 border border-gray-200 hover:border-black transition-colors">
+                <div class="w-full md:w-48 overflow-hidden rounded-sm">
+                    <img 
+                        src="{% if result.cover_image %}{{ result.cover_image.url }}{% else %}{% static 'images/project-placeholder.png' %}{% endif %}" 
+                        alt="{{ result.title }}" 
+                        class="w-full h-32 md:h-24 object-cover group-hover:scale-105 transition-transform duration-300"
+                    >
+                </div>
+                <div class="flex-1">
+                    <p class="text-sm font-ibm-plex-mono tracking-wider text-gray-500 mb-1">{% trans "PROJECT" %}</p>
+                    <h3 class="text-xl font-space-grotesk font-semibold mb-2">{{ result.title }}</h3>
+                    <p class="text-gray-600 text-sm">{{ result.short_description|truncatewords:25 }}</p>
+                </div>
+            </a>
+            {% elif result|get_model_name == "Article" %}
+            <a href="{% url 'portfolio:article_detail' result.slug %}" class="group flex flex-col md:flex-row items-start space-y-4 md:space-y-0 md:space-x-6 p-6 border border-gray-200 hover:border-black transition-colors">
+                <div class="w-full md:w-48 overflow-hidden rounded-sm">
+                    <img 
+                        src="{% if result.cover_image %}{{ result.cover_image.url }}{% else %}{% static 'images/article-placeholder.png' %}{% endif %}" 
+                        alt="{{ result.title }}" 
+                        class="w-full h-32 md:h-24 object-cover group-hover:scale-105 transition-transform duration-300"
+                    >
+                </div>
+                <div class="flex-1">
+                    <p class="text-sm font-ibm-plex-mono tracking-wider text-gray-500 mb-1">{% trans "ARTICLE" %}</p>
+                    <h3 class="text-xl font-space-grotesk font-semibold mb-2">{{ result.title }}</h3>
+                    <p class="text-gray-600 text-sm">{{ result.excerpt|truncatewords:25 }}</p>
+                    <p class="text-sm text-gray-500 font-ibm-plex-mono mt-2">{{ result.published_at|date:"F j, Y" }} • {{ result.reading_time }} {% trans "min read" %}</p>
+                </div>
+            </a>
+            {% elif result|get_model_name == "Service" %}
+            <a href="{% url 'portfolio:service_detail' result.slug %}" class="group p-6 border border-gray-200 hover:border-black transition-colors">
+                <p class="text-sm font-ibm-plex-mono tracking-wider text-gray-500 mb-1">{% trans "SERVICE" %}</p>
+                <h3 class="text-xl font-space-grotesk font-semibold mb-2">{{ result.title }}</h3>
+                <p class="text-gray-600 text-sm">{{ result.short_description|truncatewords:25 }}</p>
+            </a>
+            {% endif %}
+            {% endfor %}
+        </div>
+        
+        <!-- Pagination -->
+        {% if is_paginated %}
+        <div class="flex justify-center mt-12">
+            <div class="flex space-x-4">
+                {% if page_obj.has_previous %}
+                <a 
+                    href="?q={{ query }}&page={{ page_obj.previous_page_number }}" 
+                    class="px-4 py-2 border border-gray-300 text-black font-space-grotesk tracking-wider hover:bg-gray-100 transition-colors"
+                >
+                    {% trans "PREVIOUS" %}
+                </a>
+                {% endif %}
+                
+                <span class="px-4 py-2 font-space-grotesk tracking-wider">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+                
+                {% if page_obj.has_next %}
+                <a 
+                    href="?q={{ query }}&page={{ page_obj.next_page_number }}" 
+                    class="px-4 py-2 border border-gray-300 text-black font-space-grotesk tracking-wider hover:bg-gray-100 transition-colors"
+                >
+                    {% trans "NEXT" %}
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        
+        {% else %}
+        <div class="text-center py-12">
+            <p class="text-gray-600">{% trans "No results found for your search." %}</p>
+            <a href="{% url 'portfolio:home' %}" class="text-sm font-space-grotesk tracking-wider hover:text-gray-600 transition-colors mt-4 inline-block">
+                {% trans "BACK TO HOME" %}
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
