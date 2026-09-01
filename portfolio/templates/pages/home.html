@@ -43,6 +43,41 @@
                 </div>
             </div>
             
+            <!-- Hero Image -->
+            <div class="relative flex justify-center lg:justify-end">
+                <div class="relative w-full max-w-sm">
+
+                    <div class="tech-frame">
+                        <div class="tech-frame__border">
+                            <div class="tech-frame__inner img-zoom">
+                                <img 
+                                    src="{% if profile.profile_image %}{{ profile.profile_image.url }}{% else %}{% static 'images/profile.png' %}{% endif %}" 
+                                    alt="{{ profile.full_name }}" 
+                                    class="block w-full h-auto grayscale hover:grayscale-0 transition-all duration-500"
+                                    loading="lazy"
+                                >
+                                <div class="tech-frame__scan"></div>
+                            </div>
+                        </div>
+
+                        <!-- Coins bracket -->
+                        <span class="tech-frame__corner tech-frame__corner--tl"></span>
+                        <span class="tech-frame__corner tech-frame__corner--tr"></span>
+                        <span class="tech-frame__corner tech-frame__corner--bl"></span>
+                        <span class="tech-frame__corner tech-frame__corner--br"></span>
+
+                        <!-- Point de statut -->
+                        <span class="tech-frame__dot"></span>
+                    </div>
+
+                    <!-- Green accent (grille tech) -->
+                    <div class="absolute -bottom-3 -right-3 w-24 h-24 rounded-xl -z-10 tech-frame__grid-accent" style="background-color: #15A34A; opacity: 0.12;"></div>
+                    <div class="absolute -bottom-3 -right-3 w-24 h-24 rounded-xl -z-10 border" style="border-color: rgba(21, 163, 74, 0.4);"></div>
+
+                </div>
+            </div>
+        </div>
+        </div>
     </div>
 </section>
 
