@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ site_settings.seo_description|default:'Steve Satcheme | Full-Stack Developer & Digital Solutions Builder' }}">
+    <meta name="description" content="{{ site_settings.seo_description|default:'copal Satcheme | Full-Stack Developer & Digital Solutions Builder' }}">
     <meta name="keywords" content="Full-Stack Developer, Django, Python, Web Development, Digital Solutions">
-    <meta name="author" content="{{ profile.full_name|default:'Steve Satcheme' }}">
-    <meta property="og:title" content="{{ site_settings.seo_title|default:'Steve Satcheme | Portfolio' }}">
+    <meta name="author" content="{{ profile.full_name|default:'copal Satcheme' }}">
+    <meta property="og:title" content="{{ site_settings.seo_title|default:'copal Satcheme | Portfolio' }}">
     <meta property="og:description" content="{{ site_settings.seo_description|default:'Full-Stack Developer & Digital Solutions Builder' }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}">
     <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% if branding.og_image %}{{ branding.og_image.url }}{% else %}{% static 'images/og-default.png' %}{% endif %}">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ site_settings.seo_title|default:'Steve Satcheme | Portfolio' }}">
+    <meta name="twitter:title" content="{{ site_settings.seo_title|default:'copal Satcheme | Portfolio' }}">
     <meta name="twitter:description" content="{{ site_settings.seo_description|default:'Full-Stack Developer & Digital Solutions Builder' }}">
     <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% if branding.og_image %}{{ branding.og_image.url }}{% else %}{% static 'images/og-default.png' %}{% endif %}">
     
@@ -23,14 +23,14 @@
     <!-- Tailwind CSS -->
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 
-    <title>{{ site_settings.seo_title|default:'Steve Satcheme' }}</title>
+    <title>{{ site_settings.seo_title|default:'copal Satcheme' }}</title>
 
     <!-- Données structurées (JSON-LD) -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "Person",
-        "name": "{{ profile.full_name|default:'Steve Satcheme' }}",
+        "name": "{{ profile.full_name|default:'copal Satcheme' }}",
         "description": "{{ seo.default_description }}",
         "url": "{{ request.scheme }}://{{ request.get_host }}",
         "email": "{{ profile.email|default:'steve@copal.cm' }}",
