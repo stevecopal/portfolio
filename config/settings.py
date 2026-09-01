@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "ckeditor",
     'portfolio',
+
+    "django.contrib.sitemaps",
 ]
 
 MIDDLEWARE = [
@@ -162,6 +164,7 @@ KEDITOR_CONFIGS = {
 # SEO and Meta Tags
 SITE_NAME = "copal Satcheme "
 SITE_DESCRIPTION = "Developer & Digital Solutions Builder"
+SITE_URL = "https://www.copal-satcheme.site" 
 
 
 

@@ -3,61 +3,52 @@
 
 {% block content %}
 <!-- Blog Section -->
-<section class="py-24">
-    <div class="container mx-auto px-6">
-        <h1 class="text-3xl md:text-4xl font-space-grotesk font-bold mb-12">
-            <span class="text-sm font-ibm-plex-mono tracking-wider mr-4"></span>
-            {% trans "ARTICLES" %}
-        </h1>
+<section class="py-14 md:py-16">
+    <div class="max-w-6xl mx-auto px-5">
+        <span class="section-label">{% trans "ARTICLES" %}</span>
+        <h1 style="font-family: var(--font-primary); font-size: 2.25rem; margin-bottom: 1.5rem;">{% trans "ARTICLES" %}</h1>
         
         <!-- Filters -->
-        <div class="flex flex-wrap gap-4 mb-12">
-            <a 
-                href="{% url 'portfolio:blog' %}" 
-                class="px-4 py-2 {% if not request.GET.category and not request.GET.tag %}bg-black text-white{% else %}border border-gray-300 text-black hover:bg-gray-100{% endif %} font-space-grotesk tracking-wider transition-colors text-sm"
-            >
+        <div class="flex flex-wrap gap-2 mb-8">
+            <a href="{% url 'portfolio:blog' %}" class="tag {% if not request.GET.category and not request.GET.tag %}!bg-[#0B0D0F] !text-white{% endif %}" style="text-decoration: none; cursor: pointer;">
                 {% trans "ALL" %}
             </a>
             {% for category in categories %}
-            <a 
-                href="{% url 'portfolio:blog' %}?category={{ category.slug }}" 
-                class="px-4 py-2 {% if request.GET.category == category.slug %}bg-black text-white{% else %}border border-gray-300 text-black hover:bg-gray-100{% endif %} font-space-grotesk tracking-wider transition-colors text-sm"
-            >
+            <a href="{% url 'portfolio:blog' %}?category={{ category.slug }}" class="tag {% if request.GET.category == category.slug %}!bg-[#0B0D0F] !text-white{% endif %}" style="text-decoration: none; cursor: pointer;">
                 {{ category.name }}
             </a>
             {% endfor %}
             {% for tag in tags %}
-            <a 
-                href="{% url 'portfolio:blog' %}?tag={{ tag.slug }}" 
-                class="px-4 py-2 {% if request.GET.tag == tag.slug %}bg-black text-white{% else %}border border-gray-300 text-black hover:bg-gray-100{% endif %} font-space-grotesk tracking-wider transition-colors text-sm"
-            >
+            <a href="{% url 'portfolio:blog' %}?tag={{ tag.slug }}" class="tag {% if request.GET.tag == tag.slug %}!bg-[#0B0D0F] !text-white{% endif %}" style="text-decoration: none; cursor: pointer;">
                 {{ tag.name }}
             </a>
             {% endfor %}
         </div>
         
-        
         <!-- All Articles -->
-        <div class="space-y-8">
+        <div class="space-y-4">
             {% for article in articles %}
-            <a href="{% url 'portfolio:article_detail' article.slug %}" class="group flex flex-col md:flex-row items-start space-y-4 md:space-y-0 md:space-x-6 p-6 border border-gray-200 hover:border-black transition-colors">
-                <div class="w-full md:w-48 overflow-hidden rounded-sm">
+            <a href="{% url 'portfolio:article_detail' article.slug %}" class="group card p-0 overflow-hidden flex flex-col md:flex-row reveal" style="text-decoration: none; color: inherit;">
+                <div class="w-full md:w-52 flex-shrink-0 overflow-hidden">
                     <img 
                         src="{% if article.cover_image %}{{ article.cover_image.url }}{% else %}{% static 'images/article-placeholder.png' %}{% endif %}" 
                         alt="{{ article.title }}" 
-                        class="w-full h-32 md:h-24 object-cover group-hover:scale-105 transition-transform duration-300"
+                        class="w-full h-40 md:h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
                     >
                 </div>
-                <div class="flex-1">
-                    <div class="flex flex-wrap gap-2 mb-2">
-                        <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-ibm-plex-mono rounded-sm">{{ article.category }}</span>
+                <div class="flex-1 p-5">
+                    <div class="flex flex-wrap gap-1.5 mb-2">
+                        <span class="tag">{{ article.category }}</span>
                         {% for tag in article.tags.all %}
-                        <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-ibm-plex-mono rounded-sm">{{ tag.name }}</span>
+                        <span class="tag">{{ tag.name }}</span>
                         {% endfor %}
                     </div>
-                    <h3 class="text-xl font-space-grotesk font-semibold mb-2">{{ article.title }}</h3>
-                    <p class="text-gray-600 text-sm mb-2">{{ article.excerpt|truncatewords:25 }}</p>
-                    <p class="text-sm text-gray-500 font-ibm-plex-mono">{{ article.published_at|date:"F j, Y" }} • {{ article.reading_time }} {% trans "min read" %}</p>
+                    <h3 style="font-family: var(--font-primary); font-size: 1.1rem; margin-bottom: 0.5rem;">{{ article.title }}</h3>
+                    <p style="color: #6C757D; font-size: 0.9rem; line-height: 1.55; margin-bottom: 0.75rem;">{{ article.excerpt|truncatewords:25 }}</p>
+                    <p style="font-family: var(--font-mono); font-size: 0.7rem; color: #ADB5BD;">
+                        {{ article.published_at|date:"F j, Y" }} • {{ article.reading_time }} {% trans "min read" %}
+                    </p>
                 </div>
             </a>
             {% endfor %}
@@ -65,24 +56,18 @@
         
         <!-- Pagination -->
         {% if is_paginated %}
-        <div class="flex justify-center mt-12">
-            <div class="flex space-x-4">
+        <div class="flex justify-center mt-10">
+            <div class="flex gap-2">
                 {% if page_obj.has_previous %}
-                <a 
-                    href="?page={{ page_obj.previous_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.tag %}&tag={{ request.GET.tag }}{% endif %}" 
-                    class="px-4 py-2 border border-gray-300 text-black font-space-grotesk tracking-wider hover:bg-gray-100 transition-colors"
-                >
+                <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.tag %}&tag={{ request.GET.tag }}{% endif %}" class="tag" style="text-decoration: none; cursor: pointer;">
                     {% trans "PREVIOUS" %}
                 </a>
                 {% endif %}
-                
-                <span class="px-4 py-2 font-space-grotesk tracking-wider">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
-                
+                <span class="tag" style="background-color: #0B0D0F; color: #fff;">
+                    {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+                </span>
                 {% if page_obj.has_next %}
-                <a 
-                    href="?page={{ page_obj.next_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.tag %}&tag={{ request.GET.tag }}{% endif %}" 
-                    class="px-4 py-2 border border-gray-300 text-black font-space-grotesk tracking-wider hover:bg-gray-100 transition-colors"
-                >
+                <a href="?page={{ page_obj.next_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if request.GET.tag %}&tag={{ request.GET.tag }}{% endif %}" class="tag" style="text-decoration: none; cursor: pointer;">
                     {% trans "NEXT" %}
                 </a>
                 {% endif %}

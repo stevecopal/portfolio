@@ -1,27 +1,25 @@
 {% load static i18n %}
-<footer class="bg-black text-white">
-    <div class="container mx-auto px-6 py-16">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+<footer class="relative z-10" style="background-color: #0B0D0F; color: #fff;">
+    <div class="max-w-6xl mx-auto px-5 py-12 md:py-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
             <!-- About -->
             <div>
-                <h3 class="text-sm font-ibm-plex-mono mb-4 tracking-wider"> {% trans "ABOUT" %}</h3>
-                <p class="text-gray-400 mb-4">{{ site_settings.short_description }}</p>
-                <div class="flex items-center space-x-2">
-                    <span class="text-sm">{% trans "Based in" %} {{ profile.country }}, {{ profile.city }}</span>
+                <h3 style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #15A34A; margin-bottom: 1rem;">{% trans "ABOUT" %}</h3>
+                <p style="color: #ADB5BD; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem;">{{ site_settings.short_description }}</p>
+                <div class="flex items-center gap-2" style="color: #6C757D; font-size: 0.85rem;">
+                    <span>{% trans "Based in" %} {{ profile.country }}, {{ profile.city }}</span>
                 </div>
-                <div class="flex items-center space-x-2 mt-2">
-                    <span class="text-sm">{% trans "Working worldwide" %}</span>
+                <div class="flex items-center gap-2 mt-1" style="color: #6C757D; font-size: 0.85rem;">
+                    <span>{% trans "Working worldwide" %}</span>
                 </div>
             </div>
             
-            
-            
             <!-- Services -->
             <div>
-                <h3 class="text-sm font-ibm-plex-mono mb-4 tracking-wider">{% trans "SERVICES" %}</h3>
-                <nav class="flex flex-col space-y-2">
+                <h3 style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #15A34A; margin-bottom: 1rem;">{% trans "SERVICES" %}</h3>
+                <nav class="flex flex-col gap-2">
                     {% for service in services %}
-                    <a href="{% url 'portfolio:service_detail' service.slug %}" class="text-gray-400 hover:text-white transition-colors text-sm">
+                    <a href="{% url 'portfolio:service_detail' service.slug %}" style="color: #ADB5BD; font-size: 0.88rem; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#ADB5BD'">
                         {{ service.title }}
                     </a>
                     {% endfor %}
@@ -30,41 +28,50 @@
             
             <!-- Contact -->
             <div>
-                <h3 class="text-sm font-ibm-plex-mono mb-4 tracking-wider">{% trans "CONTACT" %}</h3>
-                <div class="flex flex-col space-y-2">
-                    <a href="mailto:{{ profile.email }}" class="text-gray-400 hover:text-white transition-colors text-sm">
+                <h3 style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #15A34A; margin-bottom: 1rem;">{% trans "CONTACT" %}</h3>
+                <div class="flex flex-col gap-2">
+                    <a href="mailto:{{ profile.email }}" style="color: #ADB5BD; font-size: 0.88rem; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#ADB5BD'">
                         {{ profile.email }}
                     </a>
                     {% if profile.phone %}
-                    <a href="tel:{{ profile.phone }}" class="text-gray-400 hover:text-white transition-colors text-sm">
+                    <a href="tel:{{ profile.phone }}" style="color: #ADB5BD; font-size: 0.88rem; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#ADB5BD'">
                         {{ profile.phone }}
                     </a>
                     {% endif %}
                     {% if profile.whatsapp %}
-                    <a href="https://wa.me/{{ profile.whatsapp }}" class="text-gray-400 hover:text-white transition-colors text-sm">
+                    <a href="https://wa.me/{{ profile.whatsapp }}" style="color: #ADB5BD; font-size: 0.88rem; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#ADB5BD'">
                         {% trans "WhatsApp" %}
                     </a>
                     {% endif %}
                 </div>
-                
-                <!-- Social Links -->
-                <div class="flex space-x-4 mt-6">
+            </div>
+            
+            <!-- Social -->
+            <div>
+                <h3 style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #15A34A; margin-bottom: 1rem;">{% trans "FOLLOW" %}</h3>
+                <div class="flex gap-3">
                     {% for link in social_links %}
                     <a 
                         href="{{ link.url }}" 
                         target="_blank" 
                         rel="noopener noreferrer" 
-                        class="text-gray-400 hover:text-white transition-colors"
+                        class="w-9 h-9 flex items-center justify-center rounded-md transition-all duration-200"
+                        style="background-color: rgba(255,255,255,0.06); color: #ADB5BD;"
+                        onmouseover="this.style.backgroundColor='#15A34A'; this.style.color='#fff';"
+                        onmouseout="this.style.backgroundColor='rgba(255,255,255,0.06)'; this.style.color='#ADB5BD';"
                         aria-label="{{ link.name }}"
                     >
-                        <i class="fab fa-{{ link.platform }}"></i>
+                        <i class="fab fa-{{ link.platform }} text-sm"></i>
                     </a>
                     {% endfor %}
                 </div>
             </div>
-            <p class="text-sm text-gray-400">{{ site_settings.copyright_text|default:'© 2026 Steve Satcheme. All rights reserved.' }}</p>
         </div>
-        
-        
+
+        <!-- Bottom bar -->
+        <div class="mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4" style="border-top: 1px solid rgba(255,255,255,0.08);">
+            <p style="color: #6C757D; font-size: 0.8rem;">{{ site_settings.copyright_text|default:'© 2026 Steve Satcheme. All rights reserved.' }}</p>
+            
+        </div>
     </div>
 </footer>

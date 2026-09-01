@@ -1,110 +1,115 @@
-// Animation on Scroll (Intersection Observer)
-function initAnimations() {
-    const animateOnScroll = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-fade-in', 'opacity-100');
-                entry.target.classList.remove('opacity-0');
-                
-                // Add slide-up effect for elements with specific class
-                if (entry.target.classList.contains('slide-up')) {
-                    entry.target.classList.add('translate-y-0');
-                    entry.target.classList.remove('translate-y-10');
-                }
-            }
-        });
-    }, {
-        threshold: 0.1
-    });
-    
-    // Observe all elements with animation classes
-    document.querySelectorAll('.animate-on-scroll').forEach(el => {
-        el.classList.add('opacity-0');
-        if (el.classList.contains('slide-up')) {
-            el.classList.add('translate-y-10');
-        }
-        animateOnScroll.observe(el);
-    });
-}
+// Animations: scroll reveal, counter animation, typing effect
+(function() {
+    'use strict';
 
-// Typing Effect for Hero Section
-function initTypingEffect() {
-    const typingElement = document.querySelector('.typing-effect');
-    if (!typingElement) return;
-    
-    const text = typingElement.textContent;
-    const words = text.split(' ');
-    typingElement.textContent = '';
-    
-    let wordIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    
-    function type() {
-        const currentWord = words[wordIndex];
+    document.addEventListener('DOMContentLoaded', function() {
+        initScrollReveal();
+        initCounters();
+        initTypingEffect();
+    });
+
+    // ── Scroll Reveal ────────────────────────────────────────
+    function initScrollReveal() {
+        var revealElements = document.querySelectorAll('.reveal');
+        if (!revealElements.length) return;
         
-        if (isDeleting) {
-            typingElement.textContent = typingElement.textContent.slice(0, -1);
-            charIndex--;
-        } else {
-            typingElement.textContent += currentWord[charIndex];
-            charIndex++;
-        }
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -40px 0px'
+        });
         
-        let typeSpeed = isDeleting ? 50 : 100;
+        revealElements.forEach(function(el) {
+            observer.observe(el);
+        });
+    }
+
+    // ── Counter Animation ────────────────────────────────────
+    function initCounters() {
+        var counters = document.querySelectorAll('.counter');
+        if (!counters.length) return;
         
-        if (!isDeleting && charIndex === currentWord.length) {
-            typeSpeed = 2000;
-            isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            wordIndex = (wordIndex + 1) % words.length;
-            typeSpeed = 500;
-        }
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
         
-        setTimeout(type, typeSpeed);
+        counters.forEach(function(counter) {
+            observer.observe(counter);
+        });
     }
     
-    // Start typing effect
-    setTimeout(type, 1000);
-}
-
-// Counter Animation
-function initCounters() {
-    const counters = document.querySelectorAll('.counter');
-    
-    const counterObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const target = entry.target;
-                const finalValue = parseInt(target.textContent);
-                let currentValue = 0;
-                const increment = finalValue / 100;
-                const duration = 2000; // 2 seconds
-                const stepTime = duration / 100;
-                
-                const counter = setInterval(() => {
-                    currentValue += increment;
-                    if (currentValue >= finalValue) {
-                        target.textContent = finalValue + '+';
-                        clearInterval(counter);
-                    } else {
-                        target.textContent = Math.floor(currentValue) + '+';
-                    }
-                }, stepTime);
-                
-                counterObserver.unobserve(target);
+    function animateCounter(element) {
+        var text = element.textContent;
+        var match = text.match(/(\d+)/);
+        if (!match) return;
+        
+        var finalValue = parseInt(match[1]);
+        var suffix = text.replace(match[1], '').trim() || '+';
+        var currentValue = 0;
+        var increment = finalValue / 80;
+        var stepTime = 25;
+        
+        var timer = setInterval(function() {
+            currentValue += increment;
+            if (currentValue >= finalValue) {
+                element.textContent = finalValue + suffix;
+                clearInterval(timer);
+            } else {
+                element.textContent = Math.floor(currentValue) + suffix;
             }
-        });
-    }, {
-        threshold: 0.5
-    });
-    
-    counters.forEach(counter => {
-        counterObserver.observe(counter);
-    });
-}
+        }, stepTime);
+    }
 
+    // ── Typing Effect ────────────────────────────────────────
+    function initTypingEffect() {
+        var typingElement = document.querySelector('.typing-effect');
+        if (!typingElement) return;
+        
+        var text = typingElement.textContent;
+        var words = text.split(' ');
+        typingElement.textContent = '';
+        
+        var wordIndex = 0;
+        var charIndex = 0;
+        var isDeleting = false;
+        
+        function type() {
+            var currentWord = words[wordIndex] || '';
+            
+            if (isDeleting) {
+                typingElement.textContent = typingElement.textContent.slice(0, -1);
+                charIndex--;
+            } else {
+                typingElement.textContent += currentWord[charIndex] || '';
+                charIndex++;
+            }
+            
+            var typeSpeed = isDeleting ? 50 : 100;
+            
+            if (!isDeleting && charIndex === currentWord.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                typeSpeed = 500;
+            }
+            
+            setTimeout(type, typeSpeed);
+        }
+        
+        setTimeout(type, 1000);
+    }
 
-
-
+})();

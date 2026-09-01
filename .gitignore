@@ -63,3 +63,4 @@ Thumbs.db
 # Node (if using Tailwind via npm)
 node_modules/
 package-lock.json
+.aider*

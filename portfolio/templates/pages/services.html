@@ -2,33 +2,55 @@
 {% load static i18n %}
 
 {% block content %}
-<!-- Services Section -->
-<section class="py-24">
-    <div class="container mx-auto px-6">
-        <h1 class="text-3xl md:text-4xl font-space-grotesk font-bold mb-12">
-            <span class="text-sm font-ibm-plex-mono tracking-wider mr-4"></span>
-            {% trans "MY SERVICES" %}
-        </h1>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Services Header -->
+<section class="py-14 md:py-16">
+    <div class="max-w-6xl mx-auto px-5">
+        <span class="section-label">{% trans "SERVICES" %}</span>
+        <h1 style="font-family: var(--font-primary); font-size: 2.25rem; margin-bottom: 0.75rem;">{% trans "MY SERVICES" %}</h1>
+        <p style="color: #6C757D; font-size: 1.05rem; line-height: 1.65; max-width: 560px;">
+            {% trans "End-to-end digital solutions tailored to your business needs. From concept to deployment." %}
+        </p>
+    </div>
+</section>
+
+<!-- Services Grid -->
+<section class="pb-16 md:pb-20">
+    <div class="max-w-6xl mx-auto px-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {% for service in services %}
-            <div class="space-y-4 p-6 border border-gray-200 group hover:border-black transition-colors">
-                <div class="flex items-center space-x-4">
+            <a href="{% url 'portfolio:service_detail' service.slug %}" class="group card p-6 reveal" style="text-decoration: none; color: inherit;">
+                <div class="flex items-start gap-4 mb-4">
                     {% if service.icon %}
-                    <i class="{{ service.icon }} text-2xl"></i>
+                    <div class="w-12 h-12 flex items-center justify-center rounded-xl flex-shrink-0 transition-colors duration-200" style="background-color: rgba(21,163,74,0.08);">
+                        <i class="{{ service.icon }}" style="color: #15A34A; font-size: 1.2rem;"></i>
+                    </div>
                     {% endif %}
-                    <h3 class="text-xl font-space-grotesk font-semibold">{{ service.title }}</h3>
+                    <div>
+                        <h3 style="font-family: var(--font-primary); font-size: 1.15rem; margin-bottom: 0.25rem;">{{ service.title }}</h3>
+                    </div>
                 </div>
-                <p class="text-gray-600">{{ service.short_description }}</p> 
-                <a 
-                    href="{% url 'portfolio:service_detail' service.slug %}" 
-                    class="text-sm  text-right font-space-grotesk tracking-wider hover:text-gray-600 transition-colors "
-                    
-                >
-                    {% trans "LEARN MORE" %}
-                </a>
-            </div>
+                <p style="color: #6C757D; font-size: 0.9rem; line-height: 1.65; margin-bottom: 1.25rem;">{{ service.short_description }}</p>
+                <span style="font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em; color: #15A34A; text-decoration: none;">
+                    {% trans "LEARN MORE" %} →
+                </span>
+            </a>
             {% endfor %}
         </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="py-14 md:py-16" style="background-color: #F8F9FA;">
+    <div class="max-w-6xl mx-auto px-5 text-center">
+        <h2 style="font-family: var(--font-primary); font-size: 1.75rem; margin-bottom: 0.75rem;">
+            {% trans "Need something specific?" %}
+        </h2>
+        <p style="color: #6C757D; font-size: 1rem; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">
+            {% trans "Let's discuss your unique requirements and find the perfect solution." %}
+        </p>
+        <a href="{% url 'portfolio:contact' %}" class="btn-primary">
+            {% trans "GET IN TOUCH" %}
+        </a>
     </div>
 </section>
 {% endblock %}

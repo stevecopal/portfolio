@@ -22,6 +22,10 @@ function initThemeToggle() {
         const isDark = html.classList.contains('dark');
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
         updateThemeIcon(isDark);
+        // Notify tech-background canvas of theme change
+        if (typeof window.updateTechBackgroundTheme === 'function') {
+            window.updateTechBackgroundTheme();
+        }
     }
     
     function updateThemeIcon(isDark) {
@@ -48,6 +52,9 @@ function initThemeToggle() {
         if (!localStorage.getItem('theme')) {
             html.classList.toggle('dark', e.matches);
             updateThemeIcon(e.matches);
+            if (typeof window.updateTechBackgroundTheme === 'function') {
+                window.updateTechBackgroundTheme();
+            }
         }
     });
 }

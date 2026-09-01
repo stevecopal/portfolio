@@ -3,50 +3,38 @@
 
 {% block content %}
 <!-- Project Header -->
-<section class="pt-24 pb-12">
-    <div class="container mx-auto px-6">
+<section class="pt-12 pb-8 md:pt-16 md:pb-10">
+    <div class="max-w-4xl mx-auto px-5">
         <!-- Breadcrumbs -->
-        <div class="flex items-center space-x-2 text-sm text-gray-500 font-ibm-plex-mono mb-6">
-            <a href="{% url 'portfolio:home' %}" class="hover:text-black transition-colors">{% trans "HOME" %}</a>
+        <div class="flex items-center gap-2 mb-6" style="font-family: var(--font-mono); font-size: 0.75rem; color: #ADB5BD;">
+            <a href="{% url 'portfolio:home' %}" style="text-decoration: none; color: inherit; transition: color 0.2s;" onmouseover="this.style.color='#0B0D0F'" onmouseout="this.style.color='#ADB5BD'">{% trans "HOME" %}</a>
             <span>/</span>
-            <a href="{% url 'portfolio:projects' %}" class="hover:text-black transition-colors">{% trans "PROJECTS" %}</a>
+            <a href="{% url 'portfolio:projects' %}" style="text-decoration: none; color: inherit; transition: color 0.2s;" onmouseover="this.style.color='#0B0D0F'" onmouseout="this.style.color='#ADB5BD'">{% trans "PROJECTS" %}</a>
             <span>/</span>
-            <span>{{ project.title }}</span>
+            <span style="color: #495057;">{{ project.title }}</span>
         </div>
         
         <!-- Project Title & Metadata -->
-        <div class="max-w-4xl mx-auto space-y-6">
-            <div class="space-y-4">
-                <p class="text-sm font-ibm-plex-mono tracking-wider text-gray-500">
-                    {% trans "PROJECT" %} #{{ forloop.counter }}
-                </p>
-                <h1 class="text-3xl md:text-4xl lg:text-5xl font-space-grotesk font-bold">{{ project.title }}</h1>
-                <p class="text-lg text-gray-600">{{ project.short_description }}</p>
+        <div class="space-y-5">
+            <div class="space-y-3">
+                <span class="section-label">{% trans "PROJECT" %}</span>
+                <h1 style="font-family: var(--font-primary); font-size: 2.25rem; line-height: 1.1;">{{ project.title }}</h1>
+                <p style="color: #6C757D; font-size: 1.05rem; line-height: 1.65;">{{ project.short_description }}</p>
             </div>
             
             <!-- Project Actions -->
-            <div class="flex flex-wrap gap-4">
+            <div class="flex flex-wrap gap-3">
                 {% if project.live_url %}
-                <a 
-                    href="{{ project.live_url }}" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    class="inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-black font-space-grotesk tracking-wider hover:bg-gray-100 transition-colors text-sm"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                <a href="{{ project.live_url }}" target="_blank" rel="noopener noreferrer" class="btn-primary text-xs">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
                     <span>{% trans "LIVE DEMO" %}</span>
                 </a>
                 {% endif %}
                 
                 {% if project.github_url %}
-                <a 
-                    href="{{ project.github_url }}" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    class="inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-black font-space-grotesk tracking-wider hover:bg-gray-100 transition-colors text-sm"
-                >
+                <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer" class="btn-outline text-xs">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.947-.695.074-.688.074-.688 1.003.07 1.539 1.032 1.539 1.032.892 1.534 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.9 2.651.636.408.292 1.427.292 1.427 2.22.757 4.342 1.82 4.342 3.012 0 1.466-.325 2.688-.965 2.688-.666.376-.872.904-.872 1.855 0 .752.366 1.36.644 1.703.005.266.208.578.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" />
                     </svg>
@@ -56,86 +44,88 @@
             </div>
             
             <!-- Project Metadata -->
-            <div class="flex flex-wrap gap-6 py-6 border-y border-gray-200">
-                <div class="flex items-center space-x-2">
-                    <span class="text-sm font-ibm-plex-mono tracking-wider text-gray-500">{% trans "CLIENT" %}:</span>
-                    <span>{{ project.client_name|default:"Personal Project" }}</span>
+            <div class="flex flex-wrap gap-5 py-4" style="border-top: 1px solid #E9ECEF; border-bottom: 1px solid #E9ECEF;">
+                <div class="flex items-center gap-2">
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: #6C757D;">{% trans "CLIENT" %}:</span>
+                    <span style="font-size: 0.9rem;">{{ project.client_name|default:"Personal Project" }}</span>
                 </div>
-                <div class="flex items-center space-x-2">
-                    <span class="text-sm font-ibm-plex-mono tracking-wider text-gray-500">{% trans "DATE" %}:</span>
-                    <span>{{ project.project_date|date:"F Y" }}</span>
+                <div class="flex items-center gap-2">
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: #6C757D;">{% trans "DATE" %}:</span>
+                    <span style="font-size: 0.9rem;">{{ project.project_date|date:"F Y" }}</span>
                 </div>
-                <div class="flex items-center space-x-2">
-                    <span class="text-sm font-ibm-plex-mono tracking-wider text-gray-500">{% trans "STATUS" %}:</span>
-                    <span class="{% if project.status == 'completed' %}text-green-600{% elif project.status == 'in_progress' %}text-blue-600{% else %}text-gray-600{% endif %}">
+                <div class="flex items-center gap-2">
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: #6C757D;">{% trans "STATUS" %}:</span>
+                    <span style="font-size: 0.9rem; color: {% if project.status == 'completed' %}#15A34A{% elif project.status == 'in_progress' %}#3B82F6{% else %}#6C757D{% endif %};">
                         {{ project.get_status_display }}
                     </span>
                 </div>
                 {% if project.live_url or project.github_url %}
-                <div class="flex items-center space-x-2">
-                    <span class="text-sm font-ibm-plex-mono tracking-wider text-gray-500">{% trans "LINKS" %}:</span>
-                    <div class="flex space-x-2">
+                <div class="flex items-center gap-2">
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: #6C757D;">{% trans "LINKS" %}:</span>
+                    <div class="flex gap-2">
                         {% if project.live_url %}
-                        <a 
-                            href="{{ project.live_url }}" 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            class="text-black hover:text-gray-600"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        <a href="{{ project.live_url }}" target="_blank" rel="noopener noreferrer" style="color: #15A34A; text-decoration: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                             </svg>
                         </a>
                         {% endif %}
                         {% if project.github_url %}
-                        <a 
-                            href="{{ project.github_url }}" 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            class="text-black hover:text-gray-600"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                        <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer" style="color: #6C757D; text-decoration: none;">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
                                 <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.947-.695.074-.688.074-.688 1.003.07 1.539 1.032 1.539 1.032.892 1.534 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.9 2.651.636.408.292 1.427.292 1.427 2.22.757 4.342 1.82 4.342 3.012 0 1.466-.325 2.688-.965 2.688-.666.376-.872.904-.872 1.855 0 .752.366 1.36.644 1.703.005.266.208.578.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" />
                             </svg>
                         </a>
                         {% endif %}
                     </div>
-                     {% endif %}
                 </div>
+                {% endif %}
             </div>
             
             <!-- Technologies -->
             <div class="flex flex-wrap gap-2">
                 {% for tech in project.technologies.all %}
-                <span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-ibm-plex-mono rounded-sm">
-                    {{ tech.name }}
-                </span>
+                <span class="tag">{{ tech.name }}</span>
                 {% endfor %}
             </div>
         </div>
     </div>
 </section>
 
+<!-- Hero Image (constrained, not full width) -->
+<section class="pb-10 md:pb-14">
+    <div class="max-w-5xl mx-auto px-5">
+        {% if project.cover_image %}
+        <div class="img-zoom" style="border-radius: 12px; box-shadow: 0 4px 20px rgba(11,13,15,0.08);">
+            <img 
+                src="{{ project.cover_image.url }}" 
+                alt="{{ project.title }}" 
+                class="w-full aspect-[16/9] object-cover"
+                loading="lazy"
+            >
+        </div>
+        {% endif %}
+    </div>
+</section>
 
 <!-- Project Gallery -->
 {% if project.images.all %}
-<section class="pb-24">
-    <div class="container mx-auto px-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+<section class="pb-10 md:pb-14">
+    <div class="max-w-5xl mx-auto px-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             {% for image in project.images.all %}
-            <div class="overflow-hidden rounded-sm">
-                <!-- Remplacement de project_image par image ici -->
+            <div class="img-zoom" style="border-radius: 10px;">
                 <img 
                     src="{{ image.image.url }}" 
                     alt="{{ image.caption|default:project.title }}" 
-                    class="w-full h-64 md:h-80 object-cover"
+                    class="w-full aspect-[4/3] object-cover"
                     loading="lazy"
                 >
             </div>
             {% endfor %}
         </div>
         {% if project.images.count > 2 %}
-        <p class="text-center text-sm text-gray-500 font-ibm-plex-mono">
+        <p style="font-family: var(--font-mono); font-size: 0.7rem; color: #ADB5BD; text-align: center; margin-top: 1rem;">
             {{ project.images.count }} {% trans "images" %}
         </p>
         {% endif %}
@@ -144,81 +134,70 @@
 {% endif %}
 
 <!-- Project Content -->
-<section class="pb-24">
-    <div class="container mx-auto px-6">
-        <div class="max-w-3xl mx-auto space-y-12">
-            <!-- Overview -->
-            <div class="space-y-4">
-                <h2 class="text-2xl font-space-grotesk font-bold border-b border-gray-200 pb-2">
-                    {% trans "Project Overview" %}
-                </h2>
-                <div class="prose max-w-none text-gray-600">
-                    {{ project.description|safe }}
-                </div>
+<section class="pb-16 md:pb-20">
+    <div class="max-w-3xl mx-auto px-5 space-y-10">
+        <!-- Overview -->
+        <div>
+            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid #E9ECEF; margin-bottom: 1rem;">
+                {% trans "Project Overview" %}
+            </h2>
+            <div class="prose" style="color: #495057; line-height: 1.7;">
+                {{ project.description|safe }}
             </div>
-            
-            <!-- Challenge -->
-            {% if project.challenge %}
-            <div class="space-y-4">
-                <h2 class="text-2xl font-space-grotesk font-bold border-b border-gray-200 pb-2">
-                    {% trans "The Challenge" %}
-                </h2>
-                <div class="prose max-w-none text-gray-600">
-                    {{ project.challenge|safe }}
-                </div>
-            </div>
-            {% endif %}
-            
-            <!-- Solution -->
-            {% if project.solution %}
-            <div class="space-y-4">
-                <h2 class="text-2xl font-space-grotesk font-bold border-b border-gray-200 pb-2">
-                    {% trans "The Solution" %}
-                </h2>
-                <div class="prose max-w-none text-gray-600">
-                    {{ project.solution|safe }}
-                </div>
-            </div>
-            {% endif %}
-            
-            <!-- Results -->
-            {% if project.results %}
-            <div class="space-y-4">
-                <h2 class="text-2xl font-space-grotesk font-bold border-b border-gray-200 pb-2">
-                    {% trans "Results" %}
-                </h2>
-                <div class="prose max-w-none text-gray-600">
-                    {{ project.results|safe }}
-                </div>
-            </div>
-            {% endif %}
         </div>
+        
+        <!-- Challenge -->
+        {% if project.challenge %}
+        <div>
+            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid #E9ECEF; margin-bottom: 1rem;">
+                {% trans "The Challenge" %}
+            </h2>
+            <div class="prose" style="color: #495057; line-height: 1.7;">
+                {{ project.challenge|safe }}
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Solution -->
+        {% if project.solution %}
+        <div>
+            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid #E9ECEF; margin-bottom: 1rem;">
+                {% trans "The Solution" %}
+            </h2>
+            <div class="prose" style="color: #495057; line-height: 1.7;">
+                {{ project.solution|safe }}
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Results -->
+        {% if project.results %}
+        <div>
+            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid #E9ECEF; margin-bottom: 1rem;">
+                {% trans "Results" %}
+            </h2>
+            <div class="prose" style="color: #495057; line-height: 1.7;">
+                {{ project.results|safe }}
+            </div>
+        </div>
+        {% endif %}
     </div>
 </section>
 
-
-
-
 <!-- CTA Section -->
-<section class="py-24 bg-black text-white">
-    <div class="container mx-auto px-6 text-center">
-        <h2 class="text-2xl md:text-3xl font-space-grotesk font-bold mb-6">
+<section class="py-14 md:py-16" style="background-color: #0B0D0F; color: #fff;">
+    <div class="max-w-6xl mx-auto px-5 text-center">
+        <h2 style="font-family: var(--font-primary); font-size: 1.75rem; margin-bottom: 0.75rem;">
             {% trans "Like this project?" %}
         </h2>
-        <p class="text-lg text-gray-400 max-w-xl mx-auto mb-8">
+        <p style="color: #ADB5BD; font-size: 1rem; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">
             {% trans "Let's discuss how we can build something similar for your business." %}
         </p>
-        <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-            <a 
-                href="{% url 'portfolio:services' %}" 
-                class="px-6 py-3 border border-white text-white font-space-grotesk tracking-wider hover:bg-white hover:text-black transition-colors"
-            >
+        <div class="flex flex-col sm:flex-row justify-center gap-3">
+            <a href="{% url 'portfolio:services' %}" class="btn" style="border-color: #fff; color: #fff;" onmouseover="this.style.backgroundColor='#fff'; this.style.color='#0B0D0F';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#fff';">
                 {% trans "MY SERVICES" %}
             </a>
-            <a 
-                href="{% url 'portfolio:contact' %}?subject={{ project.title|urlencode }}&message={% trans 'Hi, I saw your project' %} {{ project.title }} {% trans 'and I would like to discuss a similar project.' %}|urlencode" 
-                class="px-6 py-3 bg-white text-black font-space-grotesk tracking-wider hover:bg-gray-200 transition-colors"
-            >
+            <a href="{% url 'portfolio:contact' %}?subject={{ project.title|urlencode }}&message={% trans 'Hi, I saw your project' %} {{ project.title }} {% trans 'and I would like to discuss a similar project.' %}|urlencode" style="background-color: #fff; color: #0B0D0F;" class="btn" onmouseover="this.style.backgroundColor='#E9ECEF';" onmouseout="this.style.backgroundColor='#fff';">
                 {% trans "START A PROJECT" %}
             </a>
         </div>
@@ -227,26 +206,18 @@
 
 {% endblock %}
 
-
-
 {% block scripts %}
-<!-- Lightbox pour la galerie (optionnel) -->
 <script>
-    // Tu peux ajouter une bibliothèque comme PhotoSwipe ou Fancybox ici si tu veux une galerie lightbox.
-    // Exemple avec une simple lightbox en CSS/JS pur :
     document.addEventListener('DOMContentLoaded', function() {
-        const galleryImages = document.querySelectorAll('.grid.grid-cols-1.md\:grid-cols-2 img');
+        const galleryImages = document.querySelectorAll('.img-zoom img');
         galleryImages.forEach(img => {
+            img.style.cursor = 'pointer';
             img.addEventListener('click', function() {
-                // Ouvre l'image en grand (à personnaliser selon tes besoins)
                 const lightbox = document.createElement('div');
-                lightbox.className = 'fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4';
-                lightbox.innerHTML = `
-                    <div class="relative max-w-4xl max-h-screen">
-                        <img src="${this.src}" alt="${this.alt}" class="max-w-full max-h-screen object-contain">
-                        <button class="absolute -top-4 -right-4 text-white text-4xl" onclick="this.parentElement.parentElement.remove()">&times;</button>
-                    </div>
-                `;
+                lightbox.className = 'fixed inset-0 z-50 flex items-center justify-center p-4';
+                lightbox.style.cssText = 'background-color: rgba(11,13,15,0.85); backdrop-filter: blur(8px);';
+                lightbox.innerHTML = '<div class="relative max-w-4xl max-h-[90vh]"><img src="' + this.src + '" alt="' + this.alt + '" class="max-w-full max-h-[85vh] object-contain rounded-lg"><button class="absolute -top-3 -right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white text-black text-xl" style="box-shadow: 0 2px 8px rgba(0,0,0,0.15);" onclick="this.parentElement.parentElement.remove()">&times;</button></div>';
+                lightbox.addEventListener('click', function(e) { if (e.target === lightbox) lightbox.remove(); });
                 document.body.appendChild(lightbox);
             });
         });

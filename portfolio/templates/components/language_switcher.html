@@ -4,60 +4,38 @@
     {% csrf_token %}
 
     {% if request.LANGUAGE_CODE == 'fr' %}
-
         <input type="hidden" name="language" value="en">
-
-        <button type="submit"
-                class="language-switcher"
-                aria-label="Switch to English">
-            EN
-        </button>
-
+        <button type="submit" class="lang-switch" aria-label="Switch to English">EN</button>
     {% else %}
-
         <input type="hidden" name="language" value="fr">
-
-        <button type="submit"
-                class="language-switcher"
-                aria-label="Passer en français">
-            FR
-        </button>
-
+        <button type="submit" class="lang-switch" aria-label="Passer en français">FR</button>
     {% endif %}
 
     <input type="hidden" name="next" value="{{ request.get_full_path }}">
 </form>
 
 <style>
-    .language-switcher {
+    .lang-switch {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-
-        min-width: 38px;
-        height: 34px;
-        padding: 0 10px;
-
-        border: 1px solid #d1d5db;
-        background: white;
-        color: #111827;
-
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 12px;
+        min-width: 36px;
+        height: 32px;
+        padding: 0 0.625rem;
+        border: 1px solid #DEE2E6;
+        border-radius: 6px;
+        background: transparent;
+        color: #495057;
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
         font-weight: 500;
-        letter-spacing: 0.12em;
-
+        letter-spacing: 0.1em;
         cursor: pointer;
-
-        transition:
-            background-color 0.3s ease,
-            color 0.3s ease,
-            border-color 0.3s ease;
+        transition: all 0.2s ease;
     }
-
-    .language-switcher:hover {
-        background: #000;
-        color: white;
-        border-color: #000;
+    .lang-switch:hover {
+        border-color: #15A34A;
+        color: #15A34A;
+        background-color: rgba(21, 163, 74, 0.06);
     }
 </style>

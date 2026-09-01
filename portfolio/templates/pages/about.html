@@ -3,61 +3,58 @@
 
 {% block content %}
 <!-- About Section -->
-<section class="py-24">
-    <div class="container mx-auto px-6">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<section class="py-14 md:py-16">
+    <div class="max-w-6xl mx-auto px-5">
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-10 items-center">
             <!-- Hero Image -->
-            <div class="relative z-10 flex justify-center lg:justify-end">
-                <div class="profile-frame group relative isolate w-full max-w-[420px] aspect-[4/5] md:max-w-[380px] sm:max-w-[340px]">
-                    <!-- Accent vert décalé -->
-                    <div class="absolute top-[18px] left-[18px] w-full h-full bg-green-500 [border-radius:2px_35px_2px_35px] z-0 rotate-[2deg] transition-all duration-[400ms] group-hover:top-[12px] group-hover:left-[12px] group-hover:rotate-[4deg] sm:top-[12px] sm:left-[12px]"></div>
-
-                    <!-- Cadre noir -->
-                    <div class="absolute top-[8px] left-[8px] w-full h-full bg-black [border-radius:2px_30px_2px_30px] z-10 -rotate-[1deg] transition-all duration-[400ms] group-hover:top-[5px] group-hover:left-[5px] group-hover:-rotate-[2deg] sm:top-[6px] sm:left-[6px]"></div>
-
+            <div class="lg:col-span-2 flex justify-center">
+                <div class="group relative w-full max-w-[340px]">
+                    <!-- Green accent -->
+                    <div class="absolute inset-0 translate-x-3 translate-y-3 rounded-xl transition-all duration-400 group-hover:translate-x-1.5 group-hover:translate-y-1.5" style="background-color: #15A34A; border-radius: 14px 4px 14px 4px;"></div>
+                    <!-- Black frame -->
+                    <div class="absolute inset-0 translate-x-1.5 translate-y-1.5 rounded-xl transition-all duration-400 group-hover:translate-x-0.5 group-hover:translate-y-0.5" style="background-color: #0B0D0F; border-radius: 13px 3px 13px 3px;"></div>
                     <!-- Image -->
-                    <div class="relative w-full h-full overflow-hidden bg-gray-200 [border-radius:2px_28px_2px_28px] border-2 border-black z-20 shadow-[0_0_0_1px_rgba(34,197,94,0.4)] transition-all duration-[400ms]">
-                        <img src="{% if profile.profile_image %}{{ profile.profile_image.url }}{% else %}{% static 'images/profile.png' %}{% endif %}" alt="{{ profile.full_name }}" class="block w-full h-full object-cover grayscale transition-all duration-[500ms] group-hover:grayscale-0 group-hover:scale-[1.03]">
+                    <div class="relative overflow-hidden bg-gray-200 border-2 border-black transition-all duration-400" style="border-radius: 12px 2px 12px 2px;">
+                        <img src="{% if profile.profile_image %}{{ profile.profile_image.url }}{% else %}{% static 'images/profile.png' %}{% endif %}" alt="{{ profile.full_name }}" class="block w-full aspect-[4/5] object-cover grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-[1.03]" loading="lazy">
                     </div>
-
-                    <!-- Petits détails graphiques -->
-                    <div class="absolute -top-3 -right-3 w-8 h-8 border-t-[3px] border-r-[3px] border-green-500 z-30 pointer-events-none sm:-top-2 sm:-right-2"></div>
-                    <div class="absolute -bottom-3 -left-3 w-8 h-8 border-b-[3px] border-l-[3px] border-black z-30 pointer-events-none sm:-bottom-2 sm:-left-2"></div>
+                    <!-- Corner accents -->
+                    <div class="absolute -top-2 -right-2 w-6 h-6 border-t-[3px] border-r-[3px] border-[#15A34A] z-30 pointer-events-none"></div>
+                    <div class="absolute -bottom-2 -left-2 w-6 h-6 border-b-[3px] border-l-[3px] border-[#0B0D0F] z-30 pointer-events-none"></div>
                 </div>
             </div>
             
             <!-- About Content -->
-            <div class="space-y-6">
-                <h1 class="text-3xl md:text-4xl font-space-grotesk font-bold">
-                    <span class="text-sm font-ibm-plex-mono tracking-wider mr-4"></span>
-                    {% trans "ABOUT ME" %}
-                </h1>
-                <p class="text-lg text-gray-600">{{ profile.biography }}</p>
+            <div class="lg:col-span-3 space-y-5">
+                <div>
+                    <span class="section-label">{% trans "ABOUT ME" %}</span>
+                    <h1 style="font-family: var(--font-primary); font-size: 2.25rem;">{% trans "ABOUT ME" %}</h1>
+                </div>
+                <p style="color: #495057; font-size: 1.02rem; line-height: 1.7;">{{ profile.biography }}</p>
                 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div class="space-y-2">
-                        <h3 class="text-sm font-ibm-plex-mono tracking-wider text-gray-500">{% trans "NAME" %}</h3>
-                        <p class="font-space-grotesk">{{ profile.full_name }}</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div class="space-y-1">
+                        <p style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A;">{% trans "NAME" %}</p>
+                        <p style="font-size: 0.95rem;">{{ profile.full_name }}</p>
                     </div>
-                    <div class="space-y-2">
-                        <h3 class="text-sm font-ibm-plex-mono tracking-wider text-gray-500">{% trans "PROFESSIONAL TITLE" %}</h3>
-                        <p class="font-space-grotesk">{{ profile.professional_title }}</p>
+                    <div class="space-y-1">
+                        <p style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A;">{% trans "PROFESSIONAL TITLE" %}</p>
+                        <p style="font-size: 0.95rem;">{{ profile.professional_title }}</p>
                     </div>
-                    <div class="space-y-2">
-                        <h3 class="text-sm font-ibm-plex-mono tracking-wider text-gray-500">{% trans "LOCATION" %}</h3>
-                        <p class="font-space-grotesk">{{ profile.location }}, {{ profile.country }}</p>
+                    <div class="space-y-1">
+                        <p style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A;">{% trans "LOCATION" %}</p>
+                        <p style="font-size: 0.95rem;">{{ profile.location }}, {{ profile.country }}</p>
                     </div>
-                    <div class="space-y-2">
-                        <h3 class="text-sm font-ibm-plex-mono tracking-wider text-gray-500">{% trans "AVAILABILITY" %}</h3>
-                        <p class="font-space-grotesk">
+                    <div class="space-y-1">
+                        <p style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A;">{% trans "AVAILABILITY" %}</p>
+                        <p style="font-size: 0.95rem;">
                             {% if profile.availability_status %}
-                                <span class="flex items-center space-x-2">
-                                    <span class="h-2 w-2 bg-green-500 rounded-full"></span>
+                                <span class="flex items-center gap-2">
+                                    <span class="h-2 w-2 rounded-full" style="background-color: #15A34A;"></span>
                                     <span>{{ profile.availability_message|default:"Available for work" }}</span>
                                 </span>
                             {% else %}
-                                <span class="flex items-center space-x-2">
-                                    <span class="h-2 w-2 bg-red-500 rounded-full"></span>
+                                <span class="flex items-center gap-2">
+                                    <span class="h-2 w-2 rounded-full" style="background-color: #EF4444;"></span>
                                     <span>{% trans "Not available" %}</span>
                                 </span>
                             {% endif %}
@@ -65,16 +62,11 @@
                     </div>
                 </div>
                 
-                <!-- Download CV Button -->
                 {% if profile.resume_file %}
-                <a 
-                    href="{{ profile.resume_file.url }}" 
-                    download 
-                    class="inline-flex items-center space-x-2 px-6 py-3 border border-black text-black font-space-grotesk tracking-wider hover:bg-black hover:text-white transition-colors"
-                >
+                <a href="{{ profile.resume_file.url }}" download class="btn-outline">
                     <span>{% trans "DOWNLOAD CV" %}</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                     </svg>
                 </a>
                 {% endif %}
@@ -85,28 +77,26 @@
 
 <!-- Skills Section -->
 {% if skills %}
-<section class="py-24 bg-gray-50">
-    <div class="container mx-auto px-6">
-        <h2 class="text-3xl md:text-4xl font-space-grotesk font-bold mb-12">
-            <span class="text-sm font-ibm-plex-mono tracking-wider mr-4"></span>
-            {% trans "MY SKILLS" %}
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<section class="py-14 md:py-16" style="background-color: #F8F9FA;">
+    <div class="max-w-6xl mx-auto px-5">
+        <span class="section-label">{% trans "SKILLS" %}</span>
+        <h2 style="font-family: var(--font-primary); font-size: 2rem; margin-bottom: 2rem;">{% trans "MY SKILLS" %}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {% for category in skill_categories %}
-            <div class="space-y-6">
-                <h3 class="text-lg font-space-grotesk font-semibold border-b border-gray-200 pb-2">{{ category.name }}</h3>
-                <div class="space-y-4">
+            <div class="card space-y-4">
+                <h3 style="font-family: var(--font-primary); font-size: 1.1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #E9ECEF;">{{ category.name }}</h3>
+                <div class="space-y-3">
                     {% for skill in category.skills.all %}
                     <div class="flex justify-between items-center">
-                        <div class="flex items-center space-x-3">
+                        <div class="flex items-center gap-2.5">
                             {% if skill.icon %}
-                            <i class="{{ skill.icon }}"></i>
+                            <i class="{{ skill.icon }}" style="color: #15A34A;"></i>
                             {% endif %}
-                            <span class="font-dm-sans">{{ skill.name }}</span>
+                            <span style="font-size: 0.92rem;">{{ skill.name }}</span>
                         </div>
-                        <div class="flex items-center space-x-2">
-                            <span class="text-sm text-gray-500">{{ skill.years_experience }}+ {% trans "years" %}</span>
-                            <span class="text-sm font-ibm-plex-mono text-gray-400">{{ skill.level }}</span>
+                        <div class="flex items-center gap-2">
+                            <span style="font-size: 0.8rem; color: #6C757D;">{{ skill.years_experience }}+ {% trans "years" %}</span>
+                            <span class="tag">{{ skill.level }}</span>
                         </div>
                     </div>
                     {% endfor %}

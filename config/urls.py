@@ -20,6 +20,9 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
+from django.contrib.sitemaps.views import sitemap
+from portfolio.sitemaps import sitemaps
+
 
 
 urlpatterns = [
@@ -36,3 +39,14 @@ urlpatterns += i18n_patterns(
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+urlpatterns += [
+    path(
+        'sitemap.xml',
+        sitemap,
+        {'sitemaps': sitemaps},
+        name='django.contrib.sitemaps.views.sitemap'
+    ),
+]

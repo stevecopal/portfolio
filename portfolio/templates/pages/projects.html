@@ -3,48 +3,29 @@
 
 {% block content %}
 <!-- Projects Header -->
-<section class="py-24">
-    <div class="container mx-auto px-6">
-        <div class="max-w-3xl">
-            <h1 class="text-3xl md:text-4xl font-space-grotesk font-bold mb-6">
-                <span class="text-sm font-ibm-plex-mono tracking-wider mr-4"></span>
-                {% trans "MY WORK" %}
-            </h1>
-            <p class="text-gray-600 leading-relaxed">
-                {% trans "Here are some of the projects I've worked on. Each project represents a unique challenge and solution." %}
-            </p>
-        </div>
+<section class="py-14 md:py-16">
+    <div class="max-w-6xl mx-auto px-5">
+        <span class="section-label">{% trans "WORK" %}</span>
+        <h1 style="font-family: var(--font-primary); font-size: 2.25rem; margin-bottom: 0.75rem;">{% trans "MY WORK" %}</h1>
+        <p style="color: #6C757D; font-size: 1.05rem; line-height: 1.65; max-width: 560px;">
+            {% trans "Here are some of the projects I've worked on. Each project represents a unique challenge and solution." %}
+        </p>
     </div>
 </section>
 
-
 <!-- Projects Filters -->
 {% if technologies or current_filter %}
-<section class="pb-12 bg-gray-50">
-    <div class="container mx-auto px-6">
-        <div class="flex flex-wrap gap-4 justify-center">
-            <!-- All Projects Filter -->
-            <a 
-                href="{% url 'portfolio:projects' %}" 
-                class="px-4 py-2 border border-gray-300 text-black font-space-grotesk tracking-wider hover:bg-gray-100 transition-colors {% if current_filter == 'all' and not current_tech %}bg-black text-white border-black{% endif %}"
-            >
+<section class="pb-6">
+    <div class="max-w-6xl mx-auto px-5">
+        <div class="flex flex-wrap gap-2">
+            <a href="{% url 'portfolio:projects' %}" class="tag {% if current_filter == 'all' and not current_tech %}!bg-[#0B0D0F] !text-white{% endif %}" style="text-decoration: none; cursor: pointer;">
                 {% trans "ALL" %} ({{ paginator.count }})
             </a>
-            
-            <!-- Featured Filter -->
-            <a 
-                href="?filter=featured" 
-                class="px-4 py-2 border border-gray-300 text-black font-space-grotesk tracking-wider hover:bg-gray-100 transition-colors {% if current_filter == 'featured' %}bg-black text-white border-black{% endif %}"
-            >
+            <a href="?filter=featured" class="tag {% if current_filter == 'featured' %}!bg-[#0B0D0F] !text-white{% endif %}" style="text-decoration: none; cursor: pointer;">
                 {% trans "FEATURED" %}
             </a>
-            
-            <!-- Technology Filters -->
             {% for tech in technologies %}
-            <a 
-                href="?tech={{ tech.slug }}" 
-                class="px-4 py-2 border border-gray-300 text-black font-space-grotesk tracking-wider hover:bg-gray-100 transition-colors {% if current_tech == tech.slug %}bg-black text-white border-black{% endif %}"
-            >
+            <a href="?tech={{ tech.slug }}" class="tag {% if current_tech == tech.slug %}!bg-[#0B0D0F] !text-white{% endif %}" style="text-decoration: none; cursor: pointer;">
                 {{ tech.name }} ({{ tech.projects.count }})
             </a>
             {% endfor %}
@@ -53,58 +34,52 @@
 </section>
 {% endif %}
 
-
 <!-- Projects Grid -->
-<section class="py-12">
-    <div class="container mx-auto px-6">
+<section class="pb-16 md:pb-20 pt-4">
+    <div class="max-w-6xl mx-auto px-5">
         {% if projects %}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {% for project in projects %}
-            <a 
-                href="{% url 'portfolio:project_detail' project.slug %}" 
-                class="group block border border-gray-200 hover:border-black transition-colors overflow-hidden"
-            >
+            <a href="{% url 'portfolio:project_detail' project.slug %}" class="group card p-0 overflow-hidden reveal" style="text-decoration: none; color: inherit;">
                 <!-- Project Image -->
-                <div class="overflow-hidden">
+                <div class="img-zoom">
                     <img 
                         src="{% if project.cover_image %}{{ project.cover_image.url }}{% else %}{% static 'images/project-placeholder.png' %}{% endif %}" 
                         alt="{{ project.title }}" 
-                        class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                        class="w-full aspect-[16/10] object-cover"
                         loading="lazy"
                     >
                 </div>
                 
                 <!-- Project Details -->
-                <div class="p-6 space-y-4">
+                <div class="p-5 space-y-3">
                     <div class="flex justify-between items-start">
-                        <h3 class="text-xl font-space-grotesk font-semibold">{{ project.title }}</h3>
+                        <h3 style="font-family: var(--font-primary); font-size: 1.1rem;">{{ project.title }}</h3>
                         {% if project.is_featured %}
-                        <span class="px-2 py-1 bg-amber-100 text-amber-700 text-xs font-ibm-plex-mono rounded-sm">
+                        <span class="tag" style="background-color: rgba(21,163,74,0.1); color: #15A34A;">
                             {% trans "Featured" %}
                         </span>
                         {% endif %}
                     </div>
                     
-                    <p class="text-gray-600">{{ project.short_description|truncatewords:15 }}</p>
+                    <p style="color: #6C757D; font-size: 0.88rem; line-height: 1.55;">{{ project.short_description|truncatewords:15 }}</p>
                     
                     <!-- Project Metadata -->
-                    <div class="flex flex-wrap justify-between items-center gap-4">
-                        <div class="flex flex-wrap gap-2">
-                            {% for tech in project.technologies.all %}
-                            <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-ibm-plex-mono rounded-sm">
-                                {{ tech.name }}
-                            </span>
+                    <div class="flex flex-wrap justify-between items-center gap-2 pt-1">
+                        <div class="flex flex-wrap gap-1.5">
+                            {% for tech in project.technologies.all|slice:":4" %}
+                            <span class="tag">{{ tech.name }}</span>
                             {% endfor %}
                         </div>
-                        <p class="text-sm text-gray-500 font-ibm-plex-mono">
+                        <p style="font-family: var(--font-mono); font-size: 0.7rem; color: #ADB5BD;">
                             {{ project.project_date|date:"Y" }}
                         </p>
                     </div>
                     
                     <!-- CTA -->
-                    <div class="flex items-center space-x-2 text-sm font-space-grotesk tracking-wider text-black hover:text-gray-600 transition-colors">
+                    <div class="flex items-center gap-1.5 pt-1" style="font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em; color: #15A34A;">
                         <span>{% trans "VIEW PROJECT" %}</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
                     </div>
@@ -115,26 +90,20 @@
         
         <!-- Pagination -->
         {% if is_paginated %}
-        <div class="flex justify-center mt-12">
-            <div class="flex space-x-4">
+        <div class="flex justify-center mt-10">
+            <div class="flex gap-2">
                 {% if page_obj.has_previous %}
-                <a 
-                    href="?page={{ page_obj.previous_page_number }}{% if current_filter %}&filter={{ current_filter }}{% endif %}{% if current_tech %}&tech={{ current_tech }}{% endif %}" 
-                    class="px-4 py-2 border border-gray-300 text-black font-space-grotesk tracking-wider hover:bg-gray-100 transition-colors"
-                >
+                <a href="?page={{ page_obj.previous_page_number }}{% if current_filter %}&filter={{ current_filter }}{% endif %}{% if current_tech %}&tech={{ current_tech }}{% endif %}" class="tag" style="text-decoration: none; cursor: pointer;">
                     {% trans "PREVIOUS" %}
                 </a>
                 {% endif %}
                 
-                <span class="px-4 py-2 font-ibm-plex-mono">
+                <span class="tag" style="background-color: #0B0D0F; color: #fff;">
                     {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
                 </span>
                 
                 {% if page_obj.has_next %}
-                <a 
-                    href="?page={{ page_obj.next_page_number }}{% if current_filter %}&filter={{ current_filter }}{% endif %}{% if current_tech %}&tech={{ current_tech }}{% endif %}" 
-                    class="px-4 py-2 border border-gray-300 text-black font-space-grotesk tracking-wider hover:bg-gray-100 transition-colors"
-                >
+                <a href="?page={{ page_obj.next_page_number }}{% if current_filter %}&filter={{ current_filter }}{% endif %}{% if current_tech %}&tech={{ current_tech }}{% endif %}" class="tag" style="text-decoration: none; cursor: pointer;">
                     {% trans "NEXT" %}
                 </a>
                 {% endif %}
@@ -143,12 +112,9 @@
         {% endif %}
         
         {% else %}
-        <div class="text-center py-12">
-            <p class="text-gray-600">{% trans "No projects found." %}</p>
-            <a 
-                href="{% url 'portfolio:home' %}" 
-                class="text-sm font-space-grotesk tracking-wider hover:text-gray-600 transition-colors mt-4 inline-block"
-            >
+        <div class="text-center py-16">
+            <p style="color: #6C757D;">{% trans "No projects found." %}</p>
+            <a href="{% url 'portfolio:home' %}" style="font-family: var(--font-display); font-size: 0.85rem; color: #15A34A; text-decoration: none; margin-top: 0.75rem; display: inline-block;">
                 {% trans "BACK TO HOME" %}
             </a>
         </div>
@@ -156,50 +122,16 @@
     </div>
 </section>
 
-
-<!-- Related Testimonials (Optional) -->
-{% if testimonials %}
-<section class="py-24 bg-gray-50">
-    <div class="container mx-auto px-6">
-        <h2 class="text-2xl font-space-grotesk font-bold mb-8">{% trans "What Clients Say" %}</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {% for testimonial in testimonials %}
-            <div class="space-y-4 p-6 border border-gray-200 bg-white">
-                <p class="text-gray-600 italic">"{{ testimonial.testimonial }}"</p>
-                <div class="flex items-center space-x-4">
-                    {% if testimonial.photo %}
-                    <img 
-                        src="{{ testimonial.photo.url }}" 
-                        alt="{{ testimonial.name }}" 
-                        class="h-12 w-12 rounded-full object-cover"
-                    >
-                    {% endif %}
-                    <div>
-                        <h4 class="font-space-grotesk font-semibold">{{ testimonial.name }}</h4>
-                        <p class="text-sm text-gray-600">{{ testimonial.position }}, {{ testimonial.company }}</p>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-{% endif %}
-
-
 <!-- Final CTA -->
-<section class="py-24">
-    <div class="container mx-auto px-6 text-center">
-        <h2 class="text-2xl md:text-3xl font-space-grotesk font-bold mb-6">
+<section class="py-14 md:py-16" style="background-color: #F8F9FA;">
+    <div class="max-w-6xl mx-auto px-5 text-center">
+        <h2 style="font-family: var(--font-primary); font-size: 1.75rem; margin-bottom: 0.75rem;">
             {% trans "Interested in working together?" %}
         </h2>
-        <p class="text-lg text-gray-600 max-w-xl mx-auto mb-8">
+        <p style="color: #6C757D; font-size: 1rem; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">
             {% trans "Let's discuss your project and how I can help bring your ideas to life." %}
         </p>
-        <a 
-            href="{% url 'portfolio:contact' %}" 
-            class="inline-block px-6 py-3 bg-black text-white font-space-grotesk tracking-wider hover:bg-gray-800 transition-colors"
-        >
+        <a href="{% url 'portfolio:contact' %}" class="btn-primary">
             {% trans "START A PROJECT" %}
         </a>
     </div>

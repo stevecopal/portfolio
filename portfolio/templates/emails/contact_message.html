@@ -1,121 +1,164 @@
 {% load static i18n %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ site_settings.site_name|default:"Portfolio Contact" }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "New Message" %} — {{ site_settings.site_name|default:"COPAL" }}</title>
+    <!--[if mso]>
     <style>
-        body {
-            font-family: 'DM Sans', Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        .header {
-            background-color: #000000;
-            color: #ffffff;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-            border-radius: 20px
-        }
-        .content {
-            background-color: #ffffff;
-            padding: 25px;
-            border-radius: 4px;
-            border: 1px solid #e0e0e0;
-        }
-        .field {
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
-        }
-        .field-label {
-            font-weight: 600;
-            color: #000000;
-            font-family: 'Space Grotesk', sans-serif;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 0.1em;
-        }
-        .field-value {
-            color: #555;
-            margin-top: 5px;
-        }
-        .message {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #f5f5f5;
-            border-left: 3px solid #0066FF;
-        }
-        .footer {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            text-align: center;
-            font-size: 0.8rem;
-            color: #888;
-        }
-        .highlight {
-            color: #0066FF;
-            font-weight: 600;
-        }
+        body, table, td { font-family: Arial, Helvetica, sans-serif !important; }
     </style>
+    <![endif]-->
 </head>
-<body>
-    <!-- En-tête -->
-    <div class="header">
-        <h1 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; margin: 0; font-size: 1rem;">
-            NOUVEAU MESSAGE
-        </h1>
-        
+<body style="margin: 0; padding: 0; background-color: #F3F6F4; font-family: 'Helvetica Neue', Arial, sans-serif; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
+
+    <!-- Preheader (texte caché, aperçu dans la boîte mail) -->
+    <div style="display: none; max-height: 0; overflow: hidden; mso-hide: all;">
+        {% trans "New message from" %} {{ first_name }} {{ last_name }} — {{ subject }}
     </div>
 
-    <!-- Contenu -->
-    <div class="content">
-        <div class="field">
-            <div class="field-label">{% trans "From" %}:</div>
-            <div class="field-value">
-                <strong>{{ first_name }} {{ last_name }}</strong> &lt;<a href="mailto:{{ email }}">{{ email }}</a>&gt;
-            </div>
-        </div>
+    <!-- Outer wrapper -->
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #F3F6F4;">
+        <tr>
+            <td align="center" style="padding: 40px 16px;">
 
-        <div class="field">
-            <div class="field-label">{% trans "Subject" %}:</div>
-            <div class="field-value">{{ subject }}</div>
-        </div>
+                <!-- Main container -->
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(11, 13, 15, 0.08);">
 
-        {% if service %}
-        <div class="field">
-            <div class="field-label">{% trans "Service" %}:</div>
-            <div class="field-value">{{ service }}</div>
-        </div>
-        {% endif %}
+                   
+                    <!-- Accent bar -->
+                    <tr>
+                        <td style="height: 3px; background-color: #15A34A; font-size: 0; line-height: 0;">&nbsp;</td>
+                    </tr>
 
-        {% if budget %}
-        <div class="field">
-            <div class="field-label">{% trans "Budget" %}:</div>
-            <div class="field-value"><span class="highlight">{{ budget }}</span></div>
-        </div>
-        {% endif %}
+                    <!-- ═══════════════════════════════════════
+                         CONTENT
+                         ═══════════════════════════════════════ -->
+                    <tr>
+                        <td style="padding: 40px 32px 32px;">
 
-        <div class="field">
-            <div class="field-label">{% trans "Message" %}:</div>
-            <div class="field-value">
-                {{ message|linebreaks }}
-            </div>
-        </div>
-    </div>
+                            <!-- Badge icône -->
+                            <table role="presentation" align="center" cellpadding="0" cellspacing="0" style="margin: 0 auto 20px;">
+                                <tr>
+                                    <td width="56" height="56" align="center" valign="middle" style="width: 56px; height: 56px; border-radius: 50%; background-color: #EAF7EF; font-size: 24px; line-height: 56px; text-align: center;">
+                                        ✉️
+                                    </td>
+                                </tr>
+                            </table>
 
-    <!-- Pied de page -->
-    <div class="footer">
-        <p>
-            {% trans "Sent from" %} <a href="{{ request.scheme }}://{{ request.get_host }}" style="color: #0066FF;">{{ request.get_host }}</a>
-            | {% trans "Date" %}: {{ now|date:"F j, Y H:i" }}
-        </p>
-    </div>
+                            <!-- Titre -->
+                            <p style="margin: 0 0 8px; font-size: 22px; font-weight: 700; color: #0B0D0F; text-align: center; line-height: 1.3;">
+                                {% trans "New message received" %}
+                            </p>
+                            <p style="margin: 0 0 28px; font-size: 15px; color: #6C757D; text-align: center; line-height: 1.6;">
+                                <strong style="color: #0B0D0F;">{{ first_name }} {{ last_name }}</strong>
+                                {% trans "sent you a message regarding" %}
+                                <strong style="color: #0B0D0F;">« {{ subject }} »</strong>
+                            </p>
+
+                            <!-- Divider -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 24px;">
+                                <tr>
+                                    <td style="height: 1px; background-color: #E9ECEF; font-size: 0; line-height: 0;">&nbsp;</td>
+                                </tr>
+                            </table>
+
+                            <!-- Bloc infos -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #F8F9FA; border-radius: 10px; margin-bottom: 24px;">
+                                <tr>
+                                    <td style="padding: 20px 22px;">
+
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 14px;">
+                                            <tr>
+                                                <td style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #15A34A; padding-bottom: 3px;">
+                                                    {% trans "FROM" %}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size: 15px; font-weight: 600; color: #0B0D0F;">
+                                                    {{ first_name }} {{ last_name }}
+                                                    <a href="mailto:{{ email }}" style="color: #6C757D; text-decoration: none; font-weight: 400;"> — {{ email }}</a>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        {% if service %}
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 14px;">
+                                            <tr>
+                                                <td style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #15A34A; padding-bottom: 3px;">
+                                                    {% trans "SERVICE" %}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size: 14px; color: #343A40;">
+                                                    {{ service }}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        {% endif %}
+
+                                        {% if budget %}
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #15A34A; padding-bottom: 3px;">
+                                                    {% trans "BUDGET" %}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size: 14px; color: #343A40;">
+                                                    {{ budget }}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        {% endif %}
+
+                                        {% if message %}
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #15A34A; padding-bottom: 3px;">
+                                                    {% trans "MESSAGE" %}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-size: 14px; color: #343A40;">
+                                                    {{ message }}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        {% endif %}
+
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Message -->
+                            
+
+                            <!-- Bouton Répondre -->
+                            <table role="presentation" cellpadding="0" cellspacing="0" align="center" style="margin: 0 auto;">
+                                <tr>
+                                    <td align="center" style="border-radius: 8px; background-color: #15A34A;">
+                                        <a href="mailto:{{ email }}?subject={{ "Re: "|add:subject|urlencode }}"
+                                           target="_blank"
+                                           style="display: inline-block; padding: 14px 34px; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 15px; font-weight: 600; color: #FFFFFF; text-decoration: none; border-radius: 8px;">
+                                            {% blocktrans %}Reply to {{ first_name }}{% endblocktrans %}
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+                    </tr>
+
+                    
+                </table>
+                <!-- /Main container -->
+
+            </td>
+        </tr>
+    </table>
+    <!-- /Outer wrapper -->
+
 </body>
 </html>

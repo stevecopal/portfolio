@@ -1,0 +1,19 @@
+{% load i18n static %}
+{% extends "base.html" %}
+{% block content %}
+<section class="min-h-screen flex items-center justify-center px-5">
+    <div class="text-center space-y-6">
+        <p style="font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: #15A34A;">{% trans "ERROR" %}</p>
+        <h1 style="font-family: var(--font-primary); font-size: 6rem; line-height: 1;">404</h1>
+        <h2 style="font-family: var(--font-primary); font-size: 1.5rem;">{% trans "Page not found" %}</h2>
+        <p style="color: #6C757D; max-width: 400px; margin: 0 auto; line-height: 1.6;">
+            {% trans "The page you're looking for doesn't exist or has been moved." %}
+        </p>
+        <div class="pt-2">
+            <a href="{% url 'portfolio:home' %}" class="btn-primary">
+                {% trans "GO HOME" %}
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

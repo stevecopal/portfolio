@@ -3,27 +3,28 @@
 
 {% block content %}
 <!-- Service Detail Section -->
-<section class="py-24">
-    <div class="container mx-auto px-6">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+<section class="py-14 md:py-16">
+    <div class="max-w-6xl mx-auto px-5">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
             <!-- Service Sidebar -->
-            <div class="lg:col-span-1 space-y-6">
-                <h1 class="text-3xl md:text-4xl font-space-grotesk font-bold">
-                    {{ service.title }}
-                </h1>
-                <p class="text-gray-600">{{ service.description }}</p>
+            <div class="lg:col-span-1 space-y-5">
+                <div>
+                    <span class="section-label">{% trans "SERVICE" %}</span>
+                    <h1 style="font-family: var(--font-primary); font-size: 2rem;">{{ service.title }}</h1>
+                </div>
+                <p style="color: #495057; font-size: 1rem; line-height: 1.7;">{{ service.description }}</p>
                 
                 <!-- Service Features -->
                 {% if service.features.all %}
-                <div class="space-y-4">
-                    <h3 class="text-lg font-space-grotesk font-semibold">{% trans "Features" %}</h3>
-                    <ul class="space-y-2">
+                <div class="space-y-3">
+                    <h3 style="font-family: var(--font-display); font-weight: 600; font-size: 0.95rem;">{% trans "Features" %}</h3>
+                    <ul class="space-y-2.5">
                         {% for feature in service.features.all %}
-                        <li class="flex items-center space-x-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                        <li class="flex items-start gap-2.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="#15A34A">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                             </svg>
-                            <span>{{ feature.feature }}</span>
+                            <span style="font-size: 0.92rem;">{{ feature.feature }}</span>
                         </li>
                         {% endfor %}
                     </ul>
@@ -31,10 +32,7 @@
                 {% endif %}
                 
                 <!-- CTA -->
-                <a 
-                    href="{% url 'portfolio:contact' %}?service={{ service.slug }}" 
-                    class="inline-block px-6 py-3 bg-black text-white font-space-grotesk tracking-wider hover:bg-gray-800 transition-colors text-center"
-                >
+                <a href="{% url 'portfolio:contact' %}?service={{ service.slug }}" class="btn-primary w-full text-center">
                     {% trans "GET IN TOUCH" %}
                 </a>
             </div>
@@ -42,20 +40,17 @@
             <!-- Related Services -->
             <div class="lg:col-span-2">
                 {% if related_services %}
-                <div class="space-y-6">
-                    <h3 class="text-xl font-space-grotesk font-semibold">{% trans "Related Services" %}</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-5">
+                    <h3 style="font-family: var(--font-primary); font-size: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid #E9ECEF;">{% trans "Related Services" %}</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {% for related_service in related_services %}
-                        <div class="space-y-4 p-6 border border-gray-200">
-                            <h4 class="font-space-grotesk font-semibold">{{ related_service.title }}</h4>
-                            <p class="text-gray-600 text-sm">{{ related_service.short_description }}</p>
-                            <a 
-                                href="{% url 'portfolio:service_detail' related_service.slug %}" 
-                                class="text-sm font-space-grotesk tracking-wider hover:text-gray-600 transition-colors"
-                            >
-                                {% trans "LEARN MORE" %}
-                            </a>
-                        </div>
+                        <a href="{% url 'portfolio:service_detail' related_service.slug %}" class="card reveal" style="text-decoration: none; color: inherit;">
+                            <h4 style="font-family: var(--font-primary); font-size: 1.05rem; margin-bottom: 0.5rem;">{{ related_service.title }}</h4>
+                            <p style="color: #6C757D; font-size: 0.9rem; line-height: 1.55; margin-bottom: 0.75rem;">{{ related_service.short_description }}</p>
+                            <span style="font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em; color: #15A34A;">
+                                {% trans "LEARN MORE" %} →
+                            </span>
+                        </a>
                         {% endfor %}
                     </div>
                 </div>

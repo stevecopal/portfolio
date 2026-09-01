@@ -3,119 +3,97 @@
 
 {% block content %}
 <!-- Article Detail Section -->
-<section class="py-24">
-    <div class="container mx-auto px-6">
+<section class="py-14 md:py-16">
+    <div class="max-w-3xl mx-auto px-5">
         <!-- Article Header -->
-        <div class="mb-12">
-            <div class="flex justify-between items-start mb-6">
-                <div class="space-y-2">
-                    <p class="text-sm font-ibm-plex-mono tracking-wider text-gray-500">
-                        {% trans "ARTICLE" %} {{ forloop.counter|add:0 }}
-                    </p>
-                    <h1 class="text-3xl md:text-4xl font-space-grotesk font-bold">{{ article.title }}</h1>
-                </div>
-                
-            </div>
+        <div class="mb-8">
+            <span class="section-label">{% trans "ARTICLE" %}</span>
+            <h1 style="font-family: var(--font-primary); font-size: 2rem; line-height: 1.15; margin-bottom: 1rem;">{{ article.title }}</h1>
             
             <!-- Article Metadata -->
-            <div class="flex flex-wrap gap-4 mb-6">
-                <div class="flex items-center space-x-2">
-                    <span class="text-sm font-ibm-plex-mono tracking-wider text-gray-500">{% trans "PUBLISHED" %}:</span>
-                    <span class="text-sm">{{ article.published_at|date:"F j, Y" }}</span>
+            <div class="flex flex-wrap gap-4 mb-4">
+                <div class="flex items-center gap-2">
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; color: #6C757D;">{% trans "PUBLISHED" %}:</span>
+                    <span style="font-size: 0.88rem;">{{ article.published_at|date:"F j, Y" }}</span>
                 </div>
-                <div class="flex items-center space-x-2">
-                    <span class="text-sm font-ibm-plex-mono tracking-wider text-gray-500">{% trans "READING TIME" %}:</span>
-                    <span class="text-sm">{{ article.reading_time }} {% trans "min" %}</span>
+                <div class="flex items-center gap-2">
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; color: #6C757D;">{% trans "READING TIME" %}:</span>
+                    <span style="font-size: 0.88rem;">{{ article.reading_time }} {% trans "min" %}</span>
                 </div>
-                <div class="flex items-center space-x-2">
-                    <span class="text-sm font-ibm-plex-mono tracking-wider text-gray-500">{% trans "AUTHOR" %}:</span>
-                    <span class="text-sm">{{profile.full_name }}</span>
+                <div class="flex items-center gap-2">
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; color: #6C757D;">{% trans "AUTHOR" %}:</span>
+                    <span style="font-size: 0.88rem;">{{ profile.full_name }}</span>
                 </div>
             </div>
             
             <!-- Article Categories and Tags -->
-            <div class="flex flex-wrap gap-2">
-                <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-ibm-plex-mono rounded-sm">{{ article.category }}</span>
+            <div class="flex flex-wrap gap-1.5">
+                <span class="tag">{{ article.category }}</span>
                 {% for tag in article.tags.all %}
-                <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-ibm-plex-mono rounded-sm">{{ tag.name }}</span>
+                <span class="tag">{{ tag.name }}</span>
                 {% endfor %}
             </div>
         </div>
         
         <!-- Article Cover Image -->
         {% if article.cover_image %}
-        <div class="mb-12">
+        <div class="mb-10 img-zoom" style="border-radius: 10px;">
             <img 
                 src="{{ article.cover_image.url }}" 
                 alt="{{ article.title }}" 
-                class="w-full max-h-96 object-cover rounded-sm"
+                class="w-full aspect-[16/9] object-cover"
+                loading="lazy"
             >
         </div>
         {% endif %}
         
         <!-- Article Content -->
-        <div class="prose max-w-none mb-16">
+        <div class="prose mb-12" style="font-size: 1.02rem; line-height: 1.8;">
             {{ article.content|safe }}
         </div>
         
-        <!-- Copy Link -->
-        <div class="flex justify-center items-center space-x-4 mb-16">
-            <!-- On ajoute 'this' comme premier paramètre -->
+        <!-- Actions -->
+        <div class="flex flex-wrap gap-3 justify-center pt-8" style="border-top: 1px solid #E9ECEF;">
             <button
                 onclick="copyArticleLink(this, '{{ request.build_absolute_uri|escapejs }}')"
-                class="flex items-center space-x-2 px-3 py-2 border border-gray-300 text-gray-600 hover:border-black hover:text-black transition-colors rounded-sm"
+                class="btn-outline text-xs"
                 aria-label="Copy article link"
             >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
                 <span id="copyButtonText">{% trans "COPY LINK" %}</span>
             </button>
-            <a 
-                href="{% url 'portfolio:blog' %}" 
-                class=" font-space-grotesk tracking-wider hover:text-gray-600 transition-colors space-x-2 px-3 py-2 border border-gray-300 text-gray-600 hover:border-black hover:text-black transition-colors rounded-sm"
-            >
+            <a href="{% url 'portfolio:blog' %}" class="btn-ghost text-xs">
                 {% trans "BACK TO ARTICLES" %}
             </a>
         </div>
-
-        <!-- Script pour copier le lien -->
-        <script>
-            function copyArticleLink(buttonElement, url) {
-                navigator.clipboard.writeText(url).then(() => {
-                    const textSpan = buttonElement.querySelector('#copyButtonText');
-                    
-                    if (!textSpan.hasAttribute('data-original-text')) {
-                        textSpan.setAttribute('data-original-text', textSpan.textContent);
-                    }
-                    
-                    const originalText = textSpan.getAttribute('data-original-text');
-                    
-                    // On change le texte
-                    textSpan.textContent = '{% trans "COPIED!" %}';
-                    
-                    // On passe le bouton en vert et on retire temporairement les effets de survol noirs
-                    buttonElement.classList.add('border-green-500', 'text-green-500');
-                    buttonElement.classList.remove('border-gray-300', 'text-gray-600', 'hover:border-black', 'hover:text-black');
-
-                    // On remet l'état normal après 3 secondes
-                    setTimeout(() => {
-                        textSpan.textContent = originalText;
-                        
-                        // On retire le vert et on remet le gris et le hover noir
-                        buttonElement.classList.remove('border-green-500', 'text-black-500');
-                        buttonElement.classList.add('border-gray-300', 'text-gray-600', 'hover:border-black', 'hover:text-black');
-                    }, 2000);
-                    
-                }).catch(err => {
-                    console.error('Failed to copy: ', err);
-                    alert("Erreur lors de la copie du lien.");
-                });
-            }
-        </script>
-
-
-        
     </div>
 </section>
+
+<script>
+function copyArticleLink(buttonElement, url) {
+    navigator.clipboard.writeText(url).then(function() {
+        var textSpan = buttonElement.querySelector('#copyButtonText');
+        
+        if (!textSpan.hasAttribute('data-original-text')) {
+            textSpan.setAttribute('data-original-text', textSpan.textContent);
+        }
+        
+        var originalText = textSpan.getAttribute('data-original-text');
+        textSpan.textContent = '{% trans "COPIED!" %}';
+        
+        buttonElement.style.borderColor = '#15A34A';
+        buttonElement.style.color = '#15A34A';
+        
+        setTimeout(function() {
+            textSpan.textContent = originalText;
+            buttonElement.style.borderColor = '';
+            buttonElement.style.color = '';
+        }, 2000);
+    }).catch(function(err) {
+        console.error('Failed to copy: ', err);
+    });
+}
+</script>
 {% endblock %}

@@ -18,52 +18,59 @@
     <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% if branding.og_image %}{{ branding.og_image.url }}{% else %}{% static 'images/og-default.png' %}{% endif %}">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{% if profile.profile_image %}{{ profile.profile_image.url }}{% else %}{% static 'images/logo.jpg' %}{% endif %}">
+    <link rel="icon" type="image/x-icon" href="{% if profile.profile_image %}{{ profile.profile_image.url }}{% else %}{% static 'images/logo.jpeg' %}{% endif %}">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    
     <!-- Tailwind CSS -->
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 
-    <title>{{ site_settings.seo_title|default:'Steve Satcheme | Portfolio' }}</title>
+    <title>{{ site_settings.seo_title|default:'Steve Satcheme' }}</title>
+
+    <!-- Données structurées (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "{{ profile.full_name|default:'Steve Satcheme' }}",
+        "description": "{{ seo.default_description }}",
+        "url": "{{ request.scheme }}://{{ request.get_host }}",
+        "email": "{{ profile.email|default:'steve@copal.cm' }}",
+        "address": {
+            "@type": "Place",
+            "addressLocality": "{{ profile.city|default:'Douala' }}",
+            "addressCountry": "{{ profile.country|default:'Cameroon' }}"
+        },
+        "sameAs": [
+            {% for link in social_links %}"{{ link.url }}"{% if not forloop.last %},{% endif %}{% endfor %}
+        ],
+        "hasOccupation": {
+            "@type": "Occupation",
+            "name": "{{ profile.professional_title|default:'Full-Stack Developer' }}"
+        }
+    }
+    </script>
 </head>
 
-<body class="bg-white text-black font-dm-sans antialiased ">
-    <!-- Tech Grid Background -->
-    <div class="tech-grid fixed inset-0 z-0 pointer-events-none select-none overflow-hidden">
-        
-        <!-- Halos lumineux en arrière-plan pour l'ambiance Tech -->
-        <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-500/20 blur-[100px] rounded-full"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-green-500/20 blur-[100px] rounded-full"></div>
+<body class="font-roboto antialiased">
+    <!-- Tech Background (canvas-based animated grid) -->
+    <canvas id="tech-background-canvas"></canvas>
 
-        <!-- La Grille -->
-        <div class="absolute inset-0 bg-tech-grid"></div>
+    <!-- Toast Container — OUTSIDE <main> so z-index works in root context -->
+    <div id="toastContainer"></div>
 
-        <!-- Masque dégradé pour adoucir la grille vers le bas -->
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/90 dark:to-black/90"></div>
-        
-    </div>
-        <!-- Navigation -->
+    <!-- Navigation -->
     {% include 'components/navbar.html' %}
     
     <!-- Main Content -->
-    <main class="min-h-screen relative z-10 bg-transparent">
+    <main class="min-h-screen relative z-10 pt-14 md:pt-16">
         {% block content %}{% endblock %}
     </main>
     
     <!-- Footer -->
     {% include 'components/footer.html' %}
     
-    <!-- Language Switcher -->
-    
-    <!-- Theme Switcher -->
-    
     <!-- Back to Top Button -->
-    <button id="backToTop" class="fixed bottom-8 z-50 right-8 p-3 bg-green-500 text-white rounded-lg opacity-0 transition-opacity duration-300 hover:bg-green-600">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <button id="backToTop" class="fixed bottom-6 right-6 z-50 w-10 h-10 flex items-center justify-center rounded-full opacity-0 pointer-events-none transition-all duration-300" style="background-color: #15A34A; color: #fff; box-shadow: 0 4px 14px rgba(21,163,74,0.25);">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
         </svg>
     </button>
@@ -71,8 +78,42 @@
     <!-- Scripts -->
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/navigation.js' %}"></script>
-    <script src="{% static 'js/theme.js' %}"></script>
     <script src="{% static 'js/animations.js' %}"></script>
+    <script src="{% static 'js/tech-background.js' %}"></script>
+
+    <!-- Global Toast System -->
+    <script>
+    (function() {
+        window.showToast = function(message, type) {
+            var container = document.getElementById('toastContainer');
+            if (!container) return;
+
+            var toast = document.createElement('div');
+            toast.className = 'toast ' + (type === 'success' ? 'toast-success' : 'toast-error');
+
+            var icon = type === 'success'
+                ? '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>'
+                : '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>';
+
+            toast.innerHTML = icon + '<span style="font-family: var(--font-secondary); font-size: 0.9rem;">' + message + '</span><button class="toast-close" onclick="this.parentElement.remove()">&times;</button>';
+
+            container.appendChild(toast);
+
+            // Double rAF ensures browser paints initial state before transition
+            requestAnimationFrame(function() {
+                requestAnimationFrame(function() {
+                    toast.classList.add('show');
+                });
+            });
+
+            setTimeout(function() {
+                toast.classList.remove('show');
+                setTimeout(function() { toast.remove(); }, 400);
+            }, 3000);
+        };
+    })();
+    </script>
+
     {% block scripts %}{% endblock %}
 </body>
 </html>

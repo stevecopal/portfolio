@@ -1,0 +1,12 @@
+# robots.txt pour ton portfolio
+User-agent: *
+Disallow: /admin/
+Disallow: /private/
+Disallow: /media/
+Disallow: /static/
+
+# Autorise l'indexation de tout le reste
+Allow: /
+
+# Sitemap
+Sitemap: https://ton-domain.com/sitemap.xml

@@ -3,50 +3,43 @@
 
 {% block content %}
 <!-- Skills Header -->
-<section class="py-24">
-    <div class="container mx-auto px-6">
-        <div class="max-w-3xl">
-            <h1 class="text-3xl md:text-4xl font-space-grotesk font-bold mb-6">
-                <span class="text-sm font-ibm-plex-mono tracking-wider mr-4"></span>
-                {% trans "MY SKILLS" %}
-            </h1>
-            <p class="text-gray-600 leading-relaxed">
-                {% trans "Here are the technologies and tools I use to build modern, scalable, and user-focused digital solutions." %}
-            </p>
-        </div>
+<section class="py-14 md:py-16">
+    <div class="max-w-6xl mx-auto px-5">
+        <span class="section-label">{% trans "SKILLS" %}</span>
+        <h1 style="font-family: var(--font-primary); font-size: 2.25rem; margin-bottom: 0.75rem;">{% trans "MY SKILLS" %}</h1>
+        <p style="color: #6C757D; font-size: 1.05rem; line-height: 1.65; max-width: 560px;">
+            {% trans "Here are the technologies and tools I use to build modern, scalable, and user-focused digital solutions." %}
+        </p>
     </div>
 </section>
 
-
 <!-- Skills by Category -->
 {% if skill_categories %}
-<section class="pb-24">
-    <div class="container mx-auto px-6">
-        <div class="space-y-12">
+<section class="pb-14 md:pb-16">
+    <div class="max-w-6xl mx-auto px-5">
+        <div class="space-y-10">
             {% for category in skill_categories %}
-            <div class="space-y-6">
-                <h2 class="text-2xl font-space-grotesk font-bold border-b border-gray-200 pb-2">
+            <div class="space-y-5">
+                <h2 style="font-family: var(--font-primary); font-size: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid #E9ECEF;">
                     {{ category.name }}
                 </h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {% for skill in category.skills.all %}
-                    <div class="p-6 border border-gray-200 group hover:border-black transition-colors">
-                        <div class="flex items-start space-x-4">
+                    <div class="card reveal">
+                        <div class="flex items-start gap-3 mb-3">
                             {% if skill.icon %}
-                            <i class="{{ skill.icon }} text-2xl text-gray-600"></i>
+                            <div class="w-9 h-9 flex items-center justify-center rounded-lg flex-shrink-0" style="background-color: rgba(21,163,74,0.08);">
+                                <i class="{{ skill.icon }}" style="color: #15A34A;"></i>
+                            </div>
                             {% endif %}
-                            <div class="flex-1">
-                                <h3 class="text-xl font-space-grotesk font-semibold">{{ skill.name }}</h3>
-                                <p class="text-gray-600 text-sm mt-2">{{ skill.description|truncatewords:15 }}</p>
+                            <div>
+                                <h3 style="font-family: var(--font-display); font-weight: 600; font-size: 0.95rem;">{{ skill.name }}</h3>
+                                <p style="color: #6C757D; font-size: 0.85rem; line-height: 1.5; margin-top: 0.25rem;">{{ skill.description|truncatewords:15 }}</p>
                             </div>
                         </div>
-                        <div class="flex justify-between items-center mt-4">
-                            <div class="flex items-center space-x-2">
-                                <span class="text-sm font-ibm-plex-mono text-gray-500">{{ skill.years_experience }}+ {% trans "years" %}</span>
-                            </div>
-                            <span class="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-ibm-plex-mono rounded-sm">
-                                {{ skill.get_level_display|title }}
-                            </span>
+                        <div class="flex justify-between items-center pt-3" style="border-top: 1px solid #F1F3F5;">
+                            <span style="font-family: var(--font-mono); font-size: 0.7rem; color: #ADB5BD;">{{ skill.years_experience }}+ {% trans "years" %}</span>
+                            <span class="tag">{{ skill.get_level_display|title }}</span>
                         </div>
                     </div>
                     {% endfor %}
@@ -58,20 +51,19 @@
 </section>
 {% endif %}
 
-
 <!-- Featured Skills -->
 {% if featured_skills %}
-<section class="py-24 bg-gray-50">
-    <div class="container mx-auto px-6">
-        <h2 class="text-2xl font-space-grotesk font-bold mb-8">{% trans "Featured Skills" %}</h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+<section class="py-14 md:py-16" style="background-color: #F8F9FA;">
+    <div class="max-w-6xl mx-auto px-5">
+        <h2 style="font-family: var(--font-primary); font-size: 1.5rem; margin-bottom: 1.5rem;">{% trans "Featured Skills" %}</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
             {% for skill in featured_skills %}
-            <div class="p-4 border border-gray-200 group hover:border-black transition-colors text-center">
+            <div class="card text-center py-4 px-3 reveal">
                 {% if skill.icon %}
-                <i class="{{ skill.icon }} text-2xl mb-2 text-gray-600"></i>
+                <i class="{{ skill.icon }}" style="color: #15A34A; font-size: 1.25rem; margin-bottom: 0.5rem;"></i>
                 {% endif %}
-                <h3 class="font-space-grotesk font-semibold text-sm">{{ skill.name }}</h3>
-                <p class="text-xs text-gray-500 font-ibm-plex-mono mt-1">{{ skill.level|title }}</p>
+                <h3 style="font-family: var(--font-display); font-weight: 600; font-size: 0.8rem;">{{ skill.name }}</h3>
+                <p style="font-family: var(--font-mono); font-size: 0.65rem; color: #ADB5BD; margin-top: 0.25rem;">{{ skill.level|title }}</p>
             </div>
             {% endfor %}
         </div>
@@ -79,17 +71,13 @@
 </section>
 {% endif %}
 
-
 <!-- CTA -->
-<section class="py-24">
-    <div class="container mx-auto px-6 text-center">
-        <h2 class="text-2xl md:text-3xl font-space-grotesk font-bold mb-6">
+<section class="py-14 md:py-16">
+    <div class="max-w-6xl mx-auto px-5 text-center">
+        <h2 style="font-family: var(--font-primary); font-size: 1.75rem; margin-bottom: 0.75rem;">
             {% trans "Interested in working with these technologies?" %}
         </h2>
-        <a 
-            href="{% url 'portfolio:contact' %}" 
-            class="inline-block px-6 py-3 bg-black text-white font-space-grotesk tracking-wider hover:bg-gray-800 transition-colors"
-        >
+        <a href="{% url 'portfolio:contact' %}" class="btn-primary">
             {% trans "START A PROJECT" %}
         </a>
     </div>
