@@ -28,8 +28,11 @@
     {# Tailwind CSS #}
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 
-    {# Shadow Doors Transition System #}
+    {# Shadow Signal (loader page transitions) #}
     <link href="{% static 'css/transitions.css' %}" rel="stylesheet">
+
+    {# Home Reveal (section animation system) #}
+    <link href="{% static 'css/home-reveal.css' %}" rel="stylesheet">
 
     <title>{{ site_settings.seo_title|default:'Copal Satcheme' }}</title>
 
@@ -52,7 +55,7 @@
 </head>
 
 <body class="antialiased is-loading">
-    {# Page Transition System (Loader + Shadow Doors) #}
+    {# Page Transition System (loader) #}
     {% include 'includes/page-transition.html' %}
 
     {# Toast Container #}
@@ -83,8 +86,8 @@
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/navigation.js' %}"></script>
     <script src="{% static 'js/animations.js' %}"></script>
-    <script src="{% static 'js/transitions.js' %}"></script>
     <script src="{% static 'js/interactions.js' %}"></script>
+    <script src="{% static 'js/home-reveal.js' %}" defer></script>
 
     {# Toast system #}
     <script>
@@ -112,4 +115,4 @@
 
     {% block scripts %}{% endblock %}
 </body>
-</html>
+</html>

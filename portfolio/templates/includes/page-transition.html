@@ -1,36 +1,22 @@
-{% load static i18n %}
+{# ── SHADOW SIGNAL — Loader overlay ──────────────────────
+   One overlay for the whole site:
+   · first paint (until the page is ready)
+   · every internal page change (loader covers native load) #}
+<div class="page-loader" id="pageLoader" aria-hidden="true" data-loader="">
+    <div class="page-loader__glow"></div>
+    <div class="page-loader__grid"></div>
 
-
-
-{# Page Loader #}
-<div class="page-loader" aria-hidden="true">
-    <div class="page-loader__dot"></div>
-    <div class="page-loader__line"></div>
-    <div class="page-loader__text">BUILDING EXPERIENCE</div>
-</div>
-
-{# Shadow Doors Overlay #}
-<div class="shadow-doors" aria-hidden="true">
-    {# Left Door #}
-    <div class="shadow-doors__left"></div>
-
-    {# Right Door #}
-    <div class="shadow-doors__right"></div>
-
-    {# Green Signal #}
-    <div class="shadow-doors__signal">
-        <div class="shadow-doors__signal-line"></div>
-        <div class="shadow-doors__signal-dot"></div>
-    </div>
-
-    {# Transition Label #}
-    <div class="shadow-doors__label">
-        <div class="shadow-doors__label-text"></div>
-        <div class="shadow-doors__label-dest"></div>
+    <div class="page-loader__inner">
+        <div class="page-loader__core"><span></span></div>
+        <div class="page-loader__phase" data-loader-phase="">BUILD</div>
+        <div class="page-loader__track">
+            <div class="page-loader__fill" data-loader-fill=""></div>
+        </div>
+        <div class="page-loader__dest" data-loader-dest=""></div>
     </div>
 </div>
 
-{# Scroll management #}
+
 <script>
 (function() {
     'use strict';
@@ -40,4 +26,4 @@
     }
     window.scrollTo(0, 0);
 })();
-</script>
+</script>
