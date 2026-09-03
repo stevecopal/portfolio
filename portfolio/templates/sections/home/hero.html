@@ -1,0 +1,80 @@
+{% load static i18n %}
+<section id="hero" class="relative min-h-[90vh] mt-7 flex items-center overflow-hidden" style="background-color: #0B0D0F;">
+    {# Subtle grid pattern #}
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(21,163,74,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(21,163,74,0.5) 1px, transparent 1px); background-size: 60px 60px;"></div>
+
+    {# Gradient accent #}
+    <div class="absolute top-0 right-0 w-1/2 h-full opacity-20" style="background: radial-gradient(ellipse at 70% 30%, rgba(21,163,74,0.15) 0%, transparent 60%);"></div>
+
+    <div class="max-w-6xl mx-auto px-5 relative z-10 py-20">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {# Left: Content #}
+            <div class="space-y-8">
+                {# Label #}
+               
+
+                {# Headline #}
+                <h1 style="font-family: var(--font-primary); font-size: clamp(2.4rem, 5.5vw, 3.8rem); line-height: 1.05; letter-spacing: -0.01em; color: #FFFFFF;">
+                    {% trans "You bring the problem." %}<br>
+                    <span style="color: #15A34A;">{% trans "I build the solution." %}</span>
+                </h1>
+
+                {# Subtitle #}
+                <p style="color: #ADB5BD; font-size: 1.1rem; line-height: 1.7; max-width: 480px;">
+                    {% trans "I transform your business needs into digital solutions that work. From concept to deployment — without you needing to understand the technology." %}
+                </p>
+
+                {# CTAs #}
+                <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                    <a href="#work" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF; border: 2px solid #15A34A;">
+                        {% trans "SEE WHAT I'VE BUILT" %}
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
+                    </a>
+                    <a href="#contact" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: transparent; color: #FFFFFF; border: 2px solid rgba(255,255,255,0.2);">
+                        {% trans "DISCUSS YOUR PROJECT" %}
+                    </a>
+                </div>
+
+                {# Availability #}
+                {% if profile.availability_status %}
+                <div class="flex items-center gap-3 pt-2">
+                    <span class="relative flex h-2.5 w-2.5">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style="background-color: #15A34A;"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5" style="background-color: #15A34A;"></span>
+                    </span>
+                    <span style="color: #6C757D; font-size: 0.85rem;">{{ profile.availability_message|default:"Available for new projects" }}</span>
+                </div>
+                {% endif %}
+            </div>
+
+            {# Right: Visual element #}
+            <div class="hidden lg:flex justify-end items-center">
+                <div class="relative">
+                    {# Geometric symbol element #}
+                    <div class="w-72 h-72 relative">
+                        {# Outer ring #}
+                        <div class="absolute inset-0 rounded-full border opacity-10" style="border-color: #15A34A;"></div>
+                        {# Inner geometric shape #}
+                        <div class="absolute inset-8 flex items-center justify-center">
+                            <svg viewBox="0 0 120 120" class="w-full h-full" style="opacity: 0.15;">
+                                <polygon points="60,10 110,35 110,85 60,110 10,85 10,35" fill="none" stroke="#15A34A" stroke-width="1"/>
+                                <polygon points="60,25 95,42 95,78 60,95 25,78 25,42" fill="none" stroke="#15A34A" stroke-width="0.5"/>
+                                <line x1="60" y1="10" x2="60" y2="110" stroke="#15A34A" stroke-width="0.5"/>
+                                <line x1="10" y1="60" x2="110" y2="60" stroke="#15A34A" stroke-width="0.5"/>
+                            </svg>
+                        </div>
+                        {# Center text #}
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="text-center">
+                                <p style="font-family: var(--font-primary); font-size: 2.5rem; color: #15A34A; opacity: 0.6;">{{ profile.professional_name|default:"C" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {# Floating elements #}
+                    <div class="absolute -top-4 -right-4 w-3 h-3 rounded-full" style="background-color: #15A34A; opacity: 0.4;"></div>
+                    <div class="absolute -bottom-6 -left-6 w-2 h-2 rounded-full" style="background-color: #15A34A; opacity: 0.3;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

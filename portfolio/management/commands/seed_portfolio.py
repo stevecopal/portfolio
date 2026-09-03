@@ -3,85 +3,56 @@ from django.utils import timezone
 from portfolio.models import (
     Profile,
     SocialLink,
-    Statistic,
     Service,
     ServiceFeature,
-    SkillCategory,
-    Skill,
     Experience,
     Project,
     ProjectImage,
     Technology,
-    Article,
-    Category,
-    Tag,
     Testimonial,
     SiteSettings,
     SEO,
+    Tool,
 )
 
+
 class Command(BaseCommand):
-    help = 'Seeds the portfolio with initial data'
+    help = "Seeds the portfolio with initial data"
 
     def handle(self, *args, **options):
-        self.stdout.write(self.style.SUCCESS('Seeding portfolio data...'))
-        
-        # Clear existing data
+        self.stdout.write(self.style.SUCCESS("Seeding portfolio data..."))
+
         self.clear_existing_data()
-        
-        # Create Profile
-        profile = self.create_profile()
-        
-        
-        # Create Social Links
+
+        self.create_profile()
         self.create_social_links()
-        
-        # Create Site Settings
-        site_settings = self.create_site_settings()
-        
-        # Create Statistics
-        self.create_statistics()
-        
-        # Create Services
+        self.create_site_settings()
         services = self.create_services()
-        
-        # Create Service Features
         self.create_service_features(services)
-        
-        # Create Skill Categories and Skills
-        self.create_skills()
-        
-        # Create Experiences
         self.create_experiences()
-        
-        # Create Technologies
         technologies = self.create_technologies()
-        
-        # Create Projects
         projects = self.create_projects(technologies)
-        
-        # Create Project Images
         self.create_project_images(projects)
-        
-        # Create Categories and Tags
-        categories, tags = self.create_categories_and_tags()
-        
-        # Create Articles
-        self.create_articles(profile, categories, tags)
-        
-        # Create Testimonials
         self.create_testimonials()
-        
-        # Create SEO
         self.create_seo()
-        
-        self.stdout.write(self.style.SUCCESS('Successfully seeded portfolio data!'))
+        self.create_tools()
+
+        self.stdout.write(self.style.SUCCESS("Successfully seeded portfolio data!"))
 
     def clear_existing_data(self):
         models = [
-            Profile, SocialLink, Statistic, Service, ServiceFeature,
-            SkillCategory, Skill, Experience, Project, ProjectImage, Technology,
-            Article, Category, Tag, Testimonial, SiteSettings, SEO
+            Profile,
+            SocialLink,
+            Service,
+            ServiceFeature,
+            Experience,
+            Project,
+            ProjectImage,
+            Technology,
+            Testimonial,
+            SiteSettings,
+            SEO,
+            Tool,
         ]
         for model in models:
             model.objects.all().delete()
@@ -91,34 +62,56 @@ class Command(BaseCommand):
             full_name="Steve Satcheme",
             professional_name="Steve Satcheme",
             professional_title="Full-Stack Developer & Digital Solutions Builder",
-            short_bio="I design and develop modern, scalable, and user-focused digital solutions.",
+            short_bio="I design and build modern, scalable, and user-focused digital solutions that help businesses grow.",
             biography="""
-            Passionate Full-Stack Developer with over 3 years of experience in building modern web applications.
-            Specialized in Django, Python, PostgreSQL, and modern frontend technologies like Tailwind CSS and JavaScript.
-            
-            I believe in creating clean, maintainable code and building solutions that solve real problems.
-            My approach combines technical expertise with a strong focus on user experience and design.
-            
-            When I'm not coding, you can find me writing about technology, contributing to open source,
-            or exploring new frameworks and tools to expand my skillset.
+I'm a passionate Full-Stack Developer with over 3 years of experience building modern web applications. I specialize in Django, Python, PostgreSQL, and frontend technologies like Tailwind CSS and JavaScript.
+
+My approach is simple: I listen to your needs, understand your problem, and build a solution that works. I believe technology should serve people, not the other way around.
+
+Every project I take on gets my full attention. I write clean, maintainable code and deliver solutions that are built to last. Whether you need a complete web application, a custom API, or technical consulting, I'm here to help.
+
+When I'm not coding, I'm exploring new technologies, contributing to open source projects, or sharing what I've learned through technical articles.
             """,
             location="Douala",
             country="Cameroon",
             city="Douala",
             email="steve@copal.cm",
-            phone="+237 123 456 789",
-            whatsapp="+237 123 456 789",
+            phone="+237 699 123 456",
+            whatsapp="+237 699 123 456",
             availability_status=True,
             availability_message="Available for new projects",
         )
 
-
     def create_social_links(self):
         social_links = [
-            {"name": "GitHub", "platform": "github", "url": "https://github.com/stevesatcheme", "icon": "fab fa-github", "display_order": 1},
-            {"name": "LinkedIn", "platform": "linkedin", "url": "https://linkedin.com/in/stevesatcheme", "icon": "fab fa-linkedin", "display_order": 2},
-            {"name": "Twitter", "platform": "x", "url": "https://twitter.com/stevesatcheme", "icon": "fab fa-twitter", "display_order": 3},
-            {"name": "WhatsApp", "platform": "whatsapp", "url": "https://wa.me/237123456789", "icon": "fab fa-whatsapp", "display_order": 4},
+            {
+                "name": "GitHub",
+                "platform": "github",
+                "url": "https://github.com/stevesatcheme",
+                "icon": "fab fa-github",
+                "display_order": 1,
+            },
+            {
+                "name": "LinkedIn",
+                "platform": "linkedin",
+                "url": "https://linkedin.com/in/stevesatcheme",
+                "icon": "fab fa-linkedin",
+                "display_order": 2,
+            },
+            {
+                "name": "Twitter",
+                "platform": "x",
+                "url": "https://x.com/stevesatcheme",
+                "icon": "fab fa-x-twitter",
+                "display_order": 3,
+            },
+            {
+                "name": "WhatsApp",
+                "platform": "whatsapp",
+                "url": "https://wa.me/237699123456",
+                "icon": "fab fa-whatsapp",
+                "display_order": 4,
+            },
         ]
         for link in social_links:
             SocialLink.objects.create(**link)
@@ -126,9 +119,9 @@ class Command(BaseCommand):
     def create_site_settings(self):
         return SiteSettings.objects.create(
             site_name="Steve Satcheme | Portfolio",
-            slogan="Building Digital Solutions",
+            slogan="Building Digital Solutions That Work",
             short_description="Full-Stack Developer & Digital Solutions Builder",
-            footer_text="Building modern, scalable digital solutions",
+            footer_text="Turning ideas into reality through code",
             copyright_text="© 2026 Steve Satcheme. All rights reserved.",
             primary_email="steve@copal.cm",
             year=2026,
@@ -136,81 +129,127 @@ class Command(BaseCommand):
             maintenance_mode=False,
         )
 
-    def create_statistics(self):
-        statistics = [
-            {"label": "Years Experience", "value": 3, "icon": "fas fa-clock", "display_order": 1},
-            {"label": "Projects Completed", "value": 20, "icon": "fas fa-project-diagram", "display_order": 2},
-            {"label": "Technologies", "value": 10, "icon": "fas fa-code", "display_order": 3},
-            {"label": "Happy Clients", "value": 10, "icon": "fas fa-users", "display_order": 4},
-        ]
-        for stat in statistics:
-            Statistic.objects.create(**stat)
-
     def create_services(self):
-        services = [
+        services_data = [
             {
-                "title": "Web Development",
-                "short_description": "Custom web applications tailored to your business needs.",
-                "description": "I build responsive, modern web applications using Django and Python for the backend, combined with Tailwind CSS and JavaScript for beautiful, functional frontends.",
+                "title": "Web Application Development",
+                "slug": "web-application-development",
+                "short_description": "Custom web applications built with modern technologies, tailored to your business needs.",
+                "description": """
+I build responsive, modern web applications using Django and Python for the backend, combined with Tailwind CSS and JavaScript for beautiful, functional frontends.
+
+My web development services include:
+- Custom Django applications
+- Responsive frontend development
+- Database design and optimization
+- User authentication and authorization systems
+- Deployment and hosting setup
+
+Every project starts with understanding your needs. I don't believe in one-size-fits-all solutions. Your application will be built specifically for your use case.
+                """,
                 "icon": "fas fa-globe",
+                "hero_description": "I build custom web applications that are fast, secure, and scalable. From simple landing pages to complex enterprise solutions.",
+                "problem": "Many businesses struggle with off-the-shelf software that doesn't quite fit their needs. They waste time and money trying to adapt their processes to rigid tools.",
+                "audience": "Businesses that need custom web applications, startups looking to launch their MVP, and companies wanting to digitize their operations.",
+                "features": "Custom development, responsive design, secure authentication, real-time features, API integration, and ongoing support.",
+                "how_it_works": "We start with a discovery call to understand your needs. Then I design the solution, develop it in sprints, and deploy it once you're satisfied.",
+                "benefits": "A solution built specifically for your needs, modern and maintainable code, scalable architecture, and dedicated support.",
+                "included": "Full source code, documentation, deployment support, and 30 days of post-launch support.",
                 "is_featured": True,
+                "is_active": True,
                 "display_order": 1,
             },
             {
-                "title": "Backend Development",
-                "short_description": "Robust backend systems and APIs.",
-                "description": "Specialized in building scalable backend systems using Django, Django REST Framework, and PostgreSQL. I create efficient APIs and database architectures that power your applications.",
-                "icon": "fas fa-server",
+                "title": "API Development & Integration",
+                "slug": "api-development-integration",
+                "short_description": "RESTful APIs that connect your systems and enable seamless data flow between applications.",
+                "description": """
+I design and develop RESTful APIs that enable seamless communication between your frontend and backend systems.
+
+My API development services include:
+- RESTful API design and development
+- Authentication and authorization (JWT, OAuth)
+- API documentation (OpenAPI/Swagger)
+- Third-party API integrations
+- Performance optimization
+
+I follow best practices for API design, ensuring your endpoints are intuitive, well-documented, and secure.
+                """,
+                "icon": "fas fa-plug",
+                "hero_description": "I create robust APIs that connect your applications and enable seamless data flow across your systems.",
+                "problem": "Disconnected systems lead to data silos, manual data entry, and inefficient workflows. Businesses need their tools to communicate.",
+                "audience": "SaaS companies, mobile app developers, businesses with multiple software systems, and companies needing system integrations.",
+                "features": "RESTful design, authentication, rate limiting, documentation, error handling, and versioning.",
+                "how_it_works": "I analyze your requirements, design the API architecture, develop the endpoints, write comprehensive documentation, and test thoroughly.",
+                "benefits": "Reliable integrations, well-documented endpoints, secure authentication, and scalable architecture.",
+                "included": "Full API implementation, documentation, testing suite, and integration support.",
                 "is_featured": True,
+                "is_active": True,
                 "display_order": 2,
             },
             {
-                "title": "API Development",
-                "short_description": "RESTful APIs for your applications.",
-                "description": "I design and develop RESTful APIs that enable seamless communication between your frontend and backend systems.",
-                "icon": "fas fa-plug",
-                "is_featured": True,
+                "title": "Technical Consulting",
+                "slug": "technical-consulting",
+                "short_description": "Expert guidance on architecture, technology choices, and development best practices.",
+                "description": """
+Need help with your project architecture or technical decisions? I provide consulting services to help you make the right choices.
+
+My consulting services include:
+- Project architecture review
+- Technology selection and stack recommendations
+- Code review and quality assessment
+- Performance auditing
+- Development process optimization
+
+I'll help you avoid common pitfalls and make informed decisions that save you time and money.
+                """,
+                "icon": "fas fa-lightbulb",
+                "hero_description": "Get expert advice on your technical challenges. I help you make the right decisions for your project.",
+                "problem": "Making the wrong technical decisions early can cost months of work and thousands of dollars. You need an experienced eye to guide you.",
+                "audience": "Startups planning their tech stack, teams facing architectural challenges, and businesses evaluating their technical debt.",
+                "features": "Architecture review, stack recommendations, code audit, performance analysis, and actionable recommendations.",
+                "how_it_works": "I review your current setup, identify issues and opportunities, and provide a detailed report with clear recommendations.",
+                "benefits": "Avoid costly mistakes, optimize your development process, and build a solid foundation for growth.",
+                "included": "Detailed analysis report, recommendations document, and follow-up consultation.",
+                "is_featured": False,
+                "is_active": True,
                 "display_order": 3,
             },
-            {
-                "title": "Technical Consulting",
-                "short_description": "Expert advice for your technical challenges.",
-                "description": "Need help with your project architecture or technical decisions? I provide consulting services to help you make the right choices.",
-                "icon": "fas fa-lightbulb",
-                "is_featured": False,
-                "display_order": 4,
-            },
         ]
-        return [Service.objects.create(**service) for service in services]
+
+        services = []
+        for data in services_data:
+            services.append(Service.objects.create(**data))
+        return services
 
     def create_service_features(self, services):
         features = {
             services[0]: [
-                "Custom Django applications",
-                "Responsive frontend development",
+                "Custom Django applications tailored to your needs",
+                "Responsive design that works on all devices",
+                "Secure user authentication and authorization",
+                "Real-time features and notifications",
                 "Database design and optimization",
-                "User authentication systems",
+                "Deployment and hosting setup",
             ],
             services[1]: [
-                "Python backend development",
-                "Database architecture",
-                "API integration",
+                "RESTful API design following best practices",
+                "JWT and OAuth authentication",
+                "Comprehensive API documentation",
+                "Third-party service integrations",
+                "Rate limiting and security measures",
                 "Performance optimization",
             ],
             services[2]: [
-                "RESTful API design",
-                "JWT authentication",
-                "API documentation",
-                "Third-party integrations",
-            ],
-            services[3]: [
-                "Project architecture review",
-                "Technology selection",
-                "Code review",
+                "In-depth architecture review",
+                "Technology stack recommendations",
+                "Code quality assessment",
                 "Performance auditing",
+                "Development process optimization",
+                "Actionable improvement roadmap",
             ],
         }
-        
+
         for service, feature_list in features.items():
             for i, feature_text in enumerate(feature_list):
                 ServiceFeature.objects.create(
@@ -219,80 +258,58 @@ class Command(BaseCommand):
                     display_order=i + 1,
                 )
 
-    def create_skills(self):
-        # Create categories
-        backend = SkillCategory.objects.create(name="Backend", display_order=1)
-        frontend = SkillCategory.objects.create(name="Frontend", display_order=2)
-        database = SkillCategory.objects.create(name="Database", display_order=3)
-        devops = SkillCategory.objects.create(name="DevOps", display_order=4)
-        tools = SkillCategory.objects.create(name="Tools", display_order=5)
-        
-        # Create skills
-        skills = [
-            # Backend
-            {"name": "Python", "category": backend, "level": "expert", "years_experience": 3, "display_order": 1, "is_featured": True},
-            {"name": "Django", "category": backend, "level": "expert", "years_experience": 3, "display_order": 2, "is_featured": True},
-            {"name": "Django REST Framework", "category": backend, "level": "advanced", "years_experience": 2, "display_order": 3, "is_featured": True},
-            {"name": "REST APIs", "category": backend, "level": "advanced", "years_experience": 2, "display_order": 4, "is_featured": True},
-            {"name": "JWT Authentication", "category": backend, "level": "intermediate", "years_experience": 2, "display_order": 5, "is_featured": False},
-            
-            # Frontend
-            {"name": "HTML5", "category": frontend, "level": "expert", "years_experience": 3, "display_order": 1, "is_featured": True},
-            {"name": "CSS3", "category": frontend, "level": "expert", "years_experience": 3, "display_order": 2, "is_featured": True},
-            {"name": "JavaScript", "category": frontend, "level": "advanced", "years_experience": 3, "display_order": 3, "is_featured": True},
-            {"name": "Tailwind CSS", "category": frontend, "level": "expert", "years_experience": 2, "display_order": 4, "is_featured": True},
-            
-            # Database
-            {"name": "PostgreSQL", "category": database, "level": "intermediate", "years_experience": 2, "display_order": 1, "is_featured": True},
-            {"name": "SQLite", "category": database, "level": "intermediate", "years_experience": 2, "display_order": 2, "is_featured": False},
-            
-            # DevOps
-            {"name": "Docker", "category": devops, "level": "intermediate", "years_experience": 1, "display_order": 1, "is_featured": True},
-            {"name": "Git", "category": devops, "level": "advanced", "years_experience": 3, "display_order": 2, "is_featured": True},
-            {"name": "GitHub", "category": devops, "level": "advanced", "years_experience": 3, "display_order": 3, "is_featured": False},
-            
-            # Tools
-            {"name": "VS Code", "category": tools, "level": "expert", "years_experience": 3, "display_order": 1, "is_featured": False},
-            {"name": "Postman", "category": tools, "level": "intermediate", "years_experience": 2, "display_order": 2, "is_featured": False},
-        ]
-        
-        for skill in skills:
-            Skill.objects.create(**skill)
-
     def create_experiences(self):
         experiences = [
             {
                 "title": "Full-Stack Developer",
-                "company": "Tech Solutions Inc.",
+                "organization": "TechFlow Solutions",
                 "location": "Douala, Cameroon",
-                "description": "Developed and maintained web applications using Django and PostgreSQL. Implemented RESTful APIs and integrated third-party services. Collaborated with designers to create responsive, user-friendly interfaces.",
-                "start_date": timezone.datetime(2021, 6, 1),
-                "end_date": timezone.datetime(2023, 12, 31),
-                "is_current": False,
+                "start_date": timezone.datetime(2022, 3, 1),
+                "end_date": None,
+                "is_current": True,
                 "type": "professional",
+                "role": "Lead Developer",
+                "description": "Leading the development of web applications and APIs for clients across various industries.",
+                "responsibilities": "Architecture design, code review, client communication, and full-stack development.",
+                "tasks": "Building scalable web applications, optimizing database queries, implementing new features, and mentoring junior developers.",
+                "achievements": "Delivered 15+ successful projects, improved application performance by 40%, and established development best practices.",
+                "results": "Increased client satisfaction by 35% and reduced project delivery time by 25%.",
                 "display_order": 1,
+                "is_published": True,
             },
             {
                 "title": "Freelance Developer",
-                "company": "Self-Employed",
+                "organization": "Self-Employed",
                 "location": "Remote",
-                "description": "Worked on various projects for clients around the world. Built custom web applications, e-commerce platforms, and content management systems.",
-                "start_date": timezone.datetime(2020, 1, 1),
-                "end_date": timezone.datetime(2021, 5, 31),
+                "start_date": timezone.datetime(2020, 6, 1),
+                "end_date": timezone.datetime(2022, 2, 28),
                 "is_current": False,
                 "type": "freelance",
+                "role": "Full-Stack Developer",
+                "description": "Building custom web solutions for clients worldwide, from e-commerce platforms to SaaS applications.",
+                "responsibilities": "Client relations, project management, requirements gathering, and full development lifecycle.",
+                "tasks": "Developing web applications, creating APIs, integrating third-party services, and providing technical consulting.",
+                "achievements": "Completed 20+ projects, maintained 100% client satisfaction rate, and built long-term client relationships.",
+                "results": "Generated $50K+ in revenue and established a strong professional network.",
                 "display_order": 2,
+                "is_published": True,
             },
             {
-                "title": "Computer Science",
-                "company": "University of Douala",
+                "title": "Bachelor's in Computer Science",
+                "organization": "University of Douala",
                 "location": "Douala, Cameroon",
-                "description": "Bachelor's degree in Computer Science. Gained strong foundation in programming, algorithms, and software engineering principles.",
                 "start_date": timezone.datetime(2016, 9, 1),
                 "end_date": timezone.datetime(2020, 6, 30),
                 "is_current": False,
                 "type": "academic",
+                "role": "Student",
+                "description": "Comprehensive education in computer science fundamentals, software engineering, and web technologies.",
+                "responsibilities": "Academic research, project development, and collaborative learning.",
+                "tasks": "Studying algorithms, data structures, databases, and software development methodologies.",
+                "achievements": "Graduated with honors, led student programming club, and completed 10+ academic projects.",
+                "results": "Built strong foundation in software development and problem-solving skills.",
                 "display_order": 3,
+                "is_published": True,
             },
         ]
         for experience in experiences:
@@ -300,193 +317,167 @@ class Command(BaseCommand):
 
     def create_technologies(self):
         technologies = [
-            {"name": "Django", "display_order": 1},
-            {"name": "Python", "display_order": 2},
-            {"name": "PostgreSQL", "display_order": 3},
-            {"name": "JavaScript", "display_order": 4},
-            {"name": "Tailwind CSS", "display_order": 5},
-            {"name": "HTML5", "display_order": 6},
-            {"name": "CSS3", "display_order": 7},
-            {"name": "Docker", "display_order": 8},
+            {"name": "Python", "icon": "fab fa-python", "display_order": 1},
+            {"name": "Django", "icon": "fas fa-code", "display_order": 2},
+            {"name": "PostgreSQL", "icon": "fas fa-database", "display_order": 3},
+            {"name": "JavaScript", "icon": "fab fa-js-square", "display_order": 4},
+            {"name": "Tailwind CSS", "icon": "fas fa-wind", "display_order": 5},
+            {"name": "HTML5", "icon": "fab fa-html5", "display_order": 6},
+            {"name": "CSS3", "icon": "fab fa-css3-alt", "display_order": 7},
+            {"name": "Docker", "icon": "fab fa-docker", "display_order": 8},
+            {"name": "Git", "icon": "fab fa-git-alt", "display_order": 9},
+            {"name": "Linux", "icon": "fab fa-linux", "display_order": 10},
         ]
         return [Technology.objects.create(**tech) for tech in technologies]
 
     def create_projects(self, technologies):
-        projects = [
+        projects_data = [
             {
                 "title": "E-Commerce Platform",
-                "short_description": "A fully-featured e-commerce platform with product catalog, shopping cart, and payment processing.",
-                "description": "Built a complete e-commerce solution using Django and PostgreSQL. The platform includes user authentication, product management, shopping cart functionality, and integration with multiple payment gateways. The frontend was developed with Tailwind CSS for responsive design.",
-                "challenge": "The main challenge was integrating multiple payment gateways while ensuring PCI compliance and security. Additionally, the product catalog needed to handle thousands of products with various attributes and variations.",
-                "solution": "Implemented a modular payment system that could easily add new payment methods. Used Django's class-based views and models to create a flexible product catalog that could scale with the business needs.",
-                "results": "The platform successfully launched and handled over 10,000 transactions in its first month. Customer satisfaction improved by 40% due to the streamlined checkout process.",
-                "client_name": "ShopEasy",
-                "project_date": timezone.datetime(2022, 3, 15),
+                "slug": "e-commerce-platform",
+                "short_description": "A full-featured e-commerce solution with product management, cart, and payment processing.",
+                "context": "A local retail business wanted to expand online but was struggling with existing platforms that were too expensive and inflexible.",
+                "problem": "They needed a custom solution that could handle their unique product catalog, multiple payment methods, and integrate with their existing inventory system.",
+                "approach": "I started by analyzing their current workflow, identifying pain points, and designing a solution that addressed their specific needs.",
+                "solution": "Built a Django-based e-commerce platform with product management, shopping cart, checkout flow, and integration with mobile money and card payments.",
+                "features": "Product catalog, search and filtering, shopping cart, multiple payment gateways, order tracking, admin dashboard.",
+                "result": "The platform launched successfully and increased their online sales by 150% in the first 3 months.",
+                "role": "Full development from concept to deployment, including database design, backend logic, frontend implementation, and payment integration.",
+                "client_name": "ShopCameroon",
+                "project_date": timezone.datetime(2023, 5, 15),
                 "status": "completed",
-                "live_url": "https://shop-easy.example.com",
-                "github_url": "https://github.com/stevesatcheme/shop-easy",
+                "live_url": "https://shopcameroon.example.com",
+                "github_url": "https://github.com/stevesatcheme/shopcameroon",
+                "technologies": technologies[:5],
                 "is_featured": True,
                 "is_published": True,
             },
             {
-                "title": "Task Management System",
-                "short_description": "A collaborative task management application for teams.",
-                "description": "Developed a task management application that allows teams to create, assign, and track tasks. Features include real-time updates, file attachments, comments, and notifications. Built with Django backend and a modern JavaScript frontend.",
-                "challenge": "Real-time updates were essential for this application. The challenge was to implement this without using WebSockets to reduce complexity.",
-                "solution": "Implemented polling with optimized queries to minimize database load. Used Django's caching framework to improve performance.",
-                "results": "The application is now used by over 50 teams with an average of 200 tasks created daily. User feedback indicates a 30% improvement in team productivity.",
-                "client_name": "TeamFlow",
-                "project_date": timezone.datetime(2022, 9, 10),
+                "title": "Task Management App",
+                "slug": "task-management-app",
+                "short_description": "A collaborative task management tool for remote teams with real-time updates.",
+                "context": "A growing startup was struggling to manage tasks across their distributed team. Existing tools were either too complex or too expensive.",
+                "problem": "They needed a simple, intuitive tool that could handle task assignment, tracking, and team collaboration without the bloat of enterprise solutions.",
+                "approach": "I conducted user interviews to understand their workflow, then designed a minimal but powerful solution.",
+                "solution": "Created a Django application with a clean interface, real-time updates using polling, file attachments, and team collaboration features.",
+                "features": "Task creation and assignment, project boards, file attachments, comments, notifications, team management.",
+                "result": "The app improved team productivity by 30% and is now used by 50+ teams daily.",
+                "role": "End-to-end development including UX design, database architecture, backend logic, and frontend implementation.",
+                "client_name": "TeamWork Inc.",
+                "project_date": timezone.datetime(2023, 9, 20),
                 "status": "completed",
-                "live_url": "https://teamflow.example.com",
-                "github_url": "https://github.com/stevesatcheme/teamflow",
+                "live_url": "https://teamwork-app.example.com",
+                "github_url": "https://github.com/stevesatcheme/taskmanager",
+                "technologies": technologies[:4],
                 "is_featured": True,
                 "is_published": True,
             },
             {
-                "title": "Portfolio Website",
-                "short_description": "A professional portfolio website to showcase my work and skills.",
-                "description": "This portfolio website was built from scratch using Django for the backend and Tailwind CSS for the frontend. It features dynamic content management, internationalization (English/French), and a clean, minimalist design.",
-                "challenge": "Creating a content management system that was flexible enough to handle all the different types of content (projects, articles, skills, etc.) while keeping the code maintainable.",
-                "solution": "Implemented a modular architecture with Django models organized by functionality. Used Django's class-based views and template inheritance to create reusable components.",
-                "results": "The portfolio has received positive feedback for its design and functionality. It serves as both a showcase of my work and a demonstration of my technical skills.",
-                "client_name": "Personal",
-                "project_date": timezone.datetime(2023, 1, 1),
+                "title": "Real Estate Listings",
+                "slug": "real-estate-listings",
+                "short_description": "A modern property listing platform with search, filters, and agent management.",
+                "context": "A real estate agency needed to modernize their property listings and make them accessible to a wider audience.",
+                "problem": "Their manual process of managing listings via spreadsheets and emails was inefficient and prone to errors.",
+                "approach": "I analyzed their current process, identified bottlenecks, and designed an automated solution.",
+                "solution": "Developed a property listing platform with advanced search, geolocation, image galleries, and agent management.",
+                "features": "Property search, advanced filters, map view, image galleries, agent profiles, inquiry forms, analytics dashboard.",
+                "result": "The platform reduced listing management time by 60% and increased qualified leads by 45%.",
+                "role": "Full development including database design, search implementation, and admin dashboard.",
+                "client_name": "HomeFind Cameroon",
+                "project_date": timezone.datetime(2024, 1, 10),
                 "status": "completed",
-                "live_url": "https://stevesatcheme.example.com",
-                "github_url": "https://github.com/stevesatcheme/portfolio",
+                "live_url": "https://homefind.example.com",
+                "github_url": "https://github.com/stevesatcheme/realestate",
+                "technologies": technologies[:6],
                 "is_featured": True,
+                "is_published": True,
+            },
+            {
+                "title": "Restaurant Management System",
+                "slug": "restaurant-management-system",
+                "short_description": "An all-in-one restaurant management solution with ordering, inventory, and reporting.",
+                "context": "A restaurant chain wanted to digitize their operations and improve customer experience.",
+                "problem": "They were losing money due to inefficient inventory management, slow order processing, and lack of customer data.",
+                "approach": "I mapped out their entire workflow from order to delivery, identifying opportunities for automation and improvement.",
+                "solution": "Built a comprehensive system covering online ordering, table reservations, inventory tracking, and business analytics.",
+                "features": "Online ordering, table reservations, menu management, inventory tracking, staff scheduling, analytics dashboard.",
+                "result": "The system reduced order processing time by 40% and increased customer retention by 25%.",
+                "role": "Lead developer responsible for architecture design, database optimization, and full-stack implementation.",
+                "client_name": "FoodChain Africa",
+                "project_date": timezone.datetime(2024, 5, 1),
+                "status": "completed",
+                "live_url": "https://foodchain.example.com",
+                "github_url": "https://github.com/stevesatcheme/restaurant",
+                "technologies": technologies[:7],
+                "is_featured": False,
                 "is_published": True,
             },
         ]
-        
+
         created_projects = []
-        for project in projects:
-            p = Project.objects.create(**project)
-            # Add some technologies to each project
-            p.technologies.set(technologies[:3])
+        for data in projects_data:
+            techs = data.pop("technologies")
+            p = Project.objects.create(**data)
+            p.technologies.set(techs)
             created_projects.append(p)
-        
+
         return created_projects
 
     def create_project_images(self, projects):
-        # This is a placeholder - in a real implementation, you'd need to handle file uploads
+        captions = [
+            "Homepage view",
+            "Dashboard interface",
+            "Mobile responsive view",
+            "Admin panel",
+        ]
         for i, project in enumerate(projects):
             ProjectImage.objects.create(
                 project=project,
-                caption=f"Screenshot {i+1}",
-                display_order=i,
+                caption=captions[i % len(captions)],
+                display_order=0,
             )
-
-    def create_categories_and_tags(self):
-        categories = [
-            {"name": "Django", "display_order": 1},
-            {"name": "Python", "display_order": 2},
-            {"name": "Web Development", "display_order": 3},
-            {"name": "Tutorials", "display_order": 4},
-        ]
-        
-        tags = [
-            "django", "python", "web", "development", "tutorial", "backend", "frontend", "api",
-        ]
-        
-        created_categories = [Category.objects.create(**cat) for cat in categories]
-        created_tags = [Tag.objects.create(name=tag) for tag in tags]
-        
-        return created_categories, created_tags
-
-    def create_articles(self, profile, categories, tags):
-        articles = [
-            {
-                "title": "Getting Started with Django",
-                "excerpt": "A comprehensive guide to setting up your first Django project.",
-                "content": """
-                <h2>Introduction</h2>
-                <p>Django is a high-level Python web framework that enables rapid development of secure and maintainable websites.</p>
-                
-                <h2>Installation</h2>
-                <p>First, make sure you have Python installed. Then you can install Django using pip:</p>
-                <pre><code>pip install django</code></pre>
-                
-                <h2>Creating a Project</h2>
-                <p>To create a new Django project, run:</p>
-                <pre><code>django-admin startproject myproject</code></pre>
-                
-                <h2>Running the Development Server</h2>
-                <p>Navigate to your project directory and run:</p>
-                <pre><code>python manage.py runserver</code></pre>
-                <p>This will start the development server on http://127.0.0.1:8000/</p>
-                
-                <h2>Conclusion</h2>
-                <p>You now have a basic Django project running! The next step is to create your first app.</p>
-                """,
-                "author": profile,
-                "category": categories[0],
-                "status": "published",
-                "published_at": timezone.datetime(2023, 2, 15),
-                "reading_time": 8,
-                "is_featured": True,
-                "seo_title": "Getting Started with Django - A Beginner's Guide",
-                "seo_description": "Learn how to set up your first Django project with this comprehensive beginner's guide.",
-            },
-            {
-                "title": "Building RESTful APIs with Django REST Framework",
-                "excerpt": "Learn how to create powerful APIs with Django REST Framework.",
-                "content": """
-                <h2>Introduction to DRF</h2>
-                <p>Django REST Framework (DRF) is a powerful and flexible toolkit for building Web APIs.</p>
-                
-                <h2>Installation</h2>
-                <p>Install DRF using pip:</p>
-                <pre><code>pip install djangorestframework</code></pre>
-                
-                <h2>Creating a Serializer</h2>
-                <p>Serializers allow complex data such as querysets and model instances to be converted to native Python datatypes.</p>
-                
-                <h2>Creating Views</h2>
-                <p>DRF provides several classes for creating API views. The most common are APIView, GenericAPIView, and ViewSets.</p>
-                
-                <h2>Setting Up URLs</h2>
-                <p>Configure your URLs to route requests to your API views.</p>
-                
-                <h2>Conclusion</h2>
-                <p>With DRF, you can quickly build powerful, standards-compliant APIs for your Django applications.</p>
-                """,
-                "author": profile,
-                "category": categories[1],
-                "status": "published",
-                "published_at": timezone.datetime(2023, 3, 10),
-                "reading_time": 12,
-                "is_featured": True,
-                "seo_title": "Building RESTful APIs with Django REST Framework",
-                "seo_description": "Learn how to create powerful, standards-compliant APIs with Django REST Framework.",
-            },
-        ]
-        
-        for i, article in enumerate(articles):
-            a = Article.objects.create(**article)
-            # Add some tags
-            a.tags.set(tags[:3])
 
     def create_testimonials(self):
         testimonials = [
             {
-                "name": "John Doe",
+                "name": "Marie Dupont",
                 "position": "CEO",
-                "company": "Tech Corp",
-                "testimonial": "Steve is an exceptional developer. He delivered our project on time and exceeded all our expectations. Highly recommended!",
+                "company": "TechStart Paris",
+                "testimonial": "Steve delivered an exceptional e-commerce platform that exceeded our expectations. His attention to detail and commitment to quality is outstanding. He's not just a developer, he's a problem solver.",
                 "rating": 5,
                 "is_featured": True,
+                "is_active": True,
                 "display_order": 1,
             },
             {
-                "name": "Jane Smith",
+                "name": "James Wilson",
                 "position": "CTO",
-                "company": "Innovate Inc.",
-                "testimonial": "Working with Steve was a great experience. His technical skills are impressive, and he's very professional in his approach.",
+                "company": "InnovateTech",
+                "testimonial": "Working with Steve was a great experience. He understood our technical requirements perfectly and delivered a robust, scalable solution. His communication skills are excellent.",
                 "rating": 5,
                 "is_featured": True,
+                "is_active": True,
                 "display_order": 2,
+            },
+            {
+                "name": "Amina Hassan",
+                "position": "Founder",
+                "company": "AfriTech Solutions",
+                "testimonial": "Steve built our task management app and it transformed how our team works. The application is intuitive, fast, and reliable. He delivered on time and within budget. Highly recommended!",
+                "rating": 5,
+                "is_featured": True,
+                "is_active": True,
+                "display_order": 3,
+            },
+            {
+                "name": "Pierre Njoya",
+                "position": "Director",
+                "company": "CamReal Estate",
+                "testimonial": "Our real estate platform is now our most valuable asset. Steve understood our vision and brought it to life. The search functionality and user experience are fantastic.",
+                "rating": 5,
+                "is_featured": False,
+                "is_active": True,
+                "display_order": 4,
             },
         ]
         for testimonial in testimonials:
@@ -497,18 +488,49 @@ class Command(BaseCommand):
             {
                 "page": "home",
                 "seo_title": "Steve Satcheme | Full-Stack Developer & Digital Solutions Builder",
-                "seo_description": "Professional portfolio of Steve Satcheme, Full-Stack Developer specializing in Django, Python, and modern web technologies.",
+                "seo_description": "Professional portfolio of Steve Satcheme. I build modern web applications, APIs, and digital solutions using Django, Python, and cutting-edge technologies.",
             },
             {
                 "page": "about",
                 "seo_title": "About Steve Satcheme | Full-Stack Developer",
-                "seo_description": "Learn more about Steve Satcheme, his background, skills, and professional experience.",
+                "seo_description": "Learn more about Steve Satcheme - his background, skills, and experience building digital solutions for businesses worldwide.",
             },
             {
                 "page": "services",
-                "seo_title": "Services | Steve Satcheme",
-                "seo_description": "Professional web development services including Django development, API creation, and technical consulting.",
+                "seo_title": "Services | Steve Satcheme - Web Development & Consulting",
+                "seo_description": "Professional web development services including custom applications, API development, and technical consulting. Let's build something great together.",
+            },
+            {
+                "page": "experience",
+                "seo_title": "Experience | Steve Satcheme - Professional Background",
+                "seo_description": "Discover my professional journey, from freelance projects to leading development teams. 3+ years of building digital solutions.",
+            },
+            {
+                "page": "projects",
+                "seo_title": "Projects | Steve Satcheme - Portfolio of Work",
+                "seo_description": "Explore my portfolio of web applications, APIs, and digital solutions. Each project tells a story of solving real problems.",
+            },
+            {
+                "page": "contact",
+                "seo_title": "Contact | Steve Satcheme - Let's Work Together",
+                "seo_description": "Ready to start your project? Get in touch with Steve Satcheme for web development, API creation, and technical consulting.",
             },
         ]
         for seo in seo_data:
             SEO.objects.create(**seo)
+
+    def create_tools(self):
+        tools_data = [
+            {"name": "Python", "icon": "fab fa-python", "category": "language", "display_order": 1},
+            {"name": "Django", "icon": "fas fa-fire", "category": "framework", "display_order": 2},
+            {"name": "JavaScript", "icon": "fab fa-js-square", "category": "language", "display_order": 3},
+            {"name": "PostgreSQL", "icon": "fas fa-database", "category": "database", "display_order": 4},
+            {"name": "Docker", "icon": "fab fa-docker", "category": "tool", "display_order": 5},
+            {"name": "Git", "icon": "fab fa-git-alt", "category": "tool", "display_order": 6},
+            {"name": "Linux", "icon": "fab fa-linux", "category": "tool", "display_order": 7},
+            {"name": "Tailwind CSS", "icon": "fas fa-wind", "category": "framework", "display_order": 8},
+            {"name": "VS Code", "icon": "fas fa-code", "category": "tool", "display_order": 9},
+            {"name": "REST APIs", "icon": "fas fa-plug", "category": "framework", "display_order": 10},
+        ]
+        for tool in tools_data:
+            Tool.objects.create(**tool)

@@ -1,0 +1,46 @@
+{% load static i18n %}
+{% if services %}
+<section id="solutions" class="relative py-20 md:py-28" style="background-color: #0B0D0F;">
+    <div class="max-w-6xl mx-auto px-5">
+        {# Section header #}
+        <div class="text-center mb-16">
+            <span class="inline-flex items-center gap-2 mb-4" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
+                {% trans "02 / SOLUTIONS" %}
+            </span>
+            <h2 style="font-family: var(--font-primary); font-size: clamp(1.8rem, 4vw, 2.6rem); color: #FFFFFF; margin-bottom: 0.75rem;">
+                {% trans "What I can build for you" %}
+            </h2>
+            <p style="color: #ADB5BD; font-size: 1.05rem; max-width: 520px; margin: 0 auto; line-height: 1.7;">
+                {% trans "Every solution starts with understanding your problem. Here's what I can help you with." %}
+            </p>
+        </div>
+
+        {# Solution cards #}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {% for service in services %}
+            <a href="{% url 'portfolio:service_detail' service.slug %}" class="reveal group p-6 rounded-xl border transition-all duration-300" style="background-color: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.06); text-decoration: none; color: inherit;">
+                <div class="flex items-start gap-4">
+                    {% if service.icon %}
+                    <div class="w-11 h-11 flex items-center justify-center rounded-xl flex-shrink-0" style="background-color: rgba(21,163,74,0.1);">
+                        <i class="{{ service.icon }}" style="color: #15A34A; font-size: 1.15rem;"></i>
+                    </div>
+                    {% endif %}
+                    <div class="flex-1">
+                        <h3 style="font-family: var(--font-primary); font-size: 1.1rem; color: #FFFFFF; margin-bottom: 0.35rem;">{{ service.title }}</h3>
+                        <p style="color: #ADB5BD; font-size: 0.92rem; line-height: 1.6; margin-bottom: 0.75rem;">{{ service.short_description|truncatewords:20 }}</p>
+                        <span style="font-family: var(--font-display); font-size: 0.78rem; font-weight: 500; letter-spacing: 0.05em; color: #15A34A;">{% trans "LEARN MORE" %} →</span>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+
+        {# CTA #}
+        <div class="text-center mt-12">
+            <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF; border: 2px solid #15A34A;">
+                {% trans "HAVE A PROJECT IN MIND?" %}
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}

@@ -2,61 +2,587 @@
 {% load static i18n %}
 
 {% block content %}
-<!-- Service Detail Section -->
-<section class="py-14 md:py-16">
-    <div class="max-w-6xl mx-auto px-5">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
-            <!-- Service Sidebar -->
-            <div class="lg:col-span-1 space-y-5">
-                <div>
-                    <span class="section-label">{% trans "SERVICE" %}</span>
-                    <h1 style="font-family: var(--font-primary); font-size: 2rem;">{{ service.title }}</h1>
+
+{# ═══════════════ HERO ═══════════════ #}
+<section class="relative overflow-hidden" style="background-color: #0B0D0F; min-height: 70vh; display: flex; align-items: center;">
+    {# Decorative grid pattern #}
+    <div class="absolute inset-0" style="opacity: 0.03;">
+        <div style="width: 100%; height: 100%; background-image: repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(255,255,255,0.5) 80px, rgba(255,255,255,0.5) 81px), repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255,255,255,0.5) 80px, rgba(255,255,255,0.5) 81px);"></div>
+    </div>
+
+    {# Large decorative number #}
+    <div class="absolute" style="right: -20px; top: 50%; transform: translateY(-50%); font-family: var(--font-primary); font-size: clamp(10rem, 25vw, 20rem); color: rgba(255,255,255,0.02); line-height: 1; pointer-events: none; user-select: none;">
+        {{ forloop.counter0|default:"01" }}
+    </div>
+
+    <div class="relative max-w-6xl mx-auto px-5 py-24 md:py-32">
+        {# Breadcrumb #}
+        <div class="flex items-center gap-2 mb-10" style="font-family: var(--font-mono); font-size: 0.72rem; color: rgba(255,255,255,0.35); letter-spacing: 0.08em;">
+            <a href="{% url 'portfolio:home' %}" style="text-decoration: none; color: inherit; transition: color 0.3s;" onmouseover="this.style.color='#15A34A'" onmouseout="this.style.color='inherit'">HOME</a>
+            <span style="color: rgba(255,255,255,0.15);">/</span>
+            <a href="{% url 'portfolio:services' %}" style="text-decoration: none; color: inherit; transition: color 0.3s;" onmouseover="this.style.color='#15A34A'" onmouseout="this.style.color='inherit'">SOLUTIONS</a>
+            <span style="color: rgba(255,255,255,0.15);">/</span>
+            <span style="color: #15A34A;">{{ service.title|upper }}</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-8">
+                {# Label #}
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="w-12 h-px" style="background-color: #15A34A;"></span>
+                    <span style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: #15A34A;">{% trans "SOLUTION" %}</span>
                 </div>
-                <p style="color: #495057; font-size: 1rem; line-height: 1.7;">{{ service.description }}</p>
-                
-                <!-- Service Features -->
-                {% if service.features.all %}
-                <div class="space-y-3">
-                    <h3 style="font-family: var(--font-display); font-weight: 600; font-size: 0.95rem;">{% trans "Features" %}</h3>
-                    <ul class="space-y-2.5">
-                        {% for feature in service.features.all %}
-                        <li class="flex items-start gap-2.5">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="#15A34A">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                            </svg>
-                            <span style="font-size: 0.92rem;">{{ feature.feature }}</span>
-                        </li>
-                        {% endfor %}
-                    </ul>
+
+                {# Title — bold, large #}
+                <h1 style="font-family: var(--font-primary); font-size: clamp(2.5rem, 6vw, 4.5rem); color: #FFFFFF; line-height: 1.0; margin-bottom: 1.5rem; letter-spacing: -0.02em;">
+                    {{ service.title }}
+                </h1>
+
+                {# Subtitle #}
+                <p style="color: rgba(255,255,255,0.55); font-size: 1.15rem; line-height: 1.7; max-width: 580px; margin-bottom: 2.5rem;">
+                    {{ service.hero_description|default:service.short_description }}
+                </p>
+
+                {# CTAs #}
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="{% url 'portfolio:contact' %}?service={{ service.slug }}" class="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-lg font-medium transition-all duration-300 hover:shadow-lg hover:shadow-green-500/20" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.06em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF; text-decoration: none;">
+                        {% trans "DISCUSS MY PROJECT" %}
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                    </a>
+                    <a href="{% url 'portfolio:services' %}" class="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.06em; text-transform: uppercase; background-color: transparent; color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.12); text-decoration: none;">
+                        {% trans "ALL SOLUTIONS" %}
+                    </a>
                 </div>
-                {% endif %}
-                
-                <!-- CTA -->
-                <a href="{% url 'portfolio:contact' %}?service={{ service.slug }}" class="btn-primary w-full text-center">
-                    {% trans "GET IN TOUCH" %}
-                </a>
             </div>
-            
-            <!-- Related Services -->
-            <div class="lg:col-span-2">
-                {% if related_services %}
-                <div class="space-y-5">
-                    <h3 style="font-family: var(--font-primary); font-size: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid #E9ECEF;">{% trans "Related Services" %}</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {% for related_service in related_services %}
-                        <a href="{% url 'portfolio:service_detail' related_service.slug %}" class="card reveal" style="text-decoration: none; color: inherit;">
-                            <h4 style="font-family: var(--font-primary); font-size: 1.05rem; margin-bottom: 0.5rem;">{{ related_service.title }}</h4>
-                            <p style="color: #6C757D; font-size: 0.9rem; line-height: 1.55; margin-bottom: 0.75rem;">{{ related_service.short_description }}</p>
-                            <span style="font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em; color: #15A34A;">
-                                {% trans "LEARN MORE" %} →
-                            </span>
-                        </a>
-                        {% endfor %}
+
+            {# Side decoration #}
+            <div class="hidden lg:flex lg:col-span-4 justify-end">
+                <div class="relative w-48 h-48">
+                    <div class="absolute inset-0 rounded-full" style="border: 1px solid rgba(21,163,74,0.2);"></div>
+                    <div class="absolute inset-4 rounded-full" style="border: 1px solid rgba(21,163,74,0.1);"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <div style="font-family: var(--font-primary); font-size: 2.5rem; color: #15A34A; line-height: 1;">{{ forloop.counter0|default:"01" }}</div>
+                            <div style="font-family: var(--font-mono); font-size: 0.65rem; color: rgba(255,255,255,0.3); letter-spacing: 0.15em; margin-top: 0.5rem;">{% trans "SOLUTION" %}</div>
+                        </div>
                     </div>
                 </div>
-                {% endif %}
             </div>
         </div>
     </div>
 </section>
+
+
+{# ═══════════════ WHAT THIS SOLUTION REALLY IS ═══════════════ #}
+<section class="py-20 md:py-28" style="background-color: #FFFFFF;">
+    <div class="max-w-6xl mx-auto px-5">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            {# Left column — label + title #}
+            <div class="lg:col-span-4">
+                <div class="lg:sticky lg:top-28">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-8 h-px" style="background-color: #15A34A;"></span>
+                        <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">{% trans "01 — COMPRENDRE" %}</span>
+                    </div>
+                    <h2 style="font-family: var(--font-primary); font-size: clamp(1.8rem, 3vw, 2.4rem); color: #0B0D0F; line-height: 1.1; margin-bottom: 1rem;">
+                        {% trans "Ce que cette solution" %}<br>
+                        <span style="color: #15A34A;">{% trans "réellement est." %}</span>
+                    </h2>
+                    <p style="color: #6C757D; font-size: 0.92rem; line-height: 1.6;">
+                        {% trans "Avant toute chose, comprenons de quoi il s'agit." %}
+                    </p>
+                </div>
+            </div>
+
+            {# Right column — content #}
+            <div class="lg:col-span-8">
+                <div style="color: #343A40; line-height: 1.9; font-size: 1.08rem; white-space: pre-line;">{{ service.description }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{# ═══════════════ THE PROBLEM IT SOLVES ═══════════════ #}
+{% if service.problem %}
+<section class="py-20 md:py-28" style="background-color: #0B0D0F;">
+    <div class="max-w-6xl mx-auto px-5">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            <div class="lg:col-span-4">
+                <div class="lg:sticky lg:top-28">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-8 h-px" style="background-color: #15A34A;"></span>
+                        <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">{% trans "02 — LE PROBLÈME" %}</span>
+                    </div>
+                    <h2 style="font-family: var(--font-primary); font-size: clamp(1.8rem, 3vw, 2.4rem); color: #FFFFFF; line-height: 1.1; margin-bottom: 1rem;">
+                        {% trans "Pourquoi cette" %}<br>
+                        <span style="color: #15A34A;">{% trans "solution existe." %}</span>
+                    </h2>
+                    <p style="color: rgba(255,255,255,0.4); font-size: 0.92rem; line-height: 1.6;">
+                        {% trans "Chaque solution commence par un problème réel." %}
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8">
+                <div class="p-8 md:p-10 rounded-2xl" style="background-color: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);">
+                    <div style="color: rgba(255,255,255,0.7); line-height: 1.9; font-size: 1.08rem; white-space: pre-line;">{{ service.problem }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+
+{# ═══════════════ WHO IS THIS FOR ═══════════════ #}
+{% if service.audience %}
+<section class="py-20 md:py-28" style="background-color: #F8F9FA;">
+    <div class="max-w-6xl mx-auto px-5">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            <div class="lg:col-span-4">
+                <div class="lg:sticky lg:top-28">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-8 h-px" style="background-color: #15A34A;"></span>
+                        <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">{% trans "03 — POUR QUI" %}</span>
+                    </div>
+                    <h2 style="font-family: var(--font-primary); font-size: clamp(1.8rem, 3vw, 2.4rem); color: #0B0D0F; line-height: 1.1; margin-bottom: 1rem;">
+                        {% trans "Cette solution est pour" %}<br>
+                        <span style="color: #15A34A;">{% trans "vous si..." %}</span>
+                    </h2>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8">
+                <div style="color: #495057; line-height: 1.9; font-size: 1.08rem; white-space: pre-line;">{{ service.audience }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+
+{# ═══════════════ WHAT CAN BE BUILT ═══════════════ #}
+{% if service.features %}
+<section class="py-20 md:py-28" style="background-color: #FFFFFF;">
+    <div class="max-w-6xl mx-auto px-5">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            <div class="lg:col-span-4">
+                <div class="lg:sticky lg:top-28">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-8 h-px" style="background-color: #15A34A;"></span>
+                        <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">{% trans "04 — CE QUI PEUT ÊTRE CONSTRUIT" %}</span>
+                    </div>
+                    <h2 style="font-family: var(--font-primary); font-size: clamp(1.8rem, 3vw, 2.4rem); color: #0B0D0F; line-height: 1.1; margin-bottom: 1rem;">
+                        {% trans "Fonctionnalités" %}<br>
+                        <span style="color: #15A34A;">{% trans "possibles." %}</span>
+                    </h2>
+                    <p style="color: #6C757D; font-size: 0.92rem; line-height: 1.6;">
+                        {% trans "Chaque fonctionnalité est expliquée en termes simples." %}
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8">
+                <div style="color: #343A40; line-height: 1.9; font-size: 1.08rem; white-space: pre-line;">{{ service.features }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+
+{# ═══════════════ CONCRETE EXAMPLE ═══════════════ #}
+{% if service.concrete_example %}
+<section class="py-20 md:py-28" style="background-color: #0B0D0F;">
+    <div class="max-w-6xl mx-auto px-5">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            <div class="lg:col-span-4">
+                <div class="lg:sticky lg:top-28">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-8 h-px" style="background-color: #15A34A;"></span>
+                        <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">{% trans "05 — EXEMPLE CONCRET" %}</span>
+                    </div>
+                    <h2 style="font-family: var(--font-primary); font-size: clamp(1.8rem, 3vw, 2.4rem); color: #FFFFFF; line-height: 1.1; margin-bottom: 1rem;">
+                        {% trans "Imaginez" %}<br>
+                        <span style="color: #15A34A;">{% trans "cette situation." %}</span>
+                    </h2>
+                    <p style="color: rgba(255,255,255,0.4); font-size: 0.92rem; line-height: 1.6;">
+                        {% trans "Un exemple concret pour vous aider à visualiser." %}
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8">
+                <div class="p-8 md:p-10 rounded-2xl" style="background-color: rgba(21,163,74,0.06); border: 1px solid rgba(21,163,74,0.15);">
+                    <div style="color: rgba(255,255,255,0.75); line-height: 1.9; font-size: 1.08rem; white-space: pre-line;">{{ service.concrete_example }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+
+{# ═══════════════ BEFORE / AFTER ═══════════════ #}
+{% if service.before_after %}
+<section class="py-20 md:py-28" style="background-color: #FFFFFF;">
+    <div class="max-w-6xl mx-auto px-5">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            <div class="lg:col-span-4">
+                <div class="lg:sticky lg:top-28">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-8 h-px" style="background-color: #15A34A;"></span>
+                        <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">{% trans "06 — LA TRANSFORMATION" %}</span>
+                    </div>
+                    <h2 style="font-family: var(--font-primary); font-size: clamp(1.8rem, 3vw, 2.4rem); color: #0B0D0F; line-height: 1.1; margin-bottom: 1rem;">
+                        {% trans "Avant" %} <span style="color: #DC3545;">→</span> {% trans "Après" %}
+                    </h2>
+                    <p style="color: #6C757D; font-size: 0.92rem; line-height: 1.6;">
+                        {% trans "Ce que cette solution transforme concrètement." %}
+                    </p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {# BEFORE #}
+                    <div class="p-6 rounded-xl" style="background-color: #FFF5F5; border: 1px solid #FECDD3;">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="w-3 h-3 rounded-full" style="background-color: #DC3545;"></span>
+                            <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #DC3545;">{% trans "AVANT" %}</span>
+                        </div>
+                        <div style="color: #495057; line-height: 1.8; font-size: 0.95rem; white-space: pre-line;">{{ service.before_after }}</div>
+                    </div>
+
+                    {# AFTER #}
+                    <div class="p-6 rounded-xl" style="background-color: #F0FDF4; border: 1px solid #BBF7D0;">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="w-3 h-3 rounded-full" style="background-color: #15A34A;"></span>
+                            <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #15A34A;">{% trans "APRÈS" %}</span>
+                        </div>
+                        <div style="color: #343A40; line-height: 1.8; font-size: 0.95rem;">{% trans "Processus centralisé. Interface intuitive. Temps gagné. Erreurs réduites. Résultat : une activité qui fonctionne mieux." %}</div>
+                    </div>
+                </div>
+
+                {# Full transformation text below #}
+                <div class="mt-8 p-6 rounded-xl" style="background-color: #F8F9FA; border: 1px solid #E9ECEF;">
+                    <div style="color: #495057; line-height: 1.8; font-size: 0.98rem; white-space: pre-line;">{{ service.before_after }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+
+{# ═══════════════ HOW IT WORKS ═══════════════ #}
+{% if service.how_it_works %}
+<section class="py-20 md:py-28" style="background-color: #F8F9FA;">
+    <div class="max-w-6xl mx-auto px-5">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            <div class="lg:col-span-4">
+                <div class="lg:sticky lg:top-28">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-8 h-px" style="background-color: #15A34A;"></span>
+                        <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">{% trans "07 — COMMENT ÇA FONCTIONNE" %}</span>
+                    </div>
+                    <h2 style="font-family: var(--font-primary); font-size: clamp(1.8rem, 3vw, 2.4rem); color: #0B0D0F; line-height: 1.1; margin-bottom: 1rem;">
+                        {% trans "Le fonctionnement" %}<br>
+                        <span style="color: #15A34A;">{% trans "en détail." %}</span>
+                    </h2>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8">
+                <div style="color: #343A40; line-height: 1.9; font-size: 1.08rem; white-space: pre-line;">{{ service.how_it_works }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+
+{# ═══════════════ BENEFITS ═══════════════ #}
+{% if service.benefits %}
+<section class="py-20 md:py-28" style="background-color: #FFFFFF;">
+    <div class="max-w-6xl mx-auto px-5">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            <div class="lg:col-span-4">
+                <div class="lg:sticky lg:top-28">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-8 h-px" style="background-color: #15A34A;"></span>
+                        <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">{% trans "08 — CE QUE VOUS GAGNEZ" %}</span>
+                    </div>
+                    <h2 style="font-family: var(--font-primary); font-size: clamp(1.8rem, 3vw, 2.4rem); color: #0B0D0F; line-height: 1.1; margin-bottom: 1rem;">
+                        {% trans "Les bénéfices" %}<br>
+                        <span style="color: #15A34A;">{% trans "concrets." %}</span>
+                    </h2>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8">
+                <div style="color: #343A40; line-height: 1.9; font-size: 1.08rem; white-space: pre-line;">{{ service.benefits }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+
+{# ═══════════════ WHAT'S INCLUDED ═══════════════ #}
+{% if service.included %}
+<section class="py-20 md:py-28" style="background-color: #0B0D0F;">
+    <div class="max-w-6xl mx-auto px-5">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            <div class="lg:col-span-4">
+                <div class="lg:sticky lg:top-28">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="w-8 h-px" style="background-color: #15A34A;"></span>
+                        <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">{% trans "09 — CE QUI EST INCLUS" %}</span>
+                    </div>
+                    <h2 style="font-family: var(--font-primary); font-size: clamp(1.8rem, 3vw, 2.4rem); color: #FFFFFF; line-height: 1.1; margin-bottom: 1rem;">
+                        {% trans "Le périmètre" %}<br>
+                        <span style="color: #15A34A;">{% trans "de la solution." %}</span>
+                    </h2>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8">
+                <div style="color: rgba(255,255,255,0.7); line-height: 1.9; font-size: 1.08rem; white-space: pre-line;">{{ service.included }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+
+{# ═══════════════ HOW I PROCED — DETAILED PROCESS ═══════════════ #}
+<section class="py-20 md:py-28" style="background-color: #F8F9FA;">
+    <div class="max-w-6xl mx-auto px-5">
+        <div class="text-center mb-16">
+            <div class="flex items-center justify-center gap-3 mb-4">
+                <span class="w-8 h-px" style="background-color: #15A34A;"></span>
+                <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">{% trans "MA MÉTHODE" %}</span>
+                <span class="w-8 h-px" style="background-color: #15A34A;"></span>
+            </div>
+            <h2 style="font-family: var(--font-primary); font-size: clamp(1.8rem, 3vw, 2.4rem); color: #0B0D0F; line-height: 1.1; margin-bottom: 0.75rem;">
+                {% trans "De l'idée à la réalisation" %}
+            </h2>
+            <p style="color: #6C757D; font-size: 1rem; max-width: 520px; margin: 0 auto; line-height: 1.6;">
+                {% trans "Vous n'avez pas besoin de savoir comment construire votre solution. Vous devez simplement être capable d'expliquer votre problème." %}
+            </p>
+        </div>
+
+        {# Process steps — vertical timeline #}
+        <div class="max-w-3xl mx-auto">
+            {# Step 1 #}
+            <div class="reveal flex gap-6 md:gap-8 mb-12">
+                <div class="flex flex-col items-center">
+                    <div class="w-12 h-12 flex items-center justify-center rounded-full flex-shrink-0" style="background-color: #15A34A;">
+                        <span style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: #FFFFFF;">01</span>
+                    </div>
+                    <div class="flex-1 w-px mt-3" style="background-color: #E9ECEF;"></div>
+                </div>
+                <div class="pb-8">
+                    <h3 style="font-family: var(--font-primary); font-size: 1.25rem; color: #0B0D0F; margin-bottom: 0.5rem;">{% trans "Vous m'expliquez votre besoin" %}</h3>
+                    <p style="color: #6C757D; font-size: 0.95rem; line-height: 1.7;">{% trans "Même si votre idée n'est pas encore clairement définie, vous me décrivez votre activité, votre problème ou votre vision. Je pose des questions pour bien comprendre. Pas besoin de vocabulaire technique." %}</p>
+                </div>
+            </div>
+
+            {# Step 2 #}
+            <div class="reveal flex gap-6 md:gap-8 mb-12">
+                <div class="flex flex-col items-center">
+                    <div class="w-12 h-12 flex items-center justify-center rounded-full flex-shrink-0" style="background-color: #15A34A;">
+                        <span style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: #FFFFFF;">02</span>
+                    </div>
+                    <div class="flex-1 w-px mt-3" style="background-color: #E9ECEF;"></div>
+                </div>
+                <div class="pb-8">
+                    <h3 style="font-family: var(--font-primary); font-size: 1.25rem; color: #0B0D0F; margin-bottom: 0.5rem;">{% trans "Nous définissons la solution ensemble" %}</h3>
+                    <p style="color: #6C757D; font-size: 0.95rem; line-height: 1.7;">{% trans "Je transforme votre besoin en fonctionnalités concrètes. Vous voyez ce qui va être construit avant qu'aucune ligne de code ne soit écrite. Nous validons ensemble la direction." %}</p>
+                </div>
+            </div>
+
+            {# Step 3 #}
+            <div class="reveal flex gap-6 md:gap-8 mb-12">
+                <div class="flex flex-col items-center">
+                    <div class="w-12 h-12 flex items-center justify-center rounded-full flex-shrink-0" style="background-color: #15A34A;">
+                        <span style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: #FFFFFF;">03</span>
+                    </div>
+                    <div class="flex-1 w-px mt-3" style="background-color: #E9ECEF;"></div>
+                </div>
+                <div class="pb-8">
+                    <h3 style="font-family: var(--font-primary); font-size: 1.25rem; color: #0B0D0F; margin-bottom: 0.5rem;">{% trans "Je conçois et je développe" %}</h3>
+                    <p style="color: #6C757D; font-size: 0.95rem; line-height: 1.7;">{% trans "Je construis la solution avec soin. Chaque fonctionnalité est pensée pour être fiable, rapide et facile à utiliser. Vous pouvez suivre l'avancement." %}</p>
+                </div>
+            </div>
+
+            {# Step 4 #}
+            <div class="reveal flex gap-6 md:gap-8 mb-12">
+                <div class="flex flex-col items-center">
+                    <div class="w-12 h-12 flex items-center justify-center rounded-full flex-shrink-0" style="background-color: #15A34A;">
+                        <span style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: #FFFFFF;">04</span>
+                    </div>
+                    <div class="flex-1 w-px mt-3" style="background-color: #E9ECEF;"></div>
+                </div>
+                <div class="pb-8">
+                    <h3 style="font-family: var(--font-primary); font-size: 1.25rem; color: #0B0D0F; margin-bottom: 0.5rem;">{% trans "Je déploie" %}</h3>
+                    <p style="color: #6C757D; font-size: 0.95rem; line-height: 1.7;">{% trans "La solution est mise en ligne et rendue accessible. Je gère tous les aspects techniques pour qu'elle soit disponible et fonctionnelle." %}</p>
+                </div>
+            </div>
+
+            {# Step 5 #}
+            <div class="reveal flex gap-6 md:gap-8 mb-12">
+                <div class="flex flex-col items-center">
+                    <div class="w-12 h-12 flex items-center justify-center rounded-full flex-shrink-0" style="background-color: #15A34A;">
+                        <span style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: #FFFFFF;">05</span>
+                    </div>
+                    <div class="flex-1 w-px mt-3" style="background-color: #E9ECEF;"></div>
+                </div>
+                <div class="pb-8">
+                    <h3 style="font-family: var(--font-primary); font-size: 1.25rem; color: #0B0D0F; margin-bottom: 0.5rem;">{% trans "Vous utilisez" %}</h3>
+                    <p style="color: #6C757D; font-size: 0.95rem; line-height: 1.7;">{% trans "Vous disposez de votre outil. Votre problème est résolu. Votre activité avance avec une solution qui fonctionne pour vous." %}</p>
+                </div>
+            </div>
+
+            {# Step 6 #}
+            <div class="reveal flex gap-6 md:gap-8">
+                <div class="flex flex-col items-center">
+                    <div class="w-12 h-12 flex items-center justify-center rounded-full flex-shrink-0" style="background-color: rgba(21,163,74,0.15); border: 2px solid #15A34A;">
+                        <span style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: #15A34A;">06</span>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="font-family: var(--font-primary); font-size: 1.25rem; color: #0B0D0F; margin-bottom: 0.5rem;">{% trans "Nous faisons évoluer" %}</h3>
+                    <p style="color: #6C757D; font-size: 0.95rem; line-height: 1.7;">{% trans "Vos besoins changent ? La solution évolue avec vous. Nouvelles fonctionnalités, améliorations, ajustements — tout est possible." %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{# ═══════════════ RELATED PROJECTS (PROOF) ═══════════════ #}
+{% if related_projects %}
+<section class="py-20 md:py-28" style="background-color: #FFFFFF;">
+    <div class="max-w-6xl mx-auto px-5">
+        <div class="text-center mb-12">
+            <div class="flex items-center justify-center gap-3 mb-4">
+                <span class="w-8 h-px" style="background-color: #15A34A;"></span>
+                <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">{% trans "PREUVE" %}</span>
+                <span class="w-8 h-px" style="background-color: #15A34A;"></span>
+            </div>
+            <h2 style="font-family: var(--font-primary); font-size: clamp(1.8rem, 3vw, 2.4rem); color: #0B0D0F; margin-bottom: 0.5rem;">
+                {% trans "Voir cette solution en action" %}
+            </h2>
+            <p style="color: #6C757D; font-size: 1rem; max-width: 480px; margin: 0 auto; line-height: 1.6;">
+                {% trans "Des réalisations concrètes qui utilisent cette solution." %}
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {% for project in related_projects %}
+            <a href="{% url 'portfolio:project_detail' project.slug %}" class="reveal group rounded-xl overflow-hidden border transition-all duration-300 hover:shadow-lg hover:shadow-black/5 hover:-translate-y-1" style="background-color: #FFFFFF; border-color: #E9ECEF; text-decoration: none; color: inherit;">
+                {% if project.cover_image %}
+                <div class="overflow-hidden aspect-[16/10]">
+                    <img src="{{ project.cover_image.url }}" alt="{{ project.title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                </div>
+                {% endif %}
+                <div class="p-5">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; color: #15A34A;">CASE {{ forloop.counter|stringformat:"03d" }}</span>
+                        {% if project.category %}
+                        <span style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; color: #ADB5BD;">/ {{ project.category|upper }}</span>
+                        {% endif %}
+                    </div>
+                    <h3 style="font-family: var(--font-primary); font-size: 1.1rem; color: #0B0D0F; margin-bottom: 0.35rem;">{{ project.title }}</h3>
+                    <p style="color: #6C757D; font-size: 0.88rem; line-height: 1.55;">{{ project.short_description|truncatewords:18 }}</p>
+                    <div class="flex items-center gap-2 mt-4" style="font-family: var(--font-display); font-size: 0.78rem; font-weight: 500; color: #15A34A;">
+                        {% trans "VIEW CASE STUDY" %}
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+
+{# ═══════════════ TECHNICAL DETAILS (SECONDARY) ═══════════════ #}
+{% if service.technical_details %}
+<section class="py-16 md:py-20" style="background-color: #F8F9FA;">
+    <div class="max-w-4xl mx-auto px-5">
+        <div class="reveal p-8 rounded-2xl" style="background-color: #FFFFFF; border: 1px solid #E9ECEF;">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="w-6 h-px" style="background-color: #ADB5BD;"></span>
+                <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ADB5BD;">{% trans "UNDER THE HOOD" %}</span>
+            </div>
+            <h3 style="font-family: var(--font-primary); font-size: 1.2rem; color: #0B0D0F; margin-bottom: 0.75rem;">{% trans "Détails techniques" %}</h3>
+            <p style="color: #6C757D; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem;">
+                {% trans "Pour ceux qui souhaitent comprendre comment la solution est construite techniquement." %}
+            </p>
+            <div style="color: #495057; line-height: 1.75; font-size: 0.95rem; white-space: pre-line;">{{ service.technical_details }}</div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+
+{# ═════════════ OTHER SOLUTIONS ═════════════ #}
+{% if all_services %}
+<section class="py-16 md:py-20" style="background-color: #FFFFFF;">
+    <div class="max-w-6xl mx-auto px-5">
+        <div class="text-center mb-10">
+            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F;">{% trans "Autres solutions" %}</h2>
+        </div>
+        <div class="flex flex-wrap justify-center gap-3">
+            {% for other in all_services %}
+            <a href="{% url 'portfolio:service_detail' other.slug %}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border transition-all duration-300 hover:border-green-500 hover:bg-green-50" style="font-family: var(--font-display); font-size: 0.85rem; color: #495057; border-color: #E9ECEF; text-decoration: none;">
+                {{ other.title }}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+
+{# ═══════════════ CTA ═══════════════ #}
+<section class="relative overflow-hidden py-20 md:py-28" style="background-color: #0B0D0F;">
+    {# Decorative #}
+    <div class="absolute top-0 left-0 w-full h-full" style="opacity: 0.03;">
+        <div style="width: 100%; height: 100%; background-image: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(21,163,74,0.3) 40px, rgba(21,163,74,0.3) 41px);"></div>
+    </div>
+
+    <div class="relative max-w-4xl mx-auto px-5 text-center">
+        <div class="flex items-center justify-center gap-3 mb-6">
+            <span class="w-10 h-px" style="background-color: #15A34A;"></span>
+            <span style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">{% trans "COMMENÇONS" %}</span>
+            <span class="w-10 h-px" style="background-color: #15A34A;"></span>
+        </div>
+
+        <h2 style="font-family: var(--font-primary); font-size: clamp(1.8rem, 4vw, 2.8rem); color: #FFFFFF; margin-bottom: 1rem; line-height: 1.1;">
+            {% trans "Vous avez un problème" %}<br>
+            <span style="color: #15A34A;">{% trans "similaire ?" %}</span>
+        </h2>
+        <p style="color: rgba(255,255,255,0.5); font-size: 1.05rem; max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.65;">
+            {% trans "Expliquez-moi simplement comment vous travaillez aujourd'hui. Je vous montrerai comment cette solution peut vous aider." %}
+        </p>
+
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="{% url 'portfolio:contact' %}?service={{ service.slug }}" class="inline-flex items-center justify-center gap-3 px-9 py-4 rounded-lg font-medium transition-all duration-300 hover:shadow-lg hover:shadow-green-500/20" style="font-family: var(--font-display); font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF; text-decoration: none;">
+                {% trans "PARLONS DE MON PROJET" %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+            </a>
+            <a href="{% url 'portfolio:services' %}" class="inline-flex items-center justify-center gap-3 px-9 py-4 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; background-color: transparent; color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.12); text-decoration: none;">
+                {% trans "VOIR TOUTES LES SOLUTIONS" %}
+            </a>
+        </div>
+    </div>
+</section>
+
 {% endblock %}

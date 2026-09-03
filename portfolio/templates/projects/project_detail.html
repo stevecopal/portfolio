@@ -2,218 +2,264 @@
 {% load static i18n %}
 
 {% block content %}
-<!-- Project Header -->
-<section class="pt-12 pb-8 md:pt-16 md:pb-10">
+{# Breadcrumbs #}
+<section class="pt-24 md:pt-28 pb-4">
     <div class="max-w-4xl mx-auto px-5">
-        <!-- Breadcrumbs -->
-        <div class="flex items-center gap-2 mb-6" style="font-family: var(--font-mono); font-size: 0.75rem; color: #ADB5BD;">
+        <div class="flex items-center gap-2" style="font-family: var(--font-mono); font-size: 0.75rem; color: #ADB5BD;">
             <a href="{% url 'portfolio:home' %}" style="text-decoration: none; color: inherit; transition: color 0.2s;" onmouseover="this.style.color='#0B0D0F'" onmouseout="this.style.color='#ADB5BD'">{% trans "HOME" %}</a>
             <span>/</span>
-            <a href="{% url 'portfolio:projects' %}" style="text-decoration: none; color: inherit; transition: color 0.2s;" onmouseover="this.style.color='#0B0D0F'" onmouseout="this.style.color='#ADB5BD'">{% trans "PROJECTS" %}</a>
+            <a href="{% url 'portfolio:projects' %}" style="text-decoration: none; color: inherit; transition: color 0.2s;" onmouseover="this.style.color='#0B0D0F'" onmouseout="this.style.color='#ADB5BD'">{% trans "WORK" %}</a>
             <span>/</span>
             <span style="color: #495057;">{{ project.title }}</span>
         </div>
-        
-        <!-- Project Title & Metadata -->
+    </div>
+</section>
+
+{# Project Header #}
+<section class="pb-10 md:pb-14">
+    <div class="max-w-4xl mx-auto px-5">
         <div class="space-y-5">
-            <div class="space-y-3">
-                <span class="section-label">{% trans "PROJECT" %}</span>
-                <h1 style="font-family: var(--font-primary); font-size: 2.25rem; line-height: 1.1;">{{ project.title }}</h1>
-                <p style="color: #6C757D; font-size: 1.05rem; line-height: 1.65;">{{ project.short_description }}</p>
-            </div>
-            
-            <!-- Project Actions -->
+            <span class="inline-flex items-center gap-2" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
+                <span class="w-8 h-px" style="background-color: #15A34A;"></span>
+                {% trans "CASE STUDY" %}
+            </span>
+            <h1 style="font-family: var(--font-primary); font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1.1; color: #0B0D0F;">{{ project.title }}</h1>
+            <p style="color: #6C757D; font-size: 1.1rem; line-height: 1.65; max-width: 600px;">{{ project.short_description }}</p>
+
+            {# Actions #}
             <div class="flex flex-wrap gap-3">
                 {% if project.live_url %}
-                <a href="{{ project.live_url }}" target="_blank" rel="noopener noreferrer" class="btn-primary text-xs">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
+                <a href="{{ project.live_url }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium transition-all duration-200" style="font-family: var(--font-display); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF; text-decoration: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                     <span>{% trans "LIVE DEMO" %}</span>
                 </a>
                 {% endif %}
-                
                 {% if project.github_url %}
-                <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer" class="btn-outline text-xs">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.947-.695.074-.688.074-.688 1.003.07 1.539 1.032 1.539 1.032.892 1.534 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.9 2.651.636.408.292 1.427.292 1.427 2.22.757 4.342 1.82 4.342 3.012 0 1.466-.325 2.688-.965 2.688-.666.376-.872.904-.872 1.855 0 .752.366 1.36.644 1.703.005.266.208.578.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" />
-                    </svg>
+                <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium transition-all duration-200" style="font-family: var(--font-display); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: transparent; color: #0B0D0F; border: 2px solid #E9ECEF; text-decoration: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.947-.695.074-.688.074-.688 1.003.07 1.539 1.032 1.539 1.032.892 1.534 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.9 2.651.636.408.292 1.427.292 1.427 2.22.757 4.342 1.82 4.342 3.012 0 1.466-.325 2.688-.965 2.688-.666.376-.872.904-.872 1.855 0 .752.366 1.36.644 1.703.005.266.208.578.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
                     <span>{% trans "VIEW CODE" %}</span>
                 </a>
                 {% endif %}
             </div>
-            
-            <!-- Project Metadata -->
+
+            {# Metadata #}
             <div class="flex flex-wrap gap-5 py-4" style="border-top: 1px solid #E9ECEF; border-bottom: 1px solid #E9ECEF;">
+                {% if project.client_name %}
                 <div class="flex items-center gap-2">
                     <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: #6C757D;">{% trans "CLIENT" %}:</span>
-                    <span style="font-size: 0.9rem;">{{ project.client_name|default:"Personal Project" }}</span>
+                    <span style="font-size: 0.9rem; color: #0B0D0F;">{{ project.client_name }}</span>
                 </div>
+                {% endif %}
                 <div class="flex items-center gap-2">
                     <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: #6C757D;">{% trans "DATE" %}:</span>
-                    <span style="font-size: 0.9rem;">{{ project.project_date|date:"F Y" }}</span>
+                    <span style="font-size: 0.9rem; color: #0B0D0F;">{{ project.project_date|date:"F Y" }}</span>
                 </div>
                 <div class="flex items-center gap-2">
                     <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: #6C757D;">{% trans "STATUS" %}:</span>
-                    <span style="font-size: 0.9rem; color: {% if project.status == 'completed' %}#15A34A{% elif project.status == 'in_progress' %}#3B82F6{% else %}#6C757D{% endif %};">
+                    <span style="font-size: 0.9rem; color: {% if project.status == 'completed' %}#15A34A{% else %}#6C757D{% endif %};">
                         {{ project.get_status_display }}
                     </span>
                 </div>
-                {% if project.live_url or project.github_url %}
-                <div class="flex items-center gap-2">
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: #6C757D;">{% trans "LINKS" %}:</span>
-                    <div class="flex gap-2">
-                        {% if project.live_url %}
-                        <a href="{{ project.live_url }}" target="_blank" rel="noopener noreferrer" style="color: #15A34A; text-decoration: none;">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                            </svg>
-                        </a>
-                        {% endif %}
-                        {% if project.github_url %}
-                        <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer" style="color: #6C757D; text-decoration: none;">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.947-.695.074-.688.074-.688 1.003.07 1.539 1.032 1.539 1.032.892 1.534 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.9 2.651.636.408.292 1.427.292 1.427 2.22.757 4.342 1.82 4.342 3.012 0 1.466-.325 2.688-.965 2.688-.666.376-.872.904-.872 1.855 0 .752.366 1.36.644 1.703.005.266.208.578.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                        {% endif %}
-                    </div>
-                </div>
-                {% endif %}
-            </div>
-            
-            <!-- Technologies -->
-            <div class="flex flex-wrap gap-2">
-                {% for tech in project.technologies.all %}
-                <span class="tag">{{ tech.name }}</span>
-                {% endfor %}
             </div>
         </div>
     </div>
 </section>
 
-<!-- Hero Image (constrained, not full width) -->
+{# Cover Image #}
+{% if project.cover_image %}
 <section class="pb-10 md:pb-14">
     <div class="max-w-5xl mx-auto px-5">
-        {% if project.cover_image %}
-        <div class="img-zoom" style="border-radius: 12px; box-shadow: 0 4px 20px rgba(11,13,15,0.08);">
-            <img 
-                src="{{ project.cover_image.url }}" 
-                alt="{{ project.title }}" 
-                class="w-full aspect-[16/9] object-cover"
-                loading="lazy"
-            >
+        <div class="rounded-xl overflow-hidden" style="box-shadow: 0 4px 20px rgba(11,13,15,0.08);">
+            <img src="{{ project.cover_image.url }}" alt="{{ project.title }}" class="w-full aspect-[16/9] object-cover" loading="lazy">
         </div>
-        {% endif %}
     </div>
 </section>
+{% endif %}
 
-<!-- Project Gallery -->
+{# Gallery #}
 {% if project.images.all %}
 <section class="pb-10 md:pb-14">
     <div class="max-w-5xl mx-auto px-5">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             {% for image in project.images.all %}
-            <div class="img-zoom" style="border-radius: 10px;">
-                <img 
-                    src="{{ image.image.url }}" 
-                    alt="{{ image.caption|default:project.title }}" 
-                    class="w-full aspect-[4/3] object-cover"
-                    loading="lazy"
-                >
+            <div class="rounded-xl overflow-hidden">
+                <img src="{{ image.image.url }}" alt="{{ image.caption|default:project.title }}" class="w-full aspect-[4/3] object-cover" loading="lazy">
             </div>
             {% endfor %}
         </div>
-        {% if project.images.count > 2 %}
-        <p style="font-family: var(--font-mono); font-size: 0.7rem; color: #ADB5BD; text-align: center; margin-top: 1rem;">
-            {{ project.images.count }} {% trans "images" %}
-        </p>
-        {% endif %}
     </div>
 </section>
 {% endif %}
 
-<!-- Project Content -->
+{# Case Study Content #}
 <section class="pb-16 md:pb-20">
-    <div class="max-w-3xl mx-auto px-5 space-y-10">
-        <!-- Overview -->
-        <div>
-            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid #E9ECEF; margin-bottom: 1rem;">
-                {% trans "Project Overview" %}
-            </h2>
-            <div class="prose" style="color: #495057; line-height: 1.7;">
-                {{ project.description|safe }}
-            </div>
-        </div>
-        
-        <!-- Challenge -->
-        {% if project.challenge %}
-        <div>
-            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid #E9ECEF; margin-bottom: 1rem;">
-                {% trans "The Challenge" %}
-            </h2>
-            <div class="prose" style="color: #495057; line-height: 1.7;">
-                {{ project.challenge|safe }}
-            </div>
+    <div class="max-w-3xl mx-auto px-5 space-y-12">
+
+        {# Context #}
+        {% if project.context %}
+        <div class="reveal">
+            <span class="inline-flex items-center gap-2 mb-3" style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A;">
+                <span class="w-6 h-px" style="background-color: #15A34A;"></span>
+                {% trans "CONTEXT" %}
+            </span>
+            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 0.75rem;">{% trans "The situation" %}</h2>
+            <div class="prose" style="color: #495057; line-height: 1.75;">{{ project.context|safe }}</div>
         </div>
         {% endif %}
-        
-        <!-- Solution -->
+
+        {# Problem #}
+        {% if project.problem %}
+        <div class="reveal">
+            <span class="inline-flex items-center gap-2 mb-3" style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A;">
+                <span class="w-6 h-px" style="background-color: #15A34A;"></span>
+                {% trans "PROBLEM" %}
+            </span>
+            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 0.75rem;">{% trans "What needed to change" %}</h2>
+            <div class="prose" style="color: #495057; line-height: 1.75;">{{ project.problem|safe }}</div>
+        </div>
+        {% endif %}
+
+        {# Approach #}
+        {% if project.approach %}
+        <div class="reveal">
+            <span class="inline-flex items-center gap-2 mb-3" style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A;">
+                <span class="w-6 h-px" style="background-color: #15A34A;"></span>
+                {% trans "APPROACH" %}
+            </span>
+            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 0.75rem;">{% trans "How I thought about it" %}</h2>
+            <div class="prose" style="color: #495057; line-height: 1.75;">{{ project.approach|safe }}</div>
+        </div>
+        {% endif %}
+
+        {# Solution #}
         {% if project.solution %}
-        <div>
-            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid #E9ECEF; margin-bottom: 1rem;">
-                {% trans "The Solution" %}
-            </h2>
-            <div class="prose" style="color: #495057; line-height: 1.7;">
-                {{ project.solution|safe }}
-            </div>
+        <div class="reveal">
+            <span class="inline-flex items-center gap-2 mb-3" style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A;">
+                <span class="w-6 h-px" style="background-color: #15A34A;"></span>
+                {% trans "SOLUTION" %}
+            </span>
+            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 0.75rem;">{% trans "What was built" %}</h2>
+            <div class="prose" style="color: #495057; line-height: 1.75;">{{ project.solution|safe }}</div>
         </div>
         {% endif %}
-        
-        <!-- Results -->
-        {% if project.results %}
-        <div>
-            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid #E9ECEF; margin-bottom: 1rem;">
-                {% trans "Results" %}
-            </h2>
-            <div class="prose" style="color: #495057; line-height: 1.7;">
-                {{ project.results|safe }}
+
+        {# Features #}
+        {% if project.features %}
+        <div class="reveal">
+            <span class="inline-flex items-center gap-2 mb-3" style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A;">
+                <span class="w-6 h-px" style="background-color: #15A34A;"></span>
+                {% trans "FEATURES" %}
+            </span>
+            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 0.75rem;">{% trans "Key features" %}</h2>
+            <div class="prose" style="color: #495057; line-height: 1.75;">{{ project.features|safe }}</div>
+        </div>
+        {% endif %}
+
+        {# Result #}
+        {% if project.result %}
+        <div class="reveal">
+            <span class="inline-flex items-center gap-2 mb-3" style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A;">
+                <span class="w-6 h-px" style="background-color: #15A34A;"></span>
+                {% trans "RESULT" %}
+            </span>
+            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 0.75rem;">{% trans "The outcome" %}</h2>
+            <div class="prose" style="color: #495057; line-height: 1.75;">{{ project.result|safe }}</div>
+        </div>
+        {% endif %}
+
+        {# Role #}
+        {% if project.role %}
+        <div class="reveal">
+            <span class="inline-flex items-center gap-2 mb-3" style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A;">
+                <span class="w-6 h-px" style="background-color: #15A34A;"></span>
+                {% trans "MY ROLE" %}
+            </span>
+            <div class="prose" style="color: #495057; line-height: 1.75;">{{ project.role|safe }}</div>
+        </div>
+        {% endif %}
+
+        {# Legacy fields fallback #}
+        {% if not project.context and not project.problem and project.description %}
+        <div class="reveal">
+            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid #E9ECEF;">{% trans "Project Overview" %}</h2>
+            <div class="prose" style="color: #495057; line-height: 1.75;">{{ project.description|safe }}</div>
+        </div>
+        {% endif %}
+
+        {% if not project.problem and project.challenge %}
+        <div class="reveal">
+            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid #E9ECEF;">{% trans "The Challenge" %}</h2>
+            <div class="prose" style="color: #495057; line-height: 1.75;">{{ project.challenge|safe }}</div>
+        </div>
+        {% endif %}
+
+        {# Technologies (under the hood) #}
+        {% if project.technologies.all %}
+        <div class="reveal p-6 rounded-xl border" style="background-color: #F8F9FA; border-color: #E9ECEF;">
+            <span class="inline-flex items-center gap-2 mb-3" style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A;">
+                <span class="w-6 h-px" style="background-color: #15A34A;"></span>
+                {% trans "UNDER THE HOOD" %}
+            </span>
+            <h3 style="font-family: var(--font-primary); font-size: 1.2rem; color: #0B0D0F; margin-bottom: 0.75rem;">{% trans "Technologies used" %}</h3>
+            <div class="flex flex-wrap gap-2">
+                {% for tech in project.technologies.all %}
+                <span class="inline-flex items-center px-3 py-1.5 rounded text-xs" style="font-family: var(--font-mono); background-color: #FFFFFF; color: #495057; border: 1px solid #E9ECEF;">{{ tech.name }}</span>
+                {% endfor %}
             </div>
         </div>
         {% endif %}
     </div>
 </section>
 
-<!-- CTA Section -->
-<section class="py-14 md:py-16" style="background-color: #0B0D0F; color: #fff;">
-    <div class="max-w-6xl mx-auto px-5 text-center">
-        <h2 style="font-family: var(--font-primary); font-size: 1.75rem; margin-bottom: 0.75rem;">
-            {% trans "Like this project?" %}
-        </h2>
-        <p style="color: #ADB5BD; font-size: 1rem; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">
-            {% trans "Let's discuss how we can build something similar for your business." %}
-        </p>
-        <div class="flex flex-col sm:flex-row justify-center gap-3">
-            <a href="{% url 'portfolio:services' %}" class="btn" style="border-color: #fff; color: #fff;" onmouseover="this.style.backgroundColor='#fff'; this.style.color='#0B0D0F';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#fff';">
-                {% trans "MY SERVICES" %}
+{# Related Projects #}
+{% if related_projects %}
+<section class="py-14 md:py-16" style="background-color: #F8F9FA;">
+    <div class="max-w-6xl mx-auto px-5">
+        <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 1.5rem;">{% trans "Related projects" %}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {% for rp in related_projects %}
+            <a href="{% url 'portfolio:project_detail' rp.slug %}" class="group block rounded-xl overflow-hidden border transition-all duration-300" style="background-color: #FFFFFF; border-color: #E9ECEF; text-decoration: none; color: inherit;">
+                {% if rp.cover_image %}
+                <div class="overflow-hidden">
+                    <img src="{{ rp.cover_image.url }}" alt="{{ rp.title }}" class="w-full h-40 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                </div>
+                {% endif %}
+                <div class="p-4">
+                    <h3 style="font-family: var(--font-primary); font-size: 1rem; color: #0B0D0F; margin-bottom: 0.25rem;">{{ rp.title }}</h3>
+                    <p style="color: #6C757D; font-size: 0.85rem; line-height: 1.5;">{{ rp.short_description|truncatewords:12 }}</p>
+                </div>
             </a>
-            <a href="{% url 'portfolio:contact' %}?subject={{ project.title|urlencode }}&message={% trans 'Hi, I saw your project' %} {{ project.title }} {% trans 'and I would like to discuss a similar project.' %}|urlencode" style="background-color: #fff; color: #0B0D0F;" class="btn" onmouseover="this.style.backgroundColor='#E9ECEF';" onmouseout="this.style.backgroundColor='#fff';">
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{# CTA #}
+<section class="py-14 md:py-16" style="background-color: #0B0D0F; color: #fff;">
+    <div class="max-w-4xl mx-auto px-5 text-center">
+        <h2 style="font-family: var(--font-primary); font-size: 1.75rem; margin-bottom: 0.75rem;">{% trans "Like this project?" %}</h2>
+        <p style="color: #ADB5BD; font-size: 1rem; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">{% trans "Let's discuss how we can build something similar for your business." %}</p>
+        <div class="flex flex-col sm:flex-row justify-center gap-3">
+            <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: #FFFFFF; color: #0B0D0F; text-decoration: none;">
                 {% trans "START A PROJECT" %}
             </a>
+            <a href="{% url 'portfolio:projects' %}" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: transparent; color: #FFFFFF; border: 2px solid rgba(255,255,255,0.2); text-decoration: none;">
+                {% trans "VIEW ALL PROJECTS" %}
+            </a>
         </div>
     </div>
 </section>
-
 {% endblock %}
 
 {% block scripts %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const galleryImages = document.querySelectorAll('.img-zoom img');
-        galleryImages.forEach(img => {
+        var galleryImages = document.querySelectorAll('.rounded-xl img');
+        galleryImages.forEach(function(img) {
             img.style.cursor = 'pointer';
             img.addEventListener('click', function() {
-                const lightbox = document.createElement('div');
+                var lightbox = document.createElement('div');
                 lightbox.className = 'fixed inset-0 z-50 flex items-center justify-center p-4';
                 lightbox.style.cssText = 'background-color: rgba(11,13,15,0.85); backdrop-filter: blur(8px);';
                 lightbox.innerHTML = '<div class="relative max-w-4xl max-h-[90vh]"><img src="' + this.src + '" alt="' + this.alt + '" class="max-w-full max-h-[85vh] object-contain rounded-lg"><button class="absolute -top-3 -right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white text-black text-xl" style="box-shadow: 0 2px 8px rgba(0,0,0,0.15);" onclick="this.parentElement.parentElement.remove()">&times;</button></div>';

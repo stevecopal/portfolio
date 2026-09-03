@@ -1,0 +1,61 @@
+{% load static i18n %}
+{% if featured_projects %}
+<section id="work" class="relative py-20 md:py-28" style="background-color: #FAFBFC;">
+    <div class="max-w-6xl mx-auto px-5">
+        {# Section header #}
+        <div class="flex justify-between items-end mb-12">
+            <div>
+                <span class="inline-flex text-center items-center gap-2 mb-4" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
+                    {% trans "03 / WORK" %}
+                </span>
+                <h2 style="font-family: var(--font-primary); font-size: clamp(1.8rem, 4vw, 2.6rem); color: #0B0D0F;">
+                    {% trans "Built solutions, not just code" %}
+                </h2>
+            </div>
+            <a href="{% url 'portfolio:projects' %}" class="hidden sm:inline-flex items-center gap-1" style="font-family: var(--font-display); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em; color: #15A34A; text-decoration: none;">
+                {% trans "VIEW ALL" %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+            </a>
+        </div>
+
+        {# Project cards #}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {% for project in featured_projects %}
+            <a href="{% url 'portfolio:project_detail' project.slug %}" class="group block rounded-xl overflow-hidden border transition-all duration-300" style="background-color: #FFFFFF; border-color: #E9ECEF; text-decoration: none; color: inherit;">
+                {# Cover image #}
+                <div class="overflow-hidden">
+                    <img src="{% if project.cover_image %}{{ project.cover_image.url }}{% else %}{% static 'images/project-placeholder.png' %}{% endif %}" alt="{{ project.title }}" class="w-full h-52 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                </div>
+                {# Content #}
+                <div class="p-5 space-y-3">
+                    <div class="flex justify-between items-start">
+                        <h3 style="font-family: var(--font-primary); font-size: 1.1rem; color: #0B0D0F;">{{ project.title }}</h3>
+                        {% if project.status == "completed" %}
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs" style="font-family: var(--font-mono); background-color: rgba(21,163,74,0.1); color: #15A34A;">{% trans "Completed" %}</span>
+                        {% endif %}
+                    </div>
+                    <p style="color: #6C757D; font-size: 0.9rem; line-height: 1.55;">{{ project.short_description|truncatewords:18 }}</p>
+                    <div class="flex flex-wrap gap-1.5">
+                        {% for tech in project.technologies.all|slice:":3" %}
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs" style="font-family: var(--font-mono); background-color: #F1F3F5; color: #495057;">{{ tech.name }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="flex items-center gap-1 pt-1" style="font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em; color: #15A34A;">
+                        <span>{% trans "VIEW CASE STUDY" %}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+
+        {# Mobile view all link #}
+        <div class="text-center mt-8 sm:hidden">
+            <a href="{% url 'portfolio:projects' %}" class="inline-flex items-center gap-1" style="font-family: var(--font-display); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em; color: #15A34A; text-decoration: none;">
+                {% trans "VIEW ALL PROJECTS" %}
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}

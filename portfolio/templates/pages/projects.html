@@ -2,136 +2,99 @@
 {% load static i18n %}
 
 {% block content %}
-<!-- Projects Header -->
-<section class="py-14 md:py-16">
+<section class="pt-24 pb-20 md:pt-28 md:pb-28" style="background-color: #FAFBFC;">
     <div class="max-w-6xl mx-auto px-5">
-        <span class="section-label">{% trans "WORK" %}</span>
-        <h1 style="font-family: var(--font-primary); font-size: 2.25rem; margin-bottom: 0.75rem;">{% trans "MY WORK" %}</h1>
-        <p style="color: #6C757D; font-size: 1.05rem; line-height: 1.65; max-width: 560px;">
-            {% trans "Here are some of the projects I've worked on. Each project represents a unique challenge and solution." %}
-        </p>
-    </div>
-</section>
+        {# Header #}
+        <div class="mb-12">
+            <span class="inline-flex items-center gap-2 mb-4" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
+                <span class="w-8 h-px" style="background-color: #15A34A;"></span>
+                {% trans "WORK" %}
+            </span>
+            <h1 style="font-family: var(--font-primary); font-size: clamp(2rem, 4vw, 2.8rem); color: #0B0D0F; margin-bottom: 0.75rem;">
+                {% trans "Built solutions, not just code" %}
+            </h1>
+            <p style="color: #6C757D; font-size: 1.05rem; line-height: 1.65; max-width: 560px;">
+                {% trans "Each project represents a real problem solved. Here's what I've built." %}
+            </p>
+        </div>
 
-<!-- Projects Filters -->
-{% if technologies or current_filter %}
-<section class="pb-6">
-    <div class="max-w-6xl mx-auto px-5">
-        <div class="flex flex-wrap gap-2">
-            <a href="{% url 'portfolio:projects' %}" class="tag {% if current_filter == 'all' and not current_tech %}!bg-[#0B0D0F] !text-white{% endif %}" style="text-decoration: none; cursor: pointer;">
-                {% trans "ALL" %} ({{ paginator.count }})
-            </a>
-            <a href="?filter=featured" class="tag {% if current_filter == 'featured' %}!bg-[#0B0D0F] !text-white{% endif %}" style="text-decoration: none; cursor: pointer;">
-                {% trans "FEATURED" %}
+        {# Technology filters #}
+        {% if technologies %}
+        <div class="flex flex-wrap gap-2 mb-10">
+            <a href="{% url 'portfolio:projects' %}" class="inline-flex items-center px-3 py-1.5 rounded text-xs transition-all duration-200" style="font-family: var(--font-mono); {% if not current_tech %}background-color: #0B0D0F; color: #FFFFFF;{% else %}background-color: #F1F3F5; color: #495057;{% endif %} text-decoration: none;">
+                {% trans "ALL" %}
             </a>
             {% for tech in technologies %}
-            <a href="?tech={{ tech.slug }}" class="tag {% if current_tech == tech.slug %}!bg-[#0B0D0F] !text-white{% endif %}" style="text-decoration: none; cursor: pointer;">
-                {{ tech.name }} ({{ tech.projects.count }})
+            <a href="?tech={{ tech.slug }}" class="inline-flex items-center px-3 py-1.5 rounded text-xs transition-all duration-200" style="font-family: var(--font-mono); {% if current_tech == tech.slug %}background-color: #0B0D0F; color: #FFFFFF;{% else %}background-color: #F1F3F5; color: #495057;{% endif %} text-decoration: none;">
+                {{ tech.name }}
             </a>
             {% endfor %}
         </div>
-    </div>
-</section>
-{% endif %}
+        {% endif %}
 
-<!-- Projects Grid -->
-<section class="pb-16 md:pb-20 pt-4">
-    <div class="max-w-6xl mx-auto px-5">
+        {# Project grid #}
         {% if projects %}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {% for project in projects %}
-            <a href="{% url 'portfolio:project_detail' project.slug %}" class="group card p-0 overflow-hidden reveal" style="text-decoration: none; color: inherit;">
-                <!-- Project Image -->
-                <div class="img-zoom">
-                    <img 
-                        src="{% if project.cover_image %}{{ project.cover_image.url }}{% else %}{% static 'images/project-placeholder.png' %}{% endif %}" 
-                        alt="{{ project.title }}" 
-                        class="w-full aspect-[16/10] object-cover"
-                        loading="lazy"
-                    >
+            <a href="{% url 'portfolio:project_detail' project.slug %}" class="group block rounded-xl overflow-hidden border transition-all duration-300 reveal" style="background-color: #FFFFFF; border-color: #E9ECEF; text-decoration: none; color: inherit;">
+                <div class="overflow-hidden">
+                    <img src="{% if project.cover_image %}{{ project.cover_image.url }}{% else %}{% static 'images/project-placeholder.png' %}{% endif %}" alt="{{ project.title }}" class="w-full aspect-[16/10] object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
                 </div>
-                
-                <!-- Project Details -->
                 <div class="p-5 space-y-3">
                     <div class="flex justify-between items-start">
-                        <h3 style="font-family: var(--font-primary); font-size: 1.1rem;">{{ project.title }}</h3>
+                        <h3 style="font-family: var(--font-primary); font-size: 1.1rem; color: #0B0D0F;">{{ project.title }}</h3>
                         {% if project.is_featured %}
-                        <span class="tag" style="background-color: rgba(21,163,74,0.1); color: #15A34A;">
-                            {% trans "Featured" %}
-                        </span>
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs" style="font-family: var(--font-mono); background-color: rgba(21,163,74,0.1); color: #15A34A;">{% trans "Featured" %}</span>
                         {% endif %}
                     </div>
-                    
-                    <p style="color: #6C757D; font-size: 0.88rem; line-height: 1.55;">{{ project.short_description|truncatewords:15 }}</p>
-                    
-                    <!-- Project Metadata -->
+                    <p style="color: #6C757D; font-size: 0.9rem; line-height: 1.55;">{{ project.short_description|truncatewords:15 }}</p>
                     <div class="flex flex-wrap justify-between items-center gap-2 pt-1">
                         <div class="flex flex-wrap gap-1.5">
-                            {% for tech in project.technologies.all|slice:":4" %}
-                            <span class="tag">{{ tech.name }}</span>
+                            {% for tech in project.technologies.all|slice:":3" %}
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs" style="font-family: var(--font-mono); background-color: #F1F3F5; color: #495057;">{{ tech.name }}</span>
                             {% endfor %}
                         </div>
-                        <p style="font-family: var(--font-mono); font-size: 0.7rem; color: #ADB5BD;">
-                            {{ project.project_date|date:"Y" }}
-                        </p>
+                        <p style="font-family: var(--font-mono); font-size: 0.7rem; color: #ADB5BD;">{{ project.project_date|date:"Y" }}</p>
                     </div>
-                    
-                    <!-- CTA -->
-                    <div class="flex items-center gap-1.5 pt-1" style="font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em; color: #15A34A;">
-                        <span>{% trans "VIEW PROJECT" %}</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
+                    <div class="flex items-center gap-1 pt-1" style="font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em; color: #15A34A;">
+                        <span>{% trans "VIEW CASE STUDY" %}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                     </div>
                 </div>
             </a>
             {% endfor %}
         </div>
-        
-        <!-- Pagination -->
+
+        {# Pagination #}
         {% if is_paginated %}
-        <div class="flex justify-center mt-10">
+        <div class="flex justify-center mt-12">
             <div class="flex gap-2">
                 {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}{% if current_filter %}&filter={{ current_filter }}{% endif %}{% if current_tech %}&tech={{ current_tech }}{% endif %}" class="tag" style="text-decoration: none; cursor: pointer;">
-                    {% trans "PREVIOUS" %}
-                </a>
+                <a href="?page={{ page_obj.previous_page_number }}{% if current_tech %}&tech={{ current_tech }}{% endif %}" class="inline-flex items-center px-4 py-2 rounded text-xs" style="font-family: var(--font-mono); background-color: #F1F3F5; color: #495057; text-decoration: none;">{% trans "PREVIOUS" %}</a>
                 {% endif %}
-                
-                <span class="tag" style="background-color: #0B0D0F; color: #fff;">
-                    {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
-                </span>
-                
+                <span class="inline-flex items-center px-4 py-2 rounded text-xs" style="font-family: var(--font-mono); background-color: #0B0D0F; color: #FFFFFF;">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
                 {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}{% if current_filter %}&filter={{ current_filter }}{% endif %}{% if current_tech %}&tech={{ current_tech }}{% endif %}" class="tag" style="text-decoration: none; cursor: pointer;">
-                    {% trans "NEXT" %}
-                </a>
+                <a href="?page={{ page_obj.next_page_number }}{% if current_tech %}&tech={{ current_tech }}{% endif %}" class="inline-flex items-center px-4 py-2 rounded text-xs" style="font-family: var(--font-mono); background-color: #F1F3F5; color: #495057; text-decoration: none;">{% trans "NEXT" %}</a>
                 {% endif %}
             </div>
         </div>
         {% endif %}
-        
+
         {% else %}
         <div class="text-center py-16">
             <p style="color: #6C757D;">{% trans "No projects found." %}</p>
-            <a href="{% url 'portfolio:home' %}" style="font-family: var(--font-display); font-size: 0.85rem; color: #15A34A; text-decoration: none; margin-top: 0.75rem; display: inline-block;">
-                {% trans "BACK TO HOME" %}
-            </a>
+            <a href="{% url 'portfolio:home' %}" class="inline-flex items-center gap-1 mt-4" style="font-family: var(--font-display); font-size: 0.85rem; color: #15A34A; text-decoration: none;">{% trans "BACK TO HOME" %}</a>
         </div>
         {% endif %}
     </div>
 </section>
 
-<!-- Final CTA -->
-<section class="py-14 md:py-16" style="background-color: #F8F9FA;">
-    <div class="max-w-6xl mx-auto px-5 text-center">
-        <h2 style="font-family: var(--font-primary); font-size: 1.75rem; margin-bottom: 0.75rem;">
-            {% trans "Interested in working together?" %}
-        </h2>
-        <p style="color: #6C757D; font-size: 1rem; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">
-            {% trans "Let's discuss your project and how I can help bring your ideas to life." %}
-        </p>
-        <a href="{% url 'portfolio:contact' %}" class="btn-primary">
+{# CTA #}
+<section class="py-16" style="background-color: #0B0D0F;">
+    <div class="max-w-4xl mx-auto px-5 text-center">
+        <h2 style="font-family: var(--font-primary); font-size: 1.75rem; color: #FFFFFF; margin-bottom: 0.75rem;">{% trans "Interested in working together?" %}</h2>
+        <p style="color: #ADB5BD; font-size: 1rem; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">{% trans "Let's discuss your project and how I can help bring your ideas to life." %}</p>
+        <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF; border: 2px solid #15A34A;">
             {% trans "START A PROJECT" %}
         </a>
     </div>

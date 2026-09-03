@@ -2,76 +2,70 @@
 <footer class="relative z-10" style="background-color: #0B0D0F; color: #fff;">
     <div class="max-w-6xl mx-auto px-5 py-12 md:py-16">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-            <!-- About -->
+            {# About #}
             <div>
                 <h3 style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #15A34A; margin-bottom: 1rem;">{% trans "ABOUT" %}</h3>
                 <p style="color: #ADB5BD; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem;">{{ site_settings.short_description }}</p>
                 <div class="flex items-center gap-2" style="color: #6C757D; font-size: 0.85rem;">
                     <span>{% trans "Based in" %} {{ profile.country }}, {{ profile.city }}</span>
                 </div>
-                <div class="flex items-center gap-2 mt-1" style="color: #6C757D; font-size: 0.85rem;">
-                    <span>{% trans "Working worldwide" %}</span>
-                </div>
             </div>
-            
-            <!-- Services -->
+
+            {# Solutions #}
             <div>
-                <h3 style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #15A34A; margin-bottom: 1rem;">{% trans "SERVICES" %}</h3>
+                <h3 style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #15A34A; margin-bottom: 1rem;">{% trans "SOLUTIONS" %}</h3>
                 <nav class="flex flex-col gap-2">
                     {% for service in services %}
-                    <a href="{% url 'portfolio:service_detail' service.slug %}" style="color: #ADB5BD; font-size: 0.88rem; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#ADB5BD'">
+                    <a href="{% url 'portfolio:service_detail' service.slug %}" style="color: #ADB5BD; font-size: 0.88rem; transition: color 0.2s; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#ADB5BD'">
                         {{ service.title }}
                     </a>
                     {% endfor %}
                 </nav>
             </div>
-            
-            <!-- Contact -->
+
+            {# Navigation #}
+            <div>
+                <h3 style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #15A34A; margin-bottom: 1rem;">{% trans "NAVIGATION" %}</h3>
+                <nav class="flex flex-col gap-2">
+                    <a href="{% url 'portfolio:services' %}" style="color: #ADB5BD; font-size: 0.88rem; transition: color 0.2s; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#ADB5BD'">{% trans "Solutions" %}</a>
+                    <a href="{% url 'portfolio:experience' %}" style="color: #ADB5BD; font-size: 0.88rem; transition: color 0.2s; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#ADB5BD'">{% trans "Experience" %}</a>
+                    <a href="{% url 'portfolio:projects' %}" style="color: #ADB5BD; font-size: 0.88rem; transition: color 0.2s; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#ADB5BD'">{% trans "Work" %}</a>
+                    <a href="{% url 'portfolio:contact' %}" style="color: #ADB5BD; font-size: 0.88rem; transition: color 0.2s; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#ADB5BD'">{% trans "Contact" %}</a>
+                    {% if profile.resume_file %}
+                    <a href="{{ profile.resume_file.url }}" download style="color: #15A34A; font-size: 0.88rem; transition: color 0.2s; text-decoration: none;">{% trans "Download CV" %}</a>
+                    {% endif %}
+                </nav>
+            </div>
+
+            {# Contact #}
             <div>
                 <h3 style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #15A34A; margin-bottom: 1rem;">{% trans "CONTACT" %}</h3>
                 <div class="flex flex-col gap-2">
-                    <a href="mailto:{{ profile.email }}" style="color: #ADB5BD; font-size: 0.88rem; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#ADB5BD'">
+                    <a href="mailto:{{ profile.email }}" style="color: #ADB5BD; font-size: 0.88rem; transition: color 0.2s; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#ADB5BD'">
                         {{ profile.email }}
                     </a>
                     {% if profile.phone %}
-                    <a href="tel:{{ profile.phone }}" style="color: #ADB5BD; font-size: 0.88rem; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#ADB5BD'">
+                    <a href="tel:{{ profile.phone }}" style="color: #ADB5BD; font-size: 0.88rem; transition: color 0.2s; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#ADB5BD'">
                         {{ profile.phone }}
                     </a>
                     {% endif %}
-                    {% if profile.whatsapp %}
-                    <a href="https://wa.me/{{ profile.whatsapp }}" style="color: #ADB5BD; font-size: 0.88rem; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#ADB5BD'">
-                        {% trans "WhatsApp" %}
-                    </a>
-                    {% endif %}
                 </div>
-            </div>
-            
-            <!-- Social -->
-            <div>
-                <h3 style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #15A34A; margin-bottom: 1rem;">{% trans "FOLLOW" %}</h3>
-                <div class="flex gap-3">
+                {% if social_links %}
+                <div class="flex gap-3 mt-4">
                     {% for link in social_links %}
-                    <a 
-                        href="{{ link.url }}" 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        class="w-9 h-9 flex items-center justify-center rounded-md transition-all duration-200"
-                        style="background-color: rgba(255,255,255,0.06); color: #ADB5BD;"
-                        onmouseover="this.style.backgroundColor='#15A34A'; this.style.color='#fff';"
-                        onmouseout="this.style.backgroundColor='rgba(255,255,255,0.06)'; this.style.color='#ADB5BD';"
-                        aria-label="{{ link.name }}"
-                    >
+                    <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="w-9 h-9 flex items-center justify-center rounded-md transition-all duration-200" style="background-color: rgba(255,255,255,0.06); color: #ADB5BD; text-decoration: none;" onmouseover="this.style.backgroundColor='#15A34A'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='rgba(255,255,255,0.06)'; this.style.color='#ADB5BD';" aria-label="{{ link.name }}">
                         <i class="fab fa-{{ link.platform }} text-sm"></i>
                     </a>
                     {% endfor %}
                 </div>
+                {% endif %}
             </div>
         </div>
 
-        <!-- Bottom bar -->
+        {# Bottom bar #}
         <div class="mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4" style="border-top: 1px solid rgba(255,255,255,0.08);">
-            <p style="color: #6C757D; font-size: 0.8rem;">{{ site_settings.copyright_text|default:'© 2026 Steve Satcheme. All rights reserved.' }}</p>
-            
+            <p style="color: #6C757D; font-size: 0.8rem;">{{ site_settings.copyright_text|default:'© 2026 Copal Satcheme. All rights reserved.' }}</p>
+            <p style="color: #495057; font-size: 0.75rem; font-family: var(--font-mono); letter-spacing: 0.05em;">{% trans "BUILD WITH INTENTION" %}</p>
         </div>
     </div>
 </footer>

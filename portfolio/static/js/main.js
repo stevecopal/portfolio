@@ -1,18 +1,8 @@
 // Main initialization
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize theme toggle
-    if (typeof initThemeToggle === 'function') {
-        initThemeToggle();
-    }
-    
     // Initialize project filters (if on projects page)
     if (typeof initProjectFilters === 'function') {
         initProjectFilters();
-    }
-    
-    // Initialize blog filters (if on blog page)
-    if (typeof initBlogFilters === 'function') {
-        initBlogFilters();
     }
     
     // Initialize contact form
@@ -31,5 +21,29 @@ function initProjectFilters() {
             filterButtons.forEach(function(b) { b.classList.remove('active'); });
             btn.classList.add('active');
         });
+    });
+}
+
+// Contact Form
+function initContactForm() {
+    var form = document.getElementById('contactForm');
+    if (!form) return;
+    
+    form.addEventListener('submit', function(e) {
+        var valid = true;
+        form.querySelectorAll('[required]').forEach(function(field) {
+            if (!field.value.trim()) {
+                valid = false;
+                field.style.borderColor = '#EF4444';
+            } else {
+                field.style.borderColor = '';
+            }
+        });
+        if (!valid) {
+            e.preventDefault();
+            if (typeof showToast === 'function') {
+                showToast('Please fill in all required fields.', 'error');
+            }
+        }
     });
 }

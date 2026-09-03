@@ -1,17 +1,23 @@
-// Animations: scroll reveal, counter animation, typing effect
 (function() {
     'use strict';
 
     document.addEventListener('DOMContentLoaded', function() {
         initScrollReveal();
         initCounters();
-        initTypingEffect();
+        initReducedMotion();
     });
 
     // ── Scroll Reveal ────────────────────────────────────────
     function initScrollReveal() {
         var revealElements = document.querySelectorAll('.reveal');
         if (!revealElements.length) return;
+        
+        // Check for reduced motion preference
+        var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) {
+            revealElements.forEach(function(el) { el.classList.add('revealed'); });
+            return;
+        }
         
         var observer = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
@@ -25,9 +31,7 @@
             rootMargin: '0px 0px -40px 0px'
         });
         
-        revealElements.forEach(function(el) {
-            observer.observe(el);
-        });
+        revealElements.forEach(function(el) { observer.observe(el); });
     }
 
     // ── Counter Animation ────────────────────────────────────
@@ -44,9 +48,7 @@
             });
         }, { threshold: 0.5 });
         
-        counters.forEach(function(counter) {
-            observer.observe(counter);
-        });
+        counters.forEach(function(counter) { observer.observe(counter); });
     }
     
     function animateCounter(element) {
@@ -71,45 +73,12 @@
         }, stepTime);
     }
 
-    // ── Typing Effect ────────────────────────────────────────
-    function initTypingEffect() {
-        var typingElement = document.querySelector('.typing-effect');
-        if (!typingElement) return;
-        
-        var text = typingElement.textContent;
-        var words = text.split(' ');
-        typingElement.textContent = '';
-        
-        var wordIndex = 0;
-        var charIndex = 0;
-        var isDeleting = false;
-        
-        function type() {
-            var currentWord = words[wordIndex] || '';
-            
-            if (isDeleting) {
-                typingElement.textContent = typingElement.textContent.slice(0, -1);
-                charIndex--;
-            } else {
-                typingElement.textContent += currentWord[charIndex] || '';
-                charIndex++;
-            }
-            
-            var typeSpeed = isDeleting ? 50 : 100;
-            
-            if (!isDeleting && charIndex === currentWord.length) {
-                typeSpeed = 2000;
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                wordIndex = (wordIndex + 1) % words.length;
-                typeSpeed = 500;
-            }
-            
-            setTimeout(type, typeSpeed);
+    // ── Reduced Motion ───────────────────────────────────────
+    function initReducedMotion() {
+        var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+        if (mq.matches) {
+            document.documentElement.style.scrollBehavior = 'auto';
         }
-        
-        setTimeout(type, 1000);
     }
 
 })();

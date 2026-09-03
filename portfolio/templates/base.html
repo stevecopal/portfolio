@@ -4,107 +4,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ site_settings.seo_description|default:'copal Satcheme | Full-Stack Developer & Digital Solutions Builder' }}">
-    <meta name="keywords" content="Full-Stack Developer, Django, Python, Web Development, Digital Solutions">
-    <meta name="author" content="{{ profile.full_name|default:'copal Satcheme' }}">
-    <meta property="og:title" content="{{ site_settings.seo_title|default:'copal Satcheme | Portfolio' }}">
-    <meta property="og:description" content="{{ site_settings.seo_description|default:'Full-Stack Developer & Digital Solutions Builder' }}">
+    <meta name="description" content="{{ site_settings.seo_description|default:'Copal Satcheme | Digital Solutions Builder' }}">
+    <meta name="author" content="{{ profile.full_name|default:'Copal Satcheme' }}">
+    <meta property="og:title" content="{{ site_settings.seo_title|default:'Copal Satcheme | Portfolio' }}">
+    <meta property="og:description" content="{{ site_settings.seo_description|default:'Digital Solutions Builder' }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}">
-    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% if branding.og_image %}{{ branding.og_image.url }}{% else %}{% static 'images/og-default.png' %}{% endif %}">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ site_settings.seo_title|default:'copal Satcheme | Portfolio' }}">
-    <meta name="twitter:description" content="{{ site_settings.seo_description|default:'Full-Stack Developer & Digital Solutions Builder' }}">
-    <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{% if branding.og_image %}{{ branding.og_image.url }}{% else %}{% static 'images/og-default.png' %}{% endif %}">
-    
-    <!-- Favicon -->
+    <meta name="twitter:title" content="{{ site_settings.seo_title|default:'Copal Satcheme | Portfolio' }}">
+    <meta name="twitter:description" content="{{ site_settings.seo_description|default:'Digital Solutions Builder' }}">
+
+    {# Favicon #}
     <link rel="icon" type="image/x-icon" href="{% if profile.profile_image %}{{ profile.profile_image.url }}{% else %}{% static 'images/logo.jpeg' %}{% endif %}">
 
-    <!-- Tailwind CSS -->
+    {# Fonts #}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Suez+One&family=Roboto:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    {# Font Awesome #}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    {# Tailwind CSS #}
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 
-    <title>{{ site_settings.seo_title|default:'copal Satcheme' }}</title>
+    <title>{{ site_settings.seo_title|default:'Copal Satcheme' }}</title>
 
-    <!-- Données structurées (JSON-LD) -->
+    {# Structured data #}
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "Person",
-        "name": "{{ profile.full_name|default:'copal Satcheme' }}",
+        "name": "{{ profile.full_name|default:'Copal Satcheme' }}",
         "description": "{{ seo.default_description }}",
         "url": "{{ request.scheme }}://{{ request.get_host }}",
-        "email": "{{ profile.email|default:'steve@copal.cm' }}",
+        "email": "{{ profile.email|default:'hello@copal.cm' }}",
         "address": {
             "@type": "Place",
             "addressLocality": "{{ profile.city|default:'Douala' }}",
             "addressCountry": "{{ profile.country|default:'Cameroon' }}"
-        },
-        "sameAs": [
-            {% for link in social_links %}"{{ link.url }}"{% if not forloop.last %},{% endif %}{% endfor %}
-        ],
-        "hasOccupation": {
-            "@type": "Occupation",
-            "name": "{{ profile.professional_title|default:'Full-Stack Developer' }}"
         }
     }
     </script>
 </head>
 
-<body class="font-roboto antialiased">
-    <!-- Tech Background (canvas-based animated grid) -->
-    <canvas id="tech-background-canvas"></canvas>
-
-    <!-- Toast Container — OUTSIDE <main> so z-index works in root context -->
+<body class="antialiased">
+    {# Toast Container #}
     <div id="toastContainer"></div>
 
-    <!-- Navigation -->
+    {# Navigation #}
     {% include 'components/navbar.html' %}
-    
-    <!-- Main Content -->
-    <main class="min-h-screen relative z-10 pt-14 md:pt-16">
+
+    {# Main Content #}
+    <main class="min-h-screen relative z-10">
         {% block content %}{% endblock %}
     </main>
-    
-    <!-- Footer -->
+
+    {# Footer #}
     {% include 'components/footer.html' %}
-    
-    <!-- Back to Top Button -->
+
+    {# Back to Top #}
     <button id="backToTop" class="fixed bottom-6 right-6 z-50 w-10 h-10 flex items-center justify-center rounded-full opacity-0 pointer-events-none transition-all duration-300" style="background-color: #15A34A; color: #fff; box-shadow: 0 4px 14px rgba(21,163,74,0.25);">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
         </svg>
     </button>
-    
-    <!-- Scripts -->
+
+    {# Scripts #}
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/navigation.js' %}"></script>
     <script src="{% static 'js/animations.js' %}"></script>
 
-    <!-- Global Toast System -->
+    {# Toast system #}
     <script>
     (function() {
         window.showToast = function(message, type) {
             var container = document.getElementById('toastContainer');
             if (!container) return;
-
             var toast = document.createElement('div');
             toast.className = 'toast ' + (type === 'success' ? 'toast-success' : 'toast-error');
-
             var icon = type === 'success'
                 ? '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>'
                 : '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>';
-
-            toast.innerHTML = icon + '<span style="font-family: var(--font-secondary); font-size: 0.9rem;">' + message + '</span><button class="toast-close" onclick="this.parentElement.remove()">&times;</button>';
-
+            toast.innerHTML = icon + '<span style="font-family: var(--font-secondary, sans-serif); font-size: 0.9rem;">' + message + '</span><button class="toast-close" onclick="this.parentElement.remove()">&times;</button>';
             container.appendChild(toast);
-
-            // Double rAF ensures browser paints initial state before transition
             requestAnimationFrame(function() {
-                requestAnimationFrame(function() {
-                    toast.classList.add('show');
-                });
+                requestAnimationFrame(function() { toast.classList.add('show'); });
             });
-
             setTimeout(function() {
                 toast.classList.remove('show');
                 setTimeout(function() { toast.remove(); }, 400);

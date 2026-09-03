@@ -2,6 +2,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from portfolio.models import Service
 
+
 class ContactForm(forms.Form):
     BUDGET_CHOICES = [
         ("", _("Select Budget")),
@@ -15,31 +16,31 @@ class ContactForm(forms.Form):
         label=_("First Name"),
         max_length=100,
         widget=forms.TextInput(attrs={
-            "class": "w-full p-3 border border-gray-300 rounded-sm bg-white text-black",
-            "placeholder": _("Your first name")
+            "class": "form-control",
+            "placeholder": _("Your first name"),
         })
     )
     last_name = forms.CharField(
         label=_("Last Name"),
         max_length=100,
         widget=forms.TextInput(attrs={
-            "class": "w-full p-3 border border-gray-300 rounded-sm bg-white text-black",
-            "placeholder": _("Your last name")
+            "class": "form-control",
+            "placeholder": _("Your last name"),
         })
     )
     email = forms.EmailField(
         label=_("Email"),
         widget=forms.EmailInput(attrs={
-            "class": "w-full p-3 border border-gray-300 rounded-sm bg-white text-black",
-            "placeholder": _("your@email.com")
+            "class": "form-control",
+            "placeholder": _("your@email.com"),
         })
     )
     subject = forms.CharField(
         label=_("Subject"),
         max_length=200,
         widget=forms.TextInput(attrs={
-            "class": "w-full p-3 border border-gray-300 rounded-sm bg-white text-black",
-            "placeholder": _("Your subject")
+            "class": "form-control",
+            "placeholder": _("Your subject"),
         })
     )
     service = forms.ModelChoiceField(
@@ -47,20 +48,21 @@ class ContactForm(forms.Form):
         queryset=Service.objects.filter(is_active=True).order_by("display_order"),
         required=False,
         widget=forms.Select(attrs={
-            "class": "w-full p-3 border border-gray-300 rounded-sm bg-white text-black"
+            "class": "form-control",
         })
     )
     budget = forms.ChoiceField(
         label=_("Budget"),
         choices=BUDGET_CHOICES,
         widget=forms.Select(attrs={
-            "class": "w-full p-3 border border-gray-300 rounded-sm bg-white text-black"
+            "class": "form-control",
         })
     )
     message = forms.CharField(
         label=_("Message"),
         widget=forms.Textarea(attrs={
-            "class": "w-full p-3 border border-gray-300 rounded-sm bg-white text-black h-32",
-            "placeholder": _("Your message...")
+            "class": "form-control",
+            "placeholder": _("Tell me about your project..."),
+            "rows": 5,
         })
     )

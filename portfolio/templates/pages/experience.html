@@ -2,93 +2,138 @@
 {% load static i18n %}
 
 {% block content %}
-<!-- Experience Header -->
-<section class="py-14 md:py-16">
-    <div class="max-w-6xl mx-auto px-5">
-        <span class="section-label">{% trans "EXPERIENCE" %}</span>
-        <h1 style="font-family: var(--font-primary); font-size: 2.25rem; margin-bottom: 0.75rem;">{% trans "MY EXPERIENCE" %}</h1>
-        <p style="color: #6C757D; font-size: 1.05rem; line-height: 1.65; max-width: 560px;">
-            {% trans "Here's a summary of my professional journey, including my roles, responsibilities, and the technologies I've worked with." %}
-        </p>
-    </div>
-</section>
+<section class="pt-24 pb-20 md:pt-28 md:pb-28" style="background-color: #FAFBFC;">
+    <div class="max-w-5xl mx-auto px-5">
+        {# Header #}
+        <div class="mb-16">
+            <span class="inline-flex items-center gap-2 mb-4" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
+                <span class="w-8 h-px" style="background-color: #15A34A;"></span>
+                {% trans "EXPERIENCE" %}
+            </span>
+            <h1 style="font-family: var(--font-primary); font-size: clamp(2rem, 4vw, 2.8rem); color: #0B0D0F; margin-bottom: 0.75rem;">
+                {% trans "Proof through experience" %}
+            </h1>
+            <p style="color: #6C757D; font-size: 1.05rem; line-height: 1.65; max-width: 560px;">
+                {% trans "Where I've worked, what I've built, and what this experience demonstrates about my ability to solve problems." %}
+            </p>
+        </div>
 
-<!-- Experience Timeline -->
-{% if experiences %}
-<section class="pb-16 md:pb-20">
-    <div class="max-w-6xl mx-auto px-5">
-        <div class="relative">
-            <!-- Vertical Line (Desktop) -->
-            <div class="hidden md:block absolute left-1/2 w-px h-full md:-translate-x-1/2" style="background-color: #E9ECEF;"></div>
-            
-            <!-- Vertical Line (Mobile) -->
-            <div class="md:hidden absolute left-[15px] w-px h-full" style="background-color: #E9ECEF;"></div>
-            
-            {% for experience in experiences %}
-            <div class="relative mb-8 reveal">
-                <!-- Dot (Desktop) -->
-                <div class="hidden md:block absolute left-1/2 w-3 h-3 rounded-full md:-translate-x-1/2 -translate-y-1/2 top-1" style="background-color: #15A34A; box-shadow: 0 0 0 4px rgba(21,163,74,0.12);"></div>
-                
-                <!-- Dot (Mobile) -->
-                <div class="md:hidden absolute left-[15px] w-2.5 h-2.5 rounded-full -translate-y-1/2 top-1" style="background-color: #15A34A;"></div>
-                
-                <div class="flex flex-col md:flex-row items-start pl-10 md:pl-0">
-                    <!-- Date Column -->
-                    <div class="w-full md:w-1/2 md:pr-8 md:text-right mb-2 md:mb-0">
-                        <p style="font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; color: #15A34A;">
-                            {{ experience.start_date|date:"Y" }} – 
-                            {% if experience.end_date %}{{ experience.end_date|date:"Y" }}{% else %}{% trans "PRESENT" %}{% endif %}
-                        </p>
-                        <p style="font-size: 0.85rem; color: #6C757D; margin-top: 0.25rem;">{{ experience.location }}</p>
-                    </div>
-                    
-                    <!-- Details Column -->
-                    <div class="w-full md:w-1/2 md:pl-8">
-                        <div class="card">
-                            <h3 style="font-family: var(--font-primary); font-size: 1.1rem; margin-bottom: 0.25rem;">{{ experience.title }}</h3>
-                            <p style="color: #6C757D; font-size: 0.9rem; font-weight: 500;">{{ experience.company }}</p>
-                            
-                            <span class="tag mt-3 mb-3 inline-flex">{{ experience.get_type_display }}</span>
-                            
-                            <div class="prose" style="color: #495057; font-size: 0.9rem; line-height: 1.65;">
-                                {{ experience.description|safe }}
+        {# Experience entries #}
+        {% if experiences %}
+        <div class="space-y-12">
+            {% for exp in experiences %}
+            <div class="reveal rounded-xl border overflow-hidden" style="background-color: #FFFFFF; border-color: #E9ECEF;">
+                {# Header #}
+                <div class="p-6 md:p-8" style="border-bottom: 1px solid #F1F3F5;">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                        <div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <span style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A;">
+                                    {{ exp.start_date|date:"M Y" }} — {% if exp.is_current %}{% trans "PRESENT" %}{% elif exp.end_date %}{{ exp.end_date|date:"M Y" }}{% endif %}
+                                </span>
+                                <span style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: #ADB5BD; background-color: #F1F3F5; padding: 0.2rem 0.5rem; border-radius: 4px;">{{ exp.get_duration }}</span>
                             </div>
-                            
-                            {% if experience.technologies.all %}
-                            <div class="flex flex-wrap gap-1.5 mt-3 pt-3" style="border-top: 1px solid #F1F3F5;">
-                                {% for tech in experience.technologies.all %}
-                                <span class="tag">{{ tech.name }}</span>
-                                {% endfor %}
-                            </div>
-                            {% endif %}
+                            <h2 style="font-family: var(--font-primary); font-size: 1.4rem; color: #0B0D0F;">{{ exp.title }}</h2>
+                            <p style="color: #6C757D; font-size: 0.95rem;">{{ exp.organization }}{% if exp.location %} — {{ exp.location }}{% endif %}</p>
                         </div>
                     </div>
+                </div>
+
+                {# Content #}
+                <div class="p-6 md:p-8 space-y-6">
+                    {# Role #}
+                    {% if exp.role %}
+                    <div>
+                        <h3 style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A; margin-bottom: 0.5rem;">{% trans "ROLE" %}</h3>
+                        <p style="color: #495057; line-height: 1.7;">{{ exp.role }}</p>
+                    </div>
+                    {% endif %}
+
+                    {# Description #}
+                    {% if exp.description %}
+                    <div>
+                        <h3 style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A; margin-bottom: 0.5rem;">{% trans "DESCRIPTION" %}</h3>
+                        <p style="color: #495057; line-height: 1.7;">{{ exp.description }}</p>
+                    </div>
+                    {% endif %}
+
+                    {# Responsibilities #}
+                    {% if exp.responsibilities %}
+                    <div>
+                        <h3 style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A; margin-bottom: 0.5rem;">{% trans "RESPONSIBILITIES" %}</h3>
+                        <div style="color: #495057; line-height: 1.7; white-space: pre-line;">{{ exp.responsibilities }}</div>
+                    </div>
+                    {% endif %}
+
+                    {# Tasks #}
+                    {% if exp.tasks %}
+                    <div>
+                        <h3 style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A; margin-bottom: 0.5rem;">{% trans "TASKS" %}</h3>
+                        <div style="color: #495057; line-height: 1.7; white-space: pre-line;">{{ exp.tasks }}</div>
+                    </div>
+                    {% endif %}
+
+                    {# Achievements #}
+                    {% if exp.achievements %}
+                    <div>
+                        <h3 style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A; margin-bottom: 0.5rem;">{% trans "ACHIEVEMENTS" %}</h3>
+                        <div style="color: #495057; line-height: 1.7; white-space: pre-line;">{{ exp.achievements }}</div>
+                    </div>
+                    {% endif %}
+
+                    {# Results #}
+                    {% if exp.results %}
+                    <div class="p-4 rounded-lg" style="background-color: rgba(21,163,74,0.05); border-left: 3px solid #15A34A;">
+                        <h3 style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A; margin-bottom: 0.5rem;">{% trans "RESULTS" %}</h3>
+                        <p style="color: #495057; line-height: 1.7;">{{ exp.results }}</p>
+                    </div>
+                    {% endif %}
+
+                    {# Related Projects #}
+                    {% if exp.related_projects.all %}
+                    <div>
+                        <h3 style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A; margin-bottom: 0.75rem;">{% trans "RELATED PROJECTS" %}</h3>
+                        <div class="flex flex-wrap gap-3">
+                            {% for project in exp.related_projects.all %}
+                            <a href="{% url 'portfolio:project_detail' project.slug %}" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border transition-all duration-200" style="background-color: #FFFFFF; border-color: #E9ECEF; text-decoration: none; color: #0B0D0F;" onmouseover="this.style.borderColor='#15A34A'" onmouseout="this.style.borderColor='#E9ECEF'">
+                                <span style="font-family: var(--font-display); font-size: 0.85rem;">{{ project.title }}</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" style="color: #15A34A;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {# Technologies #}
+                    {% if exp.technologies.all %}
+                    <div>
+                        <h3 style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #ADB5BD; margin-bottom: 0.5rem;">{% trans "TECHNOLOGIES" %}</h3>
+                        <div class="flex flex-wrap gap-2">
+                            {% for tech in exp.technologies.all %}
+                            <span class="inline-flex items-center px-2.5 py-1 rounded text-xs" style="font-family: var(--font-mono); background-color: #F1F3F5; color: #495057;">{{ tech.name }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
             {% endfor %}
         </div>
+        {% else %}
+        <div class="text-center py-16">
+            <p style="color: #6C757D;">{% trans "Experience details coming soon." %}</p>
+        </div>
+        {% endif %}
     </div>
 </section>
-{% else %}
-<section class="py-16 md:py-20">
-    <div class="max-w-6xl mx-auto px-5 text-center">
-        <h2 style="font-family: var(--font-primary); font-size: 1.5rem; margin-bottom: 0.5rem;">{% trans "No experience yet" %}</h2>
-        <p style="color: #6C757D;">{% trans "Check back soon for updates." %}</p>
-    </div>
-</section>
-{% endif %}
 
-<!-- CTA Section -->
-<section class="py-14 md:py-16" style="background-color: #F8F9FA;">
-    <div class="max-w-6xl mx-auto px-5 text-center">
-        <h2 style="font-family: var(--font-primary); font-size: 1.75rem; margin-bottom: 0.75rem;">
-            {% trans "Want to work with me?" %}
-        </h2>
-        <p style="color: #6C757D; font-size: 1rem; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">
-            {% trans "Let's discuss how my experience can help your project succeed." %}
-        </p>
-        <a href="{% url 'portfolio:contact' %}" class="btn-primary">
-            {% trans "GET IN TOUCH" %}
+{# CTA #}
+<section class="py-16" style="background-color: #0B0D0F;">
+    <div class="max-w-4xl mx-auto px-5 text-center">
+        <h2 style="font-family: var(--font-primary); font-size: 1.75rem; color: #FFFFFF; margin-bottom: 0.75rem;">{% trans "Have a similar challenge?" %}</h2>
+        <p style="color: #ADB5BD; font-size: 1rem; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">{% trans "Let's discuss your project and how my experience can help solve your problem." %}</p>
+        <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF; border: 2px solid #15A34A;">
+            {% trans "START A PROJECT" %}
         </a>
     </div>
 </section>

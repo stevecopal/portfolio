@@ -3,23 +3,17 @@ from django.utils.translation import gettext_lazy as _
 from portfolio.models import (
     Profile,
     SocialLink,
-    Statistic,
     Service,
     ServiceFeature,
-    SkillCategory,
-    Skill,
-    Experience,
     Project,
     ProjectImage,
     Technology,
-    Article,
-    Category,
-    Tag,
+    Experience,
     Testimonial,
     ContactMessage,
-    NewsletterSubscriber,
     SEO,
     SiteSettings,
+    Tool,
 )
 
 
@@ -58,14 +52,6 @@ class SocialLinkAdmin(admin.ModelAdmin):
     ordering = ("display_order",)
 
 
-@admin.register(Statistic)
-class StatisticAdmin(admin.ModelAdmin):
-    list_display = ("label", "value", "is_active", "display_order")
-    list_filter = ("is_active",)
-    search_fields = ("label",)
-    ordering = ("display_order",)
-
-
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
     list_display = ("title", "is_featured", "is_active", "display_order")
@@ -73,6 +59,22 @@ class ServiceAdmin(admin.ModelAdmin):
     search_fields = ("title", "short_description")
     prepopulated_fields = {"slug": ("title",)}
     ordering = ("display_order",)
+    fieldsets = (
+        (_("Core"), {
+            "fields": ("title", "slug", "short_description", "description", "icon", "image")
+        }),
+        (_("Detail Page Content"), {
+            "fields": (
+                "hero_description", "problem", "audience", "features",
+                "concrete_example", "how_it_works", "before_after",
+                "benefits", "included", "technical_details",
+            ),
+            "classes": ("collapse",),
+        }),
+        (_("Visibility"), {
+            "fields": ("is_featured", "is_active", "display_order")
+        }),
+    )
 
 
 @admin.register(ServiceFeature)
@@ -80,28 +82,6 @@ class ServiceFeatureAdmin(admin.ModelAdmin):
     list_display = ("service", "feature", "display_order")
     list_filter = ("service",)
     ordering = ("display_order",)
-
-
-@admin.register(SkillCategory)
-class SkillCategoryAdmin(admin.ModelAdmin):
-    list_display = ("name", "display_order")
-    ordering = ("display_order",)
-
-
-@admin.register(Skill)
-class SkillAdmin(admin.ModelAdmin):
-    list_display = ("name", "category", "level", "years_experience", "is_featured", "display_order")
-    list_filter = ("category", "level", "is_featured")
-    search_fields = ("name",)
-    ordering = ("display_order",)
-
-
-@admin.register(Experience)
-class ExperienceAdmin(admin.ModelAdmin):
-    list_display = ("title", "company", "start_date", "end_date", "is_current", "display_order")
-    list_filter = ("type", "is_current")
-    search_fields = ("title", "company")
-    ordering = ("-start_date",)
 
 
 class ProjectImageInline(admin.TabularInline):
@@ -113,10 +93,32 @@ class ProjectImageInline(admin.TabularInline):
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ("title", "client_name", "project_date", "status", "is_featured", "is_published")
     list_filter = ("status", "is_featured", "is_published", "technologies")
-    search_fields = ("title", "client_name", "description")
+    search_fields = ("title", "client_name", "short_description")
     prepopulated_fields = {"slug": ("title",)}
     inlines = [ProjectImageInline]
     filter_horizontal = ("technologies",)
+    fieldsets = (
+        (_("Core"), {
+            "fields": ("title", "slug", "short_description")
+        }),
+        (_("Case Study"), {
+            "fields": ("context", "problem", "approach", "solution", "features", "result", "role"),
+            "classes": ("collapse",),
+        }),
+        (_("Legacy Fields"), {
+            "fields": ("description", "challenge", "results"),
+            "classes": ("collapse",),
+        }),
+        (_("Media"), {
+            "fields": ("cover_image",)
+        }),
+        (_("Metadata"), {
+            "fields": ("client_name", "project_date", "status", "live_url", "github_url", "technologies")
+        }),
+        (_("Visibility"), {
+            "fields": ("is_featured", "is_published")
+        }),
+    )
 
 
 @admin.register(ProjectImage)
@@ -131,30 +133,32 @@ class TechnologyAdmin(admin.ModelAdmin):
     search_fields = ("name",)
 
 
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("name", "display_order")
-    prepopulated_fields = {"slug": ("name",)}
-
-
-@admin.register(Tag)
-class TagAdmin(admin.ModelAdmin):
-    list_display = ("name",)
-    prepopulated_fields = {"slug": ("name",)}
-
-
-@admin.register(Article)
-class ArticleAdmin(admin.ModelAdmin):
-    list_display = ("title", "author", "category", "status", "published_at", "is_featured")
-    list_filter = ("category", "status", "is_featured", "tags")
-    search_fields = ("title", "excerpt", "content")
-    prepopulated_fields = {"slug": ("title",)}
-    filter_horizontal = ("tags",)
+@admin.register(Experience)
+class ExperienceAdmin(admin.ModelAdmin):
+    list_display = ("title", "organization", "start_date", "end_date", "is_current", "display_order")
+    list_filter = ("type", "is_current", "is_published")
+    search_fields = ("title", "organization")
+    ordering = ("-start_date",)
+    filter_horizontal = ("related_projects", "technologies")
+    fieldsets = (
+        (_("Core"), {
+            "fields": ("title", "organization", "location", "start_date", "end_date", "is_current", "type")
+        }),
+        (_("Content"), {
+            "fields": ("role", "description", "responsibilities", "tasks", "achievements", "results")
+        }),
+        (_("Relations"), {
+            "fields": ("related_projects", "technologies")
+        }),
+        (_("Display"), {
+            "fields": ("display_order", "is_published")
+        }),
+    )
 
 
 @admin.register(Testimonial)
 class TestimonialAdmin(admin.ModelAdmin):
-    list_display = ("name", "position", "company", "rating", "is_featured", "is_active", "display_order")
+    list_display = ("name", "position", "company", "is_featured", "is_active", "display_order")
     list_filter = ("is_featured", "is_active")
     search_fields = ("name", "position", "company")
 
@@ -167,13 +171,6 @@ class ContactMessageAdmin(admin.ModelAdmin):
     readonly_fields = ("created_at",)
 
 
-@admin.register(NewsletterSubscriber)
-class NewsletterSubscriberAdmin(admin.ModelAdmin):
-    list_display = ("email", "is_active", "subscribed_at")
-    list_filter = ("is_active",)
-    search_fields = ("email",)
-
-
 @admin.register(SEO)
 class SEOAdmin(admin.ModelAdmin):
     list_display = ("page", "seo_title")
@@ -183,3 +180,11 @@ class SEOAdmin(admin.ModelAdmin):
 @admin.register(SiteSettings)
 class SiteSettingsAdmin(admin.ModelAdmin):
     list_display = ("site_name", "slogan", "is_active", "maintenance_mode")
+
+
+@admin.register(Tool)
+class ToolAdmin(admin.ModelAdmin):
+    list_display = ("name", "icon", "category", "display_order", "is_active")
+    list_filter = ("category", "is_active")
+    search_fields = ("name",)
+    ordering = ("display_order", "name")

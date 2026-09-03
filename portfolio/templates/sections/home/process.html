@@ -1,0 +1,65 @@
+{% load static i18n %}
+<section id="process" class="relative py-20 md:py-28" style="background-color: #FFFFFF;">
+    <div class="max-w-6xl mx-auto px-5">
+        {# Section header #}
+        <div class="text-center mb-16">
+            <span class="inline-flex items-center gap-2 mb-4" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
+                {% trans "04 / PROCESS" %}
+            </span>
+            <h2 style="font-family: var(--font-primary); font-size: clamp(1.8rem, 4vw, 2.6rem); color: #0B0D0F; margin-bottom: 0.75rem;">
+                {% trans "How we work together" %}
+            </h2>
+            <p style="color: #6C757D; font-size: 1.05rem; max-width: 520px; margin: 0 auto; line-height: 1.7;">
+                {% trans "You don't need to know the technology. You just need to explain your problem." %}
+            </p>
+        </div>
+
+        {# Process steps #}
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-5 mt-6">
+            {# Step 1 #}
+            <div class="reveal text-center md:text-left">
+                <div class="w-12 h-12 flex items-center justify-center rounded-full mx-auto md:mx-0 mb-4" style="background-color: rgba(21,163,74,0.08); border: 2px solid rgba(21,163,74,0.2);">
+                    <span style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 600; color: #15A34A;">01</span>
+                </div>
+                <h3 style="font-family: var(--font-primary); font-size: 1.05rem; color: #0B0D0F; margin-bottom: 0.35rem;">{% trans "You explain" %}</h3>
+                <p style="color: #6C757D; font-size: 0.88rem; line-height: 1.55;">{% trans "You describe your activity, your problem, or your idea in your own words." %}</p>
+            </div>
+
+            {# Step 2 #}
+            <div class="reveal text-center md:text-left">
+                <div class="w-12 h-12 flex items-center justify-center rounded-full mx-auto md:mx-0 mb-4" style="background-color: rgba(21,163,74,0.08); border: 2px solid rgba(21,163,74,0.2);">
+                    <span style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 600; color: #15A34A;">02</span>
+                </div>
+                <h3 style="font-family: var(--font-primary); font-size: 1.05rem; color: #0B0D0F; margin-bottom: 0.35rem;">{% trans "We define" %}</h3>
+                <p style="color: #6C757D; font-size: 0.88rem; line-height: 1.55;">{% trans "Your need is transformed into a concrete solution with clear features." %}</p>
+            </div>
+
+            {# Step 3 #}
+            <div class="reveal text-center md:text-left">
+                <div class="w-12 h-12 flex items-center justify-center rounded-full mx-auto md:mx-0 mb-4" style="background-color: rgba(21,163,74,0.08); border: 2px solid rgba(21,163,74,0.2);">
+                    <span style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 600; color: #15A34A;">03</span>
+                </div>
+                <h3 style="font-family: var(--font-primary); font-size: 1.05rem; color: #0B0D0F; margin-bottom: 0.35rem;">{% trans "I build" %}</h3>
+                <p style="color: #6C757D; font-size: 0.88rem; line-height: 1.55;">{% trans "The solution is designed, developed, and tested with care." %}</p>
+            </div>
+
+            {# Step 4 #}
+            <div class="reveal text-center md:text-left">
+                <div class="w-12 h-12 flex items-center justify-center rounded-full mx-auto md:mx-0 mb-4" style="background-color: rgba(21,163,74,0.08); border: 2px solid rgba(21,163,74,0.2);">
+                    <span style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 600; color: #15A34A;">04</span>
+                </div>
+                <h3 style="font-family: var(--font-primary); font-size: 1.05rem; color: #0B0D0F; margin-bottom: 0.35rem;">{% trans "I deploy" %}</h3>
+                <p style="color: #6C757D; font-size: 0.88rem; line-height: 1.55;">{% trans "Your solution becomes real, accessible, and ready to use." %}</p>
+            </div>
+
+            {# Step 5 #}
+            <div class="reveal text-center md:text-left">
+                <div class="w-12 h-12 flex items-center justify-center rounded-full mx-auto md:mx-0 mb-4" style="background-color: #15A34A; border: 2px solid #15A34A;">
+                    <span style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 600; color: #FFFFFF;">05</span>
+                </div>
+                <h3 style="font-family: var(--font-primary); font-size: 1.05rem; color: #0B0D0F; margin-bottom: 0.35rem;">{% trans "You use" %}</h3>
+                <p style="color: #6C757D; font-size: 0.88rem; line-height: 1.55;">{% trans "You have your tool. Your problem is solved. Your activity moves forward." %}</p>
+            </div>
+        </div>
+    </div>
+</section>

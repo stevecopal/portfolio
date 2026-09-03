@@ -2,55 +2,142 @@
 {% load static i18n %}
 
 {% block content %}
-<!-- Services Header -->
-<section class="py-14 md:py-16">
-    <div class="max-w-6xl mx-auto px-5">
-        <span class="section-label">{% trans "SERVICES" %}</span>
-        <h1 style="font-family: var(--font-primary); font-size: 2.25rem; margin-bottom: 0.75rem;">{% trans "MY SERVICES" %}</h1>
-        <p style="color: #6C757D; font-size: 1.05rem; line-height: 1.65; max-width: 560px;">
-            {% trans "End-to-end digital solutions tailored to your business needs. From concept to deployment." %}
-        </p>
+
+{# ═══════════════ HERO ═══════════════ #}
+<section class="relative overflow-hidden" style="background-color: #0B0D0F; min-height: 60vh; display: flex; align-items: center;">
+    {# Decorative #}
+    <div class="absolute inset-0" style="opacity: 0.03;">
+        <div style="width: 100%; height: 100%; background-image: repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(255,255,255,0.5) 80px, rgba(255,255,255,0.5) 81px), repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255,255,255,0.5) 80px, rgba(255,255,255,0.5) 81px);"></div>
+    </div>
+
+    <div class="relative max-w-6xl mx-auto px-5 py-24 md:py-32">
+        <div class="max-w-3xl">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="w-12 h-px" style="background-color: #15A34A;"></span>
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: #15A34A;">{% trans "SOLUTIONS" %}</span>
+            </div>
+
+            <h1 style="font-family: var(--font-primary); font-size: clamp(2.5rem, 6vw, 4.5rem); color: #FFFFFF; line-height: 1.0; margin-bottom: 1.5rem; letter-spacing: -0.02em;">
+                {% trans "Ce que je peux" %}<br>
+                <span style="color: #15A34A;">{% trans "résoudre pour vous." %}</span>
+            </h1>
+
+            <p style="color: rgba(255,255,255,0.5); font-size: 1.15rem; line-height: 1.7; max-width: 560px;">
+                {% trans "Chaque solution commence par la compréhension de votre problème. Explorez les différentes manières dont je peux vous aider." %}
+            </p>
+        </div>
     </div>
 </section>
 
-<!-- Services Grid -->
-<section class="pb-16 md:pb-20">
+
+{# ═══════════════ SERVICES LIST ═══════════════ #}
+<section class="py-20 md:py-28" style="background-color: #FFFFFF;">
     <div class="max-w-6xl mx-auto px-5">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {% if services %}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             {% for service in services %}
-            <a href="{% url 'portfolio:service_detail' service.slug %}" class="group card p-6 reveal" style="text-decoration: none; color: inherit;">
-                <div class="flex items-start gap-4 mb-4">
-                    {% if service.icon %}
-                    <div class="w-12 h-12 flex items-center justify-center rounded-xl flex-shrink-0 transition-colors duration-200" style="background-color: rgba(21,163,74,0.08);">
-                        <i class="{{ service.icon }}" style="color: #15A34A; font-size: 1.2rem;"></i>
+            <a href="{% url 'portfolio:service_detail' service.slug %}" class="reveal group relative p-8 md:p-10 rounded-2xl border transition-all duration-400 hover:shadow-xl hover:shadow-black/5 hover:-translate-y-1 overflow-hidden" style="background-color: #FFFFFF; border-color: #E9ECEF; text-decoration: none; color: inherit;">
+
+                {# Hover accent line #}
+                <div class="absolute top-0 left-0 w-full h-1 transition-all duration-400 opacity-0 group-hover:opacity-100" style="background: linear-gradient(90deg, #15A34A, #22C55E);"></div>
+
+                <div class="flex items-start gap-5">
+                    {# Number #}
+                    <div class="flex-shrink-0 w-14 h-14 flex items-center justify-center rounded-xl transition-all duration-300" style="background-color: rgba(21,163,74,0.08);">
+                        <span style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700; color: #15A34A;">{{ forloop.counter|stringformat:"02d" }}</span>
                     </div>
-                    {% endif %}
-                    <div>
-                        <h3 style="font-family: var(--font-primary); font-size: 1.15rem; margin-bottom: 0.25rem;">{{ service.title }}</h3>
+
+                    <div class="flex-1">
+                        {# Title #}
+                        <h3 style="font-family: var(--font-primary); font-size: 1.4rem; color: #0B0D0F; margin-bottom: 0.5rem; line-height: 1.2;">{{ service.title }}</h3>
+
+                        {# Short description #}
+                        <p style="color: #6C757D; font-size: 0.95rem; line-height: 1.65; margin-bottom: 1rem;">{{ service.short_description|truncatewords:25 }}</p>
+
+                        {# CTA #}
+                        <div class="flex items-center gap-2 transition-all duration-300" style="font-family: var(--font-display); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; color: #15A34A;">
+                            <span>{% trans "DÉCOUVRIR CETTE SOLUTION" %}</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                        </div>
                     </div>
                 </div>
-                <p style="color: #6C757D; font-size: 0.9rem; line-height: 1.65; margin-bottom: 1.25rem;">{{ service.short_description }}</p>
-                <span style="font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em; color: #15A34A; text-decoration: none;">
-                    {% trans "LEARN MORE" %} →
-                </span>
+
+                {# Feature items preview #}
+                {% if service.feature_items.all %}
+                <div class="mt-6 pt-6" style="border-top: 1px solid #F1F3F5;">
+                    <div class="flex flex-wrap gap-2">
+                        {% for feature in service.feature_items.all|slice:":3" %}
+                        <span class="px-3 py-1 rounded-full" style="font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.06em; color: #6C757D; background-color: #F8F9FA;">{{ feature.feature }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
             </a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+
+{# ═══════════════ PROCESS ═══════════════ #}
+<section class="py-20 md:py-28" style="background-color: #0B0D0F;">
+    <div class="max-w-6xl mx-auto px-5">
+        <div class="text-center mb-16">
+            <div class="flex items-center justify-center gap-3 mb-4">
+                <span class="w-8 h-px" style="background-color: #15A34A;"></span>
+                <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">{% trans "MA MÉTHODE" %}</span>
+                <span class="w-8 h-px" style="background-color: #15A34A;"></span>
+            </div>
+            <h2 style="font-family: var(--font-primary); font-size: clamp(1.8rem, 3vw, 2.4rem); color: #FFFFFF; margin-bottom: 0.75rem;">
+                {% trans "Comment je transforme" %}<br>
+                <span style="color: #15A34A;">{% trans "votre idée en solution." %}</span>
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+            {% for step in "12345" %}
+            <div class="reveal text-center p-6 rounded-xl" style="background-color: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);">
+                <div class="w-12 h-12 flex items-center justify-center rounded-full mx-auto mb-4" style="background-color: rgba(21,163,74,0.15);">
+                    <span style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: #15A34A;">0{{ forloop.counter }}</span>
+                </div>
+                {% if forloop.counter == 1 %}
+                <h3 style="font-family: var(--font-primary); font-size: 1rem; color: #FFFFFF; margin-bottom: 0.3rem;">{% trans "Vous expliquez" %}</h3>
+                <p style="color: rgba(255,255,255,0.4); font-size: 0.82rem; line-height: 1.5;">{% trans "Votre besoin" %}</p>
+                {% elif forloop.counter == 2 %}
+                <h3 style="font-family: var(--font-primary); font-size: 1rem; color: #FFFFFF; margin-bottom: 0.3rem;">{% trans "Nous définissons" %}</h3>
+                <p style="color: rgba(255,255,255,0.4); font-size: 0.82rem; line-height: 1.5;">{% trans "La solution" %}</p>
+                {% elif forloop.counter == 3 %}
+                <h3 style="font-family: var(--font-primary); font-size: 1rem; color: #FFFFFF; margin-bottom: 0.3rem;">{% trans "Je construis" %}</h3>
+                <p style="color: rgba(255,255,255,0.4); font-size: 0.82rem; line-height: 1.5;">{% trans "Votre outil" %}</p>
+                {% elif forloop.counter == 4 %}
+                <h3 style="font-family: var(--font-primary); font-size: 1rem; color: #FFFFFF; margin-bottom: 0.3rem;">{% trans "Je déploie" %}</h3>
+                <p style="color: rgba(255,255,255,0.4); font-size: 0.82rem; line-height: 1.5;">{% trans "En ligne" %}</p>
+                {% elif forloop.counter == 5 %}
+                <h3 style="font-family: var(--font-primary); font-size: 1rem; color: #FFFFFF; margin-bottom: 0.3rem;">{% trans "Vous utilisez" %}</h3>
+                <p style="color: rgba(255,255,255,0.4); font-size: 0.82rem; line-height: 1.5;">{% trans "Votre solution" %}</p>
+                {% endif %}
+            </div>
             {% endfor %}
         </div>
     </div>
 </section>
 
-<!-- CTA -->
-<section class="py-14 md:py-16" style="background-color: #F8F9FA;">
-    <div class="max-w-6xl mx-auto px-5 text-center">
-        <h2 style="font-family: var(--font-primary); font-size: 1.75rem; margin-bottom: 0.75rem;">
-            {% trans "Need something specific?" %}
+
+{# ═══════════════ CTA ═══════════════ #}
+<section class="py-20 md:py-28" style="background-color: #F8F9FA;">
+    <div class="max-w-4xl mx-auto px-5 text-center">
+        <h2 style="font-family: var(--font-primary); font-size: clamp(1.8rem, 3vw, 2.4rem); color: #0B0D0F; margin-bottom: 0.75rem;">
+            {% trans "Pas sûr de la solution qu'il vous faut ?" %}
         </h2>
-        <p style="color: #6C757D; font-size: 1rem; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">
-            {% trans "Let's discuss your unique requirements and find the perfect solution." %}
+        <p style="color: #6C757D; font-size: 1.05rem; max-width: 500px; margin: 0 auto 2rem; line-height: 1.65;">
+            {% trans "Décrivez-moi simplement votre problème. Je saurai vous orienter vers la bonne solution." %}
         </p>
-        <a href="{% url 'portfolio:contact' %}" class="btn-primary">
-            {% trans "GET IN TOUCH" %}
+        <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-3 px-9 py-4 rounded-lg font-medium transition-all duration-300 hover:shadow-lg hover:shadow-green-500/15" style="font-family: var(--font-display); font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF; text-decoration: none;">
+            {% trans "PARLONS DE VOTRE PROJET" %}
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
         </a>
     </div>
 </section>
+
 {% endblock %}

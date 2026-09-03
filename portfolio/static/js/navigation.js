@@ -1,135 +1,98 @@
-// Navigation: hamburger menu, navbar scroll behavior, back-to-top
 (function() {
     'use strict';
-
     document.addEventListener('DOMContentLoaded', function() {
         initMobileMenu();
         initNavbarScroll();
         initBackToTop();
+        initSmoothScroll();
         initActiveNavLinks();
+        initScrollSpy();
     });
 
-    // ── Mobile Menu ──────────────────────────────────────────
     function initMobileMenu() {
         var hamburger = document.getElementById('hamburgerBtn');
         var closeBtn = document.getElementById('mobileCloseBtn');
         var mobileMenu = document.getElementById('mobileMenu');
         var overlay = document.getElementById('mobileOverlay');
-        
         if (!hamburger || !mobileMenu || !overlay) return;
-        
-        function openMenu() {
-            hamburger.classList.add('active');
-            mobileMenu.classList.add('open');
-            overlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closeMenu() {
-            hamburger.classList.remove('active');
-            mobileMenu.classList.remove('open');
-            overlay.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-        
-        // Hamburger toggle
-        hamburger.addEventListener('click', function() {
-            if (mobileMenu.classList.contains('open')) {
-                closeMenu();
-            } else {
-                openMenu();
-            }
-        });
-        
-        // Close button inside mobile menu
-        if (closeBtn) {
-            closeBtn.addEventListener('click', function() {
-                closeMenu();
-            });
-        }
-        
-        // Overlay click
-        overlay.addEventListener('click', function() {
-            closeMenu();
-        });
-        
-        // Close on link click
-        mobileMenu.querySelectorAll('a').forEach(function(link) {
-            link.addEventListener('click', function() {
-                closeMenu();
-            });
-        });
-        
-        // Close on Escape
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
-                closeMenu();
-            }
-        });
+        function openMenu() { hamburger.classList.add('active'); mobileMenu.classList.add('open'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function closeMenu() { hamburger.classList.remove('active'); mobileMenu.classList.remove('open'); overlay.classList.remove('active'); document.body.style.overflow = ''; }
+        hamburger.addEventListener('click', function() { mobileMenu.classList.contains('open') ? closeMenu() : openMenu(); });
+        if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+        overlay.addEventListener('click', closeMenu);
+        mobileMenu.querySelectorAll('a').forEach(function(link) { link.addEventListener('click', closeMenu); });
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMenu(); });
     }
 
-    // ── Navbar Scroll ─────────────────────────────────────────
     function initNavbarScroll() {
         var navbar = document.getElementById('navbar');
         if (!navbar) return;
-        
         var lastScrollY = window.scrollY;
-        var scrollThreshold = 80;
-        
         window.addEventListener('scroll', function() {
-            var currentScrollY = window.scrollY;
-            
-            // Prevent negative scroll (iOS bounce)
-            if (currentScrollY < 0) return;
-            
-            // Add shadow when scrolled
-            if (currentScrollY > 20) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-            
-            // Hide on scroll down, show on scroll up
-            if (currentScrollY > lastScrollY && currentScrollY > scrollThreshold) {
-                navbar.classList.add('-translate-y-full');
-            } else {
-                navbar.classList.remove('-translate-y-full');
-            }
-            
-            lastScrollY = currentScrollY;
+            var y = window.scrollY;
+            if (y < 0) return;
+            navbar.classList.toggle('scrolled', y > 20);
+            if (y > lastScrollY && y > 80) navbar.classList.add('-translate-y-full');
+            else navbar.classList.remove('-translate-y-full');
+            lastScrollY = y;
         });
     }
 
-    // ── Back to Top ──────────────────────────────────────────
     function initBackToTop() {
         var btn = document.getElementById('backToTop');
         if (!btn) return;
-        
         window.addEventListener('scroll', function() {
-            if (window.scrollY > 400) {
-                btn.style.opacity = '1';
-                btn.style.pointerEvents = 'auto';
-            } else {
-                btn.style.opacity = '0';
-                btn.style.pointerEvents = 'none';
-            }
+            btn.style.opacity = window.scrollY > 400 ? '1' : '0';
+            btn.style.pointerEvents = window.scrollY > 400 ? 'auto' : 'none';
         });
-        
-        btn.addEventListener('click', function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        btn.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    }
+
+    function getHeaderHeight() {
+        var navbar = document.getElementById('navbar');
+        return navbar ? navbar.offsetHeight : 64;
+    }
+
+    function initSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                var id = this.getAttribute('href');
+                if (!id || id === '#') return;
+                var target = document.querySelector(id);
+                if (!target) return;
+                e.preventDefault();
+                var offset = target.getBoundingClientRect().top + window.scrollY - getHeaderHeight() - 16;
+                window.scrollTo({ top: offset, behavior: 'smooth' });
+                if (history.pushState) history.pushState(null, null, id);
+            });
         });
     }
 
-    // ── Active Nav Links ─────────────────────────────────────
     function initActiveNavLinks() {
         var currentPath = window.location.pathname;
-        var navLinks = document.querySelectorAll('.nav-link');
-        
-        navLinks.forEach(function(link) {
-            if (link.getAttribute('href') === currentPath) {
-                link.classList.add('active');
-            }
+        document.querySelectorAll('.nav-link').forEach(function(link) {
+            var href = link.getAttribute('href');
+            if (href && currentPath === href) link.classList.add('active');
         });
     }
 
+    function initScrollSpy() {
+        var currentPath = window.location.pathname;
+        if (currentPath !== '/' && currentPath.indexOf('/en') !== 0 && currentPath.indexOf('/fr') !== 0) return;
+        var sections = document.querySelectorAll('section[id]');
+        if (!sections.length) return;
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    var id = entry.target.getAttribute('id');
+                    document.querySelectorAll('.nav-link').forEach(function(l) { l.classList.remove('active'); });
+                    if (id === 'hero' || id === 'about') {
+                        var homeLink = document.querySelector('.nav-link[href*="home"]');
+                        if (homeLink) homeLink.classList.add('active');
+                    }
+                }
+            });
+        }, { threshold: 0.3, rootMargin: '-80px 0px -40% 0px' });
+        sections.forEach(function(s) { observer.observe(s); });
+    }
 })();
