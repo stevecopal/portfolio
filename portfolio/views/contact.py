@@ -71,7 +71,7 @@ class ContactView(TemplateView):
                     return JsonResponse({
                         "success": True,
                         "message": str(_("Thank you! Your message has been sent successfully.")),
-                        "redirect": reverse("portfolio:home") + "#contact"
+                        "redirect": reverse("portfolio:home") 
                     })
 
                 messages.success(
@@ -79,7 +79,7 @@ class ContactView(TemplateView):
                     _("Thank you! Your message has been sent successfully."),
                 )
                 return HttpResponseRedirect(
-                    reverse("portfolio:home") + "#contact"
+                    reverse("portfolio:home") 
                 )
 
             except Exception as e:

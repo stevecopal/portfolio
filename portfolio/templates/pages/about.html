@@ -3,94 +3,303 @@
 
 {% block content %}
 {% if profile %}
-<section class="pt-24 pb-20 md:pt-28 md:pb-28" style="background-color: #FAFBFC;">
-    <div class="max-w-4xl mx-auto px-5">
+<style>
+    /* ── About page animations & components ── */
+    @keyframes ab-spin { to { transform: rotate(360deg); } }
+    @keyframes ab-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @keyframes ab-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(21, 163, 74, 0.35); } 50% { box-shadow: 0 0 0 7px rgba(21, 163, 74, 0); } }
+
+    .ab-deco-ring {
+        position: absolute;
+        border-radius: 50%;
+        border: 1.5px dashed rgba(21, 163, 74, 0.35);
+        pointer-events: none;
+        animation: ab-spin 38s linear infinite;
+    }
+    .ab-deco-ring--slow { animation-duration: 60s; }
+    .ab-float { animation: ab-float 5s ease-in-out infinite; }
+    .ab-pulse-dot { animation: ab-pulse 2.2s ease-in-out infinite; }
+
+    /* Portrait */
+    .ab-portrait { position: relative; aspect-ratio: 4 / 5; overflow: hidden; }
+    .ab-portrait img { transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .ab-portrait:hover img { transform: scale(1.05); }
+    .ab-portrait::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(11, 13, 15, 0.35), transparent 45%);
+        pointer-events: none;
+    }
+
+    /* Story typography */
+    .ab-story { color: #495057; font-size: 1.02rem; line-height: 1.9; }
+    .ab-story p { margin-bottom: 1.1rem; }
+    .ab-story p:last-child { margin-bottom: 0; }
+    .ab-story p:first-of-type::first-letter {
+        font-family: var(--font-primary);
+        font-size: 3rem;
+        line-height: 0.85;
+        float: left;
+        color: #15A34A;
+        margin: 0.1rem 0.6rem 0 0;
+    }
+
+    /* Tool chips */
+    .ab-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.55rem 0.7rem;
+        background-color: #FFFFFF;
+        border: 1px solid #E9ECEF;
+        border-radius: 10px;
+        font-size: 0.82rem;
+        color: #343A40;
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s, box-shadow 0.25s, color 0.25s;
+    }
+    .ab-chip i { color: #15A34A; font-size: 1rem; width: 1.1rem; text-align: center; flex-shrink: 0; }
+    .ab-chip:hover {
+        transform: translateY(-3px);
+        border-color: rgba(21, 163, 74, 0.5);
+        box-shadow: 0 8px 18px rgba(21, 163, 74, 0.12);
+        color: #0B0D0F;
+    }
+
+    /* "How I work" numbered steps */
+    .ab-step { display: flex; gap: 1rem; }
+    .ab-step + .ab-step { margin-top: 1.4rem; padding-top: 1.4rem; border-top: 1px solid #F1F3F5; }
+    .ab-step-num {
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        font-weight: 600;
+        color: #15A34A;
+        letter-spacing: 0.08em;
+        flex-shrink: 0;
+        padding-top: 0.35rem;
+    }
+
+    /* Info rows */
+    .ab-info { display: flex; align-items: center; gap: 0.8rem; }
+    .ab-info + .ab-info { margin-top: 0.85rem; }
+    .ab-info-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        background-color: rgba(21, 163, 74, 0.08);
+        color: #15A34A;
+        font-size: 0.85rem;
+        border: 1px solid rgba(21, 163, 74, 0.12);
+    }
+
+    /* Primary button */
+    .ab-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        width: 100%;
+        padding: 0.85rem 1.25rem;
+        border-radius: 12px;
+        font-family: var(--font-display);
+        font-size: 0.82rem;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        background-color: #0B0D0F;
+        color: #FFFFFF;
+        border: 2px solid #0B0D0F;
+        text-decoration: none;
+        transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .ab-btn:hover {
+        background-color: #15A34A;
+        border-color: #15A34A;
+        transform: translateY(-2px);
+        box-shadow: 0 12px 24px rgba(21, 163, 74, 0.25);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .ab-deco-ring, .ab-float, .ab-pulse-dot { animation: none; }
+        .ab-chip, .ab-btn, .ab-portrait img { transition: none; }
+    }
+</style>
+
+<section class="relative overflow-hidden pt-24 pb-20 md:pt-28 md:pb-28" style="background-color: #FAFBFC;">
+    {# Soft background glow #}
+    <div class="absolute -top-32 -right-24 pointer-events-none" style="width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(21,163,74,0.07) 0%, transparent 65%);"></div>
+    <div class="absolute -bottom-40 -left-28 pointer-events-none" style="width: 480px; height: 480px; border-radius: 50%; background: radial-gradient(circle, rgba(21,163,74,0.05) 0%, transparent 65%);"></div>
+
+    <div class="relative max-w-6xl mx-auto px-5">
         {# Header #}
-        <div class="mb-12">
+        <div class="mb-12 md:mb-16 reveal">
             <span class="inline-flex items-center gap-2 mb-4" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
                 <span class="w-8 h-px" style="background-color: #15A34A;"></span>
                 {% trans "ABOUT" %}
             </span>
-            <h1 style="font-family: var(--font-primary); font-size: clamp(2rem, 4vw, 2.8rem); color: #0B0D0F; margin-bottom: 1rem;">
+            <h1 style="font-family: var(--font-primary); font-size: clamp(2rem, 4vw, 2.9rem); color: #0B0D0F; line-height: 1.1; margin-bottom: 0.75rem;">
                 {% trans "The person behind the solutions" %}
             </h1>
+            <p style="color: #6C757D; font-size: 1.02rem; max-width: 560px; line-height: 1.7;">
+                {% trans "A quick portrait — who I am, the tools I master, and the way I work." %}
+            </p>
         </div>
 
-        {# Content #}
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            {# Left: Bio #}
-            <div class="lg:col-span-2 space-y-6">
-                <div class="prose" style="color: #495057; line-height: 1.8; font-size: 1.05rem;">
-                    {{ profile.biography|safe }}
+        {# ── 3 columns on desktop ── #}
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-14 items-start">
+
+            {# ═════ COL 1 — STORY ═════ #}
+            <div class="reveal">
+                <span class="inline-flex items-center gap-2 mb-5" style="font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
+                    <span class="w-8 h-px" style="background-color: #15A34A;"></span>
+                    {% trans "01 / The story" %}
+                </span>
+
+                <div class="ab-story">
+                    {{ profile.biography|linebreaks }}
                 </div>
 
+                <div class="flex items-center gap-3 mt-8">
+                    <span style="width: 44px; height: 2px; background-color: #15A34A; flex-shrink: 0;"></span>
+                    <div>
+                        <p style="font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; color: #0B0D0F; line-height: 1.2;">
+                            {{ profile.professional_name|default:profile.full_name }}
+                        </p>
+                        <p style="font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: #6C757D; margin-top: 0.15rem;">
+                            {{ profile.professional_title }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            {# ═════ COL 2 — TOOLBOX & HOW I WORK ═════ #}
+            <div class="reveal space-y-6" style="transition-delay: 120ms;">
                 {# Tools #}
                 {% if tools %}
-                <div class="p-6 rounded-xl border" style="background-color: #FFFFFF; border-color: #E9ECEF;">
-                    <h3 style="font-family: var(--font-primary); font-size: 1.2rem; color: #0B0D0F; margin-bottom: 1rem;">{% trans "Tools & Technologies" %}</h3>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                <div class="p-6 rounded-2xl border" style="background-color: #FFFFFF; border-color: #E9ECEF; box-shadow: 0 6px 24px rgba(11,13,15,0.04);">
+                    <span class="inline-block mb-3" style="font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
+                        {% trans "02 / Toolbox" %}
+                    </span>
+                    <h3 style="font-family: var(--font-primary); font-size: 1.25rem; color: #0B0D0F; margin-bottom: 1.1rem;">
+                        {% trans "Tools I work with" %}
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
                         {% for tool in tools %}
-                        <div class="flex items-center gap-3 p-3 rounded-lg transition-all duration-200 hover:shadow-md" style="background-color: #F8F9FA;">
-                            <i class="{{ tool.icon }}" style="font-size: 1.5rem; color: #15A34A;"></i>
-                            <span style="font-size: 0.9rem; color: #0B0D0F;">{{ tool.name }}</span>
-                        </div>
+                        <span class="ab-chip"><i class="{{ tool.icon }}" aria-hidden="true"></i>{{ tool.name }}</span>
                         {% endfor %}
                     </div>
                 </div>
                 {% endif %}
 
-                {# Philosophy #}
-                <div class="p-6 rounded-xl border" style="background-color: #FFFFFF; border-color: #E9ECEF;">
-                    <h3 style="font-family: var(--font-primary); font-size: 1.2rem; color: #0B0D0F; margin-bottom: 0.75rem;">{% trans "How I work" %}</h3>
-                    <div class="space-y-3" style="color: #495057; font-size: 0.95rem; line-height: 1.7;">
-                        <p>{% trans "I believe that technology should serve people, not the other way around. Every project starts with understanding the real problem before writing a single line of code." %}</p>
-                        <p>{% trans "I work closely with my clients to transform their needs into solutions that are simple, functional, and effective. The result speaks for itself." %}</p>
+                {# How I work #}
+                <div class="p-6 rounded-2xl border" style="background-color: #FFFFFF; border-color: #E9ECEF; box-shadow: 0 6px 24px rgba(11,13,15,0.04);">
+                    <span class="inline-block mb-3" style="font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
+                        {% trans "03 / How I work" %}
+                    </span>
+                    <div class="ab-step">
+                        <span class="ab-step-num">01</span>
+                        <p style="color: #495057; font-size: 0.93rem; line-height: 1.7;">
+                            {% trans "I believe that technology should serve people, not the other way around. Every project starts with understanding the real problem before writing a single line of code." %}
+                        </p>
                     </div>
-                </div>
-            </div>
-
-            {# Right: Details #}
-            <div class="space-y-6">
-                {# Image #}
-                <div class="rounded-xl overflow-hidden" style="border: 2px solid #E9ECEF;">
-                    {% if profile.profile_image %}
-                    <img src="{{ profile.profile_image.url }}" alt="{{ profile.full_name }}" class="w-full aspect-square object-cover">
-                    {% else %}
-                    <div class="w-full aspect-square flex items-center justify-center" style="background-color: #F1F3F5;">
-                        <span style="font-family: var(--font-primary); font-size: 4rem; color: #DEE2E6;">{{ profile.professional_name|default:profile.full_name|first }}</span>
-                    </div>
-                    {% endif %}
-                </div>
-
-                {# Info cards #}
-                <div class="space-y-3">
-                    <div class="p-4 rounded-lg border" style="background-color: #FFFFFF; border-color: #E9ECEF;">
-                        <p style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A; margin-bottom: 0.25rem;">{% trans "LOCATION" %}</p>
-                        <p style="font-size: 0.95rem; color: #0B0D0F;">{{ profile.location }}, {{ profile.country }}</p>
-                    </div>
-                    <div class="p-4 rounded-lg border" style="background-color: #FFFFFF; border-color: #E9ECEF;">
-                        <p style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A; margin-bottom: 0.25rem;">{% trans "AVAILABILITY" %}</p>
-                        <p style="font-size: 0.95rem; color: #0B0D0F;">
-                            {% if profile.availability_status %}
-                                <span class="flex items-center gap-2">
-                                    <span class="h-2 w-2 rounded-full" style="background-color: #15A34A;"></span>
-                                    <span>{{ profile.availability_message|default:"Available worldwide" }}</span>
-                                </span>
-                            {% else %}
-                                <span style="color: #ADB5BD;">{% trans "Not available" %}</span>
-                            {% endif %}
+                    <div class="ab-step">
+                        <span class="ab-step-num">02</span>
+                        <p style="color: #495057; font-size: 0.93rem; line-height: 1.7;">
+                            {% trans "I work closely with my clients to transform their needs into solutions that are simple, functional, and effective. The result speaks for itself." %}
                         </p>
                     </div>
                 </div>
-
-                {# Resume download #}
-                {% if profile.resume_file %}
-                <a href="{{ profile.resume_file.url }}" download class="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-lg font-medium transition-all duration-200" style="font-family: var(--font-display); font-size: 0.85rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: transparent; color: #15A34A; border: 2px solid rgba(21,163,74,0.3); text-decoration: none;">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                    <span>{% trans "DOWNLOAD CV" %}</span>
-                </a>
-                {% endif %}
             </div>
+
+            {# ═════ COL 3 — PROFILE CARD ═════ #}
+            <div class="reveal" style="transition-delay: 240ms;">
+                <div class="rounded-2xl overflow-hidden" style="background-color: #FFFFFF; border: 1px solid #E9ECEF; box-shadow: 0 14px 40px rgba(11,13,15,0.07);">
+                    {# Portrait #}
+                    <div class="relative">
+                        {# Rotating decorative rings #}
+                        <div class="ab-deco-ring" style="width: 120px; height: 120px; top: -24px; right: -30px;"></div>
+                        <div class="ab-deco-ring ab-deco-ring--slow" style="width: 70px; height: 70px; bottom: -18px; left: -22px;"></div>
+
+                        <div class="ab-portrait">
+                            {% if profile.profile_image %}
+                            <img src="{{ profile.profile_image.url }}" alt="{{ profile.full_name }}" class="w-full h-full object-cover">
+                            {% else %}
+                            <div class="w-full h-full flex items-center justify-center" style="background: linear-gradient(135deg, #0B0D0F 0%, #1a1d21 100%);">
+                                <span style="font-family: var(--font-primary); font-size: 5rem; color: #15A34A; opacity: 0.85;">{{ profile.professional_name|default:profile.full_name|first }}</span>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        {# Floating badge #}
+                        <div class="ab-float absolute flex items-center justify-center rounded-xl" style="width: 48px; height: 48px; bottom: 16px; right: 16px; background-color: #15A34A; color: #FFFFFF; box-shadow: 0 10px 24px rgba(21,163,74,0.35); z-index: 5;">
+                            <i class="fas fa-code" aria-hidden="true" style="font-size: 1.1rem;"></i>
+                        </div>
+                    </div>
+
+                    {# Card body #}
+                    <div class="p-6">
+                        <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; line-height: 1.2;">
+                            {{ profile.professional_name|default:profile.full_name }}
+                        </h2>
+                        <p style="font-family: var(--font-mono); font-size: 0.64rem; letter-spacing: 0.12em; text-transform: uppercase; color: #6C757D; margin-top: 0.35rem;">
+                            {{ profile.professional_title }}
+                        </p>
+
+                        {# Availability #}
+                        {% if profile.availability_status %}
+                        <div class="flex items-center gap-2 mt-5 rounded-xl" style="background-color: rgba(21,163,74,0.07); border: 1px solid rgba(21,163,74,0.18); padding: 0.75rem 0.9rem;">
+                            <span class="ab-pulse-dot" style="width: 9px; height: 9px; border-radius: 50%; background-color: #15A34A; flex-shrink: 0;"></span>
+                            <span style="font-size: 0.88rem; font-weight: 500; color: #138A3E;">{{ profile.availability_message|default:"Available worldwide" }}</span>
+                        </div>
+                        {% endif %}
+
+                        <div class="mt-6 pt-6" style="border-top: 1px solid #F1F3F5;">
+                            <div class="ab-info">
+                                <div class="ab-info-icon"><i class="fas fa-location-dot" aria-hidden="true"></i></div>
+                                <div>
+                                    <p style="font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ADB5BD; margin-bottom: 0.1rem;">{% trans "Location" %}</p>
+                                    <p style="font-size: 0.9rem; color: #343A40;">{{ profile.location }}, {{ profile.country }}</p>
+                                </div>
+                            </div>
+                            <div class="ab-info">
+                                <div class="ab-info-icon"><i class="fas fa-envelope" aria-hidden="true"></i></div>
+                                <div>
+                                    <p style="font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ADB5BD; margin-bottom: 0.1rem;">{% trans "Email" %}</p>
+                                    <a href="mailto:{{ profile.email }}" style="font-size: 0.9rem; color: #343A40; text-decoration: none; word-break: break-word;">{{ profile.email }}</a>
+                                </div>
+                            </div>
+                            {% if profile.phone %}
+                            <div class="ab-info">
+                                <div class="ab-info-icon"><i class="fas fa-phone" aria-hidden="true"></i></div>
+                                <div>
+                                    <p style="font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ADB5BD; margin-bottom: 0.1rem;">{% trans "Phone" %}</p>
+                                    <p style="font-size: 0.9rem; color: #343A40;">{{ profile.phone }}</p>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        {# Resume #}
+                        {% if profile.resume_file %}
+                        <div class="mt-6">
+                            <a href="{{ profile.resume_file.url }}" download class="ab-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                                <span>{% trans "Download CV" %}</span>
+                            </a>
+                            <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center w-full mt-3" style="font-family: var(--font-display); font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; color: #15A34A; text-decoration: none; column-gap: 0.35rem;">
+                                {% trans "or let's talk" %}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
@@ -100,7 +309,7 @@
     <div class="max-w-4xl mx-auto px-5 text-center">
         <h2 style="font-family: var(--font-primary); font-size: 1.75rem; color: #FFFFFF; margin-bottom: 0.75rem;">{% trans "Ready to work together?" %}</h2>
         <p style="color: #ADB5BD; font-size: 1rem; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">{% trans "Let's discuss your project and how I can help bring your ideas to life." %}</p>
-        <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF; border: 2px solid #15A34A;">
+        <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF; border: 2px solid #15A34A; padding: 0.85rem 1.75rem;">
             {% trans "START A PROJECT" %}
         </a>
     </div>

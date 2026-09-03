@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView
-from portfolio.models import Experience, Project, SiteSettings
+from portfolio.models import Experience, Profile, SiteSettings
 
 
 class ExperienceView(TemplateView):
@@ -7,6 +7,7 @@ class ExperienceView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["profile"] = Profile.objects.first()
         context["site_settings"] = SiteSettings.objects.first()
         context["experiences"] = (
             Experience.objects

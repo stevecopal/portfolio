@@ -1,36 +1,44 @@
 {% load static i18n %}
 {% if profile %}
 <style>
+    /* ── Orbiting tools ── */
     @keyframes rotate-tools {
         from { transform: rotate(0deg); }
         to { transform: rotate(360deg); }
     }
-    
     @keyframes rotate-tools-reverse {
         from { transform: rotate(0deg); }
         to { transform: rotate(-360deg); }
     }
-    
-    @keyframes float {
+    @keyframes hp-float {
         0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-5px); }
+        50% { transform: translateY(-6px); }
     }
-    
     @keyframes glow-pulse {
         0%, 100% { box-shadow: 0 0 20px rgba(21, 163, 74, 0.2), 0 0 40px rgba(21, 163, 74, 0.1); }
         50% { box-shadow: 0 0 30px rgba(21, 163, 74, 0.3), 0 0 60px rgba(21, 163, 74, 0.15); }
     }
-    
+    @keyframes hp-pulse {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(21, 163, 74, 0.35); }
+        50% { box-shadow: 0 0 0 6px rgba(21, 163, 74, 0); }
+    }
+
+    .hp-orbit-stage {
+        position: relative;
+        width: min(430px, 100%);
+        aspect-ratio: 1 / 1;
+        margin: 0 auto;
+    }
+
     .tools-orbit {
         position: absolute;
         animation: rotate-tools 25s linear infinite;
     }
-    
     .tools-orbit-reverse {
         position: absolute;
         animation: rotate-tools-reverse 30s linear infinite;
     }
-    
+
     .tool-node {
         position: absolute;
         display: flex;
@@ -39,7 +47,7 @@
         gap: 4px;
         transform: translate(-50%, -50%);
     }
-    
+
     .tool-icon-wrap {
         width: 44px;
         height: 44px;
@@ -54,13 +62,12 @@
         box-shadow: 0 4px 15px rgba(0,0,0,0.08);
         transition: all 0.3s ease;
     }
-    
     .tool-icon-wrap:hover {
         transform: scale(1.15);
         border-color: #15A34A;
         box-shadow: 0 6px 20px rgba(21, 163, 74, 0.2);
     }
-    
+
     .tool-name {
         font-family: var(--font-mono);
         font-size: 0.55rem;
@@ -73,270 +80,287 @@
         border-radius: 4px;
         box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
-    
+
     .center-circle {
         position: relative;
         border-radius: 50%;
         background: linear-gradient(135deg, #0B0D0F 0%, #1a1d21 100%);
         animation: glow-pulse 3s ease-in-out infinite;
     }
-    
     .center-ring {
         position: absolute;
         border-radius: 50%;
         border: 1px solid rgba(21, 163, 74, 0.2);
     }
-    
     .orbit-ring {
         position: absolute;
         border-radius: 50%;
         border: 1px dashed rgba(21, 163, 74, 0.15);
     }
-    
+
+    .hp-float { animation: hp-float 5s ease-in-out infinite; }
+    .hp-pulse-dot { animation: hp-pulse 2.2s ease-in-out infinite; }
+
+    /* Philosophy cards */
+    .hp-card {
+        display: flex;
+        gap: 1rem;
+        padding: 1.4rem;
+        border-radius: 16px;
+        background-color: #F8F9FA;
+        border: 1px solid #E9ECEF;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+    }
+    .hp-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(21, 163, 74, 0.4);
+        background-color: #FFFFFF;
+        box-shadow: 0 14px 30px rgba(21, 163, 74, 0.1);
+    }
+    .hp-card-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(21, 163, 74, 0.1);
+        color: #15A34A;
+        font-size: 1.05rem;
+    }
+
+    /* Tool pills */
+    .hp-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.45rem 0.85rem;
+        border-radius: 999px;
+        background-color: #FFFFFF;
+        border: 1px solid #E9ECEF;
+        font-size: 0.78rem;
+        color: #343A40;
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .hp-pill::before {
+        content: "";
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: #15A34A;
+        flex-shrink: 0;
+    }
+    .hp-pill:hover {
+        transform: translateY(-2px);
+        border-color: rgba(21, 163, 74, 0.5);
+        color: #0B0D0F;
+        box-shadow: 0 6px 14px rgba(21, 163, 74, 0.1);
+    }
+
+    /* Bio text */
+    .hp-bio { color: #495057; line-height: 1.85; font-size: 1rem; }
+    .hp-bio p { margin-bottom: 1rem; }
+    .hp-bio p:last-child { margin-bottom: 0; }
+
+    /* Buttons */
+    .hp-link-btn { transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+    .hp-link-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(21, 163, 74, 0.15); }
+
     @media (max-width: 768px) {
-        .tool-icon-wrap {
-            width: 36px;
-            height: 36px;
-            font-size: 0.9rem;
-        }
-        
-        .tool-name {
-            font-size: 0.45rem;
-            padding: 1px 4px;
-        }
+        .tool-icon-wrap { width: 36px; height: 36px; font-size: 0.9rem; }
+        .tool-name { font-size: 0.45rem; padding: 1px 4px; }
+    }
+    @media (max-width: 560px) {
+        .tool-name { display: none; }
+        .hp-orbit-stage { width: min(300px, 100%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .tools-orbit, .tools-orbit-reverse, .center-circle, .hp-float, .hp-pulse-dot { animation: none; }
     }
 </style>
 
 <section id="about" class="relative py-20 md:py-28" style="background-color: #FFFFFF;">
     <div class="max-w-6xl mx-auto px-5">
 
-        {# ═════ MAIN GRID ═════ #}
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start mb-12">
+        {# ── 3 columns on desktop ── #}
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-14 items-start">
 
-            {# ═════ LEFT: Content ═════ #}
-            <div class="lg:col-span-6 space-y-8">
+            {# ═════ COL 1 — STORY ═════ #}
+            <div class="reveal">
                 <div>
                     <span class="inline-flex items-center gap-2 mb-4" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
+                        <span class="w-8 h-px" style="background-color: #15A34A;"></span>
                         {% trans "06 / BEHIND THE WORK" %}
                     </span>
-                    <h2 style="font-family: var(--font-primary); font-size: clamp(1.8rem, 4vw, 2.6rem); color: #0B0D0F; line-height: 1.1;">
+                    <h2 style="font-family: var(--font-primary); font-size: clamp(1.8rem, 3.4vw, 2.5rem); color: #0B0D0F; line-height: 1.12; margin-bottom: 1.5rem;">
                         {% trans "The person behind the solutions" %}
                     </h2>
                 </div>
 
-                {# Full bio #}
-                <div style="color: #495057; line-height: 1.85; font-size: 1.05rem; white-space: pre-line;">{{ profile.biography }}</div>
-
-                {# Philosophy cards #}
-                <div class="space-y-4">
-                    <div class="p-5 rounded-xl" style="background-color: #F8F9FA; border: 1px solid #E9ECEF;">
-                        <h3 style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A; margin-bottom: 0.5rem;">{% trans "APPROACH" %}</h3>
-                        <p style="color: #495057; font-size: 0.95rem; line-height: 1.7;">{% trans "Every project starts with understanding the real problem. I listen first, then I design, then I build. The result must simplify your activity, not complicate it." %}</p>
-                    </div>
-                    <div class="p-5 rounded-xl" style="background-color: #F8F9FA; border: 1px solid #E9ECEF;">
-                        <h3 style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A; margin-bottom: 0.5rem;">{% trans "PHILOSOPHY" %}</h3>
-                        <p style="color: #495057; font-size: 0.95rem; line-height: 1.7;">{% trans "Technology should serve people, not the other way around. I build solutions that are simple, functional, and adapted to how you actually work." %}</p>
-                    </div>
+                <div class="hp-bio">
+                    {{ profile.biography|linebreaks }}
                 </div>
 
                 {# Links #}
-                <div class="flex flex-wrap gap-4">
+                <div class="flex flex-wrap gap-3 mt-8">
                     {% if profile.resume_file %}
-                    <a href="{{ profile.resume_file.url }}" download class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium transition-all duration-200" style="font-family: var(--font-display); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: transparent; color: #15A34A; border: 2px solid rgba(21,163,74,0.3); text-decoration: none;">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                    <a href="{{ profile.resume_file.url }}" download class="hp-link-btn inline-flex items-center gap-2 rounded-lg font-medium" style="font-family: var(--font-display); font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: transparent; color: #15A34A; border: 2px solid rgba(21,163,74,0.3); text-decoration: none; padding: 0.6rem 1.25rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
                         {% trans "DOWNLOAD CV" %}
                     </a>
                     {% endif %}
-                    <a href="{% url 'portfolio:experience' %}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium transition-all duration-200" style="font-family: var(--font-display); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: transparent; color: #0B0D0F; border: 2px solid #E9ECEF; text-decoration: none;">
+                    <a href="{% url 'portfolio:experience' %}" class="hp-link-btn inline-flex items-center gap-2 rounded-lg font-medium" style="font-family: var(--font-display); font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: transparent; color: #0B0D0F; border: 2px solid #E9ECEF; text-decoration: none; padding: 0.6rem 1.25rem;">
                         {% trans "VIEW EXPERIENCE" %}
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                     </a>
                 </div>
             </div>
 
-            {# ═════ RIGHT: Photo Circle + Orbiting Tools (desktop) ═════ #}
-            <div class="hidden lg:flex lg:col-span-6 justify-center items-center">
-                <div class="relative" style="width: 450px; height: 450px;">
-                    
-                    {# Orbit rings #}
+            {# ═════ COL 2 — ORBITING IDENTITY ═════ #}
+            <div class="reveal lg:py-2" style="transition-delay: 120ms;">
+                <div class="hp-orbit-stage">
+
+                    {# Static dashed rings #}
                     <div class="orbit-ring" style="width: 100%; height: 100%; top: 0; left: 0;"></div>
                     <div class="orbit-ring" style="width: 85%; height: 85%; top: 7.5%; left: 7.5%;"></div>
                     <div class="orbit-ring" style="width: 70%; height: 70%; top: 15%; left: 15%;"></div>
-                    
+
+                    {# Concentric rings just around the photo #}
+                    <div class="center-ring" style="width: 45%; height: 45%; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9;"></div>
+                    <div class="center-ring" style="width: 50%; height: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.5; z-index: 8;"></div>
+
                     {# Center circle with photo #}
-                    <div class="center-circle absolute" style="width: 180px; height: 180px; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10;">
-                        <div class="center-ring" style="width: 110%; height: 110%; top: -5%; left: -5%;"></div>
-                        <div class="center-ring" style="width: 120%; height: 120%; top: -10%; left: -10%; opacity: 0.5;"></div>
-                        
+                    <div class="center-circle absolute" style="width: 40%; height: 40%; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10;">
                         {% if profile.profile_image %}
-                        <img src="{{ profile.profile_image.url }}" alt="{{ profile.full_name }}" class="w-full h-full object-cover rounded-full">
+                        <img src="{{ profile.profile_image.url }}" alt="{{ profile.full_name }}" class="w-full h-full object-cover" style="border-radius: 50%;">
                         {% else %}
-                        <div class="w-full h-full flex items-center justify-center rounded-full" style="background-color: #1a1d21;">
-                            <span style="font-family: var(--font-primary); font-size: 3rem; color: #15A34A; opacity: 0.8;">{{ profile.professional_name|default:profile.full_name|first }}</span>
+                        <div class="w-full h-full flex items-center justify-center" style="border-radius: 50%; background: linear-gradient(135deg, #0B0D0F 0%, #1a1d21 100%);">
+                            <span style="font-family: var(--font-primary); font-size: 2.6rem; color: #15A34A; opacity: 0.85;">{{ profile.professional_name|default:profile.full_name|first }}</span>
                         </div>
                         {% endif %}
                     </div>
-                    
-                    {# Name below circle #}
-                    <div class="absolute text-center z-10" style="bottom: 40px; left: 50%; transform: translateX(-50%);">
-                        <p style="font-family: var(--font-primary); font-size: 1.5rem; font-weight: 700; color: #0B0D0F; letter-spacing: 0.1em;">COPAL</p>
-                        <p style="font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: #6C757D; margin-top: 0.25rem;">{{ profile.professional_title }}</p>
+
+                    {# Name + title pill under the circle #}
+                    <div class="absolute z-20 text-center" style="bottom: 6%; left: 50%; transform: translateX(-50%); background-color: rgba(255,255,255,0.92); border: 1px solid #E9ECEF; border-radius: 999px; padding: 0.55rem 1.3rem; box-shadow: 0 8px 20px rgba(0,0,0,0.06); width: max-content; max-width: 92%;">
+                        <p style="font-family: var(--font-primary); font-size: 1.25rem; font-weight: 700; color: #0B0D0F; line-height: 1.1; letter-spacing: 0.04em;">{{ profile.professional_name|default:profile.full_name }}</p>
+                        <p style="font-family: var(--font-mono); font-size: 0.52rem; letter-spacing: 0.12em; text-transform: uppercase; color: #6C757D; margin-top: 0.2rem;">{{ profile.professional_title }}</p>
                     </div>
-                    
-                    {# Tools orbiting - Clockwise #}
+
+                    {# Floating code badge #}
+                    <div class="hp-float absolute z-20 flex items-center justify-center rounded-xl" style="width: 46px; height: 46px; top: 12%; right: 2%; background-color: #15A34A; color: #FFFFFF; box-shadow: 0 10px 24px rgba(21,163,74,0.3);">
+                        <i class="fas fa-code" aria-hidden="true" style="font-size: 1.05rem;"></i>
+                    </div>
+
+                    {# Tools orbiting — Clockwise #}
                     <div class="tools-orbit" style="width: 100%; height: 100%; top: 0; left: 0;">
                         {% if tools.0 %}
                         <div class="tool-node" style="top: 5%; left: 50%;">
-                            <div class="tool-icon-wrap"><i class="{{ tools.0.icon }}"></i></div>
+                            <div class="tool-icon-wrap"><i class="{{ tools.0.icon }}" aria-hidden="true"></i></div>
                             <span class="tool-name">{{ tools.0.name }}</span>
                         </div>
                         {% endif %}
-                        
                         {% if tools.1 %}
                         <div class="tool-node" style="top: 25%; left: 90%;">
-                            <div class="tool-icon-wrap"><i class="{{ tools.1.icon }}"></i></div>
+                            <div class="tool-icon-wrap"><i class="{{ tools.1.icon }}" aria-hidden="true"></i></div>
                             <span class="tool-name">{{ tools.1.name }}</span>
                         </div>
                         {% endif %}
-                        
                         {% if tools.2 %}
                         <div class="tool-node" style="top: 65%; left: 95%;">
-                            <div class="tool-icon-wrap"><i class="{{ tools.2.icon }}"></i></div>
+                            <div class="tool-icon-wrap"><i class="{{ tools.2.icon }}" aria-hidden="true"></i></div>
                             <span class="tool-name">{{ tools.2.name }}</span>
                         </div>
                         {% endif %}
-                        
                         {% if tools.3 %}
                         <div class="tool-node" style="top: 90%; left: 60%;">
-                            <div class="tool-icon-wrap"><i class="{{ tools.3.icon }}"></i></div>
+                            <div class="tool-icon-wrap"><i class="{{ tools.3.icon }}" aria-hidden="true"></i></div>
                             <span class="tool-name">{{ tools.3.name }}</span>
                         </div>
                         {% endif %}
                     </div>
-                    
-                    {# Tools orbiting - Counter-clockwise #}
+
+                    {# Tools orbiting — Counter-clockwise #}
                     <div class="tools-orbit-reverse" style="width: 85%; height: 85%; top: 7.5%; left: 7.5%;">
                         {% if tools.4 %}
                         <div class="tool-node" style="top: 10%; left: 10%;">
-                            <div class="tool-icon-wrap"><i class="{{ tools.4.icon }}"></i></div>
+                            <div class="tool-icon-wrap"><i class="{{ tools.4.icon }}" aria-hidden="true"></i></div>
                             <span class="tool-name">{{ tools.4.name }}</span>
                         </div>
                         {% endif %}
-                        
                         {% if tools.5 %}
                         <div class="tool-node" style="top: 50%; left: 2%;">
-                            <div class="tool-icon-wrap"><i class="{{ tools.5.icon }}"></i></div>
+                            <div class="tool-icon-wrap"><i class="{{ tools.5.icon }}" aria-hidden="true"></i></div>
                             <span class="tool-name">{{ tools.5.name }}</span>
                         </div>
                         {% endif %}
-                        
                         {% if tools.6 %}
                         <div class="tool-node" style="top: 85%; left: 25%;">
-                            <div class="tool-icon-wrap"><i class="{{ tools.6.icon }}"></i></div>
+                            <div class="tool-icon-wrap"><i class="{{ tools.6.icon }}" aria-hidden="true"></i></div>
                             <span class="tool-name">{{ tools.6.name }}</span>
                         </div>
                         {% endif %}
                     </div>
-                    
-                    {# Tools orbiting - Inner ring clockwise #}
+
+                    {# Tools orbiting — Inner ring clockwise #}
                     <div class="tools-orbit" style="width: 70%; height: 70%; top: 15%; left: 15%; animation-duration: 35s;">
                         {% if tools.7 %}
                         <div class="tool-node" style="top: 0%; left: 50%;">
-                            <div class="tool-icon-wrap"><i class="{{ tools.7.icon }}"></i></div>
+                            <div class="tool-icon-wrap"><i class="{{ tools.7.icon }}" aria-hidden="true"></i></div>
                             <span class="tool-name">{{ tools.7.name }}</span>
                         </div>
                         {% endif %}
-                        
                         {% if tools.8 %}
                         <div class="tool-node" style="top: 70%; left: 85%;">
-                            <div class="tool-icon-wrap"><i class="{{ tools.8.icon }}"></i></div>
+                            <div class="tool-icon-wrap"><i class="{{ tools.8.icon }}" aria-hidden="true"></i></div>
                             <span class="tool-name">{{ tools.8.name }}</span>
                         </div>
                         {% endif %}
-                        
                         {% if tools.9 %}
                         <div class="tool-node" style="top: 95%; left: 40%;">
-                            <div class="tool-icon-wrap"><i class="{{ tools.9.icon }}"></i></div>
+                            <div class="tool-icon-wrap"><i class="{{ tools.9.icon }}" aria-hidden="true"></i></div>
                             <span class="tool-name">{{ tools.9.name }}</span>
                         </div>
                         {% endif %}
                     </div>
-                    
+
                 </div>
             </div>
 
-        </div>
-
-        {# ═════ MOBILE: Photo Circle + Tools ═════ #}
-        <div class="lg:hidden">
-            <div class="flex flex-col items-center">
-                {# Mobile circle with photo #}
-                <div class="relative mb-6" style="width: 280px; height: 280px;">
-                    {# Orbit rings #}
-                    <div class="orbit-ring" style="width: 100%; height: 100%; top: 0; left: 0;"></div>
-                    <div class="orbit-ring" style="width: 80%; height: 80%; top: 10%; left: 10%;"></div>
-                    
-                    {# Center circle #}
-                    <div class="center-circle absolute" style="width: 120px; height: 120px; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10;">
-                        <div class="center-ring" style="width: 115%; height: 115%; top: -7.5%; left: -7.5%;"></div>
-                        
-                        {% if profile.profile_image %}
-                        <img src="{{ profile.profile_image.url }}" alt="{{ profile.full_name }}" class="w-full h-full object-cover rounded-full">
-                        {% else %}
-                        <div class="w-full h-full flex items-center justify-center rounded-full" style="background-color: #1a1d21;">
-                            <span style="font-family: var(--font-primary); font-size: 2rem; color: #15A34A; opacity: 0.8;">{{ profile.professional_name|default:profile.full_name|first }}</span>
-                        </div>
-                        {% endif %}
-                    </div>
-                    
-                    {# Name below #}
-                    <div class="absolute text-center z-10" style="bottom: 35px; left: 50%; transform: translateX(-50%);">
-                        <p style="font-family: var(--font-primary); font-size: 1.5rem; font-weight: 700; color: #0B0D0F; letter-spacing: 0.1em;">COPAL</p>
-                    </div>
-                    
-                    {# Mobile tools - outer orbit #}
-                    <div class="tools-orbit" style="width: 100%; height: 100%; top: 0; left: 0; animation-duration: 20s;">
-                        {% if tools.0 %}
-                        <div class="tool-node" style="top: 0%; left: 50%;">
-                            <div class="tool-icon-wrap"><i class="{{ tools.0.icon }}"></i></div>
-                        </div>
-                        {% endif %}
-                        {% if tools.1 %}
-                        <div class="tool-node" style="top: 50%; left: 95%;">
-                            <div class="tool-icon-wrap"><i class="{{ tools.1.icon }}"></i></div>
-                        </div>
-                        {% endif %}
-                        {% if tools.2 %}
-                        <div class="tool-node" style="top: 95%; left: 50%;">
-                            <div class="tool-icon-wrap"><i class="{{ tools.2.icon }}"></i></div>
-                        </div>
-                        {% endif %}
-                        {% if tools.3 %}
-                        <div class="tool-node" style="top: 50%; left: 5%;">
-                            <div class="tool-icon-wrap"><i class="{{ tools.3.icon }}"></i></div>
-                        </div>
-                        {% endif %}
-                    </div>
-                    
-                    {# Mobile tools - inner orbit #}
-                    <div class="tools-orbit-reverse" style="width: 80%; height: 80%; top: 10%; left: 10%; animation-duration: 25s;">
-                        {% if tools.4 %}
-                        <div class="tool-node" style="top: 5%; left: 20%;">
-                            <div class="tool-icon-wrap"><i class="{{ tools.4.icon }}"></i></div>
-                        </div>
-                        {% endif %}
-                        {% if tools.5 %}
-                        <div class="tool-node" style="top: 75%; left: 85%;">
-                            <div class="tool-icon-wrap"><i class="{{ tools.5.icon }}"></i></div>
-                        </div>
-                        {% endif %}
+            {# ═════ COL 3 — APPROACH, PHILOSOPHY & TOOLBOX ═════ #}
+            <div class="reveal space-y-6" style="transition-delay: 240ms;">
+                {# Approach #}
+                <div class="hp-card">
+                    <div class="hp-card-icon"><i class="fas fa-compass" aria-hidden="true"></i></div>
+                    <div>
+                        <h3 style="font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: #15A34A; margin-bottom: 0.45rem;">{% trans "APPROACH" %}</h3>
+                        <p style="color: #495057; font-size: 0.93rem; line-height: 1.7;">{% trans "Every project starts with understanding the real problem. I listen first, then I design, then I build. The result must simplify your activity, not complicate it." %}</p>
                     </div>
                 </div>
-                
-                
-            </div>
-        </div>
 
+                {# Philosophy #}
+                <div class="hp-card">
+                    <div class="hp-card-icon"><i class="fas fa-lightbulb" aria-hidden="true"></i></div>
+                    <div>
+                        <h3 style="font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: #15A34A; margin-bottom: 0.45rem;">{% trans "PHILOSOPHY" %}</h3>
+                        <p style="color: #495057; font-size: 0.93rem; line-height: 1.7;">{% trans "Technology should serve people, not the other way around. I build solutions that are simple, functional, and adapted to how you actually work." %}</p>
+                    </div>
+                </div>
+
+                
+
+                {# Availability #}
+                {% if profile.availability_status %}
+                <div class="flex items-center gap-3 p-4 rounded-2xl" style="background-color: rgba(21,163,74,0.07); border: 1px solid rgba(21,163,74,0.2);">
+                    <span class="hp-pulse-dot" style="width: 10px; height: 10px; border-radius: 50%; background-color: #15A34A; flex-shrink: 0;"></span>
+                    <p style="font-size: 0.88rem; font-weight: 500; color: #138A3E; line-height: 1.5;">
+                        {{ profile.availability_message|default:"Available for new projects" }}
+                    </p>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
     </div>
 </section>
 {% endif %}

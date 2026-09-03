@@ -2,9 +2,187 @@
 {% load static i18n %}
 
 {% block content %}
+<style>
+    /* ── Project detail page ── */
+    .pd-head {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 2.25rem;
+    }
+    .pd-head > .pd-facts { align-self: start; }
+    @media (min-width: 1024px) {
+        .pd-head { grid-template-columns: minmax(0, 1fr) 300px; gap: 3.5rem; }
+        .pd-facts { position: sticky; top: 96px; }
+    }
+
+    /* Facts card */
+    .pd-facts {
+        background-color: #FFFFFF;
+        border: 1px solid #E9ECEF;
+        border-radius: 1rem;
+        padding: 1.5rem 1.6rem;
+        box-shadow: 0 10px 30px rgba(11, 13, 15, 0.05);
+    }
+    .pd-facts-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #15A34A;
+    }
+    .pd-facts-label::before {
+        content: "";
+        width: 18px;
+        height: 1px;
+        background-color: #15A34A;
+    }
+    .pd-fact {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.8rem 0;
+        border-bottom: 1px solid #F1F3F5;
+    }
+    .pd-fact:last-of-type { border-bottom: none; }
+    .pd-fact-label {
+        font-family: var(--font-mono);
+        font-size: 0.6rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #868E96;
+        white-space: nowrap;
+    }
+    .pd-fact-value {
+        color: #0B0D0F;
+        font-weight: 500;
+        font-size: 0.88rem;
+        text-align: right;
+    }
+    .pd-fact-status { display: inline-flex; align-items: center; gap: 0.5rem; }
+    .pd-fact-status i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+    .pd-facts-tech {
+        margin-top: 0.4rem;
+        padding-top: 1.1rem;
+        border-top: 1px solid #F1F3F5;
+    }
+    .pd-facts-tech .pd-facts-label { margin-bottom: 0.8rem; }
+    .pd-chip {
+        display: inline-block;
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        color: #495057;
+        background-color: #F1F3F5;
+        border: 1px solid #E9ECEF;
+        padding: 0.28rem 0.6rem;
+        border-radius: 999px;
+        transition: color 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+    }
+    .pd-chip:hover {
+        color: #138A3E;
+        background-color: rgba(21, 163, 74, 0.08);
+        border-color: rgba(21, 163, 74, 0.22);
+    }
+
+    /* Cover preview (kept modest, not full-bleed) */
+    .pd-frame {
+        background-color: #FFFFFF;
+        border: 1px solid #E9ECEF;
+        border-radius: 1.1rem;
+        overflow: hidden;
+        box-shadow: 0 14px 44px rgba(11, 13, 15, 0.08);
+    }
+    .pd-frame img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+    }
+
+    /* Screenshot grid — 2 up on phones, 3 up on desktop */
+    .pd-shots {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+    @media (min-width: 768px) {
+        .pd-shots { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    }
+    .pd-shots--single { grid-template-columns: minmax(0, 1fr); max-width: 560px; }
+    .pd-shot { margin: 0; }
+    .pd-shot-media {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        background-color: #FFFFFF;
+        border: 1px solid #E9ECEF;
+        box-shadow: 0 6px 18px rgba(11, 13, 15, 0.05);
+    }
+    .pd-shot-media img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        object-position: top;
+        transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .pd-shot:hover .pd-shot-media img,
+    .pd-shot:focus-within .pd-shot-media img { transform: scale(1.05); }
+    .pd-shot-num {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        z-index: 2;
+        font-family: var(--font-mono);
+        font-size: 0.56rem;
+        letter-spacing: 0.08em;
+        color: #FFFFFF;
+        background-color: rgba(11, 13, 15, 0.55);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        padding: 0.18rem 0.45rem;
+        border-radius: 5px;
+    }
+    .pd-shot-zoom {
+        position: absolute;
+        right: 8px;
+        bottom: 8px;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.92);
+        color: #0B0D0F;
+        opacity: 0;
+        transform: translateY(4px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .pd-shot:hover .pd-shot-zoom,
+    .pd-shot:focus-within .pd-shot-zoom { opacity: 1; transform: none; }
+    .pd-shot-cap {
+        margin-top: 0.55rem;
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        color: #6C757D;
+        line-height: 1.5;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .pd-shot-media img { transition: none; }
+        .pd-shot-zoom { transition: none; }
+    }
+</style>
+
 {# Breadcrumbs #}
 <section class="pt-24 md:pt-28 pb-4">
-    <div class="max-w-4xl mx-auto px-5">
+    <div class="max-w-6xl mx-auto px-5">
         <div class="flex items-center gap-2" style="font-family: var(--font-mono); font-size: 0.75rem; color: #ADB5BD;">
             <a href="{% url 'portfolio:home' %}" style="text-decoration: none; color: inherit; transition: color 0.2s;" onmouseover="this.style.color='#0B0D0F'" onmouseout="this.style.color='#ADB5BD'">{% trans "HOME" %}</a>
             <span>/</span>
@@ -16,75 +194,109 @@
 </section>
 
 {# Project Header #}
-<section class="pb-10 md:pb-14">
-    <div class="max-w-4xl mx-auto px-5">
-        <div class="space-y-5">
-            <span class="inline-flex items-center gap-2" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
-                <span class="w-8 h-px" style="background-color: #15A34A;"></span>
-                {% trans "CASE STUDY" %}
-            </span>
-            <h1 style="font-family: var(--font-primary); font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1.1; color: #0B0D0F;">{{ project.title }}</h1>
-            <p style="color: #6C757D; font-size: 1.1rem; line-height: 1.65; max-width: 600px;">{{ project.short_description }}</p>
+<section class="pb-10 md:pb-12">
+    <div class="max-w-6xl mx-auto px-5">
+        <div class="pd-head">
+            {# Left: intro #}
+            <div class="reveal">
+                <span class="inline-flex items-center gap-2 mb-4" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
+                    <span class="w-8 h-px" style="background-color: #15A34A;"></span>
+                    {% trans "CASE STUDY" %}
+                </span>
+                <h1 style="font-family: var(--font-primary); font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1.1; color: #0B0D0F; margin-bottom: 1rem;">{{ project.title }}</h1>
+                <p style="color: #6C757D; font-size: 1.08rem; line-height: 1.7; max-width: 640px; margin-bottom: 1.6rem;">{{ project.short_description }}</p>
 
-            {# Actions #}
-            <div class="flex flex-wrap gap-3">
-                {% if project.live_url %}
-                <a href="{{ project.live_url }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium transition-all duration-200" style="font-family: var(--font-display); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF; text-decoration: none;">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                    <span>{% trans "LIVE DEMO" %}</span>
-                </a>
-                {% endif %}
-                {% if project.github_url %}
-                <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium transition-all duration-200" style="font-family: var(--font-display); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: transparent; color: #0B0D0F; border: 2px solid #E9ECEF; text-decoration: none;">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.947-.695.074-.688.074-.688 1.003.07 1.539 1.032 1.539 1.032.892 1.534 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.9 2.651.636.408.292 1.427.292 1.427 2.22.757 4.342 1.82 4.342 3.012 0 1.466-.325 2.688-.965 2.688-.666.376-.872.904-.872 1.855 0 .752.366 1.36.644 1.703.005.266.208.578.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
-                    <span>{% trans "VIEW CODE" %}</span>
-                </a>
-                {% endif %}
+                {# Actions #}
+                <div class="flex flex-wrap gap-3">
+                    {% if project.live_url %}
+                    <a href="{{ project.live_url }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg font-medium transition-all duration-200" style="font-family: var(--font-display); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF; text-decoration: none; padding: 0.62rem 1.25rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                        <span>{% trans "LIVE DEMO" %}</span>
+                    </a>
+                    {% endif %}
+                    {% if project.github_url %}
+                    <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg font-medium transition-all duration-200" style="font-family: var(--font-display); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: transparent; color: #0B0D0F; border: 2px solid #E9ECEF; text-decoration: none; padding: 0.62rem 1.25rem;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.947-.695.074-.688.074-.688 1.003.07 1.539 1.032 1.539 1.032.892 1.534 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.9 2.651.636.408.292 1.427.292 1.427 2.22.757 4.342 1.82 4.342 3.012 0 1.466-.325 2.688-.965 2.688-.666.376-.872.904-.872 1.855 0 .752.366 1.36.644 1.703.005.266.208.578.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
+                        <span>{% trans "VIEW CODE" %}</span>
+                    </a>
+                    {% endif %}
+                </div>
             </div>
 
-            {# Metadata #}
-            <div class="flex flex-wrap gap-5 py-4" style="border-top: 1px solid #E9ECEF; border-bottom: 1px solid #E9ECEF;">
-                {% if project.client_name %}
-                <div class="flex items-center gap-2">
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: #6C757D;">{% trans "CLIENT" %}:</span>
-                    <span style="font-size: 0.9rem; color: #0B0D0F;">{{ project.client_name }}</span>
+            {# Right: at a glance #}
+            <aside class="pd-facts reveal" style="transition-delay: 120ms;">
+                <span class="pd-facts-label">{% trans "AT A GLANCE" %}</span>
+                <div class="pd-facts-list" style="margin-top: 0.35rem;">
+                    {% if project.client_name %}
+                    <div class="pd-fact">
+                        <span class="pd-fact-label">{% trans "CLIENT" %}</span>
+                        <span class="pd-fact-value">{{ project.client_name }}</span>
+                    </div>
+                    {% endif %}
+                    <div class="pd-fact">
+                        <span class="pd-fact-label">{% trans "DATE" %}</span>
+                        <span class="pd-fact-value">{{ project.project_date|date:"M Y" }}</span>
+                    </div>
+                    <div class="pd-fact">
+                        <span class="pd-fact-label">{% trans "STATUS" %}</span>
+                        <span class="pd-fact-value pd-fact-status">
+                            <i style="background-color: {% if project.status == 'completed' %}#15A34A{% else %}#6C757D{% endif %};" aria-hidden="true"></i>
+                            {{ project.get_status_display }}
+                        </span>
+                    </div>
+                </div>
+
+                {% if project.technologies.all %}
+                <div class="pd-facts-tech">
+                    <span class="pd-facts-label">{% trans "TECHNOLOGIES" %}</span>
+                    <div class="flex flex-wrap gap-2">
+                        {% for tech in project.technologies.all %}
+                        <span class="pd-chip">{{ tech.name }}</span>
+                        {% endfor %}
+                    </div>
                 </div>
                 {% endif %}
-                <div class="flex items-center gap-2">
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: #6C757D;">{% trans "DATE" %}:</span>
-                    <span style="font-size: 0.9rem; color: #0B0D0F;">{{ project.project_date|date:"F Y" }}</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: #6C757D;">{% trans "STATUS" %}:</span>
-                    <span style="font-size: 0.9rem; color: {% if project.status == 'completed' %}#15A34A{% else %}#6C757D{% endif %};">
-                        {{ project.get_status_display }}
-                    </span>
-                </div>
-            </div>
+            </aside>
         </div>
     </div>
 </section>
 
-{# Cover Image #}
-{% if project.cover_image %}
-<section class="pb-10 md:pb-14">
-    <div class="max-w-5xl mx-auto px-5">
-        <div class="rounded-xl overflow-hidden" style="box-shadow: 0 4px 20px rgba(11,13,15,0.08);">
-            <img src="{{ project.cover_image.url }}" alt="{{ project.title }}" class="w-full aspect-[16/9] object-cover" loading="lazy">
+{# Cover preview — constrained, not full-bleed #}
+{% if cover_available %}
+<section class="pb-10 md:pb-12">
+    <div class="max-w-3xl mx-auto px-5">
+        <div class="pd-frame reveal">
+            <img src="{{ project.cover_image.url }}" alt="{{ project.title }}" loading="lazy" decoding="async">
         </div>
     </div>
 </section>
 {% endif %}
 
-{# Gallery #}
-{% if project.images.all %}
+{# Screenshots — compact grid: 2 up on phones, 3 up on desktop #}
+{% if gallery_images %}
 <section class="pb-10 md:pb-14">
     <div class="max-w-5xl mx-auto px-5">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {% for image in project.images.all %}
-            <div class="rounded-xl overflow-hidden">
-                <img src="{{ image.image.url }}" alt="{{ image.caption|default:project.title }}" class="w-full aspect-[4/3] object-cover" loading="lazy">
-            </div>
+        <div class="mb-6 reveal">
+            <span class="inline-flex items-center gap-2" style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
+                <span class="w-6 h-px" style="background-color: #15A34A;"></span>
+                {% trans "SCREENSHOTS" %}
+            </span>
+        </div>
+
+        <div class="pd-shots {% if gallery_images|length == 1 %}pd-shots--single{% endif %}">
+            {% for image in gallery_images %}
+            <figure class="pd-shot reveal">
+                <div class="pd-shot-media" tabindex="0" role="button" aria-label="{% trans 'Open screenshot in full size' %}">
+                    <img src="{{ image.image.url }}" alt="{{ image.caption|default:project.title }}" loading="lazy" decoding="async">
+                    <span class="pd-shot-num">{{ forloop.counter|stringformat:"02d" }}</span>
+                    <span class="pd-shot-zoom" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16zm5-8h-4m0 0H8m4 0V7m0 4v4" /></svg>
+                    </span>
+                </div>
+                {% if image.caption %}
+                <figcaption class="pd-shot-cap">{{ image.caption }}</figcaption>
+                {% endif %}
+            </figure>
             {% endfor %}
         </div>
     </div>
@@ -192,22 +404,6 @@
             <div class="prose" style="color: #495057; line-height: 1.75;">{{ project.challenge|safe }}</div>
         </div>
         {% endif %}
-
-        {# Technologies (under the hood) #}
-        {% if project.technologies.all %}
-        <div class="reveal p-6 rounded-xl border" style="background-color: #F8F9FA; border-color: #E9ECEF;">
-            <span class="inline-flex items-center gap-2 mb-3" style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A;">
-                <span class="w-6 h-px" style="background-color: #15A34A;"></span>
-                {% trans "UNDER THE HOOD" %}
-            </span>
-            <h3 style="font-family: var(--font-primary); font-size: 1.2rem; color: #0B0D0F; margin-bottom: 0.75rem;">{% trans "Technologies used" %}</h3>
-            <div class="flex flex-wrap gap-2">
-                {% for tech in project.technologies.all %}
-                <span class="inline-flex items-center px-3 py-1.5 rounded text-xs" style="font-family: var(--font-mono); background-color: #FFFFFF; color: #495057; border: 1px solid #E9ECEF;">{{ tech.name }}</span>
-                {% endfor %}
-            </div>
-        </div>
-        {% endif %}
     </div>
 </section>
 
@@ -241,10 +437,10 @@
         <h2 style="font-family: var(--font-primary); font-size: 1.75rem; margin-bottom: 0.75rem;">{% trans "Like this project?" %}</h2>
         <p style="color: #ADB5BD; font-size: 1rem; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">{% trans "Let's discuss how we can build something similar for your business." %}</p>
         <div class="flex flex-col sm:flex-row justify-center gap-3">
-            <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: #FFFFFF; color: #0B0D0F; text-decoration: none;">
+            <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: #FFFFFF; color: #0B0D0F; text-decoration: none; padding: 0.85rem 1.75rem;">
                 {% trans "START A PROJECT" %}
             </a>
-            <a href="{% url 'portfolio:projects' %}" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: transparent; color: #FFFFFF; border: 2px solid rgba(255,255,255,0.2); text-decoration: none;">
+            <a href="{% url 'portfolio:projects' %}" class="inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: transparent; color: #FFFFFF; border: 2px solid rgba(255,255,255,0.2); text-decoration: none; padding: 0.85rem 1.75rem;">
                 {% trans "VIEW ALL PROJECTS" %}
             </a>
         </div>
@@ -255,16 +451,25 @@
 {% block scripts %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var galleryImages = document.querySelectorAll('.rounded-xl img');
-        galleryImages.forEach(function(img) {
-            img.style.cursor = 'pointer';
-            img.addEventListener('click', function() {
-                var lightbox = document.createElement('div');
-                lightbox.className = 'fixed inset-0 z-50 flex items-center justify-center p-4';
-                lightbox.style.cssText = 'background-color: rgba(11,13,15,0.85); backdrop-filter: blur(8px);';
-                lightbox.innerHTML = '<div class="relative max-w-4xl max-h-[90vh]"><img src="' + this.src + '" alt="' + this.alt + '" class="max-w-full max-h-[85vh] object-contain rounded-lg"><button class="absolute -top-3 -right-3 w-8 h-8 flex items-center justify-center rounded-full bg-white text-black text-xl" style="box-shadow: 0 2px 8px rgba(0,0,0,0.15);" onclick="this.parentElement.parentElement.remove()">&times;</button></div>';
-                lightbox.addEventListener('click', function(e) { if (e.target === lightbox) lightbox.remove(); });
-                document.body.appendChild(lightbox);
+        var zoomables = document.querySelectorAll('.pd-frame img, .pd-shot-media img');
+        function openLightbox(img) {
+            var lightbox = document.createElement('div');
+            lightbox.style.cssText = 'position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 1rem; background-color: rgba(11,13,15,0.85); backdrop-filter: blur(8px);';
+            lightbox.innerHTML = '<div style="position: relative; max-width: 960px; width: 100%;"><img src="' + img.src + '" alt="' + img.alt + '" style="display: block; margin: 0 auto; max-width: 100%; max-height: 85vh; object-fit: contain; border-radius: 0.5rem;"><button aria-label="' + img.alt + '" style="position: absolute; top: -14px; right: -14px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background-color: #FFFFFF; color: #0B0D0F; font-size: 1.25rem; border: none; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15);" onclick="this.parentElement.parentElement.remove()">&times;</button></div>';
+            lightbox.addEventListener('click', function(e) { if (e.target === lightbox) lightbox.remove(); });
+            document.body.appendChild(lightbox);
+        }
+        zoomables.forEach(function(img) {
+            img.style.cursor = 'zoom-in';
+            img.addEventListener('click', function() { openLightbox(img); });
+        });
+        document.querySelectorAll('.pd-shot-media').forEach(function(media) {
+            media.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    var img = media.querySelector('img');
+                    if (img) openLightbox(img);
+                }
             });
         });
     });

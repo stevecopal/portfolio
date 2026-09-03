@@ -1085,3 +1085,91 @@ msgstr "Merci ! Votre message a été envoyé avec succès."
 #: portfolio/views/contact.py:66
 msgid "Sorry, there was an error sending your message. Please try again."
 msgstr "Désolé, une erreur s'est produite lors de l'envoi de votre message. Veuillez réessayer."
+
+#: portfolio/templates/pages/experience.html
+msgid "Proof through experience"
+msgstr "La preuve par l'expérience"
+
+#: portfolio/templates/pages/experience.html
+msgid "Where I've worked and what I bring to the table — condensed. The full story of each mission lives in my CV."
+msgstr "Où j'ai travaillé et ce que je peux apporter — en bref. L'histoire complète de chaque mission se trouve dans mon CV."
+
+#: portfolio/templates/pages/experience.html
+msgid "Experience details coming soon."
+msgstr "Les détails de mon parcours arrivent bientôt."
+
+#: portfolio/templates/pages/experience.html
+msgid "Have a similar challenge?"
+msgstr "Un défi similaire ?"
+
+#: portfolio/templates/pages/experience.html
+msgid "Let's discuss your project and how my experience can help solve your problem."
+msgstr "Parlons de votre projet et de la façon dont mon expérience peut vous aider à résoudre votre problème."
+
+#: portfolio/models/experience.py
+msgid "Professional"
+msgstr "Professionnel"
+
+#: portfolio/models/experience.py
+msgid "Freelance"
+msgstr "Freelance"
+
+#: portfolio/models/experience.py
+msgid "Academic"
+msgstr "Académique"
+
+#: portfolio/models/experience.py
+msgid "Personal"
+msgstr "Personnel"
+
+#: portfolio/templates/projects/project_detail.html
+msgid "CASE STUDY"
+msgstr "ÉTUDE DE CAS"
+
+#: portfolio/templates/projects/project_detail.html
+msgid "AT A GLANCE"
+msgstr "EN UN COUP D'ŒIL"
+
+#: portfolio/templates/projects/project_detail.html
+msgid "SCREENSHOTS"
+msgstr "CAPTURES D'ÉCRAN"
+
+#: portfolio/templates/projects/project_detail.html
+msgid "Open screenshot in full size"
+msgstr "Agrandir la capture d'écran en plein écran"
+
+#: portfolio/templates/sections/home/hero.html
+msgid "DIGITAL SOLUTIONS ENGINEER"
+msgstr "INGÉNIEUR DE SOLUTIONS DIGITALES"
+
+#: portfolio/templates/sections/home/hero.html
+msgid "You bring"
+msgstr "Vous apportez"
+
+#: portfolio/templates/sections/home/hero.html
+msgid "the problem."
+msgstr "le problème."
+
+#: portfolio/templates/sections/home/hero.html
+msgid "I build"
+msgstr "Je construis"
+
+#: portfolio/templates/sections/home/hero.html
+msgid "the solution."
+msgstr "la solution."
+
+#: portfolio/templates/sections/home/hero.html
+msgid "I design and build custom digital systems that solve real business problems and drive measurable results."
+msgstr "Je conçois et construis des systèmes numériques sur mesure qui résolvent de vrais problèmes métier et produisent des résultats mesurables."
+
+#: portfolio/templates/sections/home/hero.html
+msgid "SEE WHAT I'VE BUILT"
+msgstr "VOIR CE QUE J'AI CONSTRUIT"
+
+#: portfolio/templates/sections/home/hero.html
+msgid "TELL ME YOUR PROJECT"
+msgstr "PARLEZ-MOI DE VOTRE PROJET"
+
+#: portfolio/templates/sections/home/hero.html
+msgid "SCROLL TO EXPLORE"
+msgstr "FAITES DÉFILER"

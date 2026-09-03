@@ -1,383 +1,67 @@
 {% load static i18n %}
-<style>
-    @keyframes blink {
-        0%, 50% { opacity: 1; }
-        51%, 100% { opacity: 0; }
-    }
-    
-    @keyframes typing {
-        from { width: 0; }
-        to { width: 100%; }
-    }
-    
-    @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    
-    @keyframes slideInTerminal {
-        from { opacity: 0; transform: scale(0.9) translateY(30px); }
-        to { opacity: 1; transform: scale(1) translateY(0); }
-    }
-    
-    @keyframes serverGlow {
-        0%, 100% { box-shadow: 0 0 20px rgba(21, 163, 74, 0.3); }
-        50% { box-shadow: 0 0 40px rgba(21, 163, 74, 0.5); }
-    }
-    
-    @keyframes pulse-green {
-        0%, 100% { transform: scale(1); opacity: 1; }
-        50% { transform: scale(1.2); opacity: 0.8; }
-    }
-    
-    .terminal-window {
-        animation: slideInTerminal 0.8s ease-out forwards;
-        opacity: 0;
-        min-height: 380px;
-    }
-    
-    .terminal-cursor {
-        display: inline-block;
-        width: 8px;
-        height: 16px;
-        background-color: #15A34A;
-        margin-left: 2px;
-        animation: blink 1s infinite;
-        vertical-align: middle;
-    }
-    
-    .terminal-line {
-        overflow: hidden;
-        white-space: nowrap;
-        font-family: 'IBM Plex Mono', 'Fira Code', monospace;
-    }
-    
-    .hero-terminal {
-        position: relative;
-        perspective: 1000px;
-    }
-    
-    .hero-terminal .terminal-window {
-        transform-style: preserve-3d;
-        transition: transform 0.5s ease;
-    }
-    
-    .hero-terminal:hover .terminal-window {
-        transform: rotateY(-5deg) rotateX(2deg);
-    }
-    
-    .dashboard-view {
-        display: none;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #0D1117;
-        border-radius: 12px;
-        overflow: hidden;
-        z-index: 10;
-    }
-    
-    .dashboard-view.active {
-        display: block;
-    }
-    
-    .dashboard-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 12px 16px;
-        background-color: #1a1d21;
-        border-bottom: 1px solid #21262D;
-    }
-    
-    .dashboard-title {
-        color: #E6EDF3;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.85rem;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    
-    .dashboard-content {
-        width: 100%;
-        height: calc(100% - 48px);
-        overflow: hidden;
-        position: relative;
-        background-color: #0D1117;
-    }
-    
-    .dashboard-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: top;
-    }
-    
-    .quit-btn {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        padding: 6px 12px;
-        background-color: rgba(239, 68, 68, 0.2);
-        border: 1px solid rgba(239, 68, 68, 0.5);
-        border-radius: 6px;
-        color: #EF4444;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 0.75rem;
-        cursor: pointer;
-        transition: all 0.2s ease;
-    }
-    
-    .quit-btn:hover {
-        background-color: rgba(239, 68, 68, 0.3);
-        border-color: #EF4444;
-    }
-    
-    .terminal-content {
-        transition: opacity 0.3s ease;
-    }
-    
-    .terminal-content.hidden {
-        opacity: 0;
-        pointer-events: none;
-    }
-</style>
+<link rel="stylesheet" href="{% static 'css/hero.css' %}">
 
-<section id="hero" class="relative min-h-[90vh] mt-7 flex items-center overflow-hidden" style="background-color: #0B0D0F;">
-    {# Subtle grid pattern #}
-    <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(21,163,74,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(21,163,74,0.5) 1px, transparent 1px); background-size: 60px 60px;"></div>
+<section id="hero" class="hero">
+    {# Background layers #}
+    <div class="hero__bg hero__bg--grid" aria-hidden="true"></div>
+    <div class="hero__bg hero__bg--glow" aria-hidden="true"></div>
 
-    {# Gradient accent #}
-    <div class="absolute top-0 right-0 w-1/2 h-full opacity-20" style="background: radial-gradient(ellipse at 70% 30%, rgba(21,163,74,0.15) 0%, transparent 60%);"></div>
-
-    <div class="max-w-6xl mx-auto px-5 relative z-10 py-20">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            {# Left: Content #}
-            <div class="space-y-8">
-                {# Label #}
-
-                {# Headline #}
-                <h1 style="font-family: var(--font-primary); font-size: clamp(2.4rem, 5.5vw, 3.8rem); line-height: 1.05; letter-spacing: -0.01em; color: #FFFFFF;">
-                    {% trans "You bring the problem." %}<br>
-                    <span style="color: #15A34A;">{% trans "I build the solution." %}</span>
+    <div class="hero__container">
+        <div class="hero__grid">
+            {# ── LEFT : copy ─────────────────────────────────── #}
+            <div class="hero__left">
+               
+                <h1 class="hero__title">
+                    <span class="hero__title-line">{% trans "You bring" %} <span class="hero__title-accent">{% trans "the problem." %}</span></span>
+                    <span class="hero__title-line">{% trans "I build" %} <span class="hero__title-accent">{% trans "the solution." %}</span></span>
                 </h1>
 
-                {# Subtitle #}
-                <p style="color: #ADB5BD; font-size: 1.1rem; line-height: 1.7; max-width: 480px;">
-                    {% trans "I transform your business needs into digital solutions that work. From concept to deployment — without you needing to understand the technology." %}
+                <p class="hero__desc">
+                    {% trans "I design and build custom digital systems that solve real business problems and drive measurable results." %}
                 </p>
 
-                {# CTAs #}
-                <div class="flex flex-col sm:flex-row gap-4 pt-2">
-                    <a href="#work" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF; border: 2px solid #15A34A;">
+                <div class="hero__ctas">
+                    <a href="#work" class="hero__cta hero__cta--green">
                         {% trans "SEE WHAT I'VE BUILT" %}
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10" />
+                        </svg>
                     </a>
-                    <a href="#contact" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: transparent; color: #FFFFFF; border: 2px solid rgba(255,255,255,0.2);">
-                        {% trans "DISCUSS YOUR PROJECT" %}
+                    <a href="#contact" class="hero__cta hero__cta--ghost">
+                        {% trans "TELL ME YOUR PROJECT" %}
                     </a>
                 </div>
 
-                {# Availability #}
                 {% if profile.availability_status %}
-                <div class="flex items-center gap-3 pt-2">
-                    <span class="relative flex h-2.5 w-2.5">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style="background-color: #15A34A;"></span>
-                        <span class="relative inline-flex rounded-full h-2.5 w-2.5" style="background-color: #15A34A;"></span>
-                    </span>
-                    <span style="color: #6C757D; font-size: 0.85rem;">{{ profile.availability_message|default:"Available for new projects" }}</span>
+                <div class="hero__availability">
+                    <span class="hero__availability-dot" aria-hidden="true"></span>
+                    <span>{{ profile.availability_message|default:"Available for new projects" }}</span>
                 </div>
                 {% endif %}
             </div>
 
-            {# Right: Terminal Animation #}
-            <div class="hidden lg:flex justify-center items-center hero-terminal">
-                <div class="relative" style="perspective: 1000px;">
-                    {# Terminal Window #}
-                    <div class="terminal-window rounded-xl overflow-hidden" style="width: 620px; animation-delay: 0.3s; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(21, 163, 74, 0.1); position: relative;">
-                        
-                        {# Dashboard View #}
-                        <div id="dashboardView" class="dashboard-view">
-                            <div class="dashboard-header">
-                                <div class="dashboard-title">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" style="color: #15A34A;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                                    </svg>
-                                    Portfolio Dashboard
-                                </div>
-                                <button class="quit-btn" onclick="closeDashboard()">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                    Quit
-                                </button>
-                            </div>
-                            <div class="dashboard-content">
-                                <img src="{% static 'images/dashboard-preview.jpg' %}" alt="Professional Dashboard" class="dashboard-image">
-                            </div>
-                        </div>
-                        
-                        {# Terminal Content #}
-                        <div id="terminalContent" class="terminal-content">
-                            {# Terminal Header #}
-                            <div class="flex items-center gap-2 px-4 py-3" style="background-color: #1a1d21;">
-                                <div class="flex gap-2">
-                                    <div class="w-3 h-3 rounded-full" style="background-color: #FF5F56;"></div>
-                                    <div class="w-3 h-3 rounded-full" style="background-color: #FFBD2E;"></div>
-                                    <div class="w-3 h-3 rounded-full" style="background-color: #27C93F;"></div>
-                                </div>
-                                <span class="ml-4 text-xs" style="color: #6C757D; font-family: 'IBM Plex Mono', monospace;">Terminal — zsh</span>
-                            </div>
-                            
-                            {# Terminal Body #}
-                            <div class="p-5" style="background-color: #0D1117; min-height: 280px;">
-                                {# Line 1: Command #}
-                                <div class="terminal-line mb-3" style="animation: fadeInUp 0.5s ease-out 0.8s both;">
-                                    <span style="color: #15A34A;">➜</span>
-                                    <span style="color: #ADB5BD;"> ~/portfolio</span>
-                                    <span style="color: #FFFFFF;"> $ </span>
-                                    <span id="typedCommand" style="color: #E6EDF3;"></span>
-                                    <span class="terminal-cursor" id="cursor"></span>
-                                </div>
-                                
-                                {# Line 2: Server output #}
-                                <div id="serverOutput" class="space-y-2" style="opacity: 0; transition: opacity 0.3s ease;">
-                                    <div class="terminal-line" style="color: #8B949E;">
-                                        <span style="color: #15A34A;">●</span> Starting development server...
-                                    </div>
-                                    <div class="terminal-line" style="color: #8B949E;">
-                                        <span style="color: #15A34A;">●</span> Performing system checks...
-                                    </div>
-                                    <div class="terminal-line" style="color: #8B949E;">
-                                        <span style="color: #15A34A;">●</span> System check identified no issues (0 silenced).
-                                    </div>
-                                    <div class="terminal-line" style="color: #8B949E;">
-                                        <span style="color: #15A34A;">●</span> Django version 6.1, using settings 'config.settings'
-                                    </div>
-                                    <div class="terminal-line" style="color: #8B949E;">
-                                        <span style="color: #15A34A;">●</span> Starting development server at <span style="color: #58A6FF;">http://127.0.0.1:8000/</span>
-                                    </div>
-                                    <div class="terminal-line" style="color: #8B949E;">
-                                        <span style="color: #15A34A;">●</span> Quit the server with CONTROL-C.
-                                    </div>
-                                </div>
-                                
-                                {# Success indicator #}
-                                <div id="serverReady" class="mt-4" style="opacity: 0; transition: all 0.5s ease;">
-                                    <div class="flex items-center gap-3 p-3 rounded-lg" style="background-color: rgba(21, 163, 74, 0.1); border: 1px solid rgba(21, 163, 74, 0.3);">
-                                        <div class="w-3 h-3 rounded-full" style="background-color: #15A34A; animation: pulse-green 2s infinite;"></div>
-                                        <span style="color: #15A34A; font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem;">Server running</span>
-                                        <span style="color: #6C757D; font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; margin-left: auto;" id="clickHint">Click to preview →</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            {# Terminal Footer - Click to preview #}
-                            <div id="terminalFooter" class="px-5 py-4 cursor-pointer transition-all duration-300" style="background-color: #161B22; border-top: 1px solid #21262D; opacity: 0;" onclick="openDashboard()">
-                                <div class="flex items-center justify-between">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background-color: rgba(21, 163, 74, 0.2);">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" style="color: #15A34A;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                            </svg>
-                                        </div>
-                                        <span style="color: #E6EDF3; font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem;">View Live Portfolio</span>
-                                    </div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" style="color: #15A34A;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    {# Floating decorations #}
-                    <div class="absolute -top-6 -right-6 w-4 h-4 rounded-full" style="background-color: #15A34A; opacity: 0.4; animation: float 3s ease-in-out infinite;"></div>
-                    <div class="absolute -bottom-8 -left-8 w-3 h-3 rounded-full" style="background-color: #15A34A; opacity: 0.3; animation: float 3s ease-in-out infinite 0.5s;"></div>
-                    <div class="absolute top-1/2 -right-10 w-2 h-2 rounded-full" style="background-color: #15A34A; opacity: 0.5; animation: float 3s ease-in-out infinite 1s;"></div>
+            {# ── RIGHT : THE CORE ────────────────────────────── #}
+            <div class="hero__right">
+                <div id="theCore" class="core" role="img" aria-label="Animated visual of a digital system core being built">
+                    <canvas id="coreCanvas" class="core__canvas" aria-hidden="true"></canvas>
+
+                    <span class="core__label core__label--tr" data-core-label="tr" aria-hidden="true"><b>01</b> ANALYZE</span>
+                    <span class="core__label core__label--r" data-core-label="r" aria-hidden="true"><b>02</b> DESIGN</span>
+                    <span class="core__label core__label--br" data-core-label="br" aria-hidden="true"><b>03</b> BUILD</span>
+                    <span class="core__label core__label--bl" data-core-label="bl" aria-hidden="true"><b>04</b> DEPLOY</span>
+                    <span class="core__label core__label--tl" data-core-label="tl" aria-hidden="true"><b>05</b> EVOLVE</span>
                 </div>
             </div>
         </div>
     </div>
+
+    {# ── Footer strip ──────────────────────────────────────── #}
+    <div class="hero__footer" aria-hidden="true">
+        <span class="hero__scroll">
+            <span class="hero__scroll-icon"></span>
+            {% trans "SCROLL TO EXPLORE" %}
+        </span>
+    </div>
 </section>
 
-
-
-<script>
-// Terminal typing animation
-document.addEventListener('DOMContentLoaded', function() {
-    const command = 'uv run manage.py runserver';
-    const typedCommand = document.getElementById('typedCommand');
-    const cursor = document.getElementById('cursor');
-    const serverOutput = document.getElementById('serverOutput');
-    const serverReady = document.getElementById('serverReady');
-    const terminalFooter = document.getElementById('terminalFooter');
-    
-    let charIndex = 0;
-    
-    function typeCommand() {
-        if (charIndex < command.length) {
-            typedCommand.textContent += command.charAt(charIndex);
-            charIndex++;
-            setTimeout(typeCommand, 80 + Math.random() * 40);
-        } else {
-            // Command finished typing, start server
-            setTimeout(showServerOutput, 500);
-        }
-    }
-    
-    function showServerOutput() {
-        serverOutput.style.opacity = '1';
-        
-        // Animate lines one by one
-        const lines = serverOutput.querySelectorAll('.terminal-line');
-        lines.forEach((line, index) => {
-            line.style.opacity = '0';
-            line.style.transform = 'translateX(-10px)';
-            line.style.transition = 'all 0.3s ease';
-            
-            setTimeout(() => {
-                line.style.opacity = '1';
-                line.style.transform = 'translateX(0)';
-            }, index * 200);
-        });
-        
-        // Show server ready after all lines
-        setTimeout(() => {
-            serverReady.style.opacity = '1';
-            terminalFooter.style.opacity = '1';
-        }, lines.length * 200 + 500);
-    }
-    
-    // Start animation after page load
-    setTimeout(typeCommand, 1000);
-});
-
-// Dashboard functions
-function openDashboard() {
-    const dashboardView = document.getElementById('dashboardView');
-    const terminalContent = document.getElementById('terminalContent');
-    
-    dashboardView.classList.add('active');
-    terminalContent.classList.add('hidden');
-}
-
-function closeDashboard() {
-    const dashboardView = document.getElementById('dashboardView');
-    const terminalContent = document.getElementById('terminalContent');
-    
-    dashboardView.classList.remove('active');
-    terminalContent.classList.remove('hidden');
-}
-
-// Keyboard close
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeDashboard();
-    }
-});
-</script>
+<script src="{% static 'js/hero.js' %}" defer></script>

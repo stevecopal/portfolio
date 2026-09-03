@@ -42,6 +42,19 @@ class ProjectDetailView(DetailView):
         project = self.object
         context["site_settings"] = SiteSettings.objects.first()
 
+        # Only show media that actually exists on disk (avoids rendering broken
+        # image URLs when a file is missing).
+        context["gallery_images"] = [
+            img
+            for img in project.images.all()
+            if img.image.name and img.image.storage.exists(img.image.name)
+        ]
+        context["cover_available"] = bool(
+            project.cover_image
+            and project.cover_image.name
+            and project.cover_image.storage.exists(project.cover_image.name)
+        )
+
         # Related projects (same technologies)
         context["related_projects"] = (
             Project.objects
