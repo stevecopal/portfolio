@@ -5,15 +5,15 @@
 <section class="pt-24 pb-20 md:pt-28 md:pb-28" style="background-color: #FAFBFC;">
     <div class="max-w-6xl mx-auto px-5">
         {# Header #}
-        <div class="mb-12">
-            <span class="inline-flex items-center gap-2 mb-4" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
+        <div class="mb-12" data-reveal="section" data-reveal-element>
+            <span class="inline-flex items-center gap-2 mb-4" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;" data-reveal="item" data-reveal-delay="1" data-reveal-element>
                 <span class="w-8 h-px" style="background-color: #15A34A;"></span>
                 {% trans "WORK" %}
             </span>
-            <h1 style="font-family: var(--font-primary); font-size: clamp(2rem, 4vw, 2.8rem); color: #0B0D0F; margin-bottom: 0.75rem;">
+            <h1 style="font-family: var(--font-primary); font-size: clamp(2rem, 4vw, 2.8rem); color: #0B0D0F; margin-bottom: 0.75rem;" data-reveal="title" data-reveal-delay="2" data-reveal-element>
                 {% trans "Built solutions, not just code" %}
             </h1>
-            <p style="color: #6C757D; font-size: 1.05rem; line-height: 1.65; max-width: 560px;">
+            <p style="color: #6C757D; font-size: 1.05rem; line-height: 1.65; max-width: 560px;" data-reveal="title" data-reveal-delay="3" data-reveal-element>
                 {% trans "Each project represents a real problem solved. Here's what I've built." %}
             </p>
         </div>
@@ -36,7 +36,7 @@
         {% if projects %}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {% for project in projects %}
-            <a href="{% url 'portfolio:project_detail' project.slug %}" class="group block rounded-xl overflow-hidden border transition-all duration-300 reveal" style="background-color: #FFFFFF; border-color: #E9ECEF; text-decoration: none; color: inherit;">
+            <a href="{% url 'portfolio:project_detail' project.slug %}" class="group block rounded-xl overflow-hidden border transition-all duration-300 reveal project-card" style="background-color: #FFFFFF; border-color: #E9ECEF; text-decoration: none; color: inherit;" data-transition="project" data-transition-label="{{ project.title|upper }}">
                 <div class="overflow-hidden">
                     <img src="{% if project.cover_image %}{{ project.cover_image.url }}{% else %}{% static 'images/project-placeholder.png' %}{% endif %}" alt="{{ project.title }}" class="w-full aspect-[16/10] object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
                 </div>
@@ -94,7 +94,7 @@
     <div class="max-w-4xl mx-auto px-5 text-center">
         <h2 style="font-family: var(--font-primary); font-size: 1.75rem; color: #FFFFFF; margin-bottom: 0.75rem;">{% trans "Interested in working together?" %}</h2>
         <p style="color: #ADB5BD; font-size: 1rem; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">{% trans "Let's discuss your project and how I can help bring your ideas to life." %}</p>
-        <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF; border: 2px solid #15A34A;">
+        <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF; border: 2px solid #15A34A;" data-transition="page" data-transition-label="CONTACT">
             {% trans "START A PROJECT" %}
         </a>
     </div>

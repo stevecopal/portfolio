@@ -8,16 +8,16 @@
 
         {# Desktop nav #}
         <nav class="hidden lg:flex items-center gap-4">
-            <a href="{% url 'portfolio:home' %}" class="nav-link">{% trans "HOME" %}</a>
-            <a href="{% url 'portfolio:services' %}" class="nav-link">{% trans "SOLUTIONS" %}</a>
-            <a href="{% url 'portfolio:experience' %}" class="nav-link">{% trans "EXPERIENCE" %}</a>
+            <a href="{% url 'portfolio:home' %}" class="nav-link" data-transition="page" data-transition-label="HOME">{% trans "HOME" %}</a>
+            <a href="{% url 'portfolio:services' %}" class="nav-link" data-transition="page" data-transition-label="SOLUTIONS">{% trans "SOLUTIONS" %}</a>
+            <a href="{% url 'portfolio:experience' %}" class="nav-link" data-transition="page" data-transition-label="EXPERIENCE">{% trans "EXPERIENCE" %}</a>
         </nav>
 
         {# Right side #}
         <div class="flex items-center gap-3">
             <div class="hidden md:block">{% include 'components/language_switcher.html' %}</div>
 
-            <a href="{% url 'portfolio:contact' %}" class="hidden md:inline-flex items-center gap-2 px-5 py-2 rounded-lg font-medium transition-all duration-200" style="font-family: var(--font-display); font-size: 0.78rem; letter-spacing: 0.05em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF;">
+            <a href="{% url 'portfolio:contact' %}" class="hidden md:inline-flex items-center gap-2 px-5 py-2 rounded-lg font-medium transition-all duration-200" style="font-family: var(--font-display); font-size: 0.78rem; letter-spacing: 0.05em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF;" data-transition="page" data-transition-label="CONTACT">
                 {% trans "LET'S TALK" %}
             </a>
             <button id="hamburgerBtn" class="hamburger lg:hidden" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -34,13 +34,13 @@
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
     </button>
     <nav class="flex flex-col gap-4">
-        <a href="{% url 'portfolio:home' %}" class="mobile-nav-link">{% trans "HOME" %}</a>
-        <a href="{% url 'portfolio:services' %}" class="mobile-nav-link">{% trans "SOLUTIONS" %}</a>
-        <a href="{% url 'portfolio:experience' %}" class="mobile-nav-link">{% trans "EXPERIENCE" %}</a>
+        <a href="{% url 'portfolio:home' %}" class="mobile-nav-link" data-transition="page" data-transition-label="HOME">{% trans "HOME" %}</a>
+        <a href="{% url 'portfolio:services' %}" class="mobile-nav-link" data-transition="page" data-transition-label="SOLUTIONS">{% trans "SOLUTIONS" %}</a>
+        <a href="{% url 'portfolio:experience' %}" class="mobile-nav-link" data-transition="page" data-transition-label="EXPERIENCE">{% trans "EXPERIENCE" %}</a>
     </nav><br>
     <div class="mobile-lang-wrapper">{% include 'components/language_switcher.html' %}</div>
     <div class="mt-6 pt-5 space-y-3">
-        <a href="{% url 'portfolio:contact' %}" class="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-lg font-medium transition-all duration-200" style="font-family: var(--font-display); font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF;">
+        <a href="{% url 'portfolio:contact' %}" class="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-lg font-medium transition-all duration-200" style="font-family: var(--font-display); font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF;" data-transition="page" data-transition-label="CONTACT">
             {% trans "LET'S TALK" %}
         </a>
     </div>

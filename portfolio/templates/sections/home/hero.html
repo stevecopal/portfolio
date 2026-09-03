@@ -9,18 +9,18 @@
     <div class="hero__container">
         <div class="hero__grid">
             {# ── LEFT : copy ─────────────────────────────────── #}
-            <div class="hero__left">
+            <div class="hero__left" data-reveal="section" data-reveal-element>
                
-                <h1 class="hero__title">
+                <h1 class="hero__title" data-reveal="title" data-reveal-delay="1" data-reveal-element>
                     <span class="hero__title-line">{% trans "You bring" %} <span class="hero__title-accent">{% trans "the problem." %}</span></span>
                     <span class="hero__title-line">{% trans "I build" %} <span class="hero__title-accent">{% trans "the solution." %}</span></span>
                 </h1>
 
-                <p class="hero__desc">
+                <p class="hero__desc" data-reveal="title" data-reveal-delay="2" data-reveal-element>
                     {% trans "I design and build custom digital systems that solve real business problems and drive measurable results." %}
                 </p>
 
-                <div class="hero__ctas">
+                <div class="hero__ctas" data-reveal="item" data-reveal-delay="3" data-reveal-element>
                     <a href="#work" class="hero__cta hero__cta--green">
                         {% trans "SEE WHAT I'VE BUILT" %}
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
@@ -33,7 +33,7 @@
                 </div>
 
                 {% if profile.availability_status %}
-                <div class="hero__availability">
+                <div class="hero__availability" data-reveal="item" data-reveal-delay="4" data-reveal-element>
                     <span class="hero__availability-dot" aria-hidden="true"></span>
                     <span>{{ profile.availability_message|default:"Available for new projects" }}</span>
                 </div>

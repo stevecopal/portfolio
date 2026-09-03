@@ -1,0 +1,609 @@
+/* ═══════════════════════════════════════════════════════
+   SHADOW DOORS — Portfolio Transition System
+   ═══════════════════════════════════════════════════════ */
+
+/* ── LOADING STATE ─────────────────────────────────────── */
+body.is-loading {
+    overflow: hidden;
+}
+
+body.is-loading .page-content {
+    opacity: 0;
+}
+
+/* ── PAGE LOADER ──────────────────────────────────────── */
+.page-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #0B0D0F;
+    opacity: 1;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+}
+
+.page-loader.loaded {
+    opacity: 0;
+}
+
+.page-loader__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #15A34A;
+    animation: loaderPulse 1.2s ease-in-out infinite;
+    box-shadow: 0 0 12px rgba(21, 163, 74, 0.4);
+}
+
+.page-loader__line {
+    width: 40px;
+    height: 1px;
+    background-color: rgba(21, 163, 74, 0.2);
+    margin-top: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-loader__line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: #15A34A;
+    animation: loaderLine 1.4s ease-in-out infinite;
+}
+
+.page-loader__text {
+    margin-top: 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(21, 163, 74, 0.4);
+}
+
+@keyframes loaderPulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.5); }
+}
+
+@keyframes loaderLine {
+    0% { left: -100%; }
+    50% { left: 0%; }
+    100% { left: 100%; }
+}
+
+
+/* ── SHADOW DOORS OVERLAY ─────────────────────────────── */
+.shadow-doors {
+    position: fixed;
+    inset: 0;
+    z-index: 9990;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.shadow-doors.active {
+    pointer-events: all;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* LEFT DOOR */
+.shadow-doors__left,
+.shadow-doors__right {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background-color: #0B0D0F;
+    will-change: transform;
+}
+
+.shadow-doors__left {
+    left: 0;
+    transform: translateX(-100%);
+    background:
+        radial-gradient(ellipse at 80% 50%, rgba(21, 163, 74, 0.015) 0%, transparent 60%),
+        linear-gradient(180deg, #0B0D0F 0%, #0E1013 50%, #0B0D0F 100%);
+}
+
+.shadow-doors__right {
+    right: 0;
+    transform: translateX(100%);
+    background:
+        radial-gradient(ellipse at 20% 50%, rgba(21, 163, 74, 0.015) 0%, transparent 60%),
+        linear-gradient(180deg, #0B0D0F 0%, #0E1013 50%, #0B0D0F 100%);
+}
+
+/* Subtle texture on doors */
+.shadow-doors__left::before,
+.shadow-doors__right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Green edge lines */
+.shadow-doors__left::after,
+.shadow-doors__right::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(21, 163, 74, 0.08) 20%,
+        rgba(21, 163, 74, 0.15) 50%,
+        rgba(21, 163, 74, 0.08) 80%,
+        transparent 100%
+    );
+    pointer-events: none;
+}
+
+.shadow-doors__left::after {
+    right: 0;
+}
+
+.shadow-doors__right::after {
+    left: 0;
+}
+
+
+/* ── GREEN SIGNAL ─────────────────────────────────────── */
+.shadow-doors__signal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.shadow-doors__signal-line {
+    width: 1px;
+    height: 0;
+    background: linear-gradient(
+        180deg,
+        transparent,
+        rgba(21, 163, 74, 0.6),
+        rgba(21, 163, 74, 0.8),
+        rgba(21, 163, 74, 0.6),
+        transparent
+    );
+    margin: 0 auto;
+}
+
+.shadow-doors__signal-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: #15A34A;
+    margin: 0 auto;
+    opacity: 0;
+    box-shadow: 0 0 8px rgba(21, 163, 74, 0.6), 0 0 20px rgba(21, 163, 74, 0.3);
+}
+
+
+/* ── TRANSITION LABEL ─────────────────────────────────── */
+.shadow-doors__label {
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.shadow-doors__label-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(21, 163, 74, 0.5);
+    white-space: nowrap;
+}
+
+.shadow-doors__label-dest {
+    font-family: 'Suez One', serif;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 4px;
+    white-space: nowrap;
+}
+
+
+/* ── PAGE CONTENT TRANSITIONS ─────────────────────────── */
+.page-content {
+    position: relative;
+    z-index: 10;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+body.is-loading .page-content {
+    opacity: 0;
+}
+
+.page-content.is-exiting .hero,
+.page-content.is-exiting > section:first-child {
+    transform: translateY(-8px);
+    opacity: 0.85;
+    transition: transform 0.25s ease-out, opacity 0.25s ease-out;
+}
+
+.page-content.is-entering [data-reveal-element] {
+    opacity: 0;
+    transform: translateY(28px);
+}
+
+.page-content.is-entering [data-reveal-element].reveal-ready {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Stagger delays for page enter */
+.page-content.is-entering [data-reveal-delay="1"] { transition-delay: 0.06s; }
+.page-content.is-entering [data-reveal-delay="2"] { transition-delay: 0.12s; }
+.page-content.is-entering [data-reveal-delay="3"] { transition-delay: 0.18s; }
+.page-content.is-entering [data-reveal-delay="4"] { transition-delay: 0.24s; }
+.page-content.is-entering [data-reveal-delay="5"] { transition-delay: 0.30s; }
+.page-content.is-entering [data-reveal-delay="6"] { transition-delay: 0.36s; }
+.page-content.is-entering [data-reveal-delay="7"] { transition-delay: 0.42s; }
+
+
+/* ── HOVER MICRO-INTERACTIONS ─────────────────────────── */
+
+/* Interactive elements base */
+.sd-interactive {
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sd-interactive:hover {
+    transform: translateY(-2px);
+}
+
+.sd-interactive:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Green dot indicator */
+.sd-green-dot {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: #15A34A;
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 0 6px rgba(21, 163, 74, 0.4);
+}
+
+.sd-interactive:hover .sd-green-dot {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Arrow animation */
+.sd-arrow {
+    display: inline-flex;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sd-interactive:hover .sd-arrow {
+    transform: translateX(3px);
+}
+
+/* Card hover depth */
+.sd-card {
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.35s ease;
+}
+
+.sd-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(11, 13, 15, 0.08), 0 4px 12px rgba(21, 163, 74, 0.04);
+    border-color: rgba(21, 163, 74, 0.2);
+}
+
+/* Image hover */
+.sd-img-hover {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sd-card:hover .sd-img-hover {
+    transform: scale(1.03);
+}
+
+/* Link underline */
+.sd-link-line {
+    position: relative;
+}
+
+.sd-link-line::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #15A34A;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sd-link-line:hover::after {
+    width: 100%;
+}
+
+
+/* ── SCROLL REVEAL ENHANCED ───────────────────────────── */
+[data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-reveal].revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Title reveal */
+[data-reveal="title"] {
+    transform: translateY(35px);
+    transition-duration: 0.65s;
+}
+
+/* Item with stagger */
+[data-reveal="item"] {
+    transition-delay: var(--reveal-delay, 0ms);
+}
+
+/* Section reveal */
+[data-reveal="section"] {
+    transform: translateY(40px);
+}
+
+
+/* ── PROJECT CARD HOVER ───────────────────────────────── */
+.project-card {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(21, 163, 74, 0.0) 0%, rgba(21, 163, 74, 0.03) 100%);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(11, 13, 15, 0.1), 0 4px 16px rgba(21, 163, 74, 0.04);
+}
+
+.project-card:hover::before {
+    opacity: 1;
+}
+
+.project-card__arrow {
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.project-card:hover .project-card__arrow {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.project-card__green {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #15A34A;
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s;
+    z-index: 2;
+    box-shadow: 0 0 6px rgba(21, 163, 74, 0.5);
+}
+
+.project-card:hover .project-card__green {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+/* ── SOLUTION CARD HOVER ──────────────────────────────── */
+.solution-card {
+    position: relative;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.solution-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #15A34A, #22C55E);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+.solution-card:hover {
+    transform: translateY(-4px);
+}
+
+.solution-card:hover::after {
+    opacity: 1;
+}
+
+
+/* ── CONTACT FORM INTERACTIONS ────────────────────────── */
+.sd-form-field {
+    position: relative;
+}
+
+.sd-form-field input,
+.sd-form-field textarea,
+.sd-form-field select {
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.sd-form-field input:focus,
+.sd-form-field textarea:focus,
+.sd-form-field select:focus {
+    border-color: #15A34A !important;
+    box-shadow: 0 0 0 3px rgba(21, 163, 74, 0.1);
+}
+
+.sd-form-field label {
+    transition: color 0.25s ease;
+}
+
+.sd-form-field input:focus + label,
+.sd-form-field textarea:focus + label {
+    color: #15A34A;
+}
+
+/* Submit button states */
+.sd-submit-btn {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.sd-submit-btn:hover {
+    box-shadow: 0 4px 16px rgba(21, 163, 74, 0.3);
+}
+
+.sd-submit-btn:active {
+    transform: scale(0.98);
+}
+
+.sd-submit-btn.is-sending {
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.sd-submit-btn.is-success {
+    background-color: #15A34A !important;
+}
+
+/* Button pulse */
+.sd-btn-pulse {
+    animation: btnPulse 2s ease-in-out infinite;
+}
+
+@keyframes btnPulse {
+    0%, 100% { box-shadow: 0 2px 8px rgba(21, 163, 74, 0.2); }
+    50% { box-shadow: 0 2px 16px rgba(21, 163, 74, 0.35); }
+}
+
+
+/* ── EXPERIENCE TIMELINE REVEAL ───────────────────────── */
+.ex-entry {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ex-entry:hover {
+    transform: translateX(4px);
+}
+
+
+/* ── REDUCED MOTION ───────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .page-loader { transition: opacity 0.2s ease; }
+    .page-loader__dot { animation: none; opacity: 1; }
+    .page-loader__line::after { animation: none; }
+
+    .shadow-doors__left,
+    .shadow-doors__right {
+        transition: transform 0.3s ease !important;
+    }
+
+    .shadow-doors__signal-line,
+    .shadow-doors__signal-dot {
+        transition: opacity 0.2s ease !important;
+    }
+
+    [data-reveal] {
+        transition: opacity 0.2s ease !important;
+        transform: none !important;
+    }
+
+    .page-content.is-exiting .hero,
+    .page-content.is-exiting > section:first-child {
+        transform: none;
+        transition: opacity 0.15s ease;
+    }
+
+    .project-card:hover,
+    .solution-card:hover,
+    .sd-interactive:hover,
+    .sd-card:hover {
+        transform: none;
+    }
+
+    .sd-img-hover { transition: none; }
+    .sd-card:hover .sd-img-hover { transform: none; }
+
+    .sd-btn-pulse { animation: none; }
+
+    .ex-entry { transition: opacity 0.2s ease !important; }
+    .ex-entry:hover { transform: none; }
+}
+
+
+/* ── MOBILE SIMPLIFICATIONS ───────────────────────────── */
+@media (max-width: 768px) {
+    .shadow-doors__label {
+        display: none;
+    }
+
+    .sd-card:hover {
+        transform: translateY(-2px);
+    }
+
+    .project-card:hover {
+        transform: translateY(-2px);
+    }
+}

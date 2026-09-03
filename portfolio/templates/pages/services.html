@@ -11,18 +11,18 @@
     </div>
 
     <div class="relative max-w-6xl mx-auto px-5 py-24 md:py-32">
-        <div class="max-w-3xl">
-            <div class="flex items-center gap-3 mb-6">
+        <div class="max-w-3xl" data-reveal="section" data-reveal-element>
+            <div class="flex items-center gap-3 mb-6" data-reveal="item" data-reveal-delay="1" data-reveal-element>
                 <span class="w-12 h-px" style="background-color: #15A34A;"></span>
                 <span style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: #15A34A;">{% trans "SOLUTIONS" %}</span>
             </div>
 
-            <h1 style="font-family: var(--font-primary); font-size: clamp(2.5rem, 6vw, 4.5rem); color: #FFFFFF; line-height: 1.0; margin-bottom: 1.5rem; letter-spacing: -0.02em;">
+            <h1 style="font-family: var(--font-primary); font-size: clamp(2.5rem, 6vw, 4.5rem); color: #FFFFFF; line-height: 1.0; margin-bottom: 1.5rem; letter-spacing: -0.02em;" data-reveal="title" data-reveal-delay="2" data-reveal-element>
                 {% trans "Ce que je peux" %}<br>
                 <span style="color: #15A34A;">{% trans "résoudre pour vous." %}</span>
             </h1>
 
-            <p style="color: rgba(255,255,255,0.5); font-size: 1.15rem; line-height: 1.7; max-width: 560px;">
+            <p style="color: rgba(255,255,255,0.5); font-size: 1.15rem; line-height: 1.7; max-width: 560px;" data-reveal="title" data-reveal-delay="3" data-reveal-element>
                 {% trans "Chaque solution commence par la compréhension de votre problème. Explorez les différentes manières dont je peux vous aider." %}
             </p>
         </div>
@@ -36,7 +36,7 @@
         {% if services %}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             {% for service in services %}
-            <a href="{% url 'portfolio:service_detail' service.slug %}" class="reveal group relative p-8 md:p-10 rounded-2xl border transition-all duration-400 hover:shadow-xl hover:shadow-black/5 hover:-translate-y-1 overflow-hidden" style="background-color: #FFFFFF; border-color: #E9ECEF; text-decoration: none; color: inherit;">
+            <a href="{% url 'portfolio:service_detail' service.slug %}" class="reveal group relative p-8 md:p-10 rounded-2xl border transition-all duration-400 hover:shadow-xl hover:shadow-black/5 hover:-translate-y-1 overflow-hidden solution-card" style="background-color: #FFFFFF; border-color: #E9ECEF; text-decoration: none; color: inherit;" data-transition="solution" data-transition-label="{{ service.title|upper }}">
 
                 {# Hover accent line #}
                 <div class="absolute top-0 left-0 w-full h-1 transition-all duration-400 opacity-0 group-hover:opacity-100" style="background: linear-gradient(90deg, #15A34A, #22C55E);"></div>
@@ -133,7 +133,7 @@
         <p style="color: #6C757D; font-size: 1.05rem; max-width: 500px; margin: 0 auto 2rem; line-height: 1.65;">
             {% trans "Décrivez-moi simplement votre problème. Je saurai vous orienter vers la bonne solution." %}
         </p>
-        <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-3 px-9 py-4 rounded-lg font-medium transition-all duration-300 hover:shadow-lg hover:shadow-green-500/15" style="font-family: var(--font-display); font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF; text-decoration: none;">
+        <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-3 px-9 py-4 rounded-lg font-medium transition-all duration-300 hover:shadow-lg hover:shadow-green-500/15" style="font-family: var(--font-display); font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF; text-decoration: none;" data-transition="page" data-transition-label="CONTACT">
             {% trans "PARLONS DE VOTRE PROJET" %}
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
         </a>

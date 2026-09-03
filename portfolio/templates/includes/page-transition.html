@@ -1,0 +1,43 @@
+{% load static i18n %}
+
+
+
+{# Page Loader #}
+<div class="page-loader" aria-hidden="true">
+    <div class="page-loader__dot"></div>
+    <div class="page-loader__line"></div>
+    <div class="page-loader__text">BUILDING EXPERIENCE</div>
+</div>
+
+{# Shadow Doors Overlay #}
+<div class="shadow-doors" aria-hidden="true">
+    {# Left Door #}
+    <div class="shadow-doors__left"></div>
+
+    {# Right Door #}
+    <div class="shadow-doors__right"></div>
+
+    {# Green Signal #}
+    <div class="shadow-doors__signal">
+        <div class="shadow-doors__signal-line"></div>
+        <div class="shadow-doors__signal-dot"></div>
+    </div>
+
+    {# Transition Label #}
+    <div class="shadow-doors__label">
+        <div class="shadow-doors__label-text"></div>
+        <div class="shadow-doors__label-dest"></div>
+    </div>
+</div>
+
+{# Scroll management #}
+<script>
+(function() {
+    'use strict';
+    // Reset scroll on page load
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+})();
+</script>

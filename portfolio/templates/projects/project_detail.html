@@ -183,10 +183,10 @@
 {# Breadcrumbs #}
 <section class="pt-24 md:pt-28 pb-4">
     <div class="max-w-6xl mx-auto px-5">
-        <div class="flex items-center gap-2" style="font-family: var(--font-mono); font-size: 0.75rem; color: #ADB5BD;">
-            <a href="{% url 'portfolio:home' %}" style="text-decoration: none; color: inherit; transition: color 0.2s;" onmouseover="this.style.color='#0B0D0F'" onmouseout="this.style.color='#ADB5BD'">{% trans "HOME" %}</a>
+        <div class="flex items-center gap-2" style="font-family: var(--font-mono); font-size: 0.75rem; color: #ADB5BD;" data-reveal="item" data-reveal-delay="1" data-reveal-element>
+            <a href="{% url 'portfolio:home' %}" style="text-decoration: none; color: inherit; transition: color 0.2s;" onmouseover="this.style.color='#0B0D0F'" onmouseout="this.style.color='#ADB5BD'" data-transition="page" data-transition-label="HOME">{% trans "HOME" %}</a>
             <span>/</span>
-            <a href="{% url 'portfolio:projects' %}" style="text-decoration: none; color: inherit; transition: color 0.2s;" onmouseover="this.style.color='#0B0D0F'" onmouseout="this.style.color='#ADB5BD'">{% trans "WORK" %}</a>
+            <a href="{% url 'portfolio:projects' %}" style="text-decoration: none; color: inherit; transition: color 0.2s;" onmouseover="this.style.color='#0B0D0F'" onmouseout="this.style.color='#ADB5BD'" data-transition="page" data-transition-label="WORK">{% trans "WORK" %}</a>
             <span>/</span>
             <span style="color: #495057;">{{ project.title }}</span>
         </div>
@@ -198,16 +198,16 @@
     <div class="max-w-6xl mx-auto px-5">
         <div class="pd-head">
             {# Left: intro #}
-            <div class="reveal">
-                <span class="inline-flex items-center gap-2 mb-4" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
+            <div class="reveal" data-reveal="section" data-reveal-element>
+                <span class="inline-flex items-center gap-2 mb-4" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;" data-reveal="item" data-reveal-delay="1" data-reveal-element>
                     <span class="w-8 h-px" style="background-color: #15A34A;"></span>
                     {% trans "CASE STUDY" %}
                 </span>
-                <h1 style="font-family: var(--font-primary); font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1.1; color: #0B0D0F; margin-bottom: 1rem;">{{ project.title }}</h1>
-                <p style="color: #6C757D; font-size: 1.08rem; line-height: 1.7; max-width: 640px; margin-bottom: 1.6rem;">{{ project.short_description }}</p>
+                <h1 style="font-family: var(--font-primary); font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1.1; color: #0B0D0F; margin-bottom: 1rem;" data-reveal="title" data-reveal-delay="2" data-reveal-element>{{ project.title }}</h1>
+                <p style="color: #6C757D; font-size: 1.08rem; line-height: 1.7; max-width: 640px; margin-bottom: 1.6rem;" data-reveal="title" data-reveal-delay="3" data-reveal-element>{{ project.short_description }}</p>
 
                 {# Actions #}
-                <div class="flex flex-wrap gap-3">
+                <div class="flex flex-wrap gap-3" data-reveal="item" data-reveal-delay="4" data-reveal-element>
                     {% if project.live_url %}
                     <a href="{{ project.live_url }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg font-medium transition-all duration-200" style="font-family: var(--font-display); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF; text-decoration: none; padding: 0.62rem 1.25rem;">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
@@ -414,7 +414,7 @@
         <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 1.5rem;">{% trans "Related projects" %}</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
             {% for rp in related_projects %}
-            <a href="{% url 'portfolio:project_detail' rp.slug %}" class="group block rounded-xl overflow-hidden border transition-all duration-300" style="background-color: #FFFFFF; border-color: #E9ECEF; text-decoration: none; color: inherit;">
+            <a href="{% url 'portfolio:project_detail' rp.slug %}" class="group block rounded-xl overflow-hidden border transition-all duration-300 project-card" style="background-color: #FFFFFF; border-color: #E9ECEF; text-decoration: none; color: inherit;" data-transition="project" data-transition-label="{{ rp.title|upper }}">
                 {% if rp.cover_image %}
                 <div class="overflow-hidden">
                     <img src="{{ rp.cover_image.url }}" alt="{{ rp.title }}" class="w-full h-40 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
@@ -437,10 +437,10 @@
         <h2 style="font-family: var(--font-primary); font-size: 1.75rem; margin-bottom: 0.75rem;">{% trans "Like this project?" %}</h2>
         <p style="color: #ADB5BD; font-size: 1rem; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">{% trans "Let's discuss how we can build something similar for your business." %}</p>
         <div class="flex flex-col sm:flex-row justify-center gap-3">
-            <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: #FFFFFF; color: #0B0D0F; text-decoration: none; padding: 0.85rem 1.75rem;">
+            <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: #FFFFFF; color: #0B0D0F; text-decoration: none; padding: 0.85rem 1.75rem;" data-transition="page" data-transition-label="CONTACT">
                 {% trans "START A PROJECT" %}
             </a>
-            <a href="{% url 'portfolio:projects' %}" class="inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: transparent; color: #FFFFFF; border: 2px solid rgba(255,255,255,0.2); text-decoration: none; padding: 0.85rem 1.75rem;">
+            <a href="{% url 'portfolio:projects' %}" class="inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: transparent; color: #FFFFFF; border: 2px solid rgba(255,255,255,0.2); text-decoration: none; padding: 0.85rem 1.75rem;" data-transition="page" data-transition-label="WORK">
                 {% trans "VIEW ALL PROJECTS" %}
             </a>
         </div>

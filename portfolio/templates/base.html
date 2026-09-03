@@ -28,6 +28,9 @@
     {# Tailwind CSS #}
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
 
+    {# Shadow Doors Transition System #}
+    <link href="{% static 'css/transitions.css' %}" rel="stylesheet">
+
     <title>{{ site_settings.seo_title|default:'Copal Satcheme' }}</title>
 
     {# Structured data #}
@@ -48,20 +51,26 @@
     </script>
 </head>
 
-<body class="antialiased">
+<body class="antialiased is-loading">
+    {# Page Transition System (Loader + Shadow Doors) #}
+    {% include 'includes/page-transition.html' %}
+
     {# Toast Container #}
     <div id="toastContainer"></div>
 
     {# Navigation #}
     {% include 'components/navbar.html' %}
 
-    {# Main Content #}
-    <main class="min-h-screen relative z-10">
-        {% block content %}{% endblock %}
-    </main>
+    {# Page Content Wrapper (for transitions) #}
+    <div class="page-content">
+        {# Main Content #}
+        <main class="min-h-screen relative z-10">
+            {% block content %}{% endblock %}
+        </main>
 
-    {# Footer #}
-    {% include 'components/footer.html' %}
+        {# Footer #}
+        {% include 'components/footer.html' %}
+    </div>
 
     {# Back to Top #}
     <button id="backToTop" class="fixed bottom-6 right-6 z-50 w-10 h-10 flex items-center justify-center rounded-full opacity-0 pointer-events-none transition-all duration-300" style="background-color: #15A34A; color: #fff; box-shadow: 0 4px 14px rgba(21,163,74,0.25);">
@@ -74,6 +83,8 @@
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/navigation.js' %}"></script>
     <script src="{% static 'js/animations.js' %}"></script>
+    <script src="{% static 'js/transitions.js' %}"></script>
+    <script src="{% static 'js/interactions.js' %}"></script>
 
     {# Toast system #}
     <script>

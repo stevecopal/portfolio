@@ -46,22 +46,22 @@
 <section class="pt-24 pb-20 md:pt-28 md:pb-28" style="background-color: #FAFBFC;">
     <div class="max-w-6xl mx-auto px-5">
         {# Header #}
-        <div class="text-center mb-14">
-            <span class="inline-flex items-center gap-2 mb-4" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
+        <div class="text-center mb-14" data-reveal="section" data-reveal-element>
+            <span class="inline-flex items-center gap-2 mb-4" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;" data-reveal="item" data-reveal-delay="1" data-reveal-element>
                 <span class="w-8 h-px" style="background-color: #15A34A;"></span>
                 {% trans "CONTACT" %}
                 <span class="w-8 h-px" style="background-color: #15A34A;"></span>
             </span>
-            <h1 style="font-family: var(--font-primary); font-size: clamp(1.8rem, 4vw, 2.6rem); color: #0B0D0F; margin-bottom: 0.75rem;">
+            <h1 style="font-family: var(--font-primary); font-size: clamp(1.8rem, 4vw, 2.6rem); color: #0B0D0F; margin-bottom: 0.75rem;" data-reveal="title" data-reveal-delay="2" data-reveal-element>
                 {% trans "Let's build your solution" %}
             </h1>
-            <p style="color: #6C757D; font-size: 1rem; max-width: 500px; margin: 0 auto; line-height: 1.7;">
+            <p style="color: #6C757D; font-size: 1rem; max-width: 500px; margin: 0 auto; line-height: 1.7;" data-reveal="title" data-reveal-delay="3" data-reveal-element>
                 {% trans "You don't need to know the technology. Just describe what you need and I'll take care of the rest." %}
             </p>
             {# Link to solutions #}
-            <p style="color: #6C757D; font-size: 0.95rem; margin-top: 1rem;">
+            <p style="color: #6C757D; font-size: 0.95rem; margin-top: 1rem;" data-reveal="item" data-reveal-delay="4" data-reveal-element>
                 {% trans "Not sure what you need?" %}
-                <a href="{% url 'portfolio:services' %}" style="color: #15A34A; text-decoration: none; font-weight: 500;">{% trans "Explore the solutions" %} →</a>
+                <a href="{% url 'portfolio:services' %}" style="color: #15A34A; text-decoration: none; font-weight: 500;" data-transition="page" data-transition-label="SOLUTIONS">{% trans "Explore the solutions" %} →</a>
             </p>
         </div>
 
