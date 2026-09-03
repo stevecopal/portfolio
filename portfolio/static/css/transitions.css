@@ -138,10 +138,10 @@ body.is-loading .page-content {
 /* ── PAGE ENTER REVEAL ─────────────────────────────────── */
 [data-page-enter] {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(14px);
     transition:
-        opacity 650ms cubic-bezier(0.16, 1, 0.3, 1),
-        transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+        opacity 320ms cubic-bezier(0.16, 1, 0.3, 1),
+        transform 380ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 [data-page-enter].page-enter-visible {

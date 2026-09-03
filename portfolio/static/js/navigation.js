@@ -1,5 +1,11 @@
 (function() {
     'use strict';
+
+    // Expose for re-init after dynamic DOM changes (e.g. language switch)
+    window.initMobileMenu = initMobileMenu;
+    window.initSmoothScroll = initSmoothScroll;
+    window.initActiveNavLinks = initActiveNavLinks;
+
     document.addEventListener('DOMContentLoaded', function() {
         initMobileMenu();
         initNavbarScroll();

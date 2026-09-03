@@ -21,19 +21,19 @@
 
 /* ── 1. CSS VARIABLES ──────────────────────────────── */
 :root {
-    --reveal-duration-section: 850ms;
-    --reveal-duration-item: 650ms;
-    --reveal-duration-card: 600ms;
-    --reveal-stagger: 80ms;
-    --reveal-card-stagger: 100ms;
-    --reveal-distance: 60px;
-    --reveal-distance-sm: 40px;
+    --reveal-duration-section: 500ms;
+    --reveal-duration-item: 380ms;
+    --reveal-duration-card: 350ms;
+    --reveal-stagger: 55ms;
+    --reveal-card-stagger: 65ms;
+    --reveal-distance: 40px;
+    --reveal-distance-sm: 25px;
     --reveal-ease: cubic-bezier(0.22, 1, 0.36, 1);
     --reveal-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-    --reveal-blur: 6px;
-    --reveal-scale: 0.94;
+    --reveal-blur: 4px;
+    --reveal-scale: 0.96;
     --reveal-signature: rgba(21, 163, 74, 0.35);
-    --reveal-section-delay: 200ms;
+    --reveal-section-delay: 100ms;
 }
 
 /* ── 2. GATE — INITIAL HIDDEN STATES ──────────────── */
@@ -144,8 +144,8 @@ html.hr [data-hero-reveal].hr-in {
     transform: translateY(0);
     will-change: auto;
     transition:
-        opacity 0.6s var(--reveal-ease-out),
-        transform 0.7s var(--reveal-ease-out);
+        opacity 0.35s var(--reveal-ease-out),
+        transform 0.4s var(--reveal-ease-out);
 }
 
 /* ── 10. GREEN SIGNATURE ───────────────────────────── */
@@ -160,7 +160,7 @@ html.hr [data-hero-reveal].hr-in {
     transform: scaleX(0);
     pointer-events: none;
     z-index: 1;
-    animation: hr-sig 1.5s var(--reveal-ease-out) 0.3s forwards;
+    animation: hr-sig 0.9s var(--reveal-ease-out) 0.15s forwards;
 }
 
 @keyframes hr-sig {
@@ -173,10 +173,10 @@ html.hr [data-hero-reveal].hr-in {
 html.hr [data-reveal-text] .hr-word {
     display: inline-block;
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(6px);
     transition:
-        opacity 0.4s var(--reveal-ease),
-        transform 0.4s var(--reveal-ease);
+        opacity 0.25s var(--reveal-ease),
+        transform 0.25s var(--reveal-ease);
 }
 html.hr [data-reveal-text].hr-in .hr-word {
     opacity: 1;
@@ -209,11 +209,26 @@ html.hr [data-reveal-text].hr-in .hr-word {
 /* ── 13. MOBILE ────────────────────────────────────── */
 @media (max-width: 768px) {
     :root {
-        --reveal-distance: 30px;
-        --reveal-distance-sm: 20px;
-        --reveal-duration-section: 700ms;
-        --reveal-duration-item: 500ms;
-        --reveal-duration-card: 500ms;
-        --reveal-blur: 4px;
+        --reveal-distance: 25px;
+        --reveal-distance-sm: 15px;
+        --reveal-duration-section: 380ms;
+        --reveal-duration-item: 300ms;
+        --reveal-duration-card: 280ms;
+        --reveal-blur: 3px;
+    }
+    /* Prevent horizontal overflow from reveal animations */
+    [data-reveal-section] {
+        overflow-x: clip;
+    }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+    :root {
+        --reveal-distance: 20px;
+        --reveal-distance-sm: 12px;
+        --reveal-duration-section: 320ms;
+        --reveal-duration-item: 260ms;
+        --reveal-duration-card: 240ms;
     }
 }

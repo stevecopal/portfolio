@@ -2285,6 +2285,14 @@ body::before {
   .sm\:flex-row{
     flex-direction: row;
   }
+
+  .sm\:items-end{
+    align-items: flex-end;
+  }
+
+  .sm\:justify-between{
+    justify-content: space-between;
+  }
 }
 
 @media (min-width: 768px){

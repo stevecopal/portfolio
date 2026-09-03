@@ -47,19 +47,19 @@
 
   var CONFIG = {
     // Initial cover hold on a fresh load (ms)
-    firstPaintDelay: 450,
+    firstPaintDelay: 120,
 
     // Delay before native navigation fires after a click (ms)
-    navigationDelay: 800,
+    navigationDelay: 280,
 
     // Progress fill duration (ms)
-    progressDuration: 500,
+    progressDuration: 220,
 
     // READY flash before the loader lifts (ms)
-    readyHold: 80,
+    readyHold: 30,
 
     // Stagger between revealed content elements (ms)
-    revealStagger: 15,
+    revealStagger: 8,
 
     reducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)")
       .matches,
@@ -127,7 +127,7 @@
 
     window.setTimeout(function () {
       loader.classList.add("is-done");
-    }, 500);
+    }, 250);
   }
 
   function setPhase(text) {
@@ -218,7 +218,7 @@
        */
       window.setTimeout(
         finish,
-        CONFIG.progressDuration + CONFIG.readyHold + 500
+        CONFIG.progressDuration + CONFIG.readyHold + 250
       );
     }, CONFIG.firstPaintDelay);
   }
@@ -239,7 +239,7 @@
 
     startPhases();
 
-    animateProgress(600, 0, 100, function () {
+    animateProgress(300, 0, 100, function () {
       setPhase("READY");
       window.setTimeout(finish, CONFIG.readyHold);
     });
@@ -248,7 +248,7 @@
      * Safety fallback: never leave the cover stuck even if
      * requestAnimationFrame is throttled or unavailable.
      */
-    window.setTimeout(finish, 600 + CONFIG.readyHold + 500);
+    window.setTimeout(finish, 300 + CONFIG.readyHold + 200);
   }
 
   /* =========================================================
@@ -271,7 +271,7 @@
     elements.forEach(function (element, index) {
       element.setAttribute("data-page-enter", "");
       element.style.transitionDelay =
-        Math.min(60 + index * CONFIG.revealStagger, 380) + "ms";
+        Math.min(30 + index * CONFIG.revealStagger, 180) + "ms";
 
       /*
        * Timer-based (not rAF) so the reveal works even in
