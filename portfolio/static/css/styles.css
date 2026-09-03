@@ -1124,6 +1124,30 @@ h1, h2, h3, h4, h5, h6 {
   bottom: 0px;
 }
 
+.-bottom-8{
+  bottom: -2rem;
+}
+
+.-left-8{
+  left: -2rem;
+}
+
+.-right-10{
+  right: -2.5rem;
+}
+
+.-right-6{
+  right: -1.5rem;
+}
+
+.-top-6{
+  top: -1.5rem;
+}
+
+.top-1\/2{
+  top: 50%;
+}
+
 .-z-10{
   z-index: -10;
 }
@@ -1232,6 +1256,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .mt-7{
   margin-top: 1.75rem;
+}
+
+.ml-4{
+  margin-left: 1rem;
 }
 
 .block{
