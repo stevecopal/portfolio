@@ -2,53 +2,218 @@
    HOME REVEAL — Section / hero animation system
    ═══════════════════════════════════════════════════════
 
-   Initial hidden states are gated behind `html.hr`, a class
-   added by home-reveal.js — if the script never runs,
-   content stays fully visible (progressive enhancement).
-*/
+   Progressive enhancement: hidden states are gated behind
+   `html.hr` — if JS never runs, content stays visible.
 
-/* ── INITIAL HIDDEN STATES (JS active only) ────────────── */
-html.hr [data-hero-reveal],
+   Attributes:
+     data-reveal-section         — section container
+     data-reveal="left|right|up|down|scale" — direction
+     data-reveal-stagger="80"    — custom stagger ms
+     data-reveal-item            — internal element
+     data-reveal-item="fade|slide-left|slide-right|slide-up|slide-down|scale|blur"
+     data-reveal-grid            — card cascade container
+     data-reveal-card            — card element
+     data-hero-reveal="ms"       — hero timed reveal
+     data-reveal-decoration      — decorative element
+     data-reveal-text="words"    — word-by-word text
+     data-reveal-repeat="true"   — re-animate on re-entry
+   ═══════════════════════════════════════════════════════ */
+
+/* ── 1. CSS VARIABLES ──────────────────────────────── */
+:root {
+    --reveal-duration-section: 850ms;
+    --reveal-duration-item: 650ms;
+    --reveal-duration-card: 600ms;
+    --reveal-stagger: 80ms;
+    --reveal-card-stagger: 100ms;
+    --reveal-distance: 60px;
+    --reveal-distance-sm: 40px;
+    --reveal-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --reveal-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --reveal-blur: 6px;
+    --reveal-scale: 0.94;
+    --reveal-signature: rgba(21, 163, 74, 0.35);
+    --reveal-section-delay: 200ms;
+}
+
+/* ── 2. GATE — INITIAL HIDDEN STATES ──────────────── */
+html.hr [data-reveal-section],
 html.hr [data-reveal-item],
-html.hr [data-reveal-card] {
+html.hr [data-reveal-card],
+html.hr [data-hero-reveal],
+html.hr [data-reveal-decoration] {
     opacity: 0;
     will-change: opacity, transform;
 }
 
-html.hr [data-hero-reveal] {
-    transform: translateY(22px);
+/* ── 3. SECTION REVEAL — DIRECTIONS ───────────────── */
+html.hr [data-reveal-section][data-reveal="left"] {
+    transform: translate3d(calc(-1 * var(--reveal-distance)), 0, 0);
+}
+html.hr [data-reveal-section][data-reveal="right"] {
+    transform: translate3d(var(--reveal-distance), 0, 0);
+}
+html.hr [data-reveal-section][data-reveal="down"] {
+    transform: translate3d(0, calc(-1 * var(--reveal-distance)), 0);
+}
+html.hr [data-reveal-section][data-reveal="scale"] {
+    transform: scale(var(--reveal-scale));
+    filter: blur(4px);
+}
+html.hr [data-reveal-section][data-reveal="up"],
+html.hr [data-reveal-section]:not([data-reveal]) {
+    transform: translate3d(0, var(--reveal-distance), 0);
 }
 
+/* ── 4. SECTION REVEALED STATE ─────────────────────── */
+html.hr [data-reveal-section].hr-in {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: none;
+    will-change: auto;
+    transition:
+        opacity var(--reveal-duration-section) var(--reveal-ease),
+        transform var(--reveal-duration-section) var(--reveal-ease),
+        filter var(--reveal-duration-section) var(--reveal-ease);
+}
+
+/* ── 5. ITEM REVEAL — DEFAULT (slide-up + blur) ───── */
+html.hr [data-reveal-item] {
+    transform: translate3d(0, var(--reveal-distance-sm), 0);
+    filter: blur(var(--reveal-blur));
+}
+
+/* ── 6. ITEM REVEAL — TYPES ───────────────────────── */
 html.hr [data-reveal-item="fade"] {
     transform: none;
+    filter: none;
+}
+html.hr [data-reveal-item="slide-left"] {
+    transform: translate3d(calc(-1 * var(--reveal-distance-sm)), 0, 0);
+}
+html.hr [data-reveal-item="slide-right"] {
+    transform: translate3d(var(--reveal-distance-sm), 0, 0);
+}
+html.hr [data-reveal-item="slide-up"] {
+    transform: translate3d(0, var(--reveal-distance-sm), 0);
+}
+html.hr [data-reveal-item="slide-down"] {
+    transform: translate3d(0, calc(-1 * var(--reveal-distance-sm)), 0);
+}
+html.hr [data-reveal-item="scale"] {
+    transform: scale(var(--reveal-scale));
+    filter: none;
+}
+html.hr [data-reveal-item="blur"] {
+    transform: none;
+    filter: blur(8px);
 }
 
-html.hr [data-reveal-item="slide-up"] {
+/* ── 7. ITEM + DECORATION REVEALED STATE ───────────── */
+html.hr [data-reveal-item].hr-in,
+html.hr [data-reveal-decoration].hr-in {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: none;
+    will-change: auto;
+    transition:
+        opacity var(--reveal-duration-item) var(--reveal-ease),
+        transform var(--reveal-duration-item) var(--reveal-ease),
+        filter var(--reveal-duration-item) var(--reveal-ease);
+}
+
+/* ── 8. CARD REVEAL ────────────────────────────────── */
+html.hr [data-reveal-card] {
     transform: translateY(24px);
 }
-
-html.hr [data-reveal-card] {
-    transform: translateY(20px);
-}
-
-/* ── REVEALED STATE ───────────────────────────────────── */
-html.hr [data-hero-reveal].hr-in,
-html.hr [data-reveal-item].hr-in,
 html.hr [data-reveal-card].hr-in {
     opacity: 1;
     transform: translateY(0);
+    will-change: auto;
     transition:
-        opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        opacity var(--reveal-duration-card) var(--reveal-ease),
+        transform var(--reveal-duration-card) var(--reveal-ease);
 }
 
-/* ── REDUCED MOTION ───────────────────────────────────── */
+/* ── 9. HERO REVEAL ────────────────────────────────── */
+html.hr [data-hero-reveal] {
+    transform: translateY(22px);
+}
+html.hr [data-hero-reveal].hr-in {
+    opacity: 1;
+    transform: translateY(0);
+    will-change: auto;
+    transition:
+        opacity 0.6s var(--reveal-ease-out),
+        transform 0.7s var(--reveal-ease-out);
+}
+
+/* ── 10. GREEN SIGNATURE ───────────────────────────── */
+[data-reveal-section].hr-in::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 15%;
+    right: 15%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--reveal-signature), transparent);
+    transform: scaleX(0);
+    pointer-events: none;
+    z-index: 1;
+    animation: hr-sig 1.5s var(--reveal-ease-out) 0.3s forwards;
+}
+
+@keyframes hr-sig {
+    0%   { transform: scaleX(0); opacity: 0; }
+    35%  { transform: scaleX(1); opacity: 1; }
+    100% { transform: scaleX(1); opacity: 0; }
+}
+
+/* ── 11. WORD TEXT REVEAL ──────────────────────────── */
+html.hr [data-reveal-text] .hr-word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+        opacity 0.4s var(--reveal-ease),
+        transform 0.4s var(--reveal-ease);
+}
+html.hr [data-reveal-text].hr-in .hr-word {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ── 12. REDUCED MOTION ────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-    html.hr [data-hero-reveal],
+    html.hr [data-reveal-section],
     html.hr [data-reveal-item],
-    html.hr [data-reveal-card] {
+    html.hr [data-reveal-card],
+    html.hr [data-hero-reveal],
+    html.hr [data-reveal-decoration] {
+        opacity: 1;
+        transform: none;
+        filter: none;
+        transition: none;
+        will-change: auto;
+    }
+    html.hr [data-reveal-text] .hr-word {
         opacity: 1;
         transform: none;
         transition: none;
+    }
+    [data-reveal-section].hr-in::after {
+        animation: none;
+    }
+}
+
+/* ── 13. MOBILE ────────────────────────────────────── */
+@media (max-width: 768px) {
+    :root {
+        --reveal-distance: 30px;
+        --reveal-distance-sm: 20px;
+        --reveal-duration-section: 700ms;
+        --reveal-duration-item: 500ms;
+        --reveal-duration-card: 500ms;
+        --reveal-blur: 4px;
     }
 }

@@ -2446,9 +2446,4 @@ body::before {
   .lg\:gap-16{
     gap: 4rem;
   }
-
-  .lg\:py-2{
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-  }
 }

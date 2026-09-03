@@ -180,14 +180,14 @@
     }
 </style>
 
-<section id="about" class="relative py-20 md:py-28" style="background-color: #FFFFFF;">
+<section id="about" class="relative py-20 md:py-28" style="background-color: #FFFFFF;" data-reveal-section data-reveal="up">
     <div class="max-w-6xl mx-auto px-5">
 
         {# ── 3 columns on desktop ── #}
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-14 items-start">
 
             {# ═════ COL 1 — STORY ═════ #}
-            <div class="reveal">
+            <div data-reveal-item>
                 <div>
                     <span class="inline-flex items-center gap-2 mb-4" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
                         <span class="w-8 h-px" style="background-color: #15A34A;"></span>
@@ -218,7 +218,7 @@
             </div>
 
             {# ═════ COL 2 — ORBITING IDENTITY ═════ #}
-            <div class="reveal lg:py-2" style="transition-delay: 120ms;">
+            <div data-reveal-item>
                 <div class="hp-orbit-stage">
 
                     {# Static dashed rings #}
@@ -328,7 +328,7 @@
             </div>
 
             {# ═════ COL 3 — APPROACH, PHILOSOPHY & TOOLBOX ═════ #}
-            <div class="reveal space-y-6" style="transition-delay: 240ms;">
+            <div data-reveal-item>
                 {# Approach #}
                 <div class="hp-card">
                     <div class="hp-card-icon"><i class="fas fa-compass" aria-hidden="true"></i></div>

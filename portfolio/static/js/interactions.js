@@ -47,19 +47,19 @@
 
   var CONFIG = {
     // Initial cover hold on a fresh load (ms)
-    firstPaintDelay: 650,
+    firstPaintDelay: 450,
 
     // Delay before native navigation fires after a click (ms)
-    navigationDelay: 240,
+    navigationDelay: 800,
 
     // Progress fill duration (ms)
-    progressDuration: 900,
+    progressDuration: 500,
 
     // READY flash before the loader lifts (ms)
-    readyHold: 280,
+    readyHold: 80,
 
     // Stagger between revealed content elements (ms)
-    revealStagger: 45,
+    revealStagger: 15,
 
     reducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)")
       .matches,
@@ -127,7 +127,7 @@
 
     window.setTimeout(function () {
       loader.classList.add("is-done");
-    }, 800);
+    }, 500);
   }
 
   function setPhase(text) {
@@ -490,4 +490,4 @@
   } else {
     init();
   }
-})();
+})();
