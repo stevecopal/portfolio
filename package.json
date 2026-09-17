@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Steve Satcheme Portfolio",
   "scripts": {
-    "tailwind:build": "tailwindcss -i ./portfolio/static/css/input.css -o ./portfolio/static/css/styles.css --",
-    "tailwind:watch": "tailwindcss -i ./portfolio/static/css/input.css -o ./portfolio/static/css/styles.css --watch"
+    "tailwind:build": "tailwindcss -i ./portfolio/static/css/input.css -o ./portfolio/static/css/output.css --",
+    "tailwind:watch": "tailwindcss -i ./portfolio/static/css/input.css -o ./portfolio/static/css/output.css --watch"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.16",
