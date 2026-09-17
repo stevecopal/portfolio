@@ -184,9 +184,9 @@
 <section class="pt-24 md:pt-28 pb-4">
     <div class="max-w-6xl mx-auto px-5">
         <div class="flex items-center gap-2" style="font-family: var(--font-mono); font-size: 0.75rem; color: #ADB5BD;" data-reveal="item" data-reveal-delay="1" data-reveal-element>
-            <a href="{% url 'portfolio:home' %}" style="text-decoration: none; color: inherit; transition: color 0.2s;" onmouseover="this.style.color='#0B0D0F'" onmouseout="this.style.color='#ADB5BD'" data-transition="page" data-transition-label="HOME">{% trans "HOME" %}</a>
+            <a href="{% url 'portfolio:home' %}" style="text-decoration: none; color: inherit; transition: color 0.2s;" onmouseover="this.style.color='#0B0D0F'" onmouseout="this.style.color='#ADB5BD'" data-transition="page" data-transition-label="HOME">{% trans "ACCUEIL" %}</a>
             <span>/</span>
-            <a href="{% url 'portfolio:projects' %}" style="text-decoration: none; color: inherit; transition: color 0.2s;" onmouseover="this.style.color='#0B0D0F'" onmouseout="this.style.color='#ADB5BD'" data-transition="page" data-transition-label="WORK">{% trans "WORK" %}</a>
+            <a href="{% url 'portfolio:projects' %}" style="text-decoration: none; color: inherit; transition: color 0.2s;" onmouseover="this.style.color='#0B0D0F'" onmouseout="this.style.color='#ADB5BD'" data-transition="page" data-transition-label="WORK">{% trans "PROJETS" %}</a>
             <span>/</span>
             <span style="color: #495057;">{{ project.title }}</span>
         </div>
@@ -201,7 +201,7 @@
             <div class="reveal" data-reveal="section" data-reveal-element>
                 <span class="inline-flex items-center gap-2 mb-4" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;" data-reveal="item" data-reveal-delay="1" data-reveal-element>
                     <span class="w-8 h-px" style="background-color: #15A34A;"></span>
-                    {% trans "CASE STUDY" %}
+                    {% trans "ETUDE DE CAS" %}
                 </span>
                 <h1 style="font-family: var(--font-primary); font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1.1; color: #0B0D0F; margin-bottom: 1rem;" data-reveal="title" data-reveal-delay="2" data-reveal-element>{{ project.title }}</h1>
                 <p style="color: #6C757D; font-size: 1.08rem; line-height: 1.7; max-width: 640px; margin-bottom: 1.6rem;" data-reveal="title" data-reveal-delay="3" data-reveal-element>{{ project.short_description }}</p>
@@ -211,13 +211,13 @@
                     {% if project.live_url %}
                     <a href="{{ project.live_url }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg font-medium transition-all duration-200" style="font-family: var(--font-display); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF; text-decoration: none; padding: 0.62rem 1.25rem;">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                        <span>{% trans "LIVE DEMO" %}</span>
+                        <span>{% trans "DEMO EN DIRECT" %}</span>
                     </a>
                     {% endif %}
                     {% if project.github_url %}
                     <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg font-medium transition-all duration-200" style="font-family: var(--font-display); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: transparent; color: #0B0D0F; border: 2px solid #E9ECEF; text-decoration: none; padding: 0.62rem 1.25rem;">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.947-.695.074-.688.074-.688 1.003.07 1.539 1.032 1.539 1.032.892 1.534 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.9 2.651.636.408.292 1.427.292 1.427 2.22.757 4.342 1.82 4.342 3.012 0 1.466-.325 2.688-.965 2.688-.666.376-.872.904-.872 1.855 0 .752.366 1.36.644 1.703.005.266.208.578.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
-                        <span>{% trans "VIEW CODE" %}</span>
+                        <span>{% trans "VOIR LE CODE" %}</span>
                     </a>
                     {% endif %}
                 </div>
@@ -225,7 +225,7 @@
 
             {# Right: at a glance #}
             <aside class="pd-facts reveal" style="transition-delay: 120ms;">
-                <span class="pd-facts-label">{% trans "AT A GLANCE" %}</span>
+                <span class="pd-facts-label">{% trans "EN UN COUP D'OEIL" %}</span>
                 <div class="pd-facts-list" style="margin-top: 0.35rem;">
                     {% if project.client_name %}
                     <div class="pd-fact">
@@ -238,7 +238,7 @@
                         <span class="pd-fact-value">{{ project.project_date|date:"M Y" }}</span>
                     </div>
                     <div class="pd-fact">
-                        <span class="pd-fact-label">{% trans "STATUS" %}</span>
+                        <span class="pd-fact-label">{% trans "STATUT" %}</span>
                         <span class="pd-fact-value pd-fact-status">
                             <i style="background-color: {% if project.status == 'completed' %}#15A34A{% else %}#6C757D{% endif %};" aria-hidden="true"></i>
                             {{ project.get_status_display }}
@@ -279,14 +279,14 @@
         <div class="mb-6 reveal">
             <span class="inline-flex items-center gap-2" style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
                 <span class="w-6 h-px" style="background-color: #15A34A;"></span>
-                {% trans "SCREENSHOTS" %}
+                {% trans "CAPTURES D'ECRAN" %}
             </span>
         </div>
 
         <div class="pd-shots {% if gallery_images|length == 1 %}pd-shots--single{% endif %}">
             {% for image in gallery_images %}
             <figure class="pd-shot reveal">
-                <div class="pd-shot-media" tabindex="0" role="button" aria-label="{% trans 'Open screenshot in full size' %}">
+                <div class="pd-shot-media" tabindex="0" role="button" aria-label="{% trans "Ouvrir la capture d'ecran en taille complete" %}">
                     <img src="{{ image.image.url }}" alt="{{ image.caption|default:project.title }}" loading="lazy" decoding="async">
                     <span class="pd-shot-num">{{ forloop.counter|stringformat:"02d" }}</span>
                     <span class="pd-shot-zoom" aria-hidden="true">
@@ -312,9 +312,9 @@
         <div class="reveal">
             <span class="inline-flex items-center gap-2 mb-3" style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A;">
                 <span class="w-6 h-px" style="background-color: #15A34A;"></span>
-                {% trans "CONTEXT" %}
+                {% trans "CONTEXTE" %}
             </span>
-            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 0.75rem;">{% trans "The situation" %}</h2>
+            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 0.75rem;">{% trans "La situation" %}</h2>
             <div class="prose" style="color: #495057; line-height: 1.75;">{{ project.context|safe }}</div>
         </div>
         {% endif %}
@@ -324,9 +324,9 @@
         <div class="reveal">
             <span class="inline-flex items-center gap-2 mb-3" style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A;">
                 <span class="w-6 h-px" style="background-color: #15A34A;"></span>
-                {% trans "PROBLEM" %}
+                {% trans "PROBLEME" %}
             </span>
-            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 0.75rem;">{% trans "What needed to change" %}</h2>
+            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 0.75rem;">{% trans "Ce qui devait changer" %}</h2>
             <div class="prose" style="color: #495057; line-height: 1.75;">{{ project.problem|safe }}</div>
         </div>
         {% endif %}
@@ -336,9 +336,9 @@
         <div class="reveal">
             <span class="inline-flex items-center gap-2 mb-3" style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A;">
                 <span class="w-6 h-px" style="background-color: #15A34A;"></span>
-                {% trans "APPROACH" %}
+                {% trans "APPROCHE" %}
             </span>
-            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 0.75rem;">{% trans "How I thought about it" %}</h2>
+            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 0.75rem;">{% trans "Comment j'ai concu la solution" %}</h2>
             <div class="prose" style="color: #495057; line-height: 1.75;">{{ project.approach|safe }}</div>
         </div>
         {% endif %}
@@ -350,7 +350,7 @@
                 <span class="w-6 h-px" style="background-color: #15A34A;"></span>
                 {% trans "SOLUTION" %}
             </span>
-            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 0.75rem;">{% trans "What was built" %}</h2>
+            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 0.75rem;">{% trans "Ce qui a ete construit" %}</h2>
             <div class="prose" style="color: #495057; line-height: 1.75;">{{ project.solution|safe }}</div>
         </div>
         {% endif %}
@@ -360,9 +360,9 @@
         <div class="reveal">
             <span class="inline-flex items-center gap-2 mb-3" style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A;">
                 <span class="w-6 h-px" style="background-color: #15A34A;"></span>
-                {% trans "FEATURES" %}
+                {% trans "FONCTIONNALITES" %}
             </span>
-            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 0.75rem;">{% trans "Key features" %}</h2>
+            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 0.75rem;">{% trans "Fonctionnalites cles" %}</h2>
             <div class="prose" style="color: #495057; line-height: 1.75;">{{ project.features|safe }}</div>
         </div>
         {% endif %}
@@ -372,9 +372,9 @@
         <div class="reveal">
             <span class="inline-flex items-center gap-2 mb-3" style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A;">
                 <span class="w-6 h-px" style="background-color: #15A34A;"></span>
-                {% trans "RESULT" %}
+                {% trans "RESULTAT" %}
             </span>
-            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 0.75rem;">{% trans "The outcome" %}</h2>
+            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 0.75rem;">{% trans "Le resultat" %}</h2>
             <div class="prose" style="color: #495057; line-height: 1.75;">{{ project.result|safe }}</div>
         </div>
         {% endif %}
@@ -384,7 +384,7 @@
         <div class="reveal">
             <span class="inline-flex items-center gap-2 mb-3" style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #15A34A;">
                 <span class="w-6 h-px" style="background-color: #15A34A;"></span>
-                {% trans "MY ROLE" %}
+                {% trans "MON ROLE" %}
             </span>
             <div class="prose" style="color: #495057; line-height: 1.75;">{{ project.role|safe }}</div>
         </div>
@@ -393,14 +393,14 @@
         {# Legacy fields fallback #}
         {% if not project.context and not project.problem and project.description %}
         <div class="reveal">
-            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid #E9ECEF;">{% trans "Project Overview" %}</h2>
+            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid #E9ECEF;">{% trans "Vue d'ensemble du projet" %}</h2>
             <div class="prose" style="color: #495057; line-height: 1.75;">{{ project.description|safe }}</div>
         </div>
         {% endif %}
 
         {% if not project.problem and project.challenge %}
         <div class="reveal">
-            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid #E9ECEF;">{% trans "The Challenge" %}</h2>
+            <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid #E9ECEF;">{% trans "Le defi" %}</h2>
             <div class="prose" style="color: #495057; line-height: 1.75;">{{ project.challenge|safe }}</div>
         </div>
         {% endif %}
@@ -411,7 +411,7 @@
 {% if related_projects %}
 <section class="py-14 md:py-16" style="background-color: #F8F9FA;">
     <div class="max-w-6xl mx-auto px-5">
-        <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 1.5rem;">{% trans "Related projects" %}</h2>
+        <h2 style="font-family: var(--font-primary); font-size: 1.5rem; color: #0B0D0F; margin-bottom: 1.5rem;">{% trans "Projets lies" %}</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
             {% for rp in related_projects %}
             <a href="{% url 'portfolio:project_detail' rp.slug %}" class="group block rounded-xl overflow-hidden border transition-all duration-300 project-card" style="background-color: #FFFFFF; border-color: #E9ECEF; text-decoration: none; color: inherit;" data-transition="project" data-transition-label="{{ rp.title|upper }}">
@@ -434,14 +434,14 @@
 {# CTA #}
 <section class="py-14 md:py-16" style="background-color: #0B0D0F; color: #fff;">
     <div class="max-w-4xl mx-auto px-5 text-center">
-        <h2 style="font-family: var(--font-primary); font-size: 1.75rem; margin-bottom: 0.75rem;">{% trans "Like this project?" %}</h2>
-        <p style="color: #ADB5BD; font-size: 1rem; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">{% trans "Let's discuss how we can build something similar for your business." %}</p>
+        <h2 style="font-family: var(--font-primary); font-size: 1.75rem; margin-bottom: 0.75rem;">{% trans "Vous aimez ce projet ?" %}</h2>
+        <p style="color: #ADB5BD; font-size: 1rem; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">{% trans "Discutons de comment nous pouvons construire quelque chose de similaire pour votre entreprise." %}</p>
         <div class="flex flex-col sm:flex-row justify-center gap-3">
             <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: #FFFFFF; color: #0B0D0F; text-decoration: none; padding: 0.85rem 1.75rem;" data-transition="page" data-transition-label="CONTACT">
-                {% trans "START A PROJECT" %}
+                {% trans "LANCER UN PROJET" %}
             </a>
             <a href="{% url 'portfolio:projects' %}" class="inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: transparent; color: #FFFFFF; border: 2px solid rgba(255,255,255,0.2); text-decoration: none; padding: 0.85rem 1.75rem;" data-transition="page" data-transition-label="WORK">
-                {% trans "VIEW ALL PROJECTS" %}
+                {% trans "VOIR TOUS LES PROJETS" %}
             </a>
         </div>
     </div>

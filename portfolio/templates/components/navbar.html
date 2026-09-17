@@ -10,12 +10,11 @@
         src="{% if profile.logo %}{{ profile.logo.url }}{% else %}{% static 'images/logo.jpeg' %}{% endif %}"
         alt="{{ site_settings.site_name|default:'COPAL' }}"
         class="navbar__logo-img">
-      <span class="navbar__brand">COPAL</span>
     </a>
 
     {# ---------- Navigation desktop ---------- #}
     <nav class="navbar__nav" aria-label="{% trans 'Navigation principale' %}">
-      <a href="{% url 'portfolio:home' %}" class="nav-link" data-transition="page" data-transition-label="HOME">{% trans "HOME" %}</a>
+      <a href="{% url 'portfolio:home' %}" class="nav-link" data-transition="page" data-transition-label="HOME">{% trans "ACCUEIL" %}</a>
       <a href="{% url 'portfolio:services' %}" class="nav-link" data-transition="page" data-transition-label="SOLUTIONS">{% trans "SOLUTIONS" %}</a>
       <a href="{% url 'portfolio:experience' %}" class="nav-link" data-transition="page" data-transition-label="EXPERIENCE">{% trans "EXPERIENCE" %}</a>
     </nav>
@@ -25,7 +24,7 @@
       <div class="navbar__lang">{% include 'components/language_switcher.html' %}</div>
 
       <a href="{% url 'portfolio:contact' %}" class="nav-cta" data-transition="page" data-transition-label="CONTACT">
-        {% trans "LET'S TALK" %}
+        {% trans "PARLONS-EN" %}
       </a>
 
       <button id="hamburgerBtn" class="hamburger" type="button"
@@ -45,11 +44,7 @@
 <aside id="mobileMenu" class="mobile-menu" aria-hidden="true" aria-label="{% trans 'Menu mobile' %}">
 
   <div class="mobile-menu__head">
-    <a href="{% url 'portfolio:home' %}" class="navbar__logo" tabindex="-1" aria-hidden="true">
-      <img src="{% if profile.logo %}{{ profile.logo.url }}{% else %}{% static 'images/logo.jpeg' %}{% endif %}"
-           alt="" class="navbar__logo-img">
-      <span class="navbar__brand">COPAL</span>
-    </a>
+    
 
     <button id="mobileCloseBtn" class="mobile-close" type="button" aria-label="{% trans 'Fermer le menu' %}">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
@@ -62,7 +57,7 @@
   <nav class="mobile-menu__nav">
     <a href="{% url 'portfolio:home' %}" class="mobile-nav-link" data-transition="page" data-transition-label="HOME">
       <span class="mobile-nav-link__num">01</span>
-      <span class="mobile-nav-link__text">{% trans "HOME" %}</span>
+      <span class="mobile-nav-link__text">{% trans "ACCUEIL" %}</span>
     </a>
     <a href="{% url 'portfolio:services' %}" class="mobile-nav-link" data-transition="page" data-transition-label="SOLUTIONS">
       <span class="mobile-nav-link__num">02</span>

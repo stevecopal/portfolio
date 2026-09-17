@@ -9,21 +9,21 @@
         </span>
 
         <h2 style="font-family: var(--font-primary); font-size: clamp(1.8rem, 4vw, 2.8rem); color: #FFFFFF; margin-bottom: 1rem;" data-reveal-item>
-            {% trans "Ready to solve your problem?" %}
+            {% trans "Pret a resoudre votre probleme ?" %}
         </h2>
 
         <p style="color: #ADB5BD; font-size: 1.1rem; max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.7;" data-reveal-item>
-            {% trans "Tell me about your project. No technical knowledge needed — just describe what you need." %}
+            {% trans "Parlez-moi de votre projet. Aucune connaissance technique requise — decrivez simplement ce dont vous avez besoin." %}
         </p>
 
         <div class="flex flex-col sm:flex-row justify-center gap-4" data-reveal-item>
             <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.92rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF; border: 2px solid #15A34A;" data-transition="page" data-transition-label="CONTACT">
-                {% trans "DESCRIBE YOUR PROJECT" %}
+                {% trans "DECRIRE VOTRE PROJET" %}
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
             </a>
             {% if profile.email %}
             <a href="mailto:{{ profile.email }}" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.92rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: transparent; color: #FFFFFF; border: 2px solid rgba(255,255,255,0.2);">
-                {% trans "SEND AN EMAIL" %}
+                {% trans "ENVOYER UN EMAIL" %}
             </a>
             {% endif %}
         </div>

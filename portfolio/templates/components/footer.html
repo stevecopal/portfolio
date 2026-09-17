@@ -4,10 +4,10 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
             {# About #}
             <div>
-                <h3 style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #15A34A; margin-bottom: 1rem;">{% trans "ABOUT" %}</h3>
+                <h3 style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #15A34A; margin-bottom: 1rem;">{% trans "A PROPOS" %}</h3>
                 <p style="color: #ADB5BD; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem;">{{ site_settings.short_description }}</p>
                 <div class="flex items-center gap-2" style="color: #6C757D; font-size: 0.85rem;">
-                    <span>{% trans "Based in" %} {{ profile.country }}, {{ profile.city }}</span>
+                    <span>{% trans "Base a" %} {{ profile.country }}, {{ profile.city }}</span>
                 </div>
             </div>
 
@@ -29,10 +29,10 @@
                 <nav class="flex flex-col gap-2">
                     <a href="{% url 'portfolio:services' %}" style="color: #ADB5BD; font-size: 0.88rem; transition: color 0.2s; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#ADB5BD'">{% trans "Solutions" %}</a>
                     <a href="{% url 'portfolio:experience' %}" style="color: #ADB5BD; font-size: 0.88rem; transition: color 0.2s; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#ADB5BD'">{% trans "Experience" %}</a>
-                    <a href="{% url 'portfolio:projects' %}" style="color: #ADB5BD; font-size: 0.88rem; transition: color 0.2s; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#ADB5BD'">{% trans "Work" %}</a>
+                    <a href="{% url 'portfolio:projects' %}" style="color: #ADB5BD; font-size: 0.88rem; transition: color 0.2s; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#ADB5BD'">{% trans "Projets" %}</a>
                     <a href="{% url 'portfolio:contact' %}" style="color: #ADB5BD; font-size: 0.88rem; transition: color 0.2s; text-decoration: none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#ADB5BD'">{% trans "Contact" %}</a>
                     {% if profile.resume_file %}
-                    <a href="{{ profile.resume_file.url }}" download style="color: #15A34A; font-size: 0.88rem; transition: color 0.2s; text-decoration: none;">{% trans "Download CV" %}</a>
+                    <a href="{{ profile.resume_file.url }}" download style="color: #15A34A; font-size: 0.88rem; transition: color 0.2s; text-decoration: none;">{% trans "Telecharger CV" %}</a>
                     {% endif %}
                 </nav>
             </div>
@@ -64,8 +64,8 @@
 
         {# Bottom bar #}
         <div class="mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4" style="border-top: 1px solid rgba(255,255,255,0.08);">
-            <p style="color: #6C757D; font-size: 0.8rem;">{{ site_settings.copyright_text|default:'© 2026 Copal Satcheme. All rights reserved.' }}</p>
-            <p style="color: #495057; font-size: 0.75rem; font-family: var(--font-mono); letter-spacing: 0.05em;">{% trans "BUILD WITH INTENTION" %}</p>
+            <p style="color: #6C757D; font-size: 0.8rem;">{{ site_settings.copyright_text|default:'© 2026 Copal Satcheme. Tous droits reserves.' }}</p>
+            <p style="color: #495057; font-size: 0.75rem; font-family: var(--font-mono); letter-spacing: 0.05em;">{% trans "CONSTRUIRE AVEC INTENTION" %}</p>
         </div>
     </div>
 </footer>

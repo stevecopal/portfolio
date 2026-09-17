@@ -11,44 +11,44 @@
             <div class="hero__left" data-reveal-element>
                
                 <h1 class="hero__title" data-hero-reveal="150" data-reveal-element>
-                    <span class="hero__title-line">{% trans "You bring" %} <span class="hero__title-accent">{% trans "the problem." %}</span></span>
-                    <span class="hero__title-line">{% trans "I build" %} <span class="hero__title-accent">{% trans "the solution." %}</span></span>
+                    <span class="hero__title-line">{% trans "Vous apportez" %} <span class="hero__title-accent">{% trans "le probleme." %}</span></span>
+                    <span class="hero__title-line">{% trans "Je construis" %} <span class="hero__title-accent">{% trans "la solution." %}</span></span>
                 </h1>
 
                 <p class="hero__desc" data-hero-reveal="350" data-reveal-element>
-                    {% trans "I design and build custom digital systems that solve real business problems and drive measurable results." %}
+                    {% trans "Je conçois et developpe des systemes numeriques sur mesure qui resolvent de vrais problemes d'entreprise et generent des resultats mesurables." %}
                 </p>
 
                 <div class="hero__ctas" data-hero-reveal="550" data-reveal-element>
                     <a href="#work" class="hero__cta hero__cta--green">
-                        {% trans "SEE WHAT I'VE BUILT" %}
+                        {% trans "VOIR MES REALISATIONS" %}
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10" />
                         </svg>
                     </a>
                     <a href="#contact" class="hero__cta hero__cta--ghost">
-                        {% trans "TELL ME YOUR PROJECT" %}
+                        {% trans "PARLEZ-MOI DE VOTRE PROJET" %}
                     </a>
                 </div>
 
                 {% if profile.availability_status %}
                 <div class="hero__availability" data-hero-reveal="700" data-reveal-element>
                     <span class="hero__availability-dot" aria-hidden="true"></span>
-                    <span>{{ profile.availability_message|default:"Available for new projects" }}</span>
+                    <span>{{ profile.availability_message|default:"Disponible pour de nouveaux projets" }}</span>
                 </div>
                 {% endif %}
             </div>
 
             {# ── RIGHT : THE CORE ────────────────────────────── #}
             <div class="hero__right" data-hero-reveal="500">
-                <div id="theCore" class="core" role="img" aria-label="Animated visual of a digital system core being built">
+                <div id="theCore" class="core" role="img" aria-label="Animation visuelle du coeur d'un systeme numerique en construction">
                     <canvas id="coreCanvas" class="core__canvas" aria-hidden="true"></canvas>
 
-                    <span class="core__label core__label--tr" data-core-label="tr" aria-hidden="true"><b>01</b> ANALYZE</span>
-                    <span class="core__label core__label--r" data-core-label="r" aria-hidden="true"><b>02</b> DESIGN</span>
-                    <span class="core__label core__label--br" data-core-label="br" aria-hidden="true"><b>03</b> BUILD</span>
-                    <span class="core__label core__label--bl" data-core-label="bl" aria-hidden="true"><b>04</b> DEPLOY</span>
-                    <span class="core__label core__label--tl" data-core-label="tl" aria-hidden="true"><b>05</b> EVOLVE</span>
+                    <span class="core__label core__label--tr" data-core-label="tr" aria-hidden="true"><b>01</b> ANALYSER</span>
+                    <span class="core__label core__label--r" data-core-label="r" aria-hidden="true"><b>02</b> CONCEVOIR</span>
+                    <span class="core__label core__label--br" data-core-label="br" aria-hidden="true"><b>03</b> CONSTRUIRE</span>
+                    <span class="core__label core__label--bl" data-core-label="bl" aria-hidden="true"><b>04</b> DEPLOYER</span>
+                    <span class="core__label core__label--tl" data-core-label="tl" aria-hidden="true"><b>05</b> EVOLUER</span>
                 </div>
             </div>
         </div>
@@ -58,7 +58,7 @@
     <div class="hero__footer" aria-hidden="true" data-hero-reveal="800">
         <span class="hero__scroll">
             <span class="hero__scroll-icon"></span>
-            {% trans "SCROLL TO EXPLORE" %}
+            {% trans "DEFEILER POUR EXPLORER" %}
         </span>
     </div>
 </section>

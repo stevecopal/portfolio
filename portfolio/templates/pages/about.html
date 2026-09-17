@@ -139,13 +139,13 @@
         <div class="mb-12 md:mb-16 reveal">
             <span class="inline-flex items-center gap-2 mb-4" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
                 <span class="w-8 h-px" style="background-color: #15A34A;"></span>
-                {% trans "ABOUT" %}
+                {% trans "A PROPOS" %}
             </span>
             <h1 style="font-family: var(--font-primary); font-size: clamp(2rem, 4vw, 2.9rem); color: #0B0D0F; line-height: 1.1; margin-bottom: 0.75rem;">
-                {% trans "The person behind the solutions" %}
+                {% trans "La personne derriere les solutions" %}
             </h1>
             <p style="color: #6C757D; font-size: 1.02rem; max-width: 560px; line-height: 1.7;">
-                {% trans "A quick portrait — who I am, the tools I master, and the way I work." %}
+                {% trans "Un portrait rapide — qui je suis, les outils que je maitrise et ma maniere de travailler." %}
             </p>
         </div>
 
@@ -156,7 +156,7 @@
             <div class="reveal">
                 <span class="inline-flex items-center gap-2 mb-5" style="font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
                     <span class="w-8 h-px" style="background-color: #15A34A;"></span>
-                    {% trans "01 / The story" %}
+                    {% trans "01 / L'histoire" %}
                 </span>
 
                 <div class="ab-story">
@@ -182,10 +182,10 @@
                 {% if tools %}
                 <div class="p-6 rounded-2xl border" style="background-color: #FFFFFF; border-color: #E9ECEF; box-shadow: 0 6px 24px rgba(11,13,15,0.04);">
                     <span class="inline-block mb-3" style="font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
-                        {% trans "02 / Toolbox" %}
+                        {% trans "02 / Boite a outils" %}
                     </span>
                     <h3 style="font-family: var(--font-primary); font-size: 1.25rem; color: #0B0D0F; margin-bottom: 1.1rem;">
-                        {% trans "Tools I work with" %}
+                        {% trans "Les outils que j'utilise" %}
                     </h3>
                     <div class="flex flex-wrap gap-2">
                         {% for tool in tools %}
@@ -198,18 +198,18 @@
                 {# How I work #}
                 <div class="p-6 rounded-2xl border" style="background-color: #FFFFFF; border-color: #E9ECEF; box-shadow: 0 6px 24px rgba(11,13,15,0.04);">
                     <span class="inline-block mb-3" style="font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
-                        {% trans "03 / How I work" %}
+                        {% trans "03 / Comment je travaille" %}
                     </span>
                     <div class="ab-step">
                         <span class="ab-step-num">01</span>
                         <p style="color: #495057; font-size: 0.93rem; line-height: 1.7;">
-                            {% trans "I believe that technology should serve people, not the other way around. Every project starts with understanding the real problem before writing a single line of code." %}
+                            {% trans "Je crois que la technologie doit servir les gens, pas l'inverse. Chaque projet commence par la comprehension du vrai probleme avant d'ecrire une seule ligne de code." %}
                         </p>
                     </div>
                     <div class="ab-step">
                         <span class="ab-step-num">02</span>
                         <p style="color: #495057; font-size: 0.93rem; line-height: 1.7;">
-                            {% trans "I work closely with my clients to transform their needs into solutions that are simple, functional, and effective. The result speaks for itself." %}
+                            {% trans "Je travaille etroitement avec mes clients pour transformer leurs besoins en solutions simples, fonctionnelles et efficaces. Le resultat parle de lui-meme." %}
                         </p>
                     </div>
                 </div>
@@ -261,7 +261,7 @@
                             <div class="ab-info">
                                 <div class="ab-info-icon"><i class="fas fa-location-dot" aria-hidden="true"></i></div>
                                 <div>
-                                    <p style="font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ADB5BD; margin-bottom: 0.1rem;">{% trans "Location" %}</p>
+                                    <p style="font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ADB5BD; margin-bottom: 0.1rem;">{% trans "Localisation" %}</p>
                                     <p style="font-size: 0.9rem; color: #343A40;">{{ profile.location }}, {{ profile.country }}</p>
                                 </div>
                             </div>
@@ -276,7 +276,7 @@
                             <div class="ab-info">
                                 <div class="ab-info-icon"><i class="fas fa-phone" aria-hidden="true"></i></div>
                                 <div>
-                                    <p style="font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ADB5BD; margin-bottom: 0.1rem;">{% trans "Phone" %}</p>
+                                    <p style="font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ADB5BD; margin-bottom: 0.1rem;">{% trans "Telephone" %}</p>
                                     <p style="font-size: 0.9rem; color: #343A40;">{{ profile.phone }}</p>
                                 </div>
                             </div>
@@ -288,10 +288,10 @@
                         <div class="mt-6">
                             <a href="{{ profile.resume_file.url }}" download class="ab-btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                                <span>{% trans "Download CV" %}</span>
+                                <span>{% trans "Telecharger CV" %}</span>
                             </a>
                             <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center w-full mt-3" style="font-family: var(--font-display); font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; color: #15A34A; text-decoration: none; column-gap: 0.35rem;">
-                                {% trans "or let's talk" %}
+                                {% trans "ou parlons-en" %}
                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                             </a>
                         </div>
@@ -307,10 +307,10 @@
 {# CTA #}
 <section class="py-16" style="background-color: #0B0D0F;">
     <div class="max-w-4xl mx-auto px-5 text-center">
-        <h2 style="font-family: var(--font-primary); font-size: 1.75rem; color: #FFFFFF; margin-bottom: 0.75rem;">{% trans "Ready to work together?" %}</h2>
-        <p style="color: #ADB5BD; font-size: 1rem; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">{% trans "Let's discuss your project and how I can help bring your ideas to life." %}</p>
+        <h2 style="font-family: var(--font-primary); font-size: 1.75rem; color: #FFFFFF; margin-bottom: 0.75rem;">{% trans "Pret a collaborer ?" %}</h2>
+        <p style="color: #ADB5BD; font-size: 1rem; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">{% trans "Discutons de votre projet et de comment je peux vous aider a donner vie a vos idees." %}</p>
         <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF; border: 2px solid #15A34A; padding: 0.85rem 1.75rem;">
-            {% trans "START A PROJECT" %}
+            {% trans "LANCER UN PROJET" %}
         </a>
     </div>
 </section>

@@ -46,11 +46,11 @@
                 {# CTAs #}
                 <div class="flex flex-col sm:flex-row gap-4">
                     <a href="{% url 'portfolio:contact' %}?service={{ service.slug }}" class="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-lg font-medium transition-all duration-300 hover:shadow-lg hover:shadow-green-500/20" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.06em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF; text-decoration: none;" data-transition="page" data-transition-label="CONTACT">
-                        {% trans "DISCUSS MY PROJECT" %}
+                        {% trans "PARLER DE MON PROJET" %}
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                     </a>
                     <a href="{% url 'portfolio:services' %}" class="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.06em; text-transform: uppercase; background-color: transparent; color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.12); text-decoration: none;" data-transition="page" data-transition-label="SOLUTIONS">
-                        {% trans "ALL SOLUTIONS" %}
+                        {% trans "TOUTES LES SOLUTIONS" %}
                     </a>
                 </div>
             </div>
@@ -499,7 +499,7 @@
                     <h3 style="font-family: var(--font-primary); font-size: 1.1rem; color: #0B0D0F; margin-bottom: 0.35rem;">{{ project.title }}</h3>
                     <p style="color: #6C757D; font-size: 0.88rem; line-height: 1.55;">{{ project.short_description|truncatewords:18 }}</p>
                     <div class="flex items-center gap-2 mt-4" style="font-family: var(--font-display); font-size: 0.78rem; font-weight: 500; color: #15A34A;">
-                        {% trans "VIEW CASE STUDY" %}
+                        {% trans "VOIR L'ÉTUDE DE CAS" %}
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                     </div>
                 </div>
@@ -518,7 +518,7 @@
         <div class="reveal p-8 rounded-2xl" style="background-color: #FFFFFF; border: 1px solid #E9ECEF;">
             <div class="flex items-center gap-3 mb-4">
                 <span class="w-6 h-px" style="background-color: #ADB5BD;"></span>
-                <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ADB5BD;">{% trans "UNDER THE HOOD" %}</span>
+                        <span style="font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: #ADB5BD;">{% trans "EN COULISSES TECHNIQUES" %}</span>
             </div>
             <h3 style="font-family: var(--font-primary); font-size: 1.2rem; color: #0B0D0F; margin-bottom: 0.75rem;">{% trans "Détails techniques" %}</h3>
             <p style="color: #6C757D; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem;">

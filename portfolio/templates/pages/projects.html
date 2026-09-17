@@ -8,13 +8,13 @@
         <div class="mb-12" data-reveal="section" data-reveal-element>
             <span class="inline-flex items-center gap-2 mb-4" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;" data-reveal="item" data-reveal-delay="1" data-reveal-element>
                 <span class="w-8 h-px" style="background-color: #15A34A;"></span>
-                {% trans "WORK" %}
+                {% trans "PROJETS" %}
             </span>
             <h1 style="font-family: var(--font-primary); font-size: clamp(2rem, 4vw, 2.8rem); color: #0B0D0F; margin-bottom: 0.75rem;" data-reveal="title" data-reveal-delay="2" data-reveal-element>
-                {% trans "Built solutions, not just code" %}
+                {% trans "Des solutions construites, pas seulement du code" %}
             </h1>
             <p style="color: #6C757D; font-size: 1.05rem; line-height: 1.65; max-width: 560px;" data-reveal="title" data-reveal-delay="3" data-reveal-element>
-                {% trans "Each project represents a real problem solved. Here's what I've built." %}
+                {% trans "Chaque projet represente un probleme resolu. Voici ce que j'ai construit." %}
             </p>
         </div>
 
@@ -22,7 +22,7 @@
         {% if technologies %}
         <div class="flex flex-wrap gap-2 mb-10">
             <a href="{% url 'portfolio:projects' %}" class="inline-flex items-center px-3 py-1.5 rounded text-xs transition-all duration-200" style="font-family: var(--font-mono); {% if not current_tech %}background-color: #0B0D0F; color: #FFFFFF;{% else %}background-color: #F1F3F5; color: #495057;{% endif %} text-decoration: none;">
-                {% trans "ALL" %}
+                {% trans "TOUS" %}
             </a>
             {% for tech in technologies %}
             <a href="?tech={{ tech.slug }}" class="inline-flex items-center px-3 py-1.5 rounded text-xs transition-all duration-200" style="font-family: var(--font-mono); {% if current_tech == tech.slug %}background-color: #0B0D0F; color: #FFFFFF;{% else %}background-color: #F1F3F5; color: #495057;{% endif %} text-decoration: none;">
@@ -44,7 +44,7 @@
                     <div class="flex justify-between items-start">
                         <h3 style="font-family: var(--font-primary); font-size: 1.1rem; color: #0B0D0F;">{{ project.title }}</h3>
                         {% if project.is_featured %}
-                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs" style="font-family: var(--font-mono); background-color: rgba(21,163,74,0.1); color: #15A34A;">{% trans "Featured" %}</span>
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs" style="font-family: var(--font-mono); background-color: rgba(21,163,74,0.1); color: #15A34A;">{% trans "En avant" %}</span>
                         {% endif %}
                     </div>
                     <p style="color: #6C757D; font-size: 0.9rem; line-height: 1.55;">{{ project.short_description|truncatewords:15 }}</p>
@@ -57,7 +57,7 @@
                         <p style="font-family: var(--font-mono); font-size: 0.7rem; color: #ADB5BD;">{{ project.project_date|date:"Y" }}</p>
                     </div>
                     <div class="flex items-center gap-1 pt-1" style="font-family: var(--font-display); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.05em; color: #15A34A;">
-                        <span>{% trans "VIEW CASE STUDY" %}</span>
+                        <span>{% trans "VOIR L'ETUDE DE CAS" %}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                     </div>
                 </div>
@@ -70,11 +70,11 @@
         <div class="flex justify-center mt-12">
             <div class="flex gap-2">
                 {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}{% if current_tech %}&tech={{ current_tech }}{% endif %}" class="inline-flex items-center px-4 py-2 rounded text-xs" style="font-family: var(--font-mono); background-color: #F1F3F5; color: #495057; text-decoration: none;">{% trans "PREVIOUS" %}</a>
+                <a href="?page={{ page_obj.previous_page_number }}{% if current_tech %}&tech={{ current_tech }}{% endif %}" class="inline-flex items-center px-4 py-2 rounded text-xs" style="font-family: var(--font-mono); background-color: #F1F3F5; color: #495057; text-decoration: none;">{% trans "PRECEDENT" %}</a>
                 {% endif %}
                 <span class="inline-flex items-center px-4 py-2 rounded text-xs" style="font-family: var(--font-mono); background-color: #0B0D0F; color: #FFFFFF;">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
                 {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}{% if current_tech %}&tech={{ current_tech }}{% endif %}" class="inline-flex items-center px-4 py-2 rounded text-xs" style="font-family: var(--font-mono); background-color: #F1F3F5; color: #495057; text-decoration: none;">{% trans "NEXT" %}</a>
+                <a href="?page={{ page_obj.next_page_number }}{% if current_tech %}&tech={{ current_tech }}{% endif %}" class="inline-flex items-center px-4 py-2 rounded text-xs" style="font-family: var(--font-mono); background-color: #F1F3F5; color: #495057; text-decoration: none;">{% trans "SUIVANT" %}</a>
                 {% endif %}
             </div>
         </div>
@@ -82,8 +82,8 @@
 
         {% else %}
         <div class="text-center py-16">
-            <p style="color: #6C757D;">{% trans "No projects found." %}</p>
-            <a href="{% url 'portfolio:home' %}" class="inline-flex items-center gap-1 mt-4" style="font-family: var(--font-display); font-size: 0.85rem; color: #15A34A; text-decoration: none;">{% trans "BACK TO HOME" %}</a>
+            <p style="color: #6C757D;">{% trans "Aucun projet trouve." %}</p>
+            <a href="{% url 'portfolio:home' %}" class="inline-flex items-center gap-1 mt-4" style="font-family: var(--font-display); font-size: 0.85rem; color: #15A34A; text-decoration: none;">{% trans "RETOUR A L'ACCUEIL" %}</a>
         </div>
         {% endif %}
     </div>
@@ -92,10 +92,10 @@
 {# CTA #}
 <section class="py-16" style="background-color: #0B0D0F;">
     <div class="max-w-4xl mx-auto px-5 text-center">
-        <h2 style="font-family: var(--font-primary); font-size: 1.75rem; color: #FFFFFF; margin-bottom: 0.75rem;">{% trans "Interested in working together?" %}</h2>
-        <p style="color: #ADB5BD; font-size: 1rem; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">{% trans "Let's discuss your project and how I can help bring your ideas to life." %}</p>
+        <h2 style="font-family: var(--font-primary); font-size: 1.75rem; color: #FFFFFF; margin-bottom: 0.75rem;">{% trans "Interesse par une collaboration ?" %}</h2>
+        <p style="color: #ADB5BD; font-size: 1rem; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">{% trans "Discutons de votre projet et de comment je peux vous aider a donner vie a vos idees." %}</p>
         <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF; border: 2px solid #15A34A;" data-transition="page" data-transition-label="CONTACT">
-            {% trans "START A PROJECT" %}
+            {% trans "LANCER UN PROJET" %}
         </a>
     </div>
 </section>

@@ -233,10 +233,10 @@
                 {% trans "EXPERIENCE" %}
             </span>
             <h1 style="font-family: var(--font-primary); font-size: clamp(2rem, 4vw, 2.9rem); color: #0B0D0F; line-height: 1.1; margin-bottom: 0.75rem;">
-                {% trans "Proof through experience" %}
+                {% trans "La preuve par l'experience" %}
             </h1>
             <p style="color: #6C757D; font-size: 1.02rem; max-width: 580px; line-height: 1.7;">
-                {% trans "Where I've worked and what I bring to the table — condensed. The full story of each mission lives in my CV." %}
+                {% trans "Ou j'ai travaille et ce que j'apporte — en resume. L'histoire complete de chaque mission se trouve dans mon CV." %}
             </p>
         </div>
 
@@ -285,7 +285,7 @@
         {% endif %}
         {% if not experiences %}
         <div class="reveal ex-empty">
-            <p style="color: #6C757D; font-size: 1rem;">{% trans "Experience details coming soon." %}</p>
+            <p style="color: #6C757D; font-size: 1rem;">{% trans "Details de l'experience bientot disponibles." %}</p>
         </div>
         {% endif %}
     </div>
@@ -294,17 +294,17 @@
 {# CTA #}
 <section class="py-16" style="background-color: #0B0D0F;">
     <div class="max-w-4xl mx-auto px-5 text-center">
-        <h2 style="font-family: var(--font-primary); font-size: 1.75rem; color: #FFFFFF; margin-bottom: 0.75rem;">{% trans "Have a similar challenge?" %}</h2>
-        <p style="color: #ADB5BD; font-size: 1rem; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">{% trans "Let's discuss your project and how my experience can help solve your problem." %}</p>
+        <h2 style="font-family: var(--font-primary); font-size: 1.75rem; color: #FFFFFF; margin-bottom: 0.75rem;">{% trans "Un defi similaire ?" %}</h2>
+        <p style="color: #ADB5BD; font-size: 1rem; max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">{% trans "Discutons de votre projet et de comment mon experience peut vous aider a resoudre votre probleme." %}</p>
         <div class="ex-cta-row">
             {% if profile.resume_file %}
             <a href="{{ profile.resume_file.url }}" download class="ex-ghost-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                <span>{% trans "DOWNLOAD CV" %}</span>
+                <span>{% trans "TELECHARGER CV" %}</span>
             </a>
             {% endif %}
             <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-300" style="font-family: var(--font-display); font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF; border: 2px solid #15A34A; padding: 0.85rem 1.75rem;">
-                {% trans "START A PROJECT" %}
+                {% trans "LANCER UN PROJET" %}
             </a>
         </div>
     </div>

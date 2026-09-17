@@ -7,10 +7,10 @@
         <div class="mb-10 md:mb-14">
             <span class="inline-flex items-center gap-2 mb-3" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
                 <span class="w-8 h-px" style="background-color: #15A34A;"></span>
-                {% trans "06 / BEHIND THE WORK" %}
+                {% trans "06 / EN COULISSES" %}
             </span>
             <h2 style="font-family: var(--font-primary); font-size: clamp(1.6rem, 3.4vw, 2.4rem); color: #0B0D0F; line-height: 1.12; margin-bottom: 0.75rem;">
-                {% trans "The person behind the solutions" %}
+                {% trans "La personne derriere les solutions" %}
             </h2>
         </div>
 
@@ -64,8 +64,8 @@
                         <i class="fas fa-compass" aria-hidden="true"></i>
                     </div>
                     <div>
-                        <h3 style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: #15A34A; margin-bottom: 0.35rem;">{% trans "APPROACH" %}</h3>
-                        <p style="color: #495057; font-size: 0.88rem; line-height: 1.65;">{% trans "Every project starts with understanding the real problem. I listen first, then I design, then I build. The result must simplify your activity, not complicate it." %}</p>
+                        <h3 style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: #15A34A; margin-bottom: 0.35rem;">{% trans "APPROCHE" %}</h3>
+                        <p style="color: #495057; font-size: 0.88rem; line-height: 1.65;">{% trans "Chaque projet commence par la comprehension du vrai probleme. J'ecoute d'abord, puis je conçois, puis je construis. Le resultat doit simplifier votre activite, pas la compliquer." %}</p>
                     </div>
                 </div>
 
@@ -75,8 +75,8 @@
                         <i class="fas fa-lightbulb" aria-hidden="true"></i>
                     </div>
                     <div>
-                        <h3 style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: #15A34A; margin-bottom: 0.35rem;">{% trans "PHILOSOPHY" %}</h3>
-                        <p style="color: #495057; font-size: 0.88rem; line-height: 1.65;">{% trans "Technology should serve people, not the other way around. I build solutions that are simple, functional, and adapted to how you actually work." %}</p>
+                        <h3 style="font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: #15A34A; margin-bottom: 0.35rem;">{% trans "PHILOSOPHIE" %}</h3>
+                        <p style="color: #495057; font-size: 0.88rem; line-height: 1.65;">{% trans "La technologie doit servir les gens, pas l'inverse. Je construis des solutions simples, fonctionnelles et adaptees a la maniere dont vous travaillez reellement." %}</p>
                     </div>
                 </div>
 
@@ -85,11 +85,11 @@
                     {% if profile.resume_file %}
                     <a href="{{ profile.resume_file.url }}" download style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.25rem; border-radius: 8px; font-family: var(--font-display); font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: transparent; color: #15A34A; border: 2px solid rgba(21,163,74,0.3); text-decoration: none; transition: all 0.3s ease;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                        {% trans "DOWNLOAD CV" %}
+                        {% trans "TELECHARGER CV" %}
                     </a>
                     {% endif %}
                     <a href="{% url 'portfolio:experience' %}" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.25rem; border-radius: 8px; font-family: var(--font-display); font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; background-color: transparent; color: #0B0D0F; border: 2px solid #E9ECEF; text-decoration: none; transition: all 0.3s ease;">
-                        {% trans "VIEW EXPERIENCE" %}
+                        {% trans "VOIR L'EXPERIENCE" %}
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                     </a>
 
@@ -97,7 +97,7 @@
                     <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border-radius: 999px; background-color: rgba(21,163,74,0.07); border: 1px solid rgba(21,163,74,0.2);">
                         <span style="width: 8px; height: 8px; border-radius: 50%; background-color: #15A34A; flex-shrink: 0;"></span>
                         <p style="font-size: 0.78rem; font-weight: 500; color: #138A3E; line-height: 1.4;">
-                            {{ profile.availability_message|default:"Available for new projects" }}
+                            {{ profile.availability_message|default:"Disponible pour de nouveaux projets" }}
                         </p>
                     </div>
                     {% endif %}
