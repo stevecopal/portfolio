@@ -1,153 +1,6 @@
 /* ═══════════════════════════════════════════════════════
-   SHADOW SIGNAL — Loader Page-Transition System
+   MICRO-INTERACTIONS & TRANSITIONS
    ═══════════════════════════════════════════════════════ */
-
-/* ── LOADING STATE ─────────────────────────────────────── */
-body.is-loading {
-    overflow: hidden;
-}
-
-body.is-loading .page-content {
-    opacity: 0;
-}
-
-/* ── PAGE LOADER ──────────────────────────────────────── */
-.page-loader {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #0B0D0F;
-    opacity: 1;
-    visibility: visible;
-    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                visibility 0s linear 0s;
-    pointer-events: all;
-}
-
-.page-loader.is-ready {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-}
-
-.page-loader.is-done {
-    display: none;
-}
-
-/* Green ambient glow */
-.page-loader__glow {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-        circle at 50% 50%,
-        rgba(21, 163, 74, 0.06),
-        transparent 34%
-    );
-}
-
-/* Faint technical grid */
-.page-loader__grid {
-    position: absolute;
-    inset: 0;
-    opacity: 0.07;
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-    background-size: 72px 72px;
-    mask-image: linear-gradient(to bottom, transparent, black 22%, black 78%, transparent);
-}
-
-.page-loader__inner {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 22px;
-}
-
-/* Luminous core + pulsing ring */
-.page-loader__core {
-    position: relative;
-    width: 9px;
-    height: 9px;
-    border-radius: 999px;
-    background-color: #15A34A;
-    box-shadow:
-        0 0 0 1px rgba(21, 163, 74, 0.18),
-        0 0 24px rgba(21, 163, 74, 0.7);
-}
-
-.page-loader__core span {
-    position: absolute;
-    inset: -14px;
-    border: 1px solid rgba(21, 163, 74, 0.22);
-    border-radius: 999px;
-    animation: loaderCorePulse 1.8s ease-out infinite;
-}
-
-@keyframes loaderCorePulse {
-    0% {
-        transform: scale(0.6);
-        opacity: 0.8;
-    }
-    100% {
-        transform: scale(1.55);
-        opacity: 0;
-    }
-}
-
-/* Cycling phase word */
-.page-loader__phase {
-    font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
-    font-size: 10px;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.55);
-}
-
-/* Hairline progress track + fill */
-.page-loader__track {
-    width: 132px;
-    height: 1px;
-    background-color: rgba(255, 255, 255, 0.1);
-    overflow: hidden;
-}
-
-.page-loader__fill {
-    height: 100%;
-    width: 0%;
-    background-color: #15A34A;
-    box-shadow: 0 0 10px rgba(21, 163, 74, 0.5);
-    transition: width 0.22s linear;
-}
-
-/* Destination label */
-.page-loader__dest {
-    min-height: 12px;
-    font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
-    font-size: 9px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(21, 163, 74, 0.85);
-}
-
-/* ── PAGE ENTER REVEAL ─────────────────────────────────── */
-[data-page-enter] {
-    opacity: 0;
-    transform: translateY(14px);
-    transition:
-        opacity 320ms cubic-bezier(0.16, 1, 0.3, 1),
-        transform 380ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-[data-page-enter].page-enter-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
 
 /* ── HOVER MICRO-INTERACTIONS ─────────────────────────── */
 .sd-interactive {
@@ -222,30 +75,7 @@ body.is-loading .page-content {
     transform: scaleX(1);
 }
 
-/* ── SCROLL REVEAL ENHANCED ───────────────────────────── */
-[data-reveal] {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-[data-reveal].revealed {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-[data-reveal="title"] {
-    transform: translateY(28px);
-}
-
-[data-reveal="item"] {
-    transform: translateY(18px);
-}
-
-[data-reveal="section"] {
-    transform: translateY(0);
-}
+/* ── SCROLL REVEAL (handled by animations.js IntersectionObserver on .reveal class) ── */
 
 /* ── PROJECT CARD HOVER ───────────────────────────────── */
 .project-card {
@@ -390,34 +220,6 @@ body.is-loading .page-content {
 
 /* ── REDUCED MOTION ───────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-    body.is-loading .page-content {
-        opacity: 1;
-    }
-
-    .page-loader {
-        transition: opacity 0.2s ease;
-    }
-
-    .page-loader__core span {
-        animation: none;
-        display: none;
-    }
-
-    .page-loader__fill {
-        transition: none;
-    }
-
-    [data-page-enter] {
-        opacity: 1;
-        transform: none;
-        transition: none;
-    }
-
-    [data-reveal] {
-        transition: opacity 0.2s ease !important;
-        transform: none !important;
-    }
-
     .project-card:hover,
     .solution-card:hover,
     .sd-interactive:hover,
@@ -437,19 +239,6 @@ body.is-loading .page-content {
 
 /* ── MOBILE SIMPLIFICATIONS ───────────────────────────── */
 @media (max-width: 768px) {
-    .page-loader__grid {
-        background-size: 52px 52px;
-        opacity: 0.05;
-    }
-
-    .page-loader__phase {
-        font-size: 9px;
-    }
-
-    .page-loader__dest {
-        font-size: 8px;
-    }
-
     .sd-card:hover {
         transform: translateY(-2px);
     }
@@ -457,4 +246,4 @@ body.is-loading .page-content {
     .project-card:hover {
         transform: translateY(-2px);
     }
-}
+}

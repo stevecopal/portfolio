@@ -1,47 +1,88 @@
 {% load static i18n %}
+
+<!-- ==================== NAVBAR ==================== -->
 <header id="navbar" class="navbar">
-    <div class="max-w-6xl mx-auto px-5 md:h-20 flex items-center justify-between">
-        {# Logo #}
-        <a href="{% url 'portfolio:home' %}" class="flex items-center gap-2 group shrink-0">
-            <img src="{% if profile.logo %}{{ profile.logo.url }}{% else %}{% static 'images/logo.jpeg' %}{% endif %}" alt="{{ site_settings.site_name|default:'COPAL' }}" class="h-20 md:h-20 w-auto">
-        </a>
+  <div class="navbar__inner">
 
-        {# Desktop nav #}
-        <nav class="hidden lg:flex items-center gap-4">
-            <a href="{% url 'portfolio:home' %}" class="nav-link" data-transition="page" data-transition-label="HOME">{% trans "HOME" %}</a>
-            <a href="{% url 'portfolio:services' %}" class="nav-link" data-transition="page" data-transition-label="SOLUTIONS">{% trans "SOLUTIONS" %}</a>
-            <a href="{% url 'portfolio:experience' %}" class="nav-link" data-transition="page" data-transition-label="EXPERIENCE">{% trans "EXPERIENCE" %}</a>
-        </nav>
+    {# ---------- Logo ---------- #}
+    <a href="{% url 'portfolio:home' %}" class="navbar__logo" aria-label="{{ site_settings.site_name|default:'COPAL' }}">
+      <img
+        src="{% if profile.logo %}{{ profile.logo.url }}{% else %}{% static 'images/logo.jpeg' %}{% endif %}"
+        alt="{{ site_settings.site_name|default:'COPAL' }}"
+        class="navbar__logo-img">
+      <span class="navbar__brand">COPAL</span>
+    </a>
 
-        {# Right side #}
-        <div class="flex items-center gap-3">
-            <div class="hidden md:block">{% include 'components/language_switcher.html' %}</div>
+    {# ---------- Navigation desktop ---------- #}
+    <nav class="navbar__nav" aria-label="{% trans 'Navigation principale' %}">
+      <a href="{% url 'portfolio:home' %}" class="nav-link" data-transition="page" data-transition-label="HOME">{% trans "HOME" %}</a>
+      <a href="{% url 'portfolio:services' %}" class="nav-link" data-transition="page" data-transition-label="SOLUTIONS">{% trans "SOLUTIONS" %}</a>
+      <a href="{% url 'portfolio:experience' %}" class="nav-link" data-transition="page" data-transition-label="EXPERIENCE">{% trans "EXPERIENCE" %}</a>
+    </nav>
 
-            <a href="{% url 'portfolio:contact' %}" class="hidden md:inline-flex items-center gap-2 px-5 py-2 rounded-lg font-medium transition-all duration-200" style="font-family: var(--font-display); font-size: 0.78rem; letter-spacing: 0.05em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF;" data-transition="page" data-transition-label="CONTACT">
-                {% trans "LET'S TALK" %}
-            </a>
-            <button id="hamburgerBtn" class="hamburger lg:hidden" aria-label="Menu"><span></span><span></span><span></span></button>
-        </div>
+    {# ---------- Actions droite ---------- #}
+    <div class="navbar__actions">
+      <div class="navbar__lang">{% include 'components/language_switcher.html' %}</div>
+
+      <a href="{% url 'portfolio:contact' %}" class="nav-cta" data-transition="page" data-transition-label="CONTACT">
+        {% trans "LET'S TALK" %}
+      </a>
+
+      <button id="hamburgerBtn" class="hamburger" type="button"
+              aria-label="{% trans 'Ouvrir le menu' %}"
+              aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
+
+  </div>
 </header>
 
-{# Mobile overlay #}
-<div id="mobileOverlay" class="mobile-overlay lg:hidden"></div>
+<!-- ==================== OVERLAY ==================== -->
+<div id="mobileOverlay" class="mobile-overlay" aria-hidden="true"></div>
 
-{# Mobile menu #}
-<div id="mobileMenu" class="mobile-menu lg:hidden">
-    <button id="mobileCloseBtn" class="absolute top-4 right-4 w-9 h-9 flex items-center justify-center rounded-lg transition-colors duration-200" style="background-color: #F1F3F5; color: #495057;" aria-label="Close menu">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+<!-- ==================== MENU MOBILE (plein ecran) ==================== -->
+<aside id="mobileMenu" class="mobile-menu" aria-hidden="true" aria-label="{% trans 'Menu mobile' %}">
+
+  <div class="mobile-menu__head">
+    <a href="{% url 'portfolio:home' %}" class="navbar__logo" tabindex="-1" aria-hidden="true">
+      <img src="{% if profile.logo %}{{ profile.logo.url }}{% else %}{% static 'images/logo.jpeg' %}{% endif %}"
+           alt="" class="navbar__logo-img">
+      <span class="navbar__brand">COPAL</span>
+    </a>
+
+    <button id="mobileCloseBtn" class="mobile-close" type="button" aria-label="{% trans 'Fermer le menu' %}">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+        <path d="M6 6l12 12M18 6L6 18"/>
+      </svg>
     </button>
-    <nav class="flex flex-col gap-4">
-        <a href="{% url 'portfolio:home' %}" class="mobile-nav-link" data-transition="page" data-transition-label="HOME">{% trans "HOME" %}</a>
-        <a href="{% url 'portfolio:services' %}" class="mobile-nav-link" data-transition="page" data-transition-label="SOLUTIONS">{% trans "SOLUTIONS" %}</a>
-        <a href="{% url 'portfolio:experience' %}" class="mobile-nav-link" data-transition="page" data-transition-label="EXPERIENCE">{% trans "EXPERIENCE" %}</a>
-    </nav><br>
-    <div class="mobile-lang-wrapper">{% include 'components/language_switcher.html' %}</div>
-    <div class="mt-6 pt-5 space-y-3">
-        <a href="{% url 'portfolio:contact' %}" class="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-lg font-medium transition-all duration-200" style="font-family: var(--font-display); font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; background-color: #15A34A; color: #FFFFFF;" data-transition="page" data-transition-label="CONTACT">
-            {% trans "LET'S TALK" %}
-        </a>
+  </div>
+
+  <nav class="mobile-menu__nav">
+    <a href="{% url 'portfolio:home' %}" class="mobile-nav-link" data-transition="page" data-transition-label="HOME">
+      <span class="mobile-nav-link__num">01</span>
+      <span class="mobile-nav-link__text">{% trans "HOME" %}</span>
+    </a>
+    <a href="{% url 'portfolio:services' %}" class="mobile-nav-link" data-transition="page" data-transition-label="SOLUTIONS">
+      <span class="mobile-nav-link__num">02</span>
+      <span class="mobile-nav-link__text">{% trans "SOLUTIONS" %}</span>
+    </a>
+    <a href="{% url 'portfolio:experience' %}" class="mobile-nav-link" data-transition="page" data-transition-label="EXPERIENCE">
+      <span class="mobile-nav-link__num">03</span>
+      <span class="mobile-nav-link__text">{% trans "EXPERIENCE" %}</span>
+    </a>
+    <a href="{% url 'portfolio:contact' %}" class="mobile-nav-link" data-transition="page" data-transition-label="CONTACT">
+      <span class="mobile-nav-link__num">04</span>
+      <span class="mobile-nav-link__text">{% trans "CONTACT" %}</span>
+    </a>
+
+    <div class="mobile-menu__foot">
+        <span class="mobile-nav-link__num"></span>
+        <div class="mobile-nav-link__text">{% include 'components/language_switcher.html' %}</div>
     </div>
-</div>
+  </nav>
+
+  
+
+</aside>

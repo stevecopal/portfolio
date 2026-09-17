@@ -1,65 +1,198 @@
 {% load static i18n %}
-<section id="process" class="relative py-20 md:py-28" style="background-color: #FFFFFF;" data-reveal-section data-reveal="left">
+<style>
+    /* ── Process Timeline ── */
+    .process-timeline {
+        position: relative;
+        padding-left: 0;
+    }
+
+    .process-step {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .process-step__number {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        font-weight: 600;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 2;
+    }
+
+    .process-step__content {
+        padding-bottom: 2rem;
+    }
+
+    .process-step__title {
+        font-family: var(--font-primary);
+        font-size: 1.1rem;
+        color: #0B0D0F;
+        margin-bottom: 0.3rem;
+        line-height: 1.2;
+    }
+
+    .process-step__desc {
+        color: #6C757D;
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+
+    /* Vertical line connector */
+    .process-step:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        left: 21px;
+        top: 44px;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(180deg, rgba(21, 163, 74, 0.3) 0%, rgba(21, 163, 74, 0.08) 100%);
+    }
+
+    /* Last step connector — no line */
+    .process-step:last-child::after {
+        display: none;
+    }
+
+    /* Step 5 — solid green dot */
+    .process-step--final .process-step__number {
+        background-color: #15A34A;
+        border: 2px solid #15A34A;
+        color: #FFFFFF;
+        box-shadow: 0 0 0 4px rgba(21, 163, 74, 0.12);
+    }
+
+    /* Desktop: horizontal layout */
+    @media (min-width: 1024px) {
+        .process-timeline {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            padding-left: 0;
+        }
+
+        .process-step {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .process-step:not(:last-child)::after {
+            display: none;
+        }
+
+        .process-step__content {
+            padding-bottom: 0;
+        }
+    }
+
+    /* Tablet: 2-col */
+    @media (min-width: 640px) and (max-width: 1023px) {
+        .process-timeline {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            padding-left: 0;
+        }
+
+        .process-step {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .process-step:not(:last-child)::after {
+            display: none;
+        }
+
+        .process-step__content {
+            padding-bottom: 0;
+        }
+    }
+</style>
+
+<section id="process" class="relative py-14 md:py-28" style="background-color: #FFFFFF;">
     <div class="max-w-6xl mx-auto px-5">
-        {# Section header #}
-        <div class="text-center mb-16">
-            <span class="inline-flex items-center gap-2 mb-4" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;" data-reveal-item="fade">
+
+        {# Header #}
+        <div class="mb-10 md:mb-16">
+            <span class="inline-flex items-center gap-2 mb-3" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
                 {% trans "04 / PROCESS" %}
             </span>
-            <h2 style="font-family: var(--font-primary); font-size: clamp(1.8rem, 4vw, 2.6rem); color: #0B0D0F; margin-bottom: 0.75rem;" data-reveal-item="slide-up">
+            <h2 style="font-family: var(--font-primary); font-size: clamp(1.6rem, 4vw, 2.6rem); color: #0B0D0F; margin-bottom: 0.5rem;">
                 {% trans "How we work together" %}
             </h2>
-            <p style="color: #6C757D; font-size: 1.05rem; max-width: 520px; margin: 0 auto; line-height: 1.7;" data-reveal-item="slide-up">
+            <p style="color: #6C757D; font-size: 0.95rem; max-width: 520px; line-height: 1.7;">
                 {% trans "You don't need to know the technology. You just need to explain your problem." %}
             </p>
         </div>
 
-        {# Process steps #}
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-5 mt-6" data-reveal-grid>
+        {# Timeline steps #}
+        <div class="process-timeline">
+
             {# Step 1 #}
-            <div class="text-center md:text-left" data-reveal-card>
-                <div class="w-12 h-12 flex items-center justify-center rounded-full mx-auto md:mx-0 mb-4" style="background-color: rgba(21,163,74,0.08); border: 2px solid rgba(21,163,74,0.2);">
-                    <span style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 600; color: #15A34A;">01</span>
+            <div class="process-step">
+                <div class="process-step__number" style="background-color: rgba(21,163,74,0.08); border: 2px solid rgba(21,163,74,0.25); color: #15A34A;">
+                    01
                 </div>
-                <h3 style="font-family: var(--font-primary); font-size: 1.05rem; color: #0B0D0F; margin-bottom: 0.35rem;">{% trans "You explain" %}</h3>
-                <p style="color: #6C757D; font-size: 0.88rem; line-height: 1.55;">{% trans "You describe your activity, your problem, or your idea in your own words." %}</p>
+                <div class="process-step__content">
+                    <h3 class="process-step__title">{% trans "You explain" %}</h3>
+                    <p class="process-step__desc">{% trans "You describe your activity, your problem, or your idea in your own words." %}</p>
+                </div>
             </div>
 
             {# Step 2 #}
-            <div class="text-center md:text-left" data-reveal-card>
-                <div class="w-12 h-12 flex items-center justify-center rounded-full mx-auto md:mx-0 mb-4" style="background-color: rgba(21,163,74,0.08); border: 2px solid rgba(21,163,74,0.2);">
-                    <span style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 600; color: #15A34A;">02</span>
+            <div class="process-step">
+                <div class="process-step__number" style="background-color: rgba(21,163,74,0.08); border: 2px solid rgba(21,163,74,0.25); color: #15A34A;">
+                    02
                 </div>
-                <h3 style="font-family: var(--font-primary); font-size: 1.05rem; color: #0B0D0F; margin-bottom: 0.35rem;">{% trans "We define" %}</h3>
-                <p style="color: #6C757D; font-size: 0.88rem; line-height: 1.55;">{% trans "Your need is transformed into a concrete solution with clear features." %}</p>
+                <div class="process-step__content">
+                    <h3 class="process-step__title">{% trans "We define" %}</h3>
+                    <p class="process-step__desc">{% trans "Your need is transformed into a concrete solution with clear features." %}</p>
+                </div>
             </div>
 
             {# Step 3 #}
-            <div class="text-center md:text-left" data-reveal-card>
-                <div class="w-12 h-12 flex items-center justify-center rounded-full mx-auto md:mx-0 mb-4" style="background-color: rgba(21,163,74,0.08); border: 2px solid rgba(21,163,74,0.2);">
-                    <span style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 600; color: #15A34A;">03</span>
+            <div class="process-step">
+                <div class="process-step__number" style="background-color: rgba(21,163,74,0.08); border: 2px solid rgba(21,163,74,0.25); color: #15A34A;">
+                    03
                 </div>
-                <h3 style="font-family: var(--font-primary); font-size: 1.05rem; color: #0B0D0F; margin-bottom: 0.35rem;">{% trans "I build" %}</h3>
-                <p style="color: #6C757D; font-size: 0.88rem; line-height: 1.55;">{% trans "The solution is designed, developed, and tested with care." %}</p>
+                <div class="process-step__content">
+                    <h3 class="process-step__title">{% trans "I build" %}</h3>
+                    <p class="process-step__desc">{% trans "The solution is designed, developed, and tested with care." %}</p>
+                </div>
             </div>
 
             {# Step 4 #}
-            <div class="text-center md:text-left" data-reveal-card>
-                <div class="w-12 h-12 flex items-center justify-center rounded-full mx-auto md:mx-0 mb-4" style="background-color: rgba(21,163,74,0.08); border: 2px solid rgba(21,163,74,0.2);">
-                    <span style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 600; color: #15A34A;">04</span>
+            <div class="process-step">
+                <div class="process-step__number" style="background-color: rgba(21,163,74,0.08); border: 2px solid rgba(21,163,74,0.25); color: #15A34A;">
+                    04
                 </div>
-                <h3 style="font-family: var(--font-primary); font-size: 1.05rem; color: #0B0D0F; margin-bottom: 0.35rem;">{% trans "I deploy" %}</h3>
-                <p style="color: #6C757D; font-size: 0.88rem; line-height: 1.55;">{% trans "Your solution becomes real, accessible, and ready to use." %}</p>
+                <div class="process-step__content">
+                    <h3 class="process-step__title">{% trans "I deploy" %}</h3>
+                    <p class="process-step__desc">{% trans "Your solution becomes real, accessible, and ready to use." %}</p>
+                </div>
             </div>
 
-            {# Step 5 #}
-            <div class="text-center md:text-left" data-reveal-card>
-                <div class="w-12 h-12 flex items-center justify-center rounded-full mx-auto md:mx-0 mb-4" style="background-color: #15A34A; border: 2px solid #15A34A;">
-                    <span style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 600; color: #FFFFFF;">05</span>
+            {# Step 5 — Final #}
+            <div class="process-step process-step--final">
+                <div class="process-step__number">
+                    05
                 </div>
-                <h3 style="font-family: var(--font-primary); font-size: 1.05rem; color: #0B0D0F; margin-bottom: 0.35rem;">{% trans "You use" %}</h3>
-                <p style="color: #6C757D; font-size: 0.88rem; line-height: 1.55;">{% trans "You have your tool. Your problem is solved. Your activity moves forward." %}</p>
+                <div class="process-step__content">
+                    <h3 class="process-step__title">{% trans "You use" %}</h3>
+                    <p class="process-step__desc">{% trans "You have your tool. Your problem is solved. Your activity moves forward." %}</p>
+                </div>
             </div>
+
         </div>
     </div>
 </section>

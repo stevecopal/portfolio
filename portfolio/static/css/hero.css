@@ -300,14 +300,31 @@
 }
 @media (max-width: 640px) {
   .hero__container {
-    padding: 6.5rem 1.25rem 4.5rem;
+    padding: 6.5rem 1.25rem 3.5rem;
   }
-  .core__label--tl,
-  .core__label--br {
+  .hero__grid {
+    position: relative;
+  }
+  .hero__right {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.18;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero__right .core {
+    width: min(320px, 80vw);
+  }
+  .core__label {
     display: none;
   }
-  .core__label--tr { right: -2%; }
-  .core__label--r  { right: -6%; }
+  .hero__left {
+    position: relative;
+    z-index: 1;
+  }
   .hero__footer {
     justify-content: center;
     padding: 1.1rem;

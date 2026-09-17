@@ -1,41 +1,73 @@
 {% load i18n %}
 
-<form action="{% url 'set_language' %}" method="post" class="inline-flex">
-    {% csrf_token %}
-
-    {% if request.LANGUAGE_CODE == 'fr' %}
+<div class="lang-switcher">
+    <form action="{% url 'set_language' %}" method="post" class="inline-flex">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.get_full_path }}">
         <input type="hidden" name="language" value="en">
-        <button type="submit" class="lang-switch" aria-label="Switch to English">EN</button>
-    {% else %}
+        <button type="submit" class="lang-btn{% if request.LANGUAGE_CODE == 'en' %} is-active{% endif %}" aria-label="Switch to English">EN</button>
+    </form>
+    <span class="lang-sep">/</span>
+    <form action="{% url 'set_language' %}" method="post" class="inline-flex">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.get_full_path }}">
         <input type="hidden" name="language" value="fr">
-        <button type="submit" class="lang-switch" aria-label="Passer en français">FR</button>
-    {% endif %}
-
-    <input type="hidden" name="next" value="{{ request.get_full_path }}">
-</form>
+        <button type="submit" class="lang-btn{% if request.LANGUAGE_CODE == 'fr' %} is-active{% endif %}" aria-label="Passer en français">FR</button>
+    </form>
+</div>
 
 <style>
-    .lang-switch {
+    .lang-switcher {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.15rem;
+    }
+    .lang-btn {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-width: 36px;
-        height: 32px;
-        padding: 0 0.625rem;
-        border: 1px solid #DEE2E6;
-        border-radius: 6px;
+        min-width: 50px;
+        height: 50px;
+        padding: 0 0.5rem;
+        border: 1px solid transparent;
+        border-radius: 10px;
         background: transparent;
-        color: #495057;
+        color: #ADB5BD;
         font-family: var(--font-mono);
-        font-size: 0.7rem;
-        font-weight: 500;
+        font-size: 0.9rem;
+        font-weight: bold;
         letter-spacing: 0.1em;
         cursor: pointer;
         transition: all 0.2s ease;
     }
-    .lang-switch:hover {
-        border-color: #15A34A;
+    .lang-btn:hover {
+        color: #495057;
+        border-color: #DEE2E6;
+    }
+    .lang-btn.is-active {
         color: #15A34A;
-        background-color: rgba(21, 163, 74, 0.06);
+        background-color: rgba(21, 163, 74, 0.1);
+        border-color: rgba(21, 163, 74, 0.2);
+    }
+    .lang-sep {
+        color: #DEE2E6;
+        font-size: 0.65rem;
+        font-family: var(--font-mono);
+        user-select: none;
+    }
+    .dark .lang-btn {
+        color: #6C757D;
+    }
+    .dark .lang-btn:hover {
+        color: #ADB5BD;
+        border-color: #343A40;
+    }
+    .dark .lang-btn.is-active {
+        color: #22C55E;
+        background-color: rgba(21, 163, 74, 0.12);
+        border-color: rgba(21, 163, 74, 0.25);
+    }
+    .dark .lang-sep {
+        color: #343A40;
     }
 </style>
