@@ -1,136 +1,14 @@
 {% load static i18n %}
-<style>
-    /* ── Process Timeline ── */
-    .process-timeline {
-        position: relative;
-        padding-left: 0;
-    }
-
-    .process-step {
-        position: relative;
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 0;
-    }
-
-    .process-step__number {
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: var(--font-mono);
-        font-size: 0.8rem;
-        font-weight: 600;
-        flex-shrink: 0;
-        position: relative;
-        z-index: 2;
-    }
-
-    .process-step__content {
-        padding-bottom: 2rem;
-    }
-
-    .process-step__title {
-        font-family: var(--font-primary);
-        font-size: 1.1rem;
-        color: #0B0D0F;
-        margin-bottom: 0.3rem;
-        line-height: 1.2;
-    }
-
-    .process-step__desc {
-        color: #6C757D;
-        font-size: 0.9rem;
-        line-height: 1.6;
-    }
-
-    /* Vertical line connector */
-    .process-step:not(:last-child)::after {
-        content: '';
-        position: absolute;
-        left: 21px;
-        top: 44px;
-        bottom: 0;
-        width: 2px;
-        background: linear-gradient(180deg, rgba(21, 163, 74, 0.3) 0%, rgba(21, 163, 74, 0.08) 100%);
-    }
-
-    /* Last step connector — no line */
-    .process-step:last-child::after {
-        display: none;
-    }
-
-    /* Step 5 — solid green dot */
-    .process-step--final .process-step__number {
-        background-color: #15A34A;
-        border: 2px solid #15A34A;
-        color: #FFFFFF;
-        box-shadow: 0 0 0 4px rgba(21, 163, 74, 0.12);
-    }
-
-    /* Desktop: horizontal layout */
-    @media (min-width: 1024px) {
-        .process-timeline {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 1rem;
-            padding-left: 0;
-        }
-
-        .process-step {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .process-step:not(:last-child)::after {
-            display: none;
-        }
-
-        .process-step__content {
-            padding-bottom: 0;
-        }
-    }
-
-    /* Tablet: 2-col */
-    @media (min-width: 640px) and (max-width: 1023px) {
-        .process-timeline {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            padding-left: 0;
-        }
-
-        .process-step {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .process-step:not(:last-child)::after {
-            display: none;
-        }
-
-        .process-step__content {
-            padding-bottom: 0;
-        }
-    }
-</style>
-
-<section id="process" class="relative py-14 md:py-28" style="background-color: #FFFFFF;">
+<section id="process" class="relative py-14 md:py-28 bg-white">
     <div class="max-w-6xl mx-auto px-5">
 
         {# Header #}
         <div class="mb-10 md:mb-16">
-            <span class="inline-flex items-center gap-2 mb-3" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;">
-                {% trans "04 / PROCESSUS" %}
-            </span>
-            <h2 style="font-family: var(--font-primary); font-size: clamp(1.6rem, 4vw, 2.6rem); color: #0B0D0F; margin-bottom: 0.5rem;">
+           
+            <h2 class="font-suez text-[clamp(1.6rem,4vw,2.6rem)] text-copal-black mb-2">
                 {% trans "Comment nous collaborons" %}
             </h2>
-            <p style="color: #6C757D; font-size: 0.95rem; max-width: 520px; line-height: 1.7;">
+            <p class="text-copal-gray-500 text-[0.95rem] max-w-[520px] leading-[1.7]">
                 {% trans "Vous n'avez pas besoin de connaitre la technologie. Il vous suffit d'expliquer votre probleme." %}
             </p>
         </div>
@@ -140,7 +18,7 @@
 
             {# Step 1 #}
             <div class="process-step">
-                <div class="process-step__number" style="background-color: rgba(21,163,74,0.08); border: 2px solid rgba(21,163,74,0.25); color: #15A34A;">
+                <div class="process-step__number bg-copal-green/[0.08] border-2 border-copal-green/25 text-copal-green">
                     01
                 </div>
                 <div class="process-step__content">
@@ -151,7 +29,7 @@
 
             {# Step 2 #}
             <div class="process-step">
-                <div class="process-step__number" style="background-color: rgba(21,163,74,0.08); border: 2px solid rgba(21,163,74,0.25); color: #15A34A;">
+                <div class="process-step__number bg-copal-green/[0.08] border-2 border-copal-green/25 text-copal-green">
                     02
                 </div>
                 <div class="process-step__content">
@@ -162,7 +40,7 @@
 
             {# Step 3 #}
             <div class="process-step">
-                <div class="process-step__number" style="background-color: rgba(21,163,74,0.08); border: 2px solid rgba(21,163,74,0.25); color: #15A34A;">
+                <div class="process-step__number bg-copal-green/[0.08] border-2 border-copal-green/25 text-copal-green">
                     03
                 </div>
                 <div class="process-step__content">
@@ -173,7 +51,7 @@
 
             {# Step 4 #}
             <div class="process-step">
-                <div class="process-step__number" style="background-color: rgba(21,163,74,0.08); border: 2px solid rgba(21,163,74,0.25); color: #15A34A;">
+                <div class="process-step__number bg-copal-green/[0.08] border-2 border-copal-green/25 text-copal-green">
                     04
                 </div>
                 <div class="process-step__content">

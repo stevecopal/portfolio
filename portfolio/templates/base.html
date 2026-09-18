@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     {# Tailwind CSS (compiled output) #}
-    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <link href="{% static 'css/output.css' %}" rel="stylesheet">
 
     <title>{{ site_settings.seo_title|default:'Copal Satcheme' }}</title>
 
@@ -68,7 +68,7 @@
     </div>
 
     {# Back to Top #}
-    <button id="backToTop" class="fixed bottom-6 right-6 z-50 w-10 h-10 flex items-center justify-center rounded-full opacity-0 pointer-events-none transition-all duration-300" style="background-color: #15A34A; color: #fff; box-shadow: 0 4px 14px rgba(21,163,74,0.25);">
+    <button id="backToTop" class="fixed bottom-6 right-6 z-50 w-10 h-10 flex items-center justify-center rounded-full opacity-0 pointer-events-none transition-all duration-300 bg-copal-green text-white shadow-[0_4px_14px_rgba(21,163,74,0.25)]">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
         </svg>

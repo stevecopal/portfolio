@@ -1,13 +1,13 @@
 {% load i18n %}
 
-<div class="lang-switcher">
+<div class="inline-flex items-center gap-[0.15rem]">
     <form action="{% url 'set_language' %}" method="post" class="inline-flex">
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ request.get_full_path }}">
         <input type="hidden" name="language" value="en">
         <button type="submit" class="lang-btn{% if request.LANGUAGE_CODE == 'en' %} is-active{% endif %}" aria-label="Switch to English">EN</button>
     </form>
-    <span class="lang-sep">/</span>
+    <span class="inline-flex items-center text-copal-gray-300 text-[0.65rem] font-ibm-plex-mono select-none dark:text-copal-gray-600">/</span>
     <form action="{% url 'set_language' %}" method="post" class="inline-flex">
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ request.get_full_path }}">
@@ -16,58 +16,3 @@
     </form>
 </div>
 
-<style>
-    .lang-switcher {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.15rem;
-    }
-    .lang-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 30px;
-        height: 30px;
-        padding: 0 0.5rem;
-        border: 1px solid transparent;
-        border-radius: 30px;
-        background: transparent;
-        color: #ADB5BD;
-        font-family: var(--font-mono);
-        font-size: 1rem;
-        font-weight: bold;
-        letter-spacing: 0.1em;
-        cursor: pointer;
-        transition: all 0.2s ease;
-    }
-    .lang-btn:hover {
-        color: #495057;
-        border-color: #DEE2E6;
-    }
-    .lang-btn.is-active {
-        color: #15A34A;
-        background-color: rgba(21, 163, 74, 0.1);
-        border-color: rgba(21, 163, 74, 0.2);
-    }
-    .lang-sep {
-        color: #DEE2E6;
-        font-size: 0.65rem;
-        font-family: var(--font-mono);
-        user-select: none;
-    }
-    .dark .lang-btn {
-        color: #6C757D;
-    }
-    .dark .lang-btn:hover {
-        color: #ADB5BD;
-        border-color: #343A40;
-    }
-    .dark .lang-btn.is-active {
-        color: #22C55E;
-        background-color: rgba(21, 163, 74, 0.12);
-        border-color: rgba(21, 163, 74, 0.25);
-    }
-    .dark .lang-sep {
-        color: #343A40;
-    }
-</style>

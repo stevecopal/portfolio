@@ -1,15 +1,13 @@
 {% load static i18n %}
-<section id="problems" class="relative py-20 md:py-28" style="background-color: #FAFBFC;" data-reveal-section data-reveal="left">
+<section id="problems" class="relative py-20 md:py-28 bg-[#FAFBFC]" data-reveal-section data-reveal="left">
     <div class="max-w-6xl mx-auto px-5">
         {# Section header #}
         <div class="text-center mb-16">
-            <span class="inline-flex items-center gap-2 mb-4" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #15A34A;" data-reveal-item="fade">
-                {% trans "01 / PROBLEMES" %}
-            </span>
-            <h2 style="font-family: var(--font-primary); font-size: clamp(1.8rem, 4vw, 2.6rem); color: #0B0D0F; margin-bottom: 0.75rem;" data-reveal-item="slide-up">
+           
+            <h2 class="font-suez text-[clamp(1.8rem,4vw,2.6rem)] text-copal-black mb-3" data-reveal-item="slide-up">
                 {% trans "Cela vous parle ?" %}
             </h2>
-            <p style="color: #6C757D; font-size: 1.05rem; max-width: 520px; margin: 0 auto; line-height: 1.7;" data-reveal-item="slide-up">
+            <p class="text-copal-gray-500 text-[1.05rem] max-w-[520px] mx-auto leading-[1.7]" data-reveal-item="slide-up">
                 {% trans "Ce sont les situations que je vous aide a resoudre au quotidien." %}
             </p>
         </div>
@@ -17,57 +15,57 @@
         {# Problem cards #}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" data-reveal-grid>
             {# Problem 1 #}
-            <div class="p-6 rounded-xl border transition-all duration-300" style="background-color: #FFFFFF; border-color: #E9ECEF;" data-reveal-card>
-                <div class="w-10 h-10 flex items-center justify-center rounded-lg mb-4" style="background-color: rgba(21,163,74,0.08);">
+            <div class="p-6 rounded-xl border bg-white border-copal-gray-200 transition-all duration-300" data-reveal-card>
+                <div class="w-10 h-10 flex items-center justify-center rounded-lg mb-4 bg-copal-green/[0.08]">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="#15A34A" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>
                 </div>
-                <h3 style="font-family: var(--font-primary); font-size: 1.1rem; color: #0B0D0F; margin-bottom: 0.5rem;">{% trans "Pas de presence en ligne" %}</h3>
-                <p style="color: #6C757D; font-size: 0.92rem; line-height: 1.65;">{% trans "Votre activite existe mais n'a aucune visibilite sur internet. Les clients potentiels ne vous trouvent pas." %}</p>
+                <h3 class="font-suez text-[1.1rem] text-copal-black mb-2">{% trans "Pas de presence en ligne" %}</h3>
+                <p class="text-copal-gray-500 text-[0.92rem] leading-[1.65]">{% trans "Votre activite existe mais n'a aucune visibilite sur internet. Les clients potentiels ne vous trouvent pas." %}</p>
             </div>
 
             {# Problem 2 #}
-            <div class="p-6 rounded-xl border transition-all duration-300" style="background-color: #FFFFFF; border-color: #E9ECEF;" data-reveal-card>
-                <div class="w-10 h-10 flex items-center justify-center rounded-lg mb-4" style="background-color: rgba(21,163,74,0.08);">
+            <div class="p-6 rounded-xl border bg-white border-copal-gray-200 transition-all duration-300" data-reveal-card>
+                <div class="w-10 h-10 flex items-center justify-center rounded-lg mb-4 bg-copal-green/[0.08]">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="#15A34A" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                 </div>
-                <h3 style="font-family: var(--font-primary); font-size: 1.1rem; color: #0B0D0F; margin-bottom: 0.5rem;">{% trans "Processus manuels" %}</h3>
-                <p style="color: #6C757D; font-size: 0.92rem; line-height: 1.65;">{% trans "Vous perdez des heures sur des taches repetitives qui pourraient etre automatisees. Tableurs, papiers, coups de telephone." %}</p>
+                <h3 class="font-suez text-[1.1rem] text-copal-black mb-2">{% trans "Processus manuels" %}</h3>
+                <p class="text-copal-gray-500 text-[0.92rem] leading-[1.65]">{% trans "Vous perdez des heures sur des taches repetitives qui pourraient etre automatisees. Tableurs, papiers, coups de telephone." %}</p>
             </div>
 
             {# Problem 3 #}
-            <div class="p-6 rounded-xl border transition-all duration-300" style="background-color: #FFFFFF; border-color: #E9ECEF;" data-reveal-card>
-                <div class="w-10 h-10 flex items-center justify-center rounded-lg mb-4" style="background-color: rgba(21,163,74,0.08);">
+            <div class="p-6 rounded-xl border bg-white border-copal-gray-200 transition-all duration-300" data-reveal-card>
+                <div class="w-10 h-10 flex items-center justify-center rounded-lg mb-4 bg-copal-green/[0.08]">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="#15A34A" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" /></svg>
                 </div>
-                <h3 style="font-family: var(--font-primary); font-size: 1.1rem; color: #0B0D0F; margin-bottom: 0.5rem;">{% trans "Informations eparpillees" %}</h3>
-                <p style="color: #6C757D; font-size: 0.92rem; line-height: 1.65;">{% trans "Vos donnees sont partout — notes, emails, applications. Vous avez besoin d'un endroit central pour tout gerer." %}</p>
+                <h3 class="font-suez text-[1.1rem] text-copal-black mb-2">{% trans "Informations eparpillees" %}</h3>
+                <p class="text-copal-gray-500 text-[0.92rem] leading-[1.65]">{% trans "Vos donnees sont partout — notes, emails, applications. Vous avez besoin d'un endroit central pour tout gerer." %}</p>
             </div>
 
             {# Problem 4 #}
-            <div class="p-6 rounded-xl border transition-all duration-300" style="background-color: #FFFFFF; border-color: #E9ECEF;" data-reveal-card>
-                <div class="w-10 h-10 flex items-center justify-center rounded-lg mb-4" style="background-color: rgba(21,163,74,0.08);">
+            <div class="p-6 rounded-xl border bg-white border-copal-gray-200 transition-all duration-300" data-reveal-card>
+                <div class="w-10 h-10 flex items-center justify-center rounded-lg mb-4 bg-copal-green/[0.08]">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="#15A34A" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                 </div>
-                <h3 style="font-family: var(--font-primary); font-size: 1.1rem; color: #0B0D0F; margin-bottom: 0.5rem;">{% trans "Idee d'application bloque" %}</h3>
-                <p style="color: #6C757D; font-size: 0.92rem; line-height: 1.65;">{% trans "Vous avez une idee d'application mais ne savez pas comment la transformer en quelque chose de concret et utilisable." %}</p>
+                <h3 class="font-suez text-[1.1rem] text-copal-black mb-2">{% trans "Idee d'application bloque" %}</h3>
+                <p class="text-copal-gray-500 text-[0.92rem] leading-[1.65]">{% trans "Vous avez une idee d'application mais ne savez pas comment la transformer en quelque chose de concret et utilisable." %}</p>
             </div>
 
             {# Problem 5 #}
-            <div class="p-6 rounded-xl border transition-all duration-300" style="background-color: #FFFFFF; border-color: #E9ECEF;" data-reveal-card>
-                <div class="w-10 h-10 flex items-center justify-center rounded-lg mb-4" style="background-color: rgba(21,163,74,0.08);">
+            <div class="p-6 rounded-xl border bg-white border-copal-gray-200 transition-all duration-300" data-reveal-card>
+                <div class="w-10 h-10 flex items-center justify-center rounded-lg mb-4 bg-copal-green/[0.08]">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="#15A34A" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 </div>
-                <h3 style="font-family: var(--font-primary); font-size: 1.1rem; color: #0B0D0F; margin-bottom: 0.5rem;">{% trans "Pas de systeme de reservation" %}</h3>
-                <p style="color: #6C757D; font-size: 0.92rem; line-height: 1.65;">{% trans "Vous gérez les rendez-vous par telephone ou message. Vous avez besoin d'un systeme de reservation automatise." %}</p>
+                <h3 class="font-suez text-[1.1rem] text-copal-black mb-2">{% trans "Pas de systeme de reservation" %}</h3>
+                <p class="text-copal-gray-500 text-[0.92rem] leading-[1.65]">{% trans "Vous gérez les rendez-vous par telephone ou message. Vous avez besoin d'un systeme de reservation automatise." %}</p>
             </div>
 
             {# Problem 6 #}
-            <div class="p-6 rounded-xl border transition-all duration-300" style="background-color: #FFFFFF; border-color: #E9ECEF;" data-reveal-card>
-                <div class="w-10 h-10 flex items-center justify-center rounded-lg mb-4" style="background-color: rgba(21,163,74,0.08);">
+            <div class="p-6 rounded-xl border bg-white border-copal-gray-200 transition-all duration-300" data-reveal-card>
+                <div class="w-10 h-10 flex items-center justify-center rounded-lg mb-4 bg-copal-green/[0.08]">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="#15A34A" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" /><path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" /></svg>
                 </div>
-                <h3 style="font-family: var(--font-primary); font-size: 1.1rem; color: #0B0D0F; margin-bottom: 0.5rem;">{% trans "Besoin d'un tableau de bord" %}</h3>
-                <p style="color: #6C757D; font-size: 0.92rem; line-height: 1.65;">{% trans "Vous avez besoin de visualiser vos donnees, suivre les performances ou gerer les operations depuis un seul endroit." %}</p>
+                <h3 class="font-suez text-[1.1rem] text-copal-black mb-2">{% trans "Besoin d'un tableau de bord" %}</h3>
+                <p class="text-copal-gray-500 text-[0.92rem] leading-[1.65]">{% trans "Vous avez besoin de visualiser vos donnees, suivre les performances ou gerer les operations depuis un seul endroit." %}</p>
             </div>
         </div>
     </div>
