@@ -1585,7 +1585,7 @@ html.hr [data-reveal-text].hr-in .hr-word {
   .core { width: min(430px, 84vw); }
 }
 @media (max-width: 640px) {
-  .hero__container { padding: 6.5rem 1.25rem 3.5rem; }
+  .hero__container { padding: 5.5rem 1.25rem 3.5rem; }
   .hero__grid { position: relative; }
   .hero__right {
     position: absolute;
