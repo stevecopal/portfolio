@@ -1,0 +1,29 @@
+services:
+  copal_portfolio_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: copal-portfolio-web
+    restart: unless-stopped
+    environment:
+      - SQLITE_PATH=/app/data/db.sqlite3
+    env_file:
+      - .env
+    volumes:
+      - copal_sqlite_data:/app/data
+      - copal_static:/app/staticfiles
+      - copal_media:/app/media
+    networks:
+      - proxy-net
+
+volumes:
+  copal_sqlite_data:
+    external: true
+  copal_static:
+    external: true
+  copal_media:
+    external: true
+
+networks:
+  proxy-net:
+    external: true
