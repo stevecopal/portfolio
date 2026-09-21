@@ -76,11 +76,9 @@
       <span class="mobile-nav-link__num">04</span>
       <span class="mobile-nav-link__text">{% trans "CONTACT" %}</span>
     </a>
+    <div class="mobile-nav-link__text mobile-nav-link" >{% include 'components/language_switcher.html' %}</div>
 
-    <div class="mt-auto pt-8 border-t border-copal-gray-100 dark:border-[#1A1D21] shrink-0 opacity-0 translate-y-4 transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] delay-[400ms] [.open>&]:opacity-100 [.open>&]:translate-y-0">
-        <span class="block font-ibm-plex-mono text-[0.65rem] tracking-[0.12em] uppercase text-copal-gray-400 mb-3">{% trans "Langue" %}</span>
-        <div>{% include 'components/language_switcher.html' %}</div>
-    </div>
+   
   </nav>
 
 </aside>

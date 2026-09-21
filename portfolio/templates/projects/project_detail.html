@@ -219,29 +219,6 @@
     </div>
 </section>
 
-{# Related Projects #}
-{% if related_projects %}
-<section class="py-14 md:py-16 bg-copal-gray-50">
-    <div class="max-w-6xl mx-auto px-5">
-        <h2 class="font-suez text-[1.5rem] text-copal-black mb-6">{% trans "Projets lies" %}</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {% for rp in related_projects %}
-            <a href="{% url 'portfolio:project_detail' rp.slug %}" class="group block rounded-xl overflow-hidden border bg-white border-copal-gray-200 transition-all duration-300 project-card no-underline text-inherit" data-transition="project" data-transition-label="{{ rp.title|upper }}">
-                {% if rp.cover_image %}
-                <div class="overflow-hidden">
-                    <img src="{{ rp.cover_image.url }}" alt="{{ rp.title }}" class="w-full h-40 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
-                </div>
-                {% endif %}
-                <div class="p-4">
-                    <h3 class="font-suez text-[1rem] text-copal-black mb-1">{{ rp.title }}</h3>
-                    <p class="text-copal-gray-500 text-[0.85rem] leading-[1.5]">{{ rp.short_description|truncatewords:12 }}</p>
-                </div>
-            </a>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-{% endif %}
 
 {# CTA #}
 <section class="py-14 md:py-16 bg-copal-black text-white">
