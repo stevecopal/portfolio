@@ -1,0 +1,13 @@
+.venv
+node_modules
+.git
+.gitignore
+.python-version
+.env
+.env.example
+db.sqlite3
+staticfiles
+media
+README.md
+*.pyc
+__pycache__
