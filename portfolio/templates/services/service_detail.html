@@ -14,13 +14,7 @@
     </div>
 
     <div class="relative max-w-6xl mx-auto px-5 py-24 md:py-32">
-        <div class="flex items-center gap-2 mb-10 font-ibm-plex-mono text-[0.72rem] text-white/35 tracking-[0.08em]" data-reveal="item" data-reveal-delay="1" data-reveal-element>
-            <a href="{% url 'portfolio:home' %}" class="no-underline text-inherit transition-colors duration-300 hover:text-copal-green" data-transition="page" data-transition-label="HOME">HOME</a>
-            <span class="text-white/15">/</span>
-            <a href="{% url 'portfolio:services' %}" class="no-underline text-inherit transition-colors duration-300 hover:text-copal-green" data-transition="page" data-transition-label="SOLUTIONS">SOLUTIONS</a>
-            <span class="text-white/15">/</span>
-            <span class="text-copal-green">{{ service.title|upper }}</span>
-        </div>
+        
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div class="lg:col-span-8">
@@ -68,10 +62,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             <div class="lg:col-span-4">
                 <div class="lg:sticky lg:top-28">
-                    <div class="flex items-center gap-3 mb-4">
-                        <span class="w-8 h-px bg-copal-green"></span>
-                        <span class="font-ibm-plex-mono text-[0.7rem] tracking-[0.14em] uppercase text-copal-green">{% trans "01 — COMPRENDRE" %}</span>
-                    </div>
+                    
                     <h2 class="font-suez text-[clamp(1.8rem,3vw,2.4rem)] text-copal-black leading-[1.1] mb-4">
                         {% trans "Ce que cette solution" %}<br>
                         <span class="text-copal-green">{% trans "réellement est." %}</span>
@@ -97,10 +88,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             <div class="lg:col-span-4">
                 <div class="lg:sticky lg:top-28">
-                    <div class="flex items-center gap-3 mb-4">
-                        <span class="w-8 h-px bg-copal-green"></span>
-                        <span class="font-ibm-plex-mono text-[0.7rem] tracking-[0.14em] uppercase text-copal-green">{% trans "02 — LE PROBLÈME" %}</span>
-                    </div>
+                   
                     <h2 class="font-suez text-[clamp(1.8rem,3vw,2.4rem)] text-white leading-[1.1] mb-4">
                         {% trans "Pourquoi cette" %}<br>
                         <span class="text-copal-green">{% trans "solution existe." %}</span>
@@ -129,10 +117,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             <div class="lg:col-span-4">
                 <div class="lg:sticky lg:top-28">
-                    <div class="flex items-center gap-3 mb-4">
-                        <span class="w-8 h-px bg-copal-green"></span>
-                        <span class="font-ibm-plex-mono text-[0.7rem] tracking-[0.14em] uppercase text-copal-green">{% trans "03 — POUR QUI" %}</span>
-                    </div>
+                    
                     <h2 class="font-suez text-[clamp(1.8rem,3vw,2.4rem)] text-copal-black leading-[1.1] mb-4">
                         {% trans "Cette solution est pour" %}<br>
                         <span class="text-copal-green">{% trans "vous si..." %}</span>
@@ -156,10 +141,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             <div class="lg:col-span-4">
                 <div class="lg:sticky lg:top-28">
-                    <div class="flex items-center gap-3 mb-4">
-                        <span class="w-8 h-px bg-copal-green"></span>
-                        <span class="font-ibm-plex-mono text-[0.7rem] tracking-[0.14em] uppercase text-copal-green">{% trans "04 — CE QUI PEUT ÊTRE CONSTRUIT" %}</span>
-                    </div>
+                    
                     <h2 class="font-suez text-[clamp(1.8rem,3vw,2.4rem)] text-copal-black leading-[1.1] mb-4">
                         {% trans "Fonctionnalités" %}<br>
                         <span class="text-copal-green">{% trans "possibles." %}</span>
@@ -186,10 +168,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             <div class="lg:col-span-4">
                 <div class="lg:sticky lg:top-28">
-                    <div class="flex items-center gap-3 mb-4">
-                        <span class="w-8 h-px bg-copal-green"></span>
-                        <span class="font-ibm-plex-mono text-[0.7rem] tracking-[0.14em] uppercase text-copal-green">{% trans "05 — EXEMPLE CONCRET" %}</span>
-                    </div>
+                    
                     <h2 class="font-suez text-[clamp(1.8rem,3vw,2.4rem)] text-white leading-[1.1] mb-4">
                         {% trans "Imaginez" %}<br>
                         <span class="text-copal-green">{% trans "cette situation." %}</span>
@@ -218,10 +197,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             <div class="lg:col-span-4">
                 <div class="lg:sticky lg:top-28">
-                    <div class="flex items-center gap-3 mb-4">
-                        <span class="w-8 h-px bg-copal-green"></span>
-                        <span class="font-ibm-plex-mono text-[0.7rem] tracking-[0.14em] uppercase text-copal-green">{% trans "06 — LA TRANSFORMATION" %}</span>
-                    </div>
+                    
                     <h2 class="font-suez text-[clamp(1.8rem,3vw,2.4rem)] text-copal-black leading-[1.1] mb-4">
                         {% trans "Avant" %} <span class="text-red-500">→</span> {% trans "Après" %}
                     </h2>
@@ -267,10 +243,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             <div class="lg:col-span-4">
                 <div class="lg:sticky lg:top-28">
-                    <div class="flex items-center gap-3 mb-4">
-                        <span class="w-8 h-px bg-copal-green"></span>
-                        <span class="font-ibm-plex-mono text-[0.7rem] tracking-[0.14em] uppercase text-copal-green">{% trans "07 — COMMENT ÇA FONCTIONNE" %}</span>
-                    </div>
+                    
                     <h2 class="font-suez text-[clamp(1.8rem,3vw,2.4rem)] text-copal-black leading-[1.1] mb-4">
                         {% trans "Le fonctionnement" %}<br>
                         <span class="text-copal-green">{% trans "en détail." %}</span>
@@ -294,10 +267,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             <div class="lg:col-span-4">
                 <div class="lg:sticky lg:top-28">
-                    <div class="flex items-center gap-3 mb-4">
-                        <span class="w-8 h-px bg-copal-green"></span>
-                        <span class="font-ibm-plex-mono text-[0.7rem] tracking-[0.14em] uppercase text-copal-green">{% trans "08 — CE QUE VOUS GAGNEZ" %}</span>
-                    </div>
+                    
                     <h2 class="font-suez text-[clamp(1.8rem,3vw,2.4rem)] text-copal-black leading-[1.1] mb-4">
                         {% trans "Les bénéfices" %}<br>
                         <span class="text-copal-green">{% trans "concrets." %}</span>
@@ -321,10 +291,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             <div class="lg:col-span-4">
                 <div class="lg:sticky lg:top-28">
-                    <div class="flex items-center gap-3 mb-4">
-                        <span class="w-8 h-px bg-copal-green"></span>
-                        <span class="font-ibm-plex-mono text-[0.7rem] tracking-[0.14em] uppercase text-copal-green">{% trans "09 — CE QUI EST INCLUS" %}</span>
-                    </div>
+                   
                     <h2 class="font-suez text-[clamp(1.8rem,3vw,2.4rem)] text-white leading-[1.1] mb-4">
                         {% trans "Le périmètre" %}<br>
                         <span class="text-copal-green">{% trans "de la solution." %}</span>
@@ -345,11 +312,7 @@
 <section class="py-20 md:py-28 bg-copal-gray-50">
     <div class="max-w-6xl mx-auto px-5">
         <div class="text-center mb-16">
-            <div class="flex items-center justify-center gap-3 mb-4">
-                <span class="w-8 h-px bg-copal-green"></span>
-                <span class="font-ibm-plex-mono text-[0.7rem] tracking-[0.14em] uppercase text-copal-green">{% trans "MA MÉTHODE" %}</span>
-                <span class="w-8 h-px bg-copal-green"></span>
-            </div>
+           
             <h2 class="font-suez text-[clamp(1.8rem,3vw,2.4rem)] text-copal-black leading-[1.1] mb-3">
                 {% trans "De l'idée à la réalisation" %}
             </h2>
@@ -445,11 +408,7 @@
 <section class="py-20 md:py-28 bg-white">
     <div class="max-w-6xl mx-auto px-5">
         <div class="text-center mb-12">
-            <div class="flex items-center justify-center gap-3 mb-4">
-                <span class="w-8 h-px bg-copal-green"></span>
-                <span class="font-ibm-plex-mono text-[0.7rem] tracking-[0.14em] uppercase text-copal-green">{% trans "PREUVE" %}</span>
-                <span class="w-8 h-px bg-copal-green"></span>
-            </div>
+            
             <h2 class="font-suez text-[clamp(1.8rem,3vw,2.4rem)] text-copal-black mb-2">
                 {% trans "Voir cette solution en action" %}
             </h2>

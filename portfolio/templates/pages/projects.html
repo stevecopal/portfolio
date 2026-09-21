@@ -15,19 +15,7 @@
             </p>
         </div>
 
-        {# Technology filters #}
-        {% if technologies %}
-        <div class="flex flex-wrap gap-2 mb-10">
-            <a href="{% url 'portfolio:projects' %}" class="inline-flex items-center px-3 py-1.5 rounded text-xs transition-all duration-200 font-ibm-plex-mono no-underline {% if not current_tech %}bg-copal-black text-white{% else %}bg-copal-gray-100 text-copal-gray-600{% endif %}">
-                {% trans "TOUS" %}
-            </a>
-            {% for tech in technologies %}
-            <a href="?tech={{ tech.slug }}" class="inline-flex items-center px-3 py-1.5 rounded text-xs transition-all duration-200 font-ibm-plex-mono no-underline {% if current_tech == tech.slug %}bg-copal-black text-white{% else %}bg-copal-gray-100 text-copal-gray-600{% endif %}">
-                {{ tech.name }}
-            </a>
-            {% endfor %}
-        </div>
-        {% endif %}
+        
 
         {# Project grid #}
         {% if projects %}

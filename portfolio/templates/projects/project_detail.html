@@ -5,15 +5,7 @@
 
 {# Breadcrumbs #}
 <section class="pt-24 md:pt-28 pb-4">
-    <div class="max-w-6xl mx-auto px-5">
-        <div class="flex items-center gap-2 font-ibm-plex-mono text-[0.75rem] text-copal-gray-400" data-reveal="item" data-reveal-delay="1" data-reveal-element>
-            <a href="{% url 'portfolio:home' %}" class="no-underline text-inherit transition-colors duration-200 hover:text-copal-black" data-transition="page" data-transition-label="HOME">{% trans "ACCUEIL" %}</a>
-            <span>/</span>
-            <a href="{% url 'portfolio:projects' %}" class="no-underline text-inherit transition-colors duration-200 hover:text-copal-black" data-transition="page" data-transition-label="WORK">{% trans "PROJETS" %}</a>
-            <span>/</span>
-            <span class="text-copal-gray-600">{{ project.title }}</span>
-        </div>
-    </div>
+   
 </section>
 
 {# Project Header #}
@@ -45,7 +37,6 @@
 
             {# Right: at a glance #}
             <aside class="pd-facts reveal" style="transition-delay: 120ms;">
-                <span class="pd-facts-label">{% trans "EN UN COUP D'OEIL" %}</span>
                 <div class="mt-[0.35rem]">
                     {% if project.client_name %}
                     <div class="pd-fact">
@@ -129,10 +120,7 @@
 
         {% if project.context %}
         <div class="reveal">
-            <span class="inline-flex items-center gap-2 mb-3 font-ibm-plex-mono text-[0.7rem] tracking-[0.1em] uppercase text-copal-green">
-                <span class="w-6 h-px bg-copal-green"></span>
-                {% trans "CONTEXTE" %}
-            </span>
+            
             <h2 class="font-suez text-[1.5rem] text-copal-black mb-3">{% trans "La situation" %}</h2>
             <div class="prose text-copal-gray-600 leading-[1.75]">{{ project.context|safe }}</div>
         </div>
@@ -140,10 +128,7 @@
 
         {% if project.problem %}
         <div class="reveal">
-            <span class="inline-flex items-center gap-2 mb-3 font-ibm-plex-mono text-[0.7rem] tracking-[0.1em] uppercase text-copal-green">
-                <span class="w-6 h-px bg-copal-green"></span>
-                {% trans "PROBLEME" %}
-            </span>
+            
             <h2 class="font-suez text-[1.5rem] text-copal-black mb-3">{% trans "Ce qui devait changer" %}</h2>
             <div class="prose text-copal-gray-600 leading-[1.75]">{{ project.problem|safe }}</div>
         </div>
@@ -151,10 +136,7 @@
 
         {% if project.approach %}
         <div class="reveal">
-            <span class="inline-flex items-center gap-2 mb-3 font-ibm-plex-mono text-[0.7rem] tracking-[0.1em] uppercase text-copal-green">
-                <span class="w-6 h-px bg-copal-green"></span>
-                {% trans "APPROCHE" %}
-            </span>
+            
             <h2 class="font-suez text-[1.5rem] text-copal-black mb-3">{% trans "Comment j'ai concu la solution" %}</h2>
             <div class="prose text-copal-gray-600 leading-[1.75]">{{ project.approach|safe }}</div>
         </div>
@@ -162,10 +144,7 @@
 
         {% if project.solution %}
         <div class="reveal">
-            <span class="inline-flex items-center gap-2 mb-3 font-ibm-plex-mono text-[0.7rem] tracking-[0.1em] uppercase text-copal-green">
-                <span class="w-6 h-px bg-copal-green"></span>
-                {% trans "SOLUTION" %}
-            </span>
+           
             <h2 class="font-suez text-[1.5rem] text-copal-black mb-3">{% trans "Ce qui a ete construit" %}</h2>
             <div class="prose text-copal-gray-600 leading-[1.75]">{{ project.solution|safe }}</div>
         </div>
@@ -173,10 +152,7 @@
 
         {% if project.features %}
         <div class="reveal">
-            <span class="inline-flex items-center gap-2 mb-3 font-ibm-plex-mono text-[0.7rem] tracking-[0.1em] uppercase text-copal-green">
-                <span class="w-6 h-px bg-copal-green"></span>
-                {% trans "FONCTIONNALITES" %}
-            </span>
+           
             <h2 class="font-suez text-[1.5rem] text-copal-black mb-3">{% trans "Fonctionnalites cles" %}</h2>
             <div class="prose text-copal-gray-600 leading-[1.75]">{{ project.features|safe }}</div>
         </div>
@@ -184,10 +160,7 @@
 
         {% if project.result %}
         <div class="reveal">
-            <span class="inline-flex items-center gap-2 mb-3 font-ibm-plex-mono text-[0.7rem] tracking-[0.1em] uppercase text-copal-green">
-                <span class="w-6 h-px bg-copal-green"></span>
-                {% trans "RESULTAT" %}
-            </span>
+            
             <h2 class="font-suez text-[1.5rem] text-copal-black mb-3">{% trans "Le resultat" %}</h2>
             <div class="prose text-copal-gray-600 leading-[1.75]">{{ project.result|safe }}</div>
         </div>
@@ -195,10 +168,9 @@
 
         {% if project.role %}
         <div class="reveal">
-            <span class="inline-flex items-center gap-2 mb-3 font-ibm-plex-mono text-[0.7rem] tracking-[0.1em] uppercase text-copal-green">
-                <span class="w-6 h-px bg-copal-green"></span>
-                {% trans "MON ROLE" %}
-            </span>
+            <h2 class="font-suez text-[1.5rem] text-copal-green-light mb-3">{% trans "Mon role" %}</h2>
+
+           
             <div class="prose text-copal-gray-600 leading-[1.75]">{{ project.role|safe }}</div>
         </div>
         {% endif %}
