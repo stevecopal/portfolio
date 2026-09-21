@@ -11,24 +11,38 @@
             <div class="hero__left" data-reveal-element>
                 
                 <h1 class="hero__title" data-hero-reveal="150" data-reveal-element>
-                    <span class="hero__title-line">{% trans "Optimiser vos" %} <span class="hero__title-accent">{% trans "idées." %}</span></span>
-                    <span class="hero__title-line">{% trans "Propulser votre" %} <span class="hero__title-accent">{% trans "croissance." %}</span></span>
+                    <span class="hero__title-line">{% trans "Votre site doit" %}</span>
+                    <span class="hero__title-line">{% trans "apporter" %} <span class="hero__title-accent">{% trans "des résultats." %}</span></span>
                 </h1>
 
+                <p class="hero__desc" data-hero-reveal="350" data-reveal-element>
+                    {% trans "Je développe des solutions digitales qui transforment votre audience en clients. Stratégie, design, développement — tout est pensé pour la performance." %}
+                </p>
 
                 <div class="hero__ctas" data-hero-reveal="550" data-reveal-element>
                     <a href="#work" class="hero__cta hero__cta--green">
-                        {% trans "VOIR MES REALISATIONS" %}
+                        {% trans "VOIR MES RÉALISATIONS" %}
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10" />
                         </svg>
                     </a>
                     <a href="#contact" class="hero__cta hero__cta--ghost">
-                        {% trans "PARLEZ-MOI DE VOTRE PROJET" %}
+                        {% trans "DISCUTONS DE VOTRE PROJET" %}
                     </a>
                 </div>
 
-                
+                {# ── Trust indicator ────────────────────────── #}
+                <div class="hero__trust" data-hero-reveal="700" data-reveal-element>
+                    {% if profile.availability_status %}
+                    <span class="hero__trust-item">
+                        <span class="hero__trust-dot"></span>
+                        {{ profile.availability_message|default:"Disponible pour de nouveaux projets" }}
+                    </span>
+                    {% endif %}
+                    <span class="hero__trust-sep" aria-hidden="true"></span>
+                    <span class="hero__trust-item">{{profile.professional_name}}___{{ profile.professional_title|default:"Développeur Web & Solutions Digitales" }}</span>
+                </div>
+
             </div>
 
             {# ── RIGHT : THE CORE ────────────────────────────── #}

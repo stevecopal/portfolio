@@ -5,10 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
         initProjectFilters();
     }
     
-    // Initialize contact form
-    if (typeof initContactForm === 'function') {
-        initContactForm();
-    }
+
 });
 
 // Project Filters
@@ -24,26 +21,4 @@ function initProjectFilters() {
     });
 }
 
-// Contact Form
-function initContactForm() {
-    var form = document.getElementById('contactForm');
-    if (!form) return;
-    
-    form.addEventListener('submit', function(e) {
-        var valid = true;
-        form.querySelectorAll('[required]').forEach(function(field) {
-            if (!field.value.trim()) {
-                valid = false;
-                field.style.borderColor = '#EF4444';
-            } else {
-                field.style.borderColor = '';
-            }
-        });
-        if (!valid) {
-            e.preventDefault();
-            if (typeof showToast === 'function') {
-                showToast('Please fill in all required fields.', 'error');
-            }
-        }
-    });
-}
+

@@ -1457,6 +1457,38 @@ html.hr [data-reveal-text].hr-in .hr-word {
   background-color: rgba(255, 255, 255, 0.05);
 }
 
+.hero__trust {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 1.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: #6C757D;
+}
+.hero__trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.hero__trust-dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #15A34A;
+  box-shadow: 0 0 8px rgba(21, 163, 74, 0.7);
+  animation: hero-dot-pulse 2.6s ease-in-out infinite;
+}
+.hero__trust-sep {
+  flex: none;
+  width: 1px;
+  height: 12px;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
 .hero__availability {
   display: flex;
   align-items: center;

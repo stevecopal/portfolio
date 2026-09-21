@@ -79,7 +79,7 @@ class ContactView(SeoMixin, TemplateView):
                     return JsonResponse({
                         "success": True,
                         "message": str(_("Thank you! Your message has been sent successfully.")),
-                        "redirect": reverse("portfolio:home") 
+                        "redirect": reverse("portfolio:services")
                     })
 
                 messages.success(
@@ -87,7 +87,7 @@ class ContactView(SeoMixin, TemplateView):
                     _("Thank you! Your message has been sent successfully."),
                 )
                 return HttpResponseRedirect(
-                    reverse("portfolio:home") 
+                    reverse("portfolio:services")
                 )
 
             except Exception as e:
