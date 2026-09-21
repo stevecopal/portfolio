@@ -28,7 +28,9 @@ FROM python:3.12-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PATH="/app/.venv/bin:$PATH"
+    PATH="/app/.venv/bin:$PATH"\
+    HOME=/app
+    
 
 # Runtime deps for Pillow + gosu for entrypoint
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -44,7 +46,8 @@ COPY --from=builder /app/.venv /app/.venv
 WORKDIR /app
 
 # Create appuser
-RUN addgroup --system appuser && adduser --system --group appuser
+RUN addgroup --system appuser && \
+    adduser --system --ingroup appuser --home /app appuser
 
 # Copy source + entrypoint
 COPY entrypoint.sh /app/entrypoint.sh
