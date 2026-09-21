@@ -9,16 +9,12 @@
         <div class="hero__grid">
             {# ── LEFT : copy ─────────────────────────────────── #}
             <div class="hero__left" data-reveal-element>
-               
+                
                 <h1 class="hero__title" data-hero-reveal="150" data-reveal-element>
                     <span class="hero__title-line">{% trans "Optimiser vos" %} <span class="hero__title-accent">{% trans "idées." %}</span></span>
                     <span class="hero__title-line">{% trans "Propulser votre" %} <span class="hero__title-accent">{% trans "croissance." %}</span></span>
                 </h1>
 
-
-                <p class="hero__desc" data-hero-reveal="350" data-reveal-element>
-                    {% trans "Créateur de solutions numériques sur mesure. Je développe des applications robustes pour automatiser vos processus et maximiser votre rentabilité." %}
-                </p>
 
                 <div class="hero__ctas" data-hero-reveal="550" data-reveal-element>
                     <a href="#work" class="hero__cta hero__cta--green">
@@ -32,12 +28,7 @@
                     </a>
                 </div>
 
-                {% if profile.availability_status %}
-                <div class="hero__availability" data-hero-reveal="700" data-reveal-element>
-                    <span class="hero__availability-dot" aria-hidden="true"></span>
-                    <span>{{ profile.availability_message|default:"Disponible pour de nouveaux projets" }}</span>
-                </div>
-                {% endif %}
+                
             </div>
 
             {# ── RIGHT : THE CORE ────────────────────────────── #}
@@ -55,13 +46,7 @@
         </div>
     </div>
 
-    {# ── Footer strip ──────────────────────────────────────── #}
-    <div class="hero__footer" aria-hidden="true" data-hero-reveal="800">
-        <span class="hero__scroll">
-            <span class="hero__scroll-icon"></span>
-            {% trans "DEFEILER POUR EXPLORER" %}
-        </span>
-    </div>
+    
 </section>
 
 <script src="{% static 'js/hero.js' %}" defer></script>

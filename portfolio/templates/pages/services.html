@@ -77,48 +77,6 @@
 </section>
 
 
-{# ═══════════════ PROCESS ═══════════════ #}
-<section class="py-20 md:py-28 bg-copal-black">
-    <div class="max-w-6xl mx-auto px-5">
-        <div class="text-center mb-16">
-            <div class="flex items-center justify-center gap-3 mb-4">
-                <span class="w-8 h-px bg-copal-green"></span>
-                <span class="font-ibm-plex-mono text-[0.7rem] tracking-[0.14em] uppercase text-copal-green">{% trans "MA MÉTHODE" %}</span>
-                <span class="w-8 h-px bg-copal-green"></span>
-            </div>
-            <h2 class="font-suez text-[clamp(1.8rem,3vw,2.4rem)] text-white mb-3">
-                {% trans "Comment je transforme" %}<br>
-                <span class="text-copal-green">{% trans "votre idée en solution." %}</span>
-            </h2>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
-            {% for step in "12345" %}
-            <div class="reveal text-center p-6 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-                <div class="w-12 h-12 flex items-center justify-center rounded-full mx-auto mb-4 bg-copal-green/[0.15]">
-                    <span class="font-ibm-plex-mono text-[0.8rem] font-bold text-copal-green">0{{ forloop.counter }}</span>
-                </div>
-                {% if forloop.counter == 1 %}
-                <h3 class="font-suez text-[1rem] text-white mb-1">{% trans "Vous expliquez" %}</h3>
-                <p class="text-white/40 text-[0.82rem] leading-[1.5]">{% trans "Votre besoin" %}</p>
-                {% elif forloop.counter == 2 %}
-                <h3 class="font-suez text-[1rem] text-white mb-1">{% trans "Nous définissons" %}</h3>
-                <p class="text-white/40 text-[0.82rem] leading-[1.5]">{% trans "La solution" %}</p>
-                {% elif forloop.counter == 3 %}
-                <h3 class="font-suez text-[1rem] text-white mb-1">{% trans "Je construis" %}</h3>
-                <p class="text-white/40 text-[0.82rem] leading-[1.5]">{% trans "Votre outil" %}</p>
-                {% elif forloop.counter == 4 %}
-                <h3 class="font-suez text-[1rem] text-white mb-1">{% trans "Je déploie" %}</h3>
-                <p class="text-white/40 text-[0.82rem] leading-[1.5]">{% trans "En ligne" %}</p>
-                {% elif forloop.counter == 5 %}
-                <h3 class="font-suez text-[1rem] text-white mb-1">{% trans "Vous utilisez" %}</h3>
-                <p class="text-white/40 text-[0.82rem] leading-[1.5]">{% trans "Votre solution" %}</p>
-                {% endif %}
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
 
 
 {# ═══════════════ CTA ═══════════════ #}
