@@ -96,11 +96,14 @@ LOCALE_PATHS = [
     BASE_DIR / "locale",
 ]
 
-STATIC_URL = "static/"
+# Ajoute le slash au début
+STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-MEDIA_URL = "media/"
+MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
