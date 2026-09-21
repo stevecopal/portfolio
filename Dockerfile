@@ -1,36 +1,36 @@
-FROM python:3.12-slim AS builder
+FROM python:3.11-slim
+
+# Empêche Python d'écrire des fichiers .pyc et d'utiliser un tampon de sortie
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-COPY pyproject.toml uv.lock ./
+# Installation des dépendances système + gosu
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gosu \
+    && rm -rf /var/lib/apt-get/lists/*
 
-RUN pip install --no-cache-dir uv && \
-    uv sync --frozen --no-dev --no-install-project
+# Création d'un utilisateur non-root sans privilèges
+RUN addgroup --system appuser && adduser --system --group appuser
 
-COPY . .
+# Installation des dépendances Python
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
 
-RUN uv sync --frozen --no-dev
+# Copie du code source
+COPY . /app/
 
-FROM python:3.12-slim AS runner
-
-ENV PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1 \
-    PIP_NO_CACHE_DIR=1 \
-    PATH="/app/.venv/bin:$PATH"
-
-RUN groupadd -r appuser && useradd -r -g appuser -d /app -s /sbin/nologin appuser
-
-WORKDIR /app
-
-COPY --from=builder /app /app
-
-RUN mkdir -p /app/data && \
+# Création des répertoires pour les static, media et SQLite avec attribution des droits
+RUN mkdir -p /app/staticfiles /app/media /app/data && \
     chown -R appuser:appuser /app
 
-USER appuser
+# Rendre le script d'entrée exécutable
+RUN chmod +x /app/entrypoint.sh
+
+# Le conteneur démarre en root pour corriger les permissions des volumes
+ENTRYPOINT ["/app/entrypoint.sh"]
 
 EXPOSE 8000
 
-ENTRYPOINT ["/app/entrypoint.sh"]
-
-CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3", "--threads", "2"]
+CMD ["gunicorn", "portfolio.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3"]
