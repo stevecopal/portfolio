@@ -9,10 +9,16 @@ from portfolio.models import (
     SiteSettings,
     Tool,
 )
+from portfolio.utils import SeoMixin
 
 
-class HomeView(TemplateView):
+class HomeView(SeoMixin, TemplateView):
     template_name = "pages/home.html"
+    seo_page_key = "home"
+
+    def get_seo_overrides(self):
+        """Catalogue de services : signal fort pour le SEO local."""
+        return {"include_service_catalog": True}
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

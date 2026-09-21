@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
 
@@ -84,6 +85,10 @@ class Service(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        """URL publique du service (utilisée par le sitemap et le SEO)."""
+        return reverse("portfolio:service_detail", kwargs={"slug": self.slug})
 
 
 class ServiceFeature(models.Model):

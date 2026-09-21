@@ -1,3 +1,5 @@
+from django.conf import settings
+
 from portfolio.models import (
     Profile,
     SocialLink,
@@ -6,6 +8,8 @@ from portfolio.models import (
     Project,
     Testimonial,
 )
+
+from .seo import build_seo
 
 
 def global_context(request):
@@ -40,25 +44,36 @@ def global_context(request):
 
 
 def seo_context(request):
-    """SEO metadata context."""
-    site_settings = SiteSettings.objects.first()
-    seo = {
-        "site_name": site_settings.site_name if site_settings else "Copal Satcheme",
-        "site_description": (
-            site_settings.short_description
-            if site_settings
-            else "Digital Solutions Builder"
-        ),
-        "default_title": (
-            site_settings.seo_title
-            if hasattr(site_settings, "seo_title") and site_settings.seo_title
-            else "Copal Satcheme"
-        ),
-        "default_description": (
-            site_settings.seo_description
-            if hasattr(site_settings, "seo_description") and site_settings.seo_description
-            else "Digital Solutions Builder"
-        ),
-        "canonical_url": request.build_absolute_uri() if request else "",
+    """Métadonnées SEO de la page courante (titre, description, JSON-LD…).
+
+    Contexte utilisé par ``base.html``. Les vues qui héritent de
+    :class:`portfolio.utils.seo.SeoMixin` fournissent une version enrichie
+    (projet, service, fil d'Ariane…) qui écrase cette valeur par défaut.
+    """
+    try:
+        seo = build_seo(request)
+    except Exception:  # pragma: no cover - ne doit jamais casser une page
+        seo = {
+            "title": getattr(settings, "SITE_NAME", "Copal Satcheme"),
+            "description": getattr(settings, "SITE_DESCRIPTION", ""),
+            "canonical": "",
+            "image": "",
+            "type": "website",
+            "robots": "index, follow",
+            "alternates": [],
+            "structured_data": [],
+            "locale": "",
+            "locale_alternates": [],
+            "site_name": getattr(settings, "SITE_NAME", "Copal Satcheme"),
+            "site_url": getattr(settings, "SITE_URL", ""),
+            "twitter_card": "summary",
+        }
+    return {
+        "seo": seo,
+        "site_url": getattr(settings, "SITE_URL", ""),
+        "site_verification": {
+            "google": getattr(settings, "GOOGLE_SITE_VERIFICATION", ""),
+            "bing": getattr(settings, "BING_SITE_VERIFICATION", ""),
+        },
     }
-    return {"seo": seo}
+

@@ -1,5 +1,13 @@
-{% load i18n static %}
 {% extends "base.html" %}
+{% load i18n static %}
+
+{# IMPORTANT : {% extends %} doit être la première balise du template, #}
+{# sinon Django lève une TemplateSyntaxError et le 404 devient un 500. #}
+
+{% block title %}{% trans "Page introuvable (404)" %} | {{ seo.site_name }}{% endblock %}
+{% block meta_description %}{% trans "Cette page n'existe pas ou a été déplacée. Retournez à l'accueil pour découvrir les solutions et réalisations de Copal Satcheme." %}{% endblock %}
+{% block robots %}noindex, follow{% endblock %}
+
 {% block content %}
 <section class="min-h-screen flex items-center justify-center px-5">
     <div class="text-center space-y-6">
@@ -9,9 +17,12 @@
         <p class="text-copal-gray-500 max-w-[400px] mx-auto leading-[1.6]">
             {% trans "La page que vous recherchez n'existe pas ou a ete deplacee." %}
         </p>
-        <div class="pt-2">
+        <div class="pt-2 flex flex-col sm:flex-row justify-center gap-3">
             <a href="{% url 'portfolio:home' %}" class="inline-flex items-center justify-center gap-2 px-6 py-3 font-medium tracking-wide transition-all duration-200 rounded-md cursor-pointer font-space-grotesk text-[0.875rem] tracking-[0.05em] uppercase bg-copal-green text-white border-2 border-copal-green hover:bg-copal-green-dark hover:border-copal-green-dark hover:shadow-[0_4px_14px_rgba(21,163,74,0.25)] hover:-translate-y-px">
                 {% trans "ALLER A L'ACCUEIL" %}
+            </a>
+            <a href="{% url 'portfolio:projects' %}" class="inline-flex items-center justify-center gap-2 px-6 py-3 font-medium tracking-wide transition-all duration-200 rounded-md cursor-pointer font-space-grotesk text-[0.875rem] tracking-[0.05em] uppercase bg-transparent text-copal-black border-2 border-copal-black hover:bg-copal-black hover:text-white hover:-translate-y-px">
+                {% trans "VOIR LES REALISATIONS" %}
             </a>
         </div>
     </div>

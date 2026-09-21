@@ -1,0 +1,16 @@
+# robots.txt — plan de crawl du site Copal Satcheme
+# Doc : https://developers.google.com/search/docs/crawling-indexing/robots/intro
+
+User-agent: *
+Allow: /
+Allow: /static/
+Allow: /media/
+
+# Zones techniques (jamais à indexer)
+Disallow: /admin/
+Disallow: /*/admin/
+Disallow: /*/i18n/
+Disallow: /*?lang=
+
+# Plan du site (toutes les langues)
+Sitemap: {{ site_url }}/sitemap.xml

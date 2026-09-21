@@ -82,14 +82,17 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-LANGUAGE_CODE = "en-us"
-TIME_ZONE = "UTC"
+# Le contenu du site est rédigé en français : le français est donc la langue
+# principale (elle sert de valeur par défaut pour les URL, le sitemap et
+# x-default). L'anglais reste disponible via /en/.
+LANGUAGE_CODE = config("LANGUAGE_CODE", default="fr")
+TIME_ZONE = "Africa/Douala"
 USE_I18N = True
 USE_TZ = True
 
 LANGUAGES = [
-    ("en", "English"),
     ("fr", "Français"),
+    ("en", "English"),
 ]
 
 LOCALE_PATHS = [
@@ -122,8 +125,40 @@ CKEDITOR_CONFIGS = {
 
 # SEO
 SITE_NAME = "Copal Satcheme"
-SITE_DESCRIPTION = "Digital Solutions Builder"
-SITE_URL = "https://copal-satcheme.cohub.site"
+SITE_DESCRIPTION = (
+    "Développeur Full-Stack & Architecte de Solutions Digitales au Cameroun"
+)
+SITE_URL = config("SITE_URL", default="https://copal-satcheme.cohub.site")
+
+# Noms alternatifs (recherches de marque, fautes de frappe fréquentes).
+SITE_ALTERNATE_NAMES = config(
+    "SITE_ALTERNATE_NAMES",
+    default="Copal Satchme,Steve Satcheme",
+    cast=lambda v: [s.strip() for s in v.split(",") if s.strip()],
+)
+
+# Vérification des moteurs de recherche (balises meta).
+# Google Search Console : https://search.google.com/search-console
+# Bing Webmaster Tools : https://www.bing.com/webmasters
+GOOGLE_SITE_VERIFICATION = config("GOOGLE_SITE_VERIFICATION", default="")
+BING_SITE_VERIFICATION = config("BING_SITE_VERIFICATION", default="")
+
+# Le site est servi en HTTPS derrière un reverse proxy (Caddy/Docker).
+# Ces deux réglages garantissent que les URL canoniques, og:url et le sitemap
+# sont bien générés en https:// au lieu de http://.
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+# Sécurité / SEO technique (uniquement hors développement).
+if not DEBUG:
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
+    SECURE_HSTS_SECONDS = config("SECURE_HSTS_SECONDS", default=31536000, cast=int)
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = config(
+        "SECURE_HSTS_INCLUDE_SUBDOMAINS", default=False, cast=bool
+    )
+    SECURE_HSTS_PRELOAD = config("SECURE_HSTS_PRELOAD", default=False, cast=bool)
+
 
 # Email
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"

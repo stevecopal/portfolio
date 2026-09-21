@@ -1,12 +1,49 @@
-from django.views.generic import ListView, DetailView
-from portfolio.models import Project, Technology, SiteSettings
+from django.conf import settings
+from django.utils.translation import gettext as _
+from django.views.generic import DetailView, ListView
+
+from portfolio.models import Project, SiteSettings, Technology
+from portfolio.utils import (
+    SeoMixin,
+    absolute_media_url,
+    absolute_url,
+    as_datetime,
+    item_list_data,
+    project_data,
+)
 
 
-class ProjectsView(ListView):
+class ProjectsView(SeoMixin, ListView):
     template_name = "pages/projects.html"
     model = Project
     context_object_name = "projects"
     paginate_by = 9
+    seo_page_key = "projects"
+
+    def get_seo_breadcrumbs(self):
+        return [("projects", _("Réalisations"))]
+
+    def get_seo_overrides(self):
+        projects = list(getattr(self, "object_list", []) or [])
+        if not projects:
+            projects = list(self.get_queryset()[:50])
+        return {
+            "structured_data": [
+                item_list_data(
+                    [
+                        {
+                            "name": project.title,
+                            "url": absolute_url(
+                                project.get_absolute_url(), self.request
+                            ),
+                        }
+                        for project in projects
+                    ],
+                    request=self.request,
+                    name=_("Réalisations"),
+                )
+            ]
+        }
 
     def get_queryset(self):
         return (
@@ -24,11 +61,28 @@ class ProjectsView(ListView):
         return context
 
 
-class ProjectDetailView(DetailView):
+class ProjectDetailView(SeoMixin, DetailView):
     template_name = "projects/project_detail.html"
     model = Project
     context_object_name = "project"
     slug_url_kwarg = "slug"
+    seo_page_key = "projects"
+
+    def get_seo_breadcrumbs(self):
+        return [("projects", _("Réalisations")), (None, self.object.title)]
+
+    def get_seo_overrides(self):
+        project = self.object
+        return {
+            "title": f"{project.title} | {settings.SITE_NAME}",
+            "description": project.short_description or project.description,
+            "image": absolute_media_url(project.cover_image, self.request),
+            "image_alt": project.title,
+            "type": "article",
+            "publish_time": as_datetime(project.project_date),
+            "modify_time": project.updated_at,
+            "structured_data": [project_data(project, self.request)],
+        }
 
     def get_queryset(self):
         return (

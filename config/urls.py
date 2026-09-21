@@ -21,32 +21,38 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib.sitemaps.views import sitemap
+from django.views.generic import RedirectView
 from portfolio.sitemaps import sitemaps
-
+from portfolio.views.seo import robots_txt
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # Fichiers techniques SEO (hors préfixe de langue)
+    path("robots.txt", robots_txt, name="robots_txt"),
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": sitemaps},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
+    # La racine redirige (301) vers la langue principale du site
+    path(
+        "",
+        RedirectView.as_view(
+            url=f"/{settings.LANGUAGE_CODE.split('-')[0]}/", permanent=True
+        ),
+        name="root_redirect",
+    ),
+    path("admin/", admin.site.urls),
 ]
 
 urlpatterns += i18n_patterns(
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     path("", include("portfolio.urls")),
-    path('i18n/', include('django.conf.urls.i18n')),
+    path("i18n/", include("django.conf.urls.i18n")),
 )
 
 # Serve static and media files in development
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-
-
-urlpatterns += [
-    path(
-        'sitemap.xml',
-        sitemap,
-        {'sitemaps': sitemaps},
-        name='django.contrib.sitemaps.views.sitemap'
-    ),
-]

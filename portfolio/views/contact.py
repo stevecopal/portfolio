@@ -11,10 +11,18 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from portfolio.models import SiteSettings, Service
 from portfolio.forms import ContactForm
+from portfolio.utils import SeoMixin, contact_page_data
 
 
-class ContactView(TemplateView):
+class ContactView(SeoMixin, TemplateView):
     template_name = "pages/contact.html"
+    seo_page_key = "contact"
+
+    def get_seo_breadcrumbs(self):
+        return [("contact", _("Contact"))]
+
+    def get_seo_overrides(self):
+        return {"structured_data": [contact_page_data(self.request)]}
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

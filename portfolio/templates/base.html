@@ -1,21 +1,73 @@
 <!DOCTYPE html>
-{% load static i18n %}
-<html lang="{{ request.LANGUAGE_CODE }}">
+{% load static i18n seo_tags %}
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE|default:'fr' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ site_settings.seo_description|default:'Copal Satcheme | Digital Solutions Builder' }}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    {# ══════════════ SEO : titre + description uniques par page ══════════════ #}
+    <title>{% block title %}{{ seo.title }}{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}{{ seo.description }}{% endblock %}">
+    <meta name="robots" content="{% block robots %}{{ seo.robots }}{% endblock %}">
+    <meta name="googlebot" content="{% block googlebot %}{{ seo.robots }}{% endblock %}">
+    <link rel="canonical" href="{% block canonical %}{{ seo.canonical }}{% endblock %}">
+
+    {# ══════════════ Versions linguistiques (hreflang) ══════════════ #}
+    {% for alternate in seo.alternates %}
+    <link rel="alternate" hreflang="{{ alternate.hreflang }}" href="{{ alternate.href }}">
+    {% endfor %}
+
+    {# ══════════════ Auteur / marque / mobile ══════════════ #}
     <meta name="author" content="{{ profile.full_name|default:'Copal Satcheme' }}">
-    <meta property="og:title" content="{{ site_settings.seo_title|default:'Copal Satcheme | Portfolio' }}">
-    <meta property="og:description" content="{{ site_settings.seo_description|default:'Digital Solutions Builder' }}">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ site_settings.seo_title|default:'Copal Satcheme | Portfolio' }}">
-    <meta name="twitter:description" content="{{ site_settings.seo_description|default:'Digital Solutions Builder' }}">
+    <meta name="publisher" content="{{ seo.site_name }}">
+    <meta name="theme-color" content="#15A34A">
+
+    {# ══════════════ Vérification des moteurs (Search Console, Bing) ══════════════ #}
+    {% if seo.google_verification %}
+    <meta name="google-site-verification" content="{{ seo.google_verification }}">
+    {% endif %}
+    {% if seo.bing_verification %}
+    <meta name="msvalidate.01" content="{{ seo.bing_verification }}">
+    {% endif %}
+
+    {# ══════════════ Open Graph (Facebook, LinkedIn, WhatsApp) ══════════════ #}
+    <meta property="og:site_name" content="{{ seo.site_name }}">
+    <meta property="og:type" content="{{ seo.type }}">
+    <meta property="og:title" content="{{ seo.og_title }}">
+    <meta property="og:description" content="{{ seo.description }}">
+    <meta property="og:url" content="{{ seo.canonical }}">
+    <meta property="og:locale" content="{{ seo.locale }}">
+    {% for locale in seo.locale_alternates %}
+    <meta property="og:locale:alternate" content="{{ locale }}">
+    {% endfor %}
+    {% if seo.image %}
+    <meta property="og:image" content="{{ seo.image }}">
+    <meta property="og:image:alt" content="{{ seo.image_alt }}">
+    {% endif %}
+    {% if seo.publish_time %}
+    <meta property="article:published_time" content="{{ seo.publish_time|date:'c' }}">
+    {% endif %}
+    {% if seo.modify_time %}
+    <meta property="article:modified_time" content="{{ seo.modify_time|date:'c' }}">
+    {% endif %}
+
+    {# ══════════════ Twitter / X ══════════════ #}
+    <meta name="twitter:card" content="{{ seo.twitter_card|default:'summary_large_image' }}">
+    <meta name="twitter:title" content="{{ seo.og_title }}">
+    <meta name="twitter:description" content="{{ seo.description }}">
+    {% if seo.image %}
+    <meta name="twitter:image" content="{{ seo.image }}">
+    {% endif %}
+
+    {# ══════════════ Fichiers techniques ══════════════ #}
+    <link rel="sitemap" type="application/xml" title="Plan du site" href="{{ seo.site_url }}/sitemap.xml">
+    <link rel="alternate" type="text/plain" title="robots.txt" href="{{ seo.site_url }}/robots.txt">
 
     {# Favicon #}
-    <link rel="icon" type="image/x-icon" href="{% if profile.profile_image %}{{ profile.profile_image.url }}{% else %}{% static 'images/logo.jpeg' %}{% endif %}">
+    <link rel="icon" type="image/jpeg" href="{% if profile.profile_image %}{{ profile.profile_image.url }}{% else %}{% static 'images/logo.jpeg' %}{% endif %}">
+    <link rel="apple-touch-icon" href="{% if profile.logo %}{{ profile.logo.url }}{% else %}{% static 'images/logo.jpeg' %}{% endif %}">
 
     {# Fonts #}
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,24 +80,12 @@
     {# Tailwind CSS (compiled output) #}
     <link href="{% static 'css/output.css' %}" rel="stylesheet">
 
-    <title>{{ site_settings.seo_title|default:'Copal Satcheme' }}</title>
+    {# ══════════════ Données structurées (JSON-LD / schema.org) ══════════════ #}
+    {% for structured_item in seo.structured_data %}
+    <script type="application/ld+json">{{ structured_item|json_ld }}</script>
+    {% endfor %}
 
-    {# Structured data #}
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "{{ profile.full_name|default:'Copal Satcheme' }}",
-        "description": "{{ seo.default_description }}",
-        "url": "{{ request.scheme }}://{{ request.get_host }}",
-        "email": "{{ profile.email|default:'hello@copal.cm' }}",
-        "address": {
-            "@type": "Place",
-            "addressLocality": "{{ profile.city|default:'Douala' }}",
-            "addressCountry": "{{ profile.country|default:'Cameroon' }}"
-        }
-    }
-    </script>
+    {% block extra_head %}{% endblock %}
 </head>
 
 <body class="antialiased">

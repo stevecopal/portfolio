@@ -16,7 +16,9 @@
     <nav class="hidden lg:flex items-center gap-1" aria-label="{% trans 'Navigation principale' %}">
       <a href="{% url 'portfolio:home' %}" class="nav-link" data-transition="page" data-transition-label="HOME">{% trans "ACCUEIL" %}</a>
       <a href="{% url 'portfolio:services' %}" class="nav-link" data-transition="page" data-transition-label="SOLUTIONS">{% trans "SOLUTIONS" %}</a>
+      <a href="{% url 'portfolio:projects' %}" class="nav-link" data-transition="page" data-transition-label="PROJETS">{% trans "PROJETS" %}</a>
       <a href="{% url 'portfolio:experience' %}" class="nav-link" data-transition="page" data-transition-label="EXPERIENCE">{% trans "EXPERIENCE" %}</a>
+      <a href="{% url 'portfolio:about' %}" class="nav-link" data-transition="page" data-transition-label="A PROPOS">{% trans "A PROPOS" %}</a>
     </nav>
 
     {# ---------- Actions droite ---------- #}
@@ -68,12 +70,20 @@
       <span class="mobile-nav-link__num">02</span>
       <span class="mobile-nav-link__text">{% trans "SOLUTIONS" %}</span>
     </a>
-    <a href="{% url 'portfolio:experience' %}" class="mobile-nav-link" data-transition="page" data-transition-label="EXPERIENCE">
+    <a href="{% url 'portfolio:projects' %}" class="mobile-nav-link" data-transition="page" data-transition-label="PROJETS">
       <span class="mobile-nav-link__num">03</span>
+      <span class="mobile-nav-link__text">{% trans "PROJETS" %}</span>
+    </a>
+    <a href="{% url 'portfolio:experience' %}" class="mobile-nav-link" data-transition="page" data-transition-label="EXPERIENCE">
+      <span class="mobile-nav-link__num">04</span>
       <span class="mobile-nav-link__text">{% trans "EXPERIENCE" %}</span>
     </a>
+    <a href="{% url 'portfolio:about' %}" class="mobile-nav-link" data-transition="page" data-transition-label="A PROPOS">
+      <span class="mobile-nav-link__num">05</span>
+      <span class="mobile-nav-link__text">{% trans "A PROPOS" %}</span>
+    </a>
     <a href="{% url 'portfolio:contact' %}" class="mobile-nav-link" data-transition="page" data-transition-label="CONTACT">
-      <span class="mobile-nav-link__num">04</span>
+      <span class="mobile-nav-link__num">06</span>
       <span class="mobile-nav-link__text">{% trans "CONTACT" %}</span>
     </a>
     <div class="mobile-nav-link__text mobile-nav-link" >{% include 'components/language_switcher.html' %}</div>

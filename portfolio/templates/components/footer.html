@@ -28,8 +28,9 @@
                 <h3 class="font-ibm-plex-mono text-[0.7rem] tracking-[0.12em] uppercase text-copal-green mb-4">{% trans "NAVIGATION" %}</h3>
                 <nav class="flex flex-col gap-2">
                     <a href="{% url 'portfolio:services' %}" class="text-copal-gray-400 text-[0.88rem] no-underline hover:text-white transition-colors duration-200">{% trans "Solutions" %}</a>
-                    <a href="{% url 'portfolio:experience' %}" class="text-copal-gray-400 text-[0.88rem] no-underline hover:text-white transition-colors duration-200">{% trans "Experience" %}</a>
                     <a href="{% url 'portfolio:projects' %}" class="text-copal-gray-400 text-[0.88rem] no-underline hover:text-white transition-colors duration-200">{% trans "Projets" %}</a>
+                    <a href="{% url 'portfolio:experience' %}" class="text-copal-gray-400 text-[0.88rem] no-underline hover:text-white transition-colors duration-200">{% trans "Experience" %}</a>
+                    <a href="{% url 'portfolio:about' %}" class="text-copal-gray-400 text-[0.88rem] no-underline hover:text-white transition-colors duration-200">{% trans "A propos" %}</a>
                     <a href="{% url 'portfolio:contact' %}" class="text-copal-gray-400 text-[0.88rem] no-underline hover:text-white transition-colors duration-200">{% trans "Contact" %}</a>
                     {% if profile.resume_file %}
                     <a href="{{ profile.resume_file.url }}" download class="text-copal-green text-[0.88rem] no-underline hover:text-green-400 transition-colors duration-200">{% trans "Telecharger CV" %}</a>

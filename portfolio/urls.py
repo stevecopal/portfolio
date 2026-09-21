@@ -1,6 +1,7 @@
 from django.urls import path
 from portfolio.views import (
     home_view,
+    about_view,
     services_view,
     service_detail_view,
     experience_view,
@@ -13,6 +14,7 @@ app_name = "portfolio"
 
 urlpatterns = [
     path("", home_view, name="home"),
+    path("about/", about_view, name="about"),
     path("solutions/", services_view, name="services"),
     path("solutions/<slug:slug>/", service_detail_view, name="service_detail"),
     path("experience/", experience_view, name="experience"),
