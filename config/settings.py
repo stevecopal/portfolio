@@ -120,7 +120,7 @@ CKEDITOR_CONFIGS = {
 # SEO
 SITE_NAME = "Copal Satcheme"
 SITE_DESCRIPTION = "Digital Solutions Builder"
-SITE_URL = "https://www.copal-satcheme.site"
+SITE_URL = "https://copal-satcheme.cohub.site"
 
 # Email
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
