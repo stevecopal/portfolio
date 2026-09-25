@@ -50,7 +50,7 @@ class HomeView(SeoMixin, TemplateView):
         # Testimonials (trust)
         context["testimonials"] = (
             Testimonial.objects.filter(is_active=True)
-            .order_by("display_order")[:3]
+            .order_by("display_order")[:10]
         )
 
         # Tools

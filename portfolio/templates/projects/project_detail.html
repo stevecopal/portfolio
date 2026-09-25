@@ -3,104 +3,100 @@
 
 {% block content %}
 
-{# Breadcrumbs #}
-<section class="pt-24 md:pt-28 pb-4">
-   
-</section>
+{# ═══════════════ EN-TÊTE ═══════════════ #}
+<section class="section surface-white" data-reveal-section data-reveal-stagger="80">
+    <div class="container">
+        <div class="grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-14">
 
-{# Project Header #}
-<section class="pb-10 md:pb-12">
-    <div class="max-w-6xl mx-auto px-5">
-        <div class="pd-head">
-            {# Left: intro #}
-            <div class="reveal" data-reveal="section" data-reveal-element>
-                
-                <h1 class="font-suez text-[clamp(2rem,4vw,2.8rem)] leading-[1.1] text-copal-black mb-4" data-reveal="title" data-reveal-delay="2" data-reveal-element>{{ project.title }}</h1>
-                <p class="text-copal-gray-500 text-[1.08rem] leading-[1.7] max-w-[640px] mb-6" data-reveal="title" data-reveal-delay="3" data-reveal-element>{{ project.short_description }}</p>
+            <div class="lg:col-span-7">
+                <span class="eyebrow" data-reveal-item>
+                    <a href="{% url 'portfolio:projects' %}" class="hover:text-ink">{% trans "Réalisations" %}</a>
+                </span>
+                <h1 class="display-xl mt-6" data-reveal-item>{{ project.title }}</h1>
+                <p class="lead mt-6 max-w-xl" data-reveal-item>{{ project.short_description }}</p>
 
-                {# Actions #}
-                <div class="flex flex-wrap gap-3" data-reveal="item" data-reveal-delay="4" data-reveal-element>
+                <div class="mt-8 flex flex-wrap gap-3" data-reveal-item>
                     {% if project.live_url %}
-                    <a href="{{ project.live_url }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg font-medium transition-all duration-200 font-space-grotesk text-[0.82rem] tracking-[0.04em] uppercase bg-copal-green text-white no-underline px-[0.62rem] py-[0.62rem]">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                        <span>{% trans "DEMO EN DIRECT" %}</span>
+                    <a href="{{ project.live_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-solid">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                        </svg>
+                        {% trans "Démo en direct" %}
                     </a>
                     {% endif %}
                     {% if project.github_url %}
-                    <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-lg font-medium transition-all duration-200 font-space-grotesk text-[0.82rem] tracking-[0.04em] uppercase bg-transparent text-copal-black border-2 border-copal-gray-200 no-underline px-[0.62rem] py-[0.62rem]">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.947-.695.074-.688.074-.688 1.003.07 1.539 1.032 1.539 1.032.892 1.534 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.9 2.651.636.408.292 1.427.292 1.427 2.22.757 4.342 1.82 4.342 3.012 0 1.466-.325 2.688-.965 2.688-.666.376-.872.904-.872 1.855 0 .752.366 1.36.644 1.703.005.266.208.578.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg>
-                        <span>{% trans "VOIR LE CODE" %}</span>
+                    <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                        </svg>
+                        {% trans "Voir le code" %}
                     </a>
                     {% endif %}
                 </div>
             </div>
 
-            {# Right: at a glance #}
-            <aside class="pd-facts reveal" style="transition-delay: 120ms;">
-                <div class="mt-[0.35rem]">
+            <aside class="lg:col-span-5" data-reveal-card>
+                <div class="pd-facts">
                     {% if project.client_name %}
                     <div class="pd-fact">
-                        <span class="pd-fact-label">{% trans "CLIENT" %}</span>
+                        <span class="pd-fact-label">{% trans "Client" %}</span>
                         <span class="pd-fact-value">{{ project.client_name }}</span>
                     </div>
                     {% endif %}
                     <div class="pd-fact">
-                        <span class="pd-fact-label">{% trans "DATE" %}</span>
+                        <span class="pd-fact-label">{% trans "Date" %}</span>
                         <span class="pd-fact-value">{{ project.project_date|date:"M Y" }}</span>
                     </div>
                     <div class="pd-fact">
-                        <span class="pd-fact-label">{% trans "STATUT" %}</span>
-                        <span class="pd-fact-value pd-fact-status">
-                            <i class="{% if project.status == 'completed' %}bg-copal-green{% else %}bg-copal-gray-500{% endif %}" aria-hidden="true"></i>
+                        <span class="pd-fact-label">{% trans "Statut" %}</span>
+                        <span class="pd-fact-value flex items-center justify-end gap-2">
+                            <span class="h-2 w-2 rounded-full {% if project.status == 'completed' %}bg-ink{% else %}bg-ink/30{% endif %}" aria-hidden="true"></span>
                             {{ project.get_status_display }}
                         </span>
                     </div>
-                </div>
 
-                {% if project.technologies.all %}
-                <div class="pd-facts-tech">
-                    <span class="pd-facts-label">{% trans "TECHNOLOGIES" %}</span>
-                    <div class="flex flex-wrap gap-2">
-                        {% for tech in project.technologies.all %}
-                        <span class="pd-chip">{{ tech.name }}</span>
-                        {% endfor %}
+                    {% if project.technologies.all %}
+                    <div class="pt-5">
+                        <span class="label">{% trans "Technologies" %}</span>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            {% for tech in project.technologies.all %}
+                            <span class="pd-chip">{{ tech.name }}</span>
+                            {% endfor %}
+                        </div>
                     </div>
+                    {% endif %}
                 </div>
-                {% endif %}
             </aside>
+
         </div>
     </div>
 </section>
 
-{# Cover preview #}
+{# ═══════════════ VISUELS ═══════════════ #}
 {% if cover_available %}
-<section class="pb-10 md:pb-12">
-    <div class="max-w-3xl mx-auto px-5">
-        <div class="pd-frame reveal">
+<section class="pb-4 surface-white">
+    <div class="container">
+        <div class="pd-frame" data-reveal-item>
             <img src="{{ project.cover_image.url }}" alt="{{ project.title }}" loading="lazy" decoding="async">
         </div>
     </div>
 </section>
 {% endif %}
 
-{# Screenshots #}
 {% if gallery_images %}
-<section class="pb-10 md:pb-14">
-    <div class="max-w-5xl mx-auto px-5">
-        <div class="mb-6 reveal">
-            <span class="inline-flex items-center gap-2 font-ibm-plex-mono text-[0.7rem] tracking-[0.14em] uppercase text-copal-green">
-                <span class="w-6 h-px bg-copal-green"></span>
-                {% trans "CAPTURES D'ECRAN" %}
-            </span>
+<section class="section surface-white" data-reveal-section data-reveal-stagger="70">
+    <div class="container">
+        <div class="mb-8" data-reveal-item>
+            <span class="eyebrow">{% trans "Captures d'écran" %}</span>
         </div>
 
-        <div class="pd-shots {% if gallery_images|length == 1 %}pd-shots--single{% endif %}">
+        <div class="grid grid-cols-1 gap-6 {% if gallery_images|length == 1 %}md:grid-cols-1{% else %}md:grid-cols-2{% endif %}" data-reveal-grid>
             {% for image in gallery_images %}
-            <figure class="pd-shot reveal">
+            <figure data-reveal-card>
                 <div class="pd-shot-media" tabindex="0" role="button" aria-label="{% trans "Ouvrir la capture d'ecran en taille complete" %}">
                     <img src="{{ image.image.url }}" alt="{{ image.caption|default:project.title }}" loading="lazy" decoding="async">
                     <span class="pd-shot-num">{{ forloop.counter|stringformat:"02d" }}</span>
-                    <span class="pd-shot-zoom" aria-hidden="true">
+                    <span class="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/95 text-ink shadow-soft" aria-hidden="true">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16zm5-8h-4m0 0H8m4 0V7m0 4v4" /></svg>
                     </span>
                 </div>
@@ -114,96 +110,105 @@
 </section>
 {% endif %}
 
-{# Case Study Content #}
-<section class="pb-16 md:pb-20">
-    <div class="max-w-3xl mx-auto px-5 space-y-12">
+{# ═══════════════ ÉTUDE DE CAS ═══════════════ #}
+<section class="section surface-bone" data-reveal-section data-reveal-stagger="70">
+    <div class="container">
+        <div class="mx-auto max-w-3xl space-y-12">
 
-        {% if project.context %}
-        <div class="reveal">
-            
-            <h2 class="font-suez text-[1.5rem] text-copal-black mb-3">{% trans "La situation" %}</h2>
-            <div class="prose text-copal-gray-600 leading-[1.75]">{{ project.context|safe }}</div>
+            {% if project.context %}
+            <div data-reveal-item>
+                <span class="eyebrow">{% trans "Contexte" %}</span>
+                <h2 class="display-md mt-5">{% trans "La situation" %}</h2>
+                <div class="prose mt-4 whitespace-pre-line">{{ project.context|safe }}</div>
+            </div>
+            {% endif %}
+
+            {% if project.problem %}
+            <div data-reveal-item>
+                <span class="eyebrow">{% trans "Le problème" %}</span>
+                <h2 class="display-md mt-5">{% trans "Ce qui devait changer" %}</h2>
+                <div class="prose mt-4 whitespace-pre-line">{{ project.problem|safe }}</div>
+            </div>
+            {% endif %}
+
+            {% if project.approach %}
+            <div data-reveal-item>
+                <span class="eyebrow">{% trans "Approche" %}</span>
+                <h2 class="display-md mt-5">{% trans "Comment j'ai concu la solution" %}</h2>
+                <div class="prose mt-4 whitespace-pre-line">{{ project.approach|safe }}</div>
+            </div>
+            {% endif %}
+
+            {% if project.solution %}
+            <div data-reveal-item>
+                <span class="eyebrow">{% trans "Réalisation" %}</span>
+                <h2 class="display-md mt-5">{% trans "Ce qui a ete construit" %}</h2>
+                <div class="prose mt-4 whitespace-pre-line">{{ project.solution|safe }}</div>
+            </div>
+            {% endif %}
+
+            {% if project.features %}
+            <div data-reveal-item>
+                <span class="eyebrow">{% trans "Fonctionnalités" %}</span>
+                <h2 class="display-md mt-5">{% trans "Fonctionnalites cles" %}</h2>
+                <div class="prose mt-4 whitespace-pre-line">{{ project.features|safe }}</div>
+            </div>
+            {% endif %}
+
+            {% if project.result %}
+            <div data-reveal-item>
+                <span class="eyebrow">{% trans "Impact" %}</span>
+                <h2 class="display-md mt-5">{% trans "Le resultat" %}</h2>
+                <div class="prose mt-4 whitespace-pre-line">{{ project.result|safe }}</div>
+            </div>
+            {% endif %}
+
+            {% if project.role %}
+            <div data-reveal-item>
+                <span class="eyebrow">{% trans "Contribution" %}</span>
+                <h2 class="display-md mt-5">{% trans "Mon role" %}</h2>
+                <div class="prose mt-4 whitespace-pre-line">{{ project.role|safe }}</div>
+            </div>
+            {% endif %}
+
+            {% if not project.context and not project.problem and project.description %}
+            <div data-reveal-item>
+                <span class="eyebrow">{% trans "Projet" %}</span>
+                <h2 class="display-md mt-5">{% trans "Vue d'ensemble du projet" %}</h2>
+                <div class="prose mt-4 whitespace-pre-line">{{ project.description|safe }}</div>
+            </div>
+            {% endif %}
+
+            {% if not project.problem and project.challenge %}
+            <div data-reveal-item>
+                <span class="eyebrow">{% trans "Défi" %}</span>
+                <h2 class="display-md mt-5">{% trans "Le defi" %}</h2>
+                <div class="prose mt-4 whitespace-pre-line">{{ project.challenge|safe }}</div>
+            </div>
+            {% endif %}
         </div>
-        {% endif %}
-
-        {% if project.problem %}
-        <div class="reveal">
-            
-            <h2 class="font-suez text-[1.5rem] text-copal-black mb-3">{% trans "Ce qui devait changer" %}</h2>
-            <div class="prose text-copal-gray-600 leading-[1.75]">{{ project.problem|safe }}</div>
-        </div>
-        {% endif %}
-
-        {% if project.approach %}
-        <div class="reveal">
-            
-            <h2 class="font-suez text-[1.5rem] text-copal-black mb-3">{% trans "Comment j'ai concu la solution" %}</h2>
-            <div class="prose text-copal-gray-600 leading-[1.75]">{{ project.approach|safe }}</div>
-        </div>
-        {% endif %}
-
-        {% if project.solution %}
-        <div class="reveal">
-           
-            <h2 class="font-suez text-[1.5rem] text-copal-black mb-3">{% trans "Ce qui a ete construit" %}</h2>
-            <div class="prose text-copal-gray-600 leading-[1.75]">{{ project.solution|safe }}</div>
-        </div>
-        {% endif %}
-
-        {% if project.features %}
-        <div class="reveal">
-           
-            <h2 class="font-suez text-[1.5rem] text-copal-black mb-3">{% trans "Fonctionnalites cles" %}</h2>
-            <div class="prose text-copal-gray-600 leading-[1.75]">{{ project.features|safe }}</div>
-        </div>
-        {% endif %}
-
-        {% if project.result %}
-        <div class="reveal">
-            
-            <h2 class="font-suez text-[1.5rem] text-copal-black mb-3">{% trans "Le resultat" %}</h2>
-            <div class="prose text-copal-gray-600 leading-[1.75]">{{ project.result|safe }}</div>
-        </div>
-        {% endif %}
-
-        {% if project.role %}
-        <div class="reveal">
-            <h2 class="font-suez text-[1.5rem] text-copal-green-light mb-3">{% trans "Mon role" %}</h2>
-
-           
-            <div class="prose text-copal-gray-600 leading-[1.75]">{{ project.role|safe }}</div>
-        </div>
-        {% endif %}
-
-        {% if not project.context and not project.problem and project.description %}
-        <div class="reveal">
-            <h2 class="font-suez text-[1.5rem] text-copal-black mb-3 pb-2 border-b border-copal-gray-200">{% trans "Vue d'ensemble du projet" %}</h2>
-            <div class="prose text-copal-gray-600 leading-[1.75]">{{ project.description|safe }}</div>
-        </div>
-        {% endif %}
-
-        {% if not project.problem and project.challenge %}
-        <div class="reveal">
-            <h2 class="font-suez text-[1.5rem] text-copal-black mb-3 pb-2 border-b border-copal-gray-200">{% trans "Le defi" %}</h2>
-            <div class="prose text-copal-gray-600 leading-[1.75]">{{ project.challenge|safe }}</div>
-        </div>
-        {% endif %}
     </div>
 </section>
 
+{# ═══════════════ CTA ═══════════════ #}
+<section class="section surface-ink" data-reveal-section data-reveal-stagger="90">
+    <div class="container">
+        <div class="mx-auto max-w-3xl text-center">
+            <span class="eyebrow eyebrow--light" data-reveal-item>{% trans "Projet" %}</span>
+            <h2 class="display-lg mt-6 text-bone" data-reveal-item>{% trans "Vous aimez ce projet ?" %}</h2>
+            <p class="lead lead--light mt-5 mx-auto max-w-xl" data-reveal-item>
+                {% trans "Discutons de comment nous pouvons construire quelque chose de similaire pour votre entreprise." %}
+            </p>
 
-{# CTA #}
-<section class="py-14 md:py-16 bg-copal-black text-white">
-    <div class="max-w-4xl mx-auto px-5 text-center">
-        <h2 class="font-suez text-[1.75rem] mb-3">{% trans "Vous aimez ce projet ?" %}</h2>
-        <p class="text-copal-gray-400 text-[1rem] max-w-[480px] mx-auto mb-6 leading-[1.6]">{% trans "Discutons de comment nous pouvons construire quelque chose de similaire pour votre entreprise." %}</p>
-        <div class="flex flex-col sm:flex-row justify-center gap-3">
-            <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-300 font-space-grotesk text-[0.88rem] tracking-[0.04em] uppercase bg-white text-copal-black no-underline px-[1.75rem] py-[0.85rem]" data-transition="page" data-transition-label="CONTACT">
-                {% trans "LANCER UN PROJET" %}
-            </a>
-            <a href="{% url 'portfolio:projects' %}" class="inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-300 font-space-grotesk text-[0.88rem] tracking-[0.04em] uppercase bg-transparent text-white border-2 border-white/20 no-underline px-[1.75rem] py-[0.85rem]" data-transition="page" data-transition-label="WORK">
-                {% trans "VOIR TOUS LES PROJETS" %}
-            </a>
+            <div class="mt-9 flex flex-wrap items-center justify-center gap-3" data-reveal-item>
+                <a href="{% url 'portfolio:contact' %}" class="btn btn-light">
+                    {% trans "Lancer un projet" %}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </a>
+                <a href="{% url 'portfolio:projects' %}" class="btn btn-ghost-light">{% trans "Voir tous les projets" %}</a>
+            </div>
         </div>
     </div>
 </section>
@@ -215,8 +220,8 @@
         var zoomables = document.querySelectorAll('.pd-frame img, .pd-shot-media img');
         function openLightbox(img) {
             var lightbox = document.createElement('div');
-            lightbox.style.cssText = 'position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 1rem; background-color: rgba(11,13,15,0.85); backdrop-filter: blur(8px);';
-            lightbox.innerHTML = '<div style="position: relative; max-width: 960px; width: 100%;"><img src="' + img.src + '" alt="' + img.alt + '" style="display: block; margin: 0 auto; max-width: 100%; max-height: 85vh; object-fit: contain; border-radius: 0.5rem;"><button aria-label="' + img.alt + '" style="position: absolute; top: -14px; right: -14px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background-color: #FFFFFF; color: #0B0D0F; font-size: 1.25rem; border: none; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.15);" onclick="this.parentElement.parentElement.remove()">&times;</button></div>';
+            lightbox.style.cssText = 'position: fixed; inset: 0; z-index: 350; display: flex; align-items: center; justify-content: center; padding: 1rem; background-color: rgba(10,10,10,0.88); backdrop-filter: blur(8px);';
+            lightbox.innerHTML = '<div style="position: relative; max-width: 960px; width: 100%;"><img src="' + img.src + '" alt="' + img.alt + '" style="display: block; margin: 0 auto; max-width: 100%; max-height: 85vh; object-fit: contain;"><button aria-label="' + img.alt + '" style="position: absolute; top: -14px; right: -14px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background-color: #F7F7F5; color: #0A0A0A; font-size: 1.25rem; border: none; cursor: pointer;" onclick="this.parentElement.parentElement.remove()">&times;</button></div>';
             lightbox.addEventListener('click', function(e) { if (e.target === lightbox) lightbox.remove(); });
             document.body.appendChild(lightbox);
         }

@@ -4,104 +4,84 @@
 {% block content %}
 
 {# ═══════════════ HERO ═══════════════ #}
-<section class="relative overflow-hidden bg-copal-black min-h-[70vh] flex items-center">
-    <div class="absolute inset-0 opacity-[0.03]">
-        <div class="w-full h-full" style="background-image: repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(255,255,255,0.5) 80px, rgba(255,255,255,0.5) 81px), repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255,255,255,0.5) 80px, rgba(255,255,255,0.5) 81px);"></div>
-    </div>
+<section class="section surface-ink relative overflow-hidden" data-reveal-section data-reveal-stagger="80">
+    <div class="container">
+        <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
 
-    <div class="absolute right-[-20px] top-1/2 -translate-y-1/2 font-suez text-[clamp(10rem,25vw,20rem)] text-white/[0.02] leading-none pointer-events-none select-none">
-        {{ forloop.counter0|default:"01" }}
-    </div>
-
-    <div class="relative max-w-6xl mx-auto px-5 py-24 md:py-32">
-        
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div class="lg:col-span-8">
-               
-
-                <h1 class="font-suez text-[clamp(2.5rem,6vw,4.5rem)] text-white leading-none mb-6 tracking-tight" data-reveal="title" data-reveal-delay="3" data-reveal-element>
-                    {{ service.title }}
-                </h1>
-
-                <p class="text-white/55 text-[1.15rem] leading-[1.7] max-w-[580px] mb-10" data-reveal="title" data-reveal-delay="4" data-reveal-element>
+            <div class="lg:col-span-7">
+                <span class="eyebrow eyebrow--light" data-reveal-item>{% trans "Solution" %}</span>
+                <h1 class="display-xl mt-6 text-bone" data-reveal-item>{{ service.title }}</h1>
+                <p class="lead lead--light mt-6 max-w-xl" data-reveal-item>
                     {{ service.hero_description|default:service.short_description }}
                 </p>
 
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="{% url 'portfolio:contact' %}?service={{ service.slug }}" class="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-lg font-medium transition-all duration-300 hover:shadow-lg hover:shadow-green-500/20 font-space-grotesk text-[0.88rem] tracking-[0.06em] uppercase bg-copal-green text-white no-underline" data-transition="page" data-transition-label="CONTACT">
-                        {% trans "PARLER DE MON PROJET" %}
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                <div class="mt-9 flex flex-wrap gap-3" data-reveal-item>
+                    <a href="{% url 'portfolio:contact' %}?service={{ service.slug }}" class="btn btn-light">
+                        {% trans "PARLONS DE MON PROJET" %}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
                     </a>
-                    <a href="{% url 'portfolio:services' %}" class="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-lg font-medium transition-all duration-300 font-space-grotesk text-[0.88rem] tracking-[0.06em] uppercase bg-transparent text-white/70 border border-white/[0.12] no-underline" data-transition="page" data-transition-label="SOLUTIONS">
-                        {% trans "TOUTES LES SOLUTIONS" %}
-                    </a>
+                    <a href="{% url 'portfolio:services' %}" class="btn btn-ghost-light">{% trans "TOUTES LES SOLUTIONS" %}</a>
                 </div>
             </div>
 
-            <div class="hidden lg:flex lg:col-span-4 justify-end">
-                <div class="relative w-48 h-48">
-                    <div class="absolute inset-0 rounded-full border border-copal-green/20"></div>
-                    <div class="absolute inset-4 rounded-full border border-copal-green/10"></div>
-                    <div class="absolute inset-0 flex items-center justify-center">
-                        <div class="text-center">
-                            <div class="font-suez text-[2.5rem] text-copal-green leading-none">{{ forloop.counter0|default:"01" }}</div>
-                            <div class="font-ibm-plex-mono text-[0.65rem] text-white/30 tracking-[0.15em] mt-2">{% trans "SOLUTION" %}</div>
-                        </div>
-                    </div>
+            <div class="lg:col-span-5" data-reveal-card>
+                <div class="overflow-hidden rounded-2xl bg-bone/10">
+                    <img src="{{ service.image_url }}"
+                         alt="{{ service.title }}"
+                         class="aspect-[4/3] w-full object-cover"
+                         loading="lazy" decoding="async">
                 </div>
             </div>
+
         </div>
     </div>
 </section>
 
-
-{# ═══════════════ WHAT THIS SOLUTION REALLY IS ═══════════════ #}
-<section class="py-20 md:py-28 bg-white">
-    <div class="max-w-6xl mx-auto px-5">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+{# ═══════════════ CE QUE CETTE SOLUTION EST ═══════════════ #}
+<section class="section surface-white" data-reveal-section data-reveal-stagger="70">
+    <div class="container">
+        <div class="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14 items-start">
             <div class="lg:col-span-4">
-                <div class="lg:sticky lg:top-28">
-                    
-                    <h2 class="font-suez text-[clamp(1.8rem,3vw,2.4rem)] text-copal-black leading-[1.1] mb-4">
+                <div class="lg:sticky lg:top-32">
+                    <span class="eyebrow" data-reveal-item>{% trans "La solution" %}</span>
+                    <h2 class="display-md mt-5" data-reveal-item>
                         {% trans "Ce que cette solution" %}<br>
-                        <span class="text-copal-green">{% trans "réellement est." %}</span>
+                        <span class="text-ink/45">{% trans "réellement est." %}</span>
                     </h2>
-                    <p class="text-copal-gray-500 text-[0.92rem] leading-[1.6]">
+                    <p class="mt-4 text-[0.92rem] leading-[1.6] text-ink/55" data-reveal-item>
                         {% trans "Avant toute chose, comprenons de quoi il s'agit." %}
                     </p>
                 </div>
             </div>
-
             <div class="lg:col-span-8">
-                <div class="text-copal-gray-700 leading-[1.9] text-[1.08rem] whitespace-pre-line">{{ service.description }}</div>
+                <div class="prose max-w-3xl whitespace-pre-line" data-reveal-item>{{ service.description }}</div>
             </div>
         </div>
     </div>
 </section>
 
-
-{# ═══════════════ THE PROBLEM IT SOLVES ═══════════════ #}
+{# ═══════════════ LE PROBLÈME ═══════════════ #}
 {% if service.problem %}
-<section class="py-20 md:py-28 bg-copal-black">
-    <div class="max-w-6xl mx-auto px-5">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+<section class="section surface-bone" data-reveal-section data-reveal-stagger="70">
+    <div class="container">
+        <div class="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14 items-start">
             <div class="lg:col-span-4">
-                <div class="lg:sticky lg:top-28">
-                   
-                    <h2 class="font-suez text-[clamp(1.8rem,3vw,2.4rem)] text-white leading-[1.1] mb-4">
+                <div class="lg:sticky lg:top-32">
+                    <span class="eyebrow" data-reveal-item>{% trans "Le problème" %}</span>
+                    <h2 class="display-md mt-5" data-reveal-item>
                         {% trans "Pourquoi cette" %}<br>
-                        <span class="text-copal-green">{% trans "solution existe." %}</span>
+                        <span class="text-ink/45">{% trans "solution existe." %}</span>
                     </h2>
-                    <p class="text-white/40 text-[0.92rem] leading-[1.6]">
+                    <p class="mt-4 text-[0.92rem] leading-[1.6] text-ink/55" data-reveal-item>
                         {% trans "Chaque solution commence par un problème réel." %}
                     </p>
                 </div>
             </div>
-
             <div class="lg:col-span-8">
-                <div class="p-8 md:p-10 rounded-2xl bg-white/[0.04] border border-white/[0.06]">
-                    <div class="text-white/70 leading-[1.9] text-[1.08rem] whitespace-pre-line">{{ service.problem }}</div>
+                <div class="rounded-2xl border border-ink/10 bg-white p-7 shadow-soft md:p-10" data-reveal-card>
+                    <div class="whitespace-pre-line text-[1.05rem] leading-[1.85] text-ink/75">{{ service.problem }}</div>
                 </div>
             </div>
         </div>
@@ -109,79 +89,75 @@
 </section>
 {% endif %}
 
-
-{# ═══════════════ WHO IS THIS FOR ═══════════════ #}
+{# ═══════════════ POUR QUI ═══════════════ #}
 {% if service.audience %}
-<section class="py-20 md:py-28 bg-copal-gray-50">
-    <div class="max-w-6xl mx-auto px-5">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+<section class="section surface-white" data-reveal-section data-reveal-stagger="70">
+    <div class="container">
+        <div class="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14 items-start">
             <div class="lg:col-span-4">
-                <div class="lg:sticky lg:top-28">
-                    
-                    <h2 class="font-suez text-[clamp(1.8rem,3vw,2.4rem)] text-copal-black leading-[1.1] mb-4">
+                <div class="lg:sticky lg:top-32">
+                    <span class="eyebrow" data-reveal-item>{% trans "Pour qui" %}</span>
+                    <h2 class="display-md mt-5" data-reveal-item>
                         {% trans "Cette solution est pour" %}<br>
-                        <span class="text-copal-green">{% trans "vous si..." %}</span>
+                        <span class="text-ink/45">{% trans "vous si..." %}</span>
                     </h2>
                 </div>
             </div>
-
             <div class="lg:col-span-8">
-                <div class="text-copal-gray-600 leading-[1.9] text-[1.08rem] whitespace-pre-line">{{ service.audience }}</div>
+                <div class="prose max-w-3xl whitespace-pre-line" data-reveal-item>{{ service.audience }}</div>
             </div>
         </div>
     </div>
 </section>
 {% endif %}
 
-
-{# ═══════════════ WHAT CAN BE BUILT ═══════════════ #}
+{# ═══════════════ FONCTIONNALITÉS ═══════════════ #}
 {% if service.features %}
-<section class="py-20 md:py-28 bg-white">
-    <div class="max-w-6xl mx-auto px-5">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+<section class="section surface-bone" data-reveal-section data-reveal-stagger="70">
+    <div class="container">
+        <div class="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14 items-start">
             <div class="lg:col-span-4">
-                <div class="lg:sticky lg:top-28">
-                    
-                    <h2 class="font-suez text-[clamp(1.8rem,3vw,2.4rem)] text-copal-black leading-[1.1] mb-4">
+                <div class="lg:sticky lg:top-32">
+                    <span class="eyebrow" data-reveal-item>{% trans "Le périmètre" %}</span>
+                    <h2 class="display-md mt-5" data-reveal-item>
                         {% trans "Fonctionnalités" %}<br>
-                        <span class="text-copal-green">{% trans "possibles." %}</span>
+                        <span class="text-ink/45">{% trans "possibles." %}</span>
                     </h2>
-                    <p class="text-copal-gray-500 text-[0.92rem] leading-[1.6]">
+                    <p class="mt-4 text-[0.92rem] leading-[1.6] text-ink/55" data-reveal-item>
                         {% trans "Chaque fonctionnalité est expliquée en termes simples." %}
                     </p>
                 </div>
             </div>
-
             <div class="lg:col-span-8">
-                <div class="text-copal-gray-700 leading-[1.9] text-[1.08rem] whitespace-pre-line">{{ service.features }}</div>
+                <div class="rounded-2xl border border-ink/10 bg-white p-7 shadow-soft md:p-10" data-reveal-card>
+                    <div class="whitespace-pre-line text-[1.05rem] leading-[1.85] text-ink/75">{{ service.features }}</div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 {% endif %}
 
-
-{# ═══════════════ CONCRETE EXAMPLE ═══════════════ #}
+{# ═══════════════ EXEMPLE CONCRET ═══════════════ #}
 {% if service.concrete_example %}
-<section class="py-20 md:py-28 bg-copal-black">
-    <div class="max-w-6xl mx-auto px-5">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+<section class="section surface-white" data-reveal-section data-reveal-stagger="70">
+    <div class="container">
+        <div class="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14 items-start">
             <div class="lg:col-span-4">
-                <div class="lg:sticky lg:top-28">
-                    
-                    <h2 class="font-suez text-[clamp(1.8rem,3vw,2.4rem)] text-white leading-[1.1] mb-4">
+                <div class="lg:sticky lg:top-32">
+                    <span class="eyebrow" data-reveal-item>{% trans "Un exemple" %}</span>
+                    <h2 class="display-md mt-5" data-reveal-item>
                         {% trans "Imaginez" %}<br>
-                        <span class="text-copal-green">{% trans "cette situation." %}</span>
+                        <span class="text-ink/45">{% trans "cette situation." %}</span>
                     </h2>
-                    <p class="text-white/40 text-[0.92rem] leading-[1.6]">
+                    <p class="mt-4 text-[0.92rem] leading-[1.6] text-ink/55" data-reveal-item>
                         {% trans "Un exemple concret pour vous aider à visualiser." %}
                     </p>
                 </div>
             </div>
-
             <div class="lg:col-span-8">
-                <div class="p-8 md:p-10 rounded-2xl bg-copal-green/[0.06] border border-copal-green/[0.15]">
-                    <div class="text-white/75 leading-[1.9] text-[1.08rem] whitespace-pre-line">{{ service.concrete_example }}</div>
+                <div class="rounded-2xl bg-ink p-7 text-bone shadow-lift md:p-10" data-reveal-card>
+                    <div class="whitespace-pre-line text-[1.05rem] leading-[1.85] text-bone/80">{{ service.concrete_example }}</div>
                 </div>
             </div>
         </div>
@@ -189,45 +165,32 @@
 </section>
 {% endif %}
 
-
-{# ═══════════════ BEFORE / AFTER ═══════════════ #}
+{# ═══════════════ AVANT → APRÈS ═══════════════ #}
 {% if service.before_after %}
-<section class="py-20 md:py-28 bg-white">
-    <div class="max-w-6xl mx-auto px-5">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+<section class="section surface-bone" data-reveal-section data-reveal-stagger="70">
+    <div class="container">
+        <div class="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14 items-start">
             <div class="lg:col-span-4">
-                <div class="lg:sticky lg:top-28">
-                    
-                    <h2 class="font-suez text-[clamp(1.8rem,3vw,2.4rem)] text-copal-black leading-[1.1] mb-4">
-                        {% trans "Avant" %} <span class="text-red-500">→</span> {% trans "Après" %}
+                <div class="lg:sticky lg:top-32">
+                    <span class="eyebrow" data-reveal-item>{% trans "La transformation" %}</span>
+                    <h2 class="display-md mt-5" data-reveal-item>
+                        {% trans "Avant" %} <span class="text-ink/45">→</span> {% trans "Après" %}
                     </h2>
-                    <p class="text-copal-gray-500 text-[0.92rem] leading-[1.6]">
+                    <p class="mt-4 text-[0.92rem] leading-[1.6] text-ink/55" data-reveal-item>
                         {% trans "Ce que cette solution transforme concrètement." %}
                     </p>
                 </div>
             </div>
-
             <div class="lg:col-span-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="p-6 rounded-xl bg-red-50 border border-red-200">
-                        <div class="flex items-center gap-2 mb-4">
-                            <span class="w-3 h-3 rounded-full bg-red-500"></span>
-                            <span class="font-ibm-plex-mono text-[0.7rem] tracking-[0.12em] uppercase text-red-500">{% trans "AVANT" %}</span>
-                        </div>
-                        <div class="text-copal-gray-600 leading-[1.8] text-[0.95rem] whitespace-pre-line">{{ service.before_after }}</div>
-                    </div>
-
-                    <div class="p-6 rounded-xl bg-green-50 border border-green-200">
-                        <div class="flex items-center gap-2 mb-4">
-                            <span class="w-3 h-3 rounded-full bg-copal-green"></span>
-                            <span class="font-ibm-plex-mono text-[0.7rem] tracking-[0.12em] uppercase text-copal-green">{% trans "APRÈS" %}</span>
-                        </div>
-                        <div class="text-copal-gray-700 leading-[1.8] text-[0.95rem]">{% trans "Processus centralisé. Interface intuitive. Temps gagné. Erreurs réduites. Résultat : une activité qui fonctionne mieux." %}</div>
-                    </div>
+                <div class="rounded-2xl border border-ink/10 bg-white p-7 shadow-soft md:p-10" data-reveal-card>
+                    <span class="label">{% trans "Avant → Après" %}</span>
+                    <div class="mt-4 whitespace-pre-line text-[1.05rem] leading-[1.85] text-ink/75">{{ service.before_after }}</div>
                 </div>
-
-                <div class="mt-8 p-6 rounded-xl bg-copal-gray-50 border border-copal-gray-200">
-                    <div class="text-copal-gray-600 leading-[1.8] text-[0.98rem] whitespace-pre-line">{{ service.before_after }}</div>
+                <div class="mt-5 rounded-2xl border border-ink/15 bg-ink p-6 text-bone md:p-7" data-reveal-card>
+                    <span class="label label--light">{% trans "Résultat" %}</span>
+                    <p class="mt-3 text-[1rem] leading-[1.7] text-bone/80">
+                        {% trans "Processus centralisé. Interface intuitive. Temps gagné. Erreurs réduites. Résultat : une activité qui fonctionne mieux." %}
+                    </p>
                 </div>
             </div>
         </div>
@@ -235,283 +198,239 @@
 </section>
 {% endif %}
 
-
-{# ═══════════════ HOW IT WORKS ═══════════════ #}
+{# ═══════════════ FONCTIONNEMENT ═══════════════ #}
 {% if service.how_it_works %}
-<section class="py-20 md:py-28 bg-copal-gray-50">
-    <div class="max-w-6xl mx-auto px-5">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+<section class="section surface-white" data-reveal-section data-reveal-stagger="70">
+    <div class="container">
+        <div class="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14 items-start">
             <div class="lg:col-span-4">
-                <div class="lg:sticky lg:top-28">
-                    
-                    <h2 class="font-suez text-[clamp(1.8rem,3vw,2.4rem)] text-copal-black leading-[1.1] mb-4">
+                <div class="lg:sticky lg:top-32">
+                    <span class="eyebrow" data-reveal-item>{% trans "Le fonctionnement" %}</span>
+                    <h2 class="display-md mt-5" data-reveal-item>
                         {% trans "Le fonctionnement" %}<br>
-                        <span class="text-copal-green">{% trans "en détail." %}</span>
+                        <span class="text-ink/45">{% trans "en détail." %}</span>
                     </h2>
                 </div>
             </div>
-
             <div class="lg:col-span-8">
-                <div class="text-copal-gray-700 leading-[1.9] text-[1.08rem] whitespace-pre-line">{{ service.how_it_works }}</div>
+                <div class="prose max-w-3xl whitespace-pre-line" data-reveal-item>{{ service.how_it_works }}</div>
             </div>
         </div>
     </div>
 </section>
 {% endif %}
 
-
-{# ═══════════════ BENEFITS ═══════════════ #}
+{# ═══════════════ BÉNÉFICES ═══════════════ #}
 {% if service.benefits %}
-<section class="py-20 md:py-28 bg-white">
-    <div class="max-w-6xl mx-auto px-5">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+<section class="section surface-bone" data-reveal-section data-reveal-stagger="70">
+    <div class="container">
+        <div class="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14 items-start">
             <div class="lg:col-span-4">
-                <div class="lg:sticky lg:top-28">
-                    
-                    <h2 class="font-suez text-[clamp(1.8rem,3vw,2.4rem)] text-copal-black leading-[1.1] mb-4">
+                <div class="lg:sticky lg:top-32">
+                    <span class="eyebrow" data-reveal-item>{% trans "Les bénéfices" %}</span>
+                    <h2 class="display-md mt-5" data-reveal-item>
                         {% trans "Les bénéfices" %}<br>
-                        <span class="text-copal-green">{% trans "concrets." %}</span>
+                        <span class="text-ink/45">{% trans "concrets." %}</span>
                     </h2>
                 </div>
             </div>
-
             <div class="lg:col-span-8">
-                <div class="text-copal-gray-700 leading-[1.9] text-[1.08rem] whitespace-pre-line">{{ service.benefits }}</div>
+                <div class="rounded-2xl border border-ink/10 bg-white p-7 shadow-soft md:p-10" data-reveal-card>
+                    <div class="whitespace-pre-line text-[1.05rem] leading-[1.85] text-ink/75">{{ service.benefits }}</div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 {% endif %}
 
-
-{# ═══════════════ WHAT'S INCLUDED ═══════════════ #}
+{# ═══════════════ PÉRIMÈTRE INCLUS ═══════════════ #}
 {% if service.included %}
-<section class="py-20 md:py-28 bg-copal-black">
-    <div class="max-w-6xl mx-auto px-5">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+<section class="section surface-white" data-reveal-section data-reveal-stagger="70">
+    <div class="container">
+        <div class="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14 items-start">
             <div class="lg:col-span-4">
-                <div class="lg:sticky lg:top-28">
-                   
-                    <h2 class="font-suez text-[clamp(1.8rem,3vw,2.4rem)] text-white leading-[1.1] mb-4">
+                <div class="lg:sticky lg:top-32">
+                    <span class="eyebrow" data-reveal-item>{% trans "Ce qui est inclus" %}</span>
+                    <h2 class="display-md mt-5" data-reveal-item>
                         {% trans "Le périmètre" %}<br>
-                        <span class="text-copal-green">{% trans "de la solution." %}</span>
+                        <span class="text-ink/45">{% trans "de la solution." %}</span>
                     </h2>
                 </div>
             </div>
-
             <div class="lg:col-span-8">
-                <div class="text-white/70 leading-[1.9] text-[1.08rem] whitespace-pre-line">{{ service.included }}</div>
+                <div class="prose max-w-3xl whitespace-pre-line" data-reveal-item>{{ service.included }}</div>
             </div>
         </div>
     </div>
 </section>
 {% endif %}
 
-
-{# ═══════════════ HOW I PROCED — DETAILED PROCESS ═══════════════ #}
-<section class="py-20 md:py-28 bg-copal-gray-50">
-    <div class="max-w-6xl mx-auto px-5">
-        <div class="text-center mb-16">
-           
-            <h2 class="font-suez text-[clamp(1.8rem,3vw,2.4rem)] text-copal-black leading-[1.1] mb-3">
-                {% trans "De l'idée à la réalisation" %}
-            </h2>
-            <p class="text-copal-gray-500 text-[1rem] max-w-[520px] mx-auto leading-[1.6]">
+{# ═══════════════ PROCESSUS ═══════════════ #}
+<section class="section surface-bone" data-reveal-section data-reveal-stagger="70">
+    <div class="container">
+        <div class="mb-12 max-w-3xl md:mb-16">
+            <span class="eyebrow" data-reveal-item>{% trans "Comment je travaille" %}</span>
+            <h2 class="display-lg mt-6" data-reveal-item>{% trans "De l'idée à la réalisation" %}</h2>
+            <p class="lead mt-5 max-w-2xl" data-reveal-item>
                 {% trans "Vous n'avez pas besoin de savoir comment construire votre solution. Vous devez simplement être capable d'expliquer votre problème." %}
             </p>
         </div>
 
-        <div class="max-w-3xl mx-auto">
-            <div class="reveal flex gap-6 md:gap-8 mb-12">
-                <div class="flex flex-col items-center">
-                    <div class="w-12 h-12 flex items-center justify-center rounded-full shrink-0 bg-copal-green">
-                        <span class="font-ibm-plex-mono text-[0.8rem] font-bold text-white">01</span>
-                    </div>
-                    <div class="flex-1 w-px mt-3 bg-copal-gray-200"></div>
-                </div>
-                <div class="pb-8">
-                    <h3 class="font-suez text-[1.25rem] text-copal-black mb-2">{% trans "Vous m'expliquez votre besoin" %}</h3>
-                    <p class="text-copal-gray-500 text-[0.95rem] leading-[1.7]">{% trans "Même si votre idée n'est pas encore clairement définie, vous me décrivez votre activité, votre problème ou votre vision. Je pose des questions pour bien comprendre. Pas besoin de vocabulaire technique." %}</p>
-                </div>
-            </div>
-
-            <div class="reveal flex gap-6 md:gap-8 mb-12">
-                <div class="flex flex-col items-center">
-                    <div class="w-12 h-12 flex items-center justify-center rounded-full shrink-0 bg-copal-green">
-                        <span class="font-ibm-plex-mono text-[0.8rem] font-bold text-white">02</span>
-                    </div>
-                    <div class="flex-1 w-px mt-3 bg-copal-gray-200"></div>
-                </div>
-                <div class="pb-8">
-                    <h3 class="font-suez text-[1.25rem] text-copal-black mb-2">{% trans "Nous définissons la solution ensemble" %}</h3>
-                    <p class="text-copal-gray-500 text-[0.95rem] leading-[1.7]">{% trans "Je transforme votre besoin en fonctionnalités concrètes. Vous voyez ce qui va être construit avant qu'aucune ligne de code ne soit écrite. Nous validons ensemble la direction." %}</p>
-                </div>
-            </div>
-
-            <div class="reveal flex gap-6 md:gap-8 mb-12">
-                <div class="flex flex-col items-center">
-                    <div class="w-12 h-12 flex items-center justify-center rounded-full shrink-0 bg-copal-green">
-                        <span class="font-ibm-plex-mono text-[0.8rem] font-bold text-white">03</span>
-                    </div>
-                    <div class="flex-1 w-px mt-3 bg-copal-gray-200"></div>
-                </div>
-                <div class="pb-8">
-                    <h3 class="font-suez text-[1.25rem] text-copal-black mb-2">{% trans "Je conçois et je développe" %}</h3>
-                    <p class="text-copal-gray-500 text-[0.95rem] leading-[1.7]">{% trans "Je construis la solution avec soin. Chaque fonctionnalité est pensée pour être fiable, rapide et facile à utiliser. Vous pouvez suivre l'avancement." %}</p>
-                </div>
-            </div>
-
-            <div class="reveal flex gap-6 md:gap-8 mb-12">
-                <div class="flex flex-col items-center">
-                    <div class="w-12 h-12 flex items-center justify-center rounded-full shrink-0 bg-copal-green">
-                        <span class="font-ibm-plex-mono text-[0.8rem] font-bold text-white">04</span>
-                    </div>
-                    <div class="flex-1 w-px mt-3 bg-copal-gray-200"></div>
-                </div>
-                <div class="pb-8">
-                    <h3 class="font-suez text-[1.25rem] text-copal-black mb-2">{% trans "Je déploie" %}</h3>
-                    <p class="text-copal-gray-500 text-[0.95rem] leading-[1.7]">{% trans "La solution est mise en ligne et rendue accessible. Je gère tous les aspects techniques pour qu'elle soit disponible et fonctionnelle." %}</p>
-                </div>
-            </div>
-
-            <div class="reveal flex gap-6 md:gap-8 mb-12">
-                <div class="flex flex-col items-center">
-                    <div class="w-12 h-12 flex items-center justify-center rounded-full shrink-0 bg-copal-green">
-                        <span class="font-ibm-plex-mono text-[0.8rem] font-bold text-white">05</span>
-                    </div>
-                    <div class="flex-1 w-px mt-3 bg-copal-gray-200"></div>
-                </div>
-                <div class="pb-8">
-                    <h3 class="font-suez text-[1.25rem] text-copal-black mb-2">{% trans "Vous utilisez" %}</h3>
-                    <p class="text-copal-gray-500 text-[0.95rem] leading-[1.7]">{% trans "Vous disposez de votre outil. Votre problème est résolu. Votre activité avance avec une solution qui fonctionne pour vous." %}</p>
-                </div>
-            </div>
-
-            <div class="reveal flex gap-6 md:gap-8">
-                <div class="flex flex-col items-center">
-                    <div class="w-12 h-12 flex items-center justify-center rounded-full shrink-0 bg-copal-green/[0.15] border-2 border-copal-green">
-                        <span class="font-ibm-plex-mono text-[0.8rem] font-bold text-copal-green">06</span>
-                    </div>
-                </div>
+        <ol class="border-t border-ink/10">
+            <li class="grid grid-cols-1 gap-2 border-b border-ink/10 py-7 sm:grid-cols-[3.5rem_1fr] sm:gap-6" data-reveal-card>
+                <span class="label pt-1">01</span>
                 <div>
-                    <h3 class="font-suez text-[1.25rem] text-copal-black mb-2">{% trans "Nous faisons évoluer" %}</h3>
-                    <p class="text-copal-gray-500 text-[0.95rem] leading-[1.7]">{% trans "Vos besoins changent ? La solution évolue avec vous. Nouvelles fonctionnalités, améliorations, ajustements — tout est possible." %}</p>
+                    <h3 class="text-[1.25rem] leading-snug md:text-[1.45rem]">{% trans "Vous m'expliquez votre besoin" %}</h3>
+                    <p class="mt-2 max-w-3xl text-[0.95rem] leading-[1.7] text-ink/65">{% trans "Même si votre idée n'est pas encore clairement définie, vous me décrivez votre activité, votre problème ou votre vision. Je pose des questions pour bien comprendre. Pas besoin de vocabulaire technique." %}</p>
                 </div>
-            </div>
-        </div>
+            </li>
+            <li class="grid grid-cols-1 gap-2 border-b border-ink/10 py-7 sm:grid-cols-[3.5rem_1fr] sm:gap-6" data-reveal-card>
+                <span class="label pt-1">02</span>
+                <div>
+                    <h3 class="text-[1.25rem] leading-snug md:text-[1.45rem]">{% trans "Nous définissons la solution ensemble" %}</h3>
+                    <p class="mt-2 max-w-3xl text-[0.95rem] leading-[1.7] text-ink/65">{% trans "Je transforme votre besoin en fonctionnalités concrètes. Vous voyez ce qui va être construit avant qu'aucune ligne de code ne soit écrite. Nous validons ensemble la direction." %}</p>
+                </div>
+            </li>
+            <li class="grid grid-cols-1 gap-2 border-b border-ink/10 py-7 sm:grid-cols-[3.5rem_1fr] sm:gap-6" data-reveal-card>
+                <span class="label pt-1">03</span>
+                <div>
+                    <h3 class="text-[1.25rem] leading-snug md:text-[1.45rem]">{% trans "Je conçois et je développe" %}</h3>
+                    <p class="mt-2 max-w-3xl text-[0.95rem] leading-[1.7] text-ink/65">{% trans "Je construis la solution avec soin. Chaque fonctionnalité est pensée pour être fiable, rapide et facile à utiliser. Vous pouvez suivre l'avancement." %}</p>
+                </div>
+            </li>
+            <li class="grid grid-cols-1 gap-2 border-b border-ink/10 py-7 sm:grid-cols-[3.5rem_1fr] sm:gap-6" data-reveal-card>
+                <span class="label pt-1">04</span>
+                <div>
+                    <h3 class="text-[1.25rem] leading-snug md:text-[1.45rem]">{% trans "Je déploie" %}</h3>
+                    <p class="mt-2 max-w-3xl text-[0.95rem] leading-[1.7] text-ink/65">{% trans "La solution est mise en ligne et rendue accessible. Je gère tous les aspects techniques pour qu'elle soit disponible et fonctionnelle." %}</p>
+                </div>
+            </li>
+            <li class="grid grid-cols-1 gap-2 border-b border-ink/10 py-7 sm:grid-cols-[3.5rem_1fr] sm:gap-6" data-reveal-card>
+                <span class="label pt-1">05</span>
+                <div>
+                    <h3 class="text-[1.25rem] leading-snug md:text-[1.45rem]">{% trans "Vous utilisez" %}</h3>
+                    <p class="mt-2 max-w-3xl text-[0.95rem] leading-[1.7] text-ink/65">{% trans "Vous disposez de votre outil. Votre problème est résolu. Votre activité avance avec une solution qui fonctionne pour vous." %}</p>
+                </div>
+            </li>
+            <li class="grid grid-cols-1 gap-2 border-b border-ink/10 py-7 sm:grid-cols-[3.5rem_1fr] sm:gap-6" data-reveal-card>
+                <span class="label pt-1">06</span>
+                <div>
+                    <h3 class="text-[1.25rem] leading-snug md:text-[1.45rem]">{% trans "Nous faisons évoluer" %}</h3>
+                    <p class="mt-2 max-w-3xl text-[0.95rem] leading-[1.7] text-ink/65">{% trans "Vos besoins changent ? La solution évolue avec vous. Nouvelles fonctionnalités, améliorations, ajustements — tout est possible." %}</p>
+                </div>
+            </li>
+        </ol>
     </div>
 </section>
 
-
-{# ═══════════════ RELATED PROJECTS ═══════════════ #}
+{# ═══════════════ RÉALISATIONS ASSOCIÉES ═══════════════ #}
 {% if related_projects %}
-<section class="py-20 md:py-28 bg-white">
-    <div class="max-w-6xl mx-auto px-5">
-        <div class="text-center mb-12">
-            
-            <h2 class="font-suez text-[clamp(1.8rem,3vw,2.4rem)] text-copal-black mb-2">
-                {% trans "Voir cette solution en action" %}
-            </h2>
-            <p class="text-copal-gray-500 text-[1rem] max-w-[480px] mx-auto leading-[1.6]">
-                {% trans "Des réalisations concrètes qui utilisent cette solution." %}
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {% for project in related_projects %}
-            <a href="{% url 'portfolio:project_detail' project.slug %}" class="reveal group rounded-xl overflow-hidden border bg-white border-copal-gray-200 transition-all duration-300 hover:shadow-lg hover:shadow-black/5 hover:-translate-y-1 no-underline text-inherit">
-                {% if project.cover_image %}
-                <div class="overflow-hidden aspect-[16/10]">
-                    <img src="{{ project.cover_image.url }}" alt="{{ project.title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
-                </div>
-                {% endif %}
-                <div class="p-5">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="font-ibm-plex-mono text-[0.65rem] tracking-[0.1em] text-copal-green">CASE {{ forloop.counter|stringformat:"03d" }}</span>
-                        {% if project.category %}
-                        <span class="font-ibm-plex-mono text-[0.65rem] tracking-[0.1em] text-copal-gray-400">/ {{ project.category|upper }}</span>
-                        {% endif %}
-                    </div>
-                    <h3 class="font-suez text-[1.1rem] text-copal-black mb-1">{{ project.title }}</h3>
-                    <p class="text-copal-gray-500 text-[0.88rem] leading-[1.55]">{{ project.short_description|truncatewords:18 }}</p>
-                    <div class="flex items-center gap-2 mt-4 font-space-grotesk text-[0.78rem] font-medium text-copal-green">
-                        {% trans "VOIR L'ÉTUDE DE CAS" %}
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                    </div>
-                </div>
-            </a>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-{% endif %}
-
-
-{# ═══════════════ TECHNICAL DETAILS ═══════════════ #}
-{% if service.technical_details %}
-<section class="py-16 md:py-20 bg-copal-gray-50">
-    <div class="max-w-4xl mx-auto px-5">
-        <div class="reveal p-8 rounded-2xl bg-white border border-copal-gray-200">
-            <div class="flex items-center gap-3 mb-4">
-                <span class="w-6 h-px bg-copal-gray-400"></span>
-                <span class="font-ibm-plex-mono text-[0.7rem] tracking-[0.12em] uppercase text-copal-gray-400">{% trans "EN COULISSES TECHNIQUES" %}</span>
+<section class="section surface-white" data-reveal-section data-reveal-stagger="70">
+    <div class="container">
+        <div class="section-head">
+            <div class="max-w-2xl">
+                <span class="eyebrow" data-reveal-item>{% trans "En pratique" %}</span>
+                <h2 class="display-lg mt-6" data-reveal-item>{% trans "Voir cette solution en action" %}</h2>
+                <p class="lead mt-5 max-w-xl" data-reveal-item>
+                    {% trans "Des réalisations concrètes qui utilisent cette solution." %}
+                </p>
             </div>
-            <h3 class="font-suez text-[1.2rem] text-copal-black mb-3">{% trans "Détails techniques" %}</h3>
-            <p class="text-copal-gray-500 text-[0.9rem] leading-[1.6] mb-4">
-                {% trans "Pour ceux qui souhaitent comprendre comment la solution est construite techniquement." %}
-            </p>
-            <div class="text-copal-gray-600 leading-[1.75] text-[0.95rem] whitespace-pre-line">{{ service.technical_details }}</div>
         </div>
-    </div>
-</section>
-{% endif %}
 
-
-{# ═════════════ OTHER SOLUTIONS ═════════════ #}
-{% if all_services %}
-<section class="py-16 md:py-20 bg-white">
-    <div class="max-w-6xl mx-auto px-5">
-        <div class="text-center mb-10">
-            <h2 class="font-suez text-[1.5rem] text-copal-black">{% trans "Autres solutions" %}</h2>
-        </div>
-        <div class="flex flex-wrap justify-center gap-3">
-            {% for other in all_services %}
-            <a href="{% url 'portfolio:service_detail' other.slug %}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-copal-gray-200 transition-all duration-300 hover:border-copal-green hover:bg-green-50 font-space-grotesk text-[0.85rem] text-copal-gray-600 no-underline">
-                {{ other.title }}
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-            </a>
+        <div class="grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-2 lg:grid-cols-3" data-reveal-grid>
+            {% for project in related_projects %}
+            {% include "components/work_card.html" with project=project index=forloop.counter %}
             {% endfor %}
         </div>
     </div>
 </section>
 {% endif %}
 
+{# ═══════════════ DÉTAILS TECHNIQUES ═══════════════ #}
+{% if service.technical_details %}
+<section class="section surface-bone" data-reveal-section data-reveal-stagger="70">
+    <div class="container">
+        <div class="mx-auto max-w-4xl">
+            <div class="rounded-2xl border border-ink/10 bg-white p-7 shadow-soft md:p-10" data-reveal-card>
+                <span class="label">{% trans "En coulisses techniques" %}</span>
+                <h2 class="display-md mt-4">{% trans "Détails techniques" %}</h2>
+                <p class="mt-3 text-[0.95rem] leading-[1.65] text-ink/55">
+                    {% trans "Pour ceux qui souhaitent comprendre comment la solution est construite techniquement." %}
+                </p>
+                <div class="mt-6 whitespace-pre-line border-t border-ink/10 pt-6 text-[0.98rem] leading-[1.75] text-ink/70">{{ service.technical_details }}</div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{# ═══════════════ AUTRES SOLUTIONS ═══════════════ #}
+{% if all_services %}
+<section class="section surface-white" data-reveal-section data-reveal-stagger="70">
+    <div class="container">
+        <div class="section-head">
+            <div class="max-w-2xl">
+                <span class="eyebrow" data-reveal-item>{% trans "Explorer" %}</span>
+                <h2 class="display-lg mt-6" data-reveal-item>{% trans "Autres solutions" %}</h2>
+            </div>
+            <a href="{% url 'portfolio:services' %}" class="arrow-link max-sm:hidden" data-reveal-item>
+                {% trans "Toutes les solutions" %}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 gap-5 md:grid-cols-3" data-reveal-grid>
+            {% for other in all_services %}
+            <a href="{% url 'portfolio:service_detail' other.slug %}" class="group flex flex-col justify-between gap-6 rounded-2xl border border-ink/10 bg-white p-6 shadow-soft no-underline text-inherit transition-all duration-400 hover:-translate-y-1 hover:border-ink/30 hover:shadow-lift md:p-7" data-reveal-card>
+                <div>
+                    <span class="label">{{ forloop.counter|stringformat:"02d" }}</span>
+                    <h3 class="display-md mt-4">{{ other.title }}</h3>
+                    <p class="mt-3 text-[0.93rem] leading-[1.65] text-ink/60">{{ other.short_description|truncatewords:22 }}</p>
+                </div>
+                <span class="arrow-link mt-auto w-fit">
+                    {% trans "Découvrir" %}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </span>
+            </a>
+            {% endfor %}
+        </div>
+
+        <div class="mt-10 sm:hidden" data-reveal-item>
+            <a href="{% url 'portfolio:services' %}" class="btn btn-outline w-full">
+                {% trans "Toutes les solutions" %}
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
 
 {# ═══════════════ CTA ═══════════════ #}
-<section class="relative overflow-hidden py-20 md:py-28 bg-copal-black">
-    <div class="absolute top-0 left-0 w-full h-full opacity-[0.03]">
-        <div class="w-full h-full" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(21,163,74,0.3) 40px, rgba(21,163,74,0.3) 41px);"></div>
-    </div>
+<section class="section surface-ink" data-reveal-section data-reveal-stagger="90">
+    <div class="container">
+        <div class="mx-auto max-w-3xl text-center">
+            <span class="eyebrow eyebrow--light" data-reveal-item>{% trans "Et vous ?" %}</span>
+            <h2 class="display-lg mt-6 text-bone" data-reveal-item>
+                {% trans "Vous avez un problème" %}<br>
+                <span class="text-bone/45">{% trans "similaire ?" %}</span>
+            </h2>
+            <p class="lead lead--light mt-5 mx-auto max-w-xl" data-reveal-item>
+                {% trans "Expliquez-moi simplement comment vous travaillez aujourd'hui. Je vous montrerai comment cette solution peut vous aider." %}
+            </p>
 
-    <div class="relative max-w-4xl mx-auto px-5 text-center">
-       
-
-        <h2 class="font-suez text-[clamp(1.8rem,4vw,2.8rem)] text-white mb-4 leading-[1.1]">
-            {% trans "Vous avez un problème" %}<br>
-            <span class="text-copal-green">{% trans "similaire ?" %}</span>
-        </h2>
-        <p class="text-white/50 text-[1.05rem] max-w-[520px] mx-auto mb-10 leading-[1.65]">
-            {% trans "Expliquez-moi simplement comment vous travaillez aujourd'hui. Je vous montrerai comment cette solution peut vous aider." %}
-        </p>
-
-        <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="{% url 'portfolio:contact' %}?service={{ service.slug }}" class="inline-flex items-center justify-center gap-3 px-9 py-4 rounded-lg font-medium transition-all duration-300 hover:shadow-lg hover:shadow-green-500/20 font-space-grotesk text-[0.9rem] tracking-[0.06em] uppercase bg-copal-green text-white no-underline">
-                {% trans "PARLONS DE MON PROJET" %}
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-            </a>
-            <a href="{% url 'portfolio:services' %}" class="inline-flex items-center justify-center gap-3 px-9 py-4 rounded-lg font-medium transition-all duration-300 font-space-grotesk text-[0.9rem] tracking-[0.06em] uppercase bg-transparent text-white/60 border border-white/[0.12] no-underline">
-                {% trans "VOIR TOUTES LES SOLUTIONS" %}
-            </a>
+            <div class="mt-9 flex flex-wrap items-center justify-center gap-3" data-reveal-item>
+                <a href="{% url 'portfolio:contact' %}?service={{ service.slug }}" class="btn btn-light">
+                    {% trans "PARLONS DE MON PROJET" %}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </a>
+                <a href="{% url 'portfolio:services' %}" class="btn btn-ghost-light">{% trans "VOIR TOUTES LES SOLUTIONS" %}</a>
+            </div>
         </div>
     </div>
 </section>

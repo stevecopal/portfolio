@@ -2,86 +2,106 @@
 {% load static i18n %}
 
 {% block content %}
-<section class="pt-24 pb-20 md:pt-28 md:pb-28 bg-[#FAFBFC]">
-    <div class="max-w-6xl mx-auto px-5">
-        {# Header #}
-        <div class="mb-12" data-reveal="section" data-reveal-element>
-           
-            <h1 class="font-suez text-[clamp(2rem,4vw,2.8rem)] text-copal-black mb-3" data-reveal="title" data-reveal-delay="2" data-reveal-element>
-                {% trans "Des solutions construites, pas seulement du code" %}
-            </h1>
-            <p class="text-copal-gray-500 text-[1.05rem] leading-[1.65] max-w-[560px]" data-reveal="title" data-reveal-delay="3" data-reveal-element>
-                {% trans "Chaque projet represente un probleme resolu. Voici ce que j'ai construit." %}
-            </p>
+
+{# ═══════════════ HERO ═══════════════ #}
+<section class="section surface-white" data-reveal-section data-reveal-stagger="80">
+    <div class="container">
+        <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
+
+            <div class="lg:col-span-6">
+                <span class="eyebrow" data-reveal-item>{% trans "Réalisations" %}</span>
+                <h1 class="display-xl mt-6" data-reveal-item>
+                    {% trans "Des solutions construites, pas seulement du code" %}
+                </h1>
+                <p class="lead mt-6 max-w-xl" data-reveal-item>
+                    {% trans "Chaque projet represente un probleme resolu. Voici ce que j'ai construit." %}
+                </p>
+            </div>
+
+            <div class="lg:col-span-6" data-reveal-card>
+                <div class="relative overflow-hidden rounded-2xl bg-bone">
+                    <img src="{% static 'images/team.jpg' %}"
+                         alt="{% trans 'Collaboration autour d’un projet livré' %}"
+                         class="aspect-[16/10] w-full object-cover"
+                         loading="lazy" decoding="async">
+                </div>
+            </div>
+
         </div>
+    </div>
+</section>
 
-        
-
-        {# Project grid #}
+{# ═══════════════ LISTE ═══════════════ #}
+<section class="section surface-bone" data-reveal-section data-reveal-stagger="70">
+    <div class="container">
         {% if projects %}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-2 lg:grid-cols-3" data-reveal-grid>
             {% for project in projects %}
-            <a href="{% url 'portfolio:project_detail' project.slug %}" class="group block rounded-xl overflow-hidden border bg-white border-copal-gray-200 project-card transition-all duration-300 reveal no-underline text-inherit" data-transition="project" data-transition-label="{{ project.title|upper }}">
-                <div class="overflow-hidden">
-                    <img src="{% if project.cover_image %}{{ project.cover_image.url }}{% else %}{% static 'images/project-placeholder.png' %}{% endif %}" alt="{{ project.title }}" class="w-full aspect-[16/10] object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
-                </div>
-                <div class="p-5 space-y-3">
-                    <div class="flex justify-between items-start">
-                        <h3 class="font-suez text-[1.1rem] text-copal-black">{{ project.title }}</h3>
-                        {% if project.is_featured %}
-                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-ibm-plex-mono bg-copal-green/[0.1] text-copal-green">{% trans "En avant" %}</span>
-                        {% endif %}
-                    </div>
-                    <p class="text-copal-gray-500 text-[0.9rem] leading-[1.55]">{{ project.short_description|truncatewords:15 }}</p>
-                    <div class="flex flex-wrap justify-between items-center gap-2 pt-1">
-                        <div class="flex flex-wrap gap-1.5">
-                            {% for tech in project.technologies.all|slice:":3" %}
-                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-ibm-plex-mono bg-copal-gray-100 text-copal-gray-600">{{ tech.name }}</span>
-                            {% endfor %}
-                        </div>
-                        <p class="font-ibm-plex-mono text-[0.7rem] text-copal-gray-400">{{ project.project_date|date:"Y" }}</p>
-                    </div>
-                    <div class="flex items-center gap-1 pt-1 font-dm-sans text-[0.8rem] font-medium tracking-[0.05em] text-copal-green">
-                        <span>{% trans "VOIR L'ETUDE DE CAS" %}</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                    </div>
-                </div>
-            </a>
+            {% include "components/work_card.html" with project=project index=forloop.counter %}
             {% endfor %}
         </div>
 
-        {# Pagination #}
         {% if is_paginated %}
-        <div class="flex justify-center mt-12">
-            <div class="flex gap-2">
-                {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}{% if current_tech %}&tech={{ current_tech }}{% endif %}" class="inline-flex items-center px-4 py-2 rounded text-xs font-ibm-plex-mono bg-copal-gray-100 text-copal-gray-600 no-underline">{% trans "PRECEDENT" %}</a>
-                {% endif %}
-                <span class="inline-flex items-center px-4 py-2 rounded text-xs font-ibm-plex-mono bg-copal-black text-white">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
-                {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}{% if current_tech %}&tech={{ current_tech }}{% endif %}" class="inline-flex items-center px-4 py-2 rounded text-xs font-ibm-plex-mono bg-copal-gray-100 text-copal-gray-600 no-underline">{% trans "SUIVANT" %}</a>
-                {% endif %}
-            </div>
-        </div>
+        <nav class="mt-14 flex items-center justify-center gap-4" aria-label="{% trans 'Pagination' %}" data-reveal-item>
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}{% if current_tech %}&tech={{ current_tech }}{% endif %}" class="btn btn-outline btn-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                </svg>
+                {% trans "Précédent" %}
+            </a>
+            {% endif %}
+
+            <span class="label">{% trans "Page" %} {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if current_tech %}&tech={{ current_tech }}{% endif %}" class="btn btn-outline btn-sm">
+                {% trans "Suivant" %}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+            </a>
+            {% endif %}
+        </nav>
         {% endif %}
 
         {% else %}
-        <div class="text-center py-16">
-            <p class="text-copal-gray-500">{% trans "Aucun projet trouve." %}</p>
-            <a href="{% url 'portfolio:home' %}" class="inline-flex items-center gap-1 mt-4 font-dm-sans text-[0.85rem] text-copal-green no-underline">{% trans "RETOUR A L'ACCUEIL" %}</a>
+        <div class="py-16 text-center" data-reveal-item>
+            <p class="lead">{% trans "Aucun projet trouve." %}</p>
+            <a href="{% url 'portfolio:home' %}" class="arrow-link mt-5">
+                {% trans "Retour à l'accueil" %}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+            </a>
         </div>
         {% endif %}
     </div>
 </section>
 
-{# CTA #}
-<section class="py-16 bg-copal-black">
-    <div class="max-w-4xl mx-auto px-5 text-center">
-        <h2 class="font-suez text-[1.75rem] text-white mb-3">{% trans "Interesse par une collaboration ?" %}</h2>
-        <p class="text-copal-gray-400 text-[1rem] max-w-[480px] mx-auto mb-6 leading-[1.6]">{% trans "Discutons de votre projet et de comment je peux vous aider a donner vie a vos idees." %}</p>
-        <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg font-medium transition-all duration-300 font-dm-sans text-[0.88rem] tracking-[0.04em] uppercase bg-copal-green text-white border-2 border-copal-green" data-transition="page" data-transition-label="CONTACT">
-            {% trans "LANCER UN PROJET" %}
-        </a>
+{# ═══════════════ CTA ═══════════════ #}
+<section class="section surface-ink" data-reveal-section data-reveal-stagger="90">
+    <div class="container">
+        <div class="mx-auto max-w-3xl text-center">
+            <span class="eyebrow eyebrow--light" data-reveal-item>{% trans "Projet" %}</span>
+            <h2 class="display-lg mt-6 text-bone" data-reveal-item>
+                {% trans "Intéressé par une collaboration ?" %}
+            </h2>
+            <p class="lead lead--light mt-5 mx-auto max-w-xl" data-reveal-item>
+                {% trans "Discutons de votre projet et de comment je peux vous aider a donner vie a vos idees." %}
+            </p>
+
+            <div class="mt-9 flex flex-wrap items-center justify-center gap-3" data-reveal-item>
+                <a href="{% url 'portfolio:contact' %}" class="btn btn-light">
+                    {% trans "Lancer un projet" %}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </a>
+                <a href="{% url 'portfolio:home' %}#proof" class="btn btn-ghost-light">{% trans "Voir les témoignages" %}</a>
+            </div>
+        </div>
     </div>
 </section>
+
 {% endblock %}

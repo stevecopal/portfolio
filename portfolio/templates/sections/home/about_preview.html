@@ -14,13 +14,20 @@
                     </h2>
 
                     <figure class="mt-8" data-reveal-card>
-                        <div class="relative overflow-hidden bg-ink/5 aspect-[4/5]">
+                        <div class="relative -mx-5 overflow-hidden bg-ink/5 aspect-[4/5] sm:mx-0">
+                            {% if profile.profile_image %}
+                            <img src="{{ profile.profile_image.url }}"
+                                 alt="{{ profile.full_name }}"
+                                 class="h-full w-full object-cover"
+                                 loading="lazy" decoding="async">
+                            {% else %}
                             <img src="{% static 'images/about.jpg' %}"
                                  alt="{% trans 'Développeurs au travail sur une application web' %}"
                                  class="h-full w-full object-cover"
                                  loading="lazy" decoding="async">
+                            {% endif %}
                         </div>
-                        <figcaption class="fig-cap">
+                        <figcaption class="fig-cap -mx-5 px-5 sm:mx-0 sm:px-0">
                             <strong>{{ profile.professional_name|default:profile.full_name }}</strong>
                             <span>{{ profile.professional_title }}</span>
                         </figcaption>

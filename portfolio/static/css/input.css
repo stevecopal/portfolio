@@ -479,6 +479,84 @@
     animation-play-state: paused;
   }
 
+  /* Carrousel témoignages : carte centrale + éventail de cartes */
+  .tdeck {
+    --tdeck-x1: 18rem;
+    --tdeck-x2: 30rem;
+    @apply relative;
+  }
+  .tdeck__stage {
+    @apply relative;
+    min-height: 34rem;
+  }
+  @media (min-width: 768px) {
+    .tdeck__stage {
+      min-height: 30rem;
+    }
+  }
+  .tdeck__card {
+    @apply absolute inset-y-0 left-1/2 flex w-[min(24rem,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-2xl border border-ink/10 bg-white p-6 shadow-soft md:p-7;
+    transform: translateX(-50%) scale(0.92);
+    opacity: 0;
+    z-index: 0;
+    pointer-events: none;
+    transition:
+      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.5s ease;
+  }
+  .tdeck__card.is-active {
+    @apply shadow-lift;
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+    z-index: 30;
+    pointer-events: auto;
+  }
+  .tdeck__card.is-prev-1,
+  .tdeck__card.is-next-1 {
+    transform: translateX(calc(-50% - var(--tdeck-x1))) translateY(1.75rem) scale(0.84);
+    opacity: 1;
+    z-index: 20;
+  }
+  .tdeck__card.is-next-1 {
+    transform: translateX(calc(-50% + var(--tdeck-x1))) translateY(1.75rem) scale(0.84);
+  }
+  .tdeck__card.is-prev-2,
+  .tdeck__card.is-next-2 {
+    transform: translateX(calc(-50% - var(--tdeck-x2))) translateY(3.25rem) scale(0.68);
+    opacity: 1;
+    z-index: 10;
+  }
+  .tdeck__card.is-next-2 {
+    transform: translateX(calc(-50% + var(--tdeck-x2))) translateY(3.25rem) scale(0.68);
+  }
+  @media (max-width: 767.98px) {
+    .tdeck__card.is-prev-1,
+    .tdeck__card.is-next-1,
+    .tdeck__card.is-prev-2,
+    .tdeck__card.is-next-2 {
+      transform: translateX(-50%) scale(0.92);
+      opacity: 0;
+    }
+  }
+  .tdeck__label {
+    @apply text-[0.64rem] font-medium uppercase tracking-label text-ink/45;
+  }
+  .tdeck__nav {
+    @apply mt-9 flex items-center justify-between gap-4;
+  }
+  .tdeck__btn {
+    @apply flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-ink/20 bg-white text-ink transition-all duration-300 hover:border-ink hover:bg-ink hover:text-bone;
+  }
+  .tdeck__btn svg {
+    @apply h-5 w-5;
+  }
+  .tdeck__count {
+    @apply text-[0.68rem] font-medium uppercase tracking-label text-ink/45;
+  }
+  .tdeck__count strong {
+    @apply font-semibold text-ink;
+  }
+
   /* ---------- Toasts ---------- */
   .toast {
     @apply pointer-events-auto flex w-[min(24rem,calc(100vw-2rem))] translate-y-4 items-start gap-3 border border-ink/15 bg-white p-4 opacity-0 shadow-[0_18px_40px_-24px_rgba(10,10,10,0.5)] transition-all duration-400;

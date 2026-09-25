@@ -2,45 +2,78 @@
 {% load static i18n %}
 
 {% block content %}
-<section class="relative overflow-hidden pt-24 pb-20 md:pt-28 md:pb-28 bg-[#FAFBFC]">
-    {# Soft background glow #}
-    <div class="absolute -top-32 -right-24 pointer-events-none w-[420px] h-[420px] rounded-full bg-[radial-gradient(circle,rgba(21,163,74,0.07)_0%,transparent_65%)]"></div>
-    <div class="absolute -bottom-40 -left-28 pointer-events-none w-[480px] h-[480px] rounded-full bg-[radial-gradient(circle,rgba(21,163,74,0.05)_0%,transparent_65%)]"></div>
 
-    <div class="relative max-w-5xl mx-auto px-5">
-        {# Header #}
-        <div class="mb-12 md:mb-16 reveal">
-           
-            <h1 class="font-suez text-[clamp(2rem,4vw,2.9rem)] text-copal-black leading-[1.1] mb-3">
-                {% trans "La preuve par l'experience" %}
-            </h1>
-            
+{# ═══════════════ HERO ═══════════════ #}
+<section class="section surface-white" data-reveal-section data-reveal-stagger="80">
+    <div class="container">
+        <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
+
+            <div class="lg:col-span-6">
+                <span class="eyebrow" data-reveal-item>{% trans "Parcours" %}</span>
+                <h1 class="display-xl mt-6" data-reveal-item>
+                    {% trans "La preuve par l'expérience" %}
+                </h1>
+                <p class="lead mt-6 max-w-xl" data-reveal-item>
+                    {% trans "Dix ans à construire des solutions concrètes : missions, rôles et technologies, année après année." %}
+                </p>
+
+                {% if profile.resume_file %}
+                <div class="mt-8" data-reveal-item>
+                    <a href="{{ profile.resume_file.url }}" download class="btn btn-outline btn-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        {% trans "Télécharger le CV" %}
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="lg:col-span-6" data-reveal-card>
+                <div class="relative overflow-hidden rounded-2xl bg-bone">
+                    {% if profile.profile_image %}
+                    <img src="{{ profile.profile_image.url }}"
+                         alt="{{ profile.full_name }}"
+                         class="aspect-[16/10] w-full object-cover"
+                         loading="lazy" decoding="async">
+                    {% else %}
+                    <img src="{% static 'images/about.jpg' %}"
+                         alt="{% trans 'Développeurs au travail sur une application' %}"
+                         class="aspect-[16/10] w-full object-cover"
+                         loading="lazy" decoding="async">
+                    {% endif %}
+                </div>
+            </div>
+
         </div>
+    </div>
+</section>
 
-        {# Timeline #}
+{# ═══════════════ TIMELINE ═══════════════ #}
+<section class="section surface-bone" data-reveal-section data-reveal-stagger="70">
+    <div class="container">
         {% if experiences %}
-        <div class="ex-list">
+        <div class="border-b border-ink/10">
             {% for exp in experiences %}
-            <article class="ex-entry {% if exp.is_current %}ex-entry--current{% endif %} reveal">
+            <article class="ex-entry" data-reveal-card>
                 {# Dates #}
                 <div class="ex-dates">
-                    <span class="ex-date ex-date--start"><span class="ex-dot" aria-hidden="true"></span>{{ exp.start_date|date:"M Y" }}</span>
-                    <span class="ex-conn" aria-hidden="true"></span>
+                    <span class="ex-date ex-date--start">{{ exp.start_date|date:"M Y" }}</span>
                     <span class="ex-date">
-                        {% if exp.is_current %}{% trans "PRESENT" %}{% elif exp.end_date %}{{ exp.end_date|date:"M Y" }}{% endif %}
+                        {% if exp.is_current %}{% trans "Présent" %}{% elif exp.end_date %}{{ exp.end_date|date:"M Y" }}{% endif %}
                     </span>
                     <span class="ex-dur">{{ exp.get_duration }}</span>
                 </div>
 
-                {# Content #}
-                <div class="ex-body">
+                {# Contenu #}
+                <div>
                     <span class="ex-type {% if exp.type == 'professional' or exp.type == 'freelance' %}ex-type--accent{% endif %}">
                         {{ exp.get_type_display }}
                     </span>
                     <h2 class="ex-title">{{ exp.title }}</h2>
                     <p class="ex-org">
                         {{ exp.organization }}
-                        {% if exp.location %}<span class="ex-org-sep">·</span>{{ exp.location }}{% endif %}
+                        {% if exp.location %} · {{ exp.location }}{% endif %}
                     </p>
                     {% if exp.description %}
                     <p class="ex-blurb">{{ exp.description }}</p>
@@ -59,31 +92,44 @@
             </article>
             {% endfor %}
         </div>
-        {% endif %}
-        {% if not experiences %}
-        <div class="reveal ex-empty">
-            <p class="text-copal-gray-500 text-[1rem]">{% trans "Details de l'experience bientot disponibles." %}</p>
+        {% else %}
+        <div class="py-16 text-center" data-reveal-item>
+            <p class="lead">{% trans "Détails de l'expérience bientôt disponibles." %}</p>
         </div>
         {% endif %}
     </div>
 </section>
 
-{# CTA #}
-<section class="py-16 bg-copal-black">
-    <div class="max-w-4xl mx-auto px-5 text-center">
-        <h2 class="font-suez text-[1.75rem] text-white mb-3">{% trans "Un defi similaire ?" %}</h2>
-        <p class="text-copal-gray-400 text-[1rem] max-w-[480px] mx-auto mb-6 leading-[1.6]">{% trans "Discutons de votre projet et de comment mon experience peut vous aider a resoudre votre probleme." %}</p>
-        <div class="flex flex-wrap justify-center gap-3">
-            {% if profile.resume_file %}
-            <a href="{{ profile.resume_file.url }}" download class="ex-ghost-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                <span>{% trans "TELECHARGER CV" %}</span>
-            </a>
-            {% endif %}
-            <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-300 font-dm-sans text-[0.88rem] tracking-[0.04em] uppercase bg-copal-green text-white border-2 border-copal-green px-[0.85rem] py-[1.75rem]">
-                {% trans "LANCER UN PROJET" %}
-            </a>
+{# ═══════════════ CTA ═══════════════ #}
+<section class="section surface-ink" data-reveal-section data-reveal-stagger="90">
+    <div class="container">
+        <div class="max-w-3xl text-center mx-auto">
+            <span class="eyebrow eyebrow--light justify-center" data-reveal-item>{% trans "Et ensuite ?" %}</span>
+            <h2 class="display-lg mt-6 text-bone" data-reveal-item>
+                {% trans "Un defi similaire ?" %}
+            </h2>
+            <p class="lead lead--light mt-5 mx-auto max-w-xl" data-reveal-item>
+                {% trans "Discutons de votre projet et de comment mon experience peut vous aider a resoudre votre probleme." %}
+            </p>
+
+            <div class="mt-9 flex flex-wrap items-center justify-center gap-3" data-reveal-item>
+                <a href="{% url 'portfolio:contact' %}" class="btn btn-light">
+                    {% trans "Lancer un projet" %}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </a>
+                {% if profile.resume_file %}
+                <a href="{{ profile.resume_file.url }}" download class="btn btn-ghost-light">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    {% trans "Télécharger le CV" %}
+                </a>
+                {% endif %}
+            </div>
         </div>
     </div>
 </section>
+
 {% endblock %}

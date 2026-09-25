@@ -4,188 +4,151 @@
 {% block content %}
 {% if profile %}
 
-<section class="relative overflow-hidden pt-24 pb-20 md:pt-28 md:pb-28 bg-[#FAFBFC]">
-    {# Soft background glow #}
-    <div class="absolute -top-32 -right-24 pointer-events-none w-[420px] h-[420px] rounded-full bg-[radial-gradient(circle,rgba(21,163,74,0.07)_0%,transparent_65%)]"></div>
-    <div class="absolute -bottom-40 -left-28 pointer-events-none w-[480px] h-[480px] rounded-full bg-[radial-gradient(circle,rgba(21,163,74,0.05)_0%,transparent_65%)]"></div>
-
-    <div class="relative max-w-6xl mx-auto px-5">
-        {# Header #}
-        <div class="mb-12 md:mb-16 reveal">
-            
-            <h1 class="font-suez text-[clamp(2rem,4vw,2.9rem)] text-copal-black leading-[1.1] mb-3">
-                {% trans "La personne derriere les solutions" %}
+{# ═══════════════ HERO ═══════════════ #}
+<section class="section surface-white" data-reveal-section data-reveal-stagger="80">
+    <div class="container">
+        <div class="max-w-3xl">
+            <span class="eyebrow" data-reveal-item>{% trans "À propos" %}</span>
+            <h1 class="display-xl mt-6" data-reveal-item>
+                {% trans "La personne derrière les solutions" %}
             </h1>
-            <p class="text-copal-gray-500 text-[1.02rem] max-w-[560px] leading-[1.7]">
+            <p class="lead mt-6 max-w-xl" data-reveal-item>
                 {% trans "Un portrait rapide — qui je suis, les outils que je maitrise et ma maniere de travailler." %}
             </p>
         </div>
+    </div>
+</section>
 
-        {# ── 3 columns on desktop ── #}
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-14 items-start">
+{# ═══════════════ PORTRAIT + HISTOIRE ═══════════════ #}
+<section class="section surface-bone" data-reveal-section data-reveal-stagger="90">
+    <div class="container">
+        <div class="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-14">
 
-            {# ═════ COL 1 — STORY ═════ #}
-            <div class="reveal">
-            
+            {# ── Colonne profil ────────────────────────────── #}
+            <div class="lg:col-span-5" data-reveal-card>
+                <div class="-mx-5 overflow-hidden border-x-0 bg-white shadow-soft sm:mx-0 sm:rounded-2xl sm:border sm:border-ink/10">
+                    {# Portrait — pleine largeur sur mobile #}
+                    <div class="relative overflow-hidden bg-ink/5 aspect-[4/5]">
+                        {% if profile.profile_image %}
+                        <img src="{{ profile.profile_image.url }}" alt="{{ profile.full_name }}" class="h-full w-full object-cover" loading="lazy" decoding="async">
+                        {% else %}
+                        <img src="{% static 'images/portrait.jpg' %}" alt="{{ profile.professional_name|default:profile.full_name }}" class="h-full w-full object-cover" loading="lazy" decoding="async">
+                        {% endif %}
+                    </div>
 
-                <div class="ab-story text-copal-gray-600 text-[1.02rem] leading-[1.9] [&_p]:mb-[1.1rem] [&_p:last-child]:mb-0">
-                    {{ profile.biography|linebreaks }}
-                </div>
+                    <div class="p-6 md:p-7">
+                        <h2 class="display-md">{{ profile.professional_name|default:profile.full_name }}</h2>
+                        <p class="mt-2 text-[0.85rem] leading-relaxed text-ink/55">{{ profile.professional_title }}</p>
 
-                <div class="flex items-center gap-3 mt-8">
-                    <div>
-                        <p class="font-space-grotesk font-semibold text-[1.05rem] text-copal-black leading-[1.2]">
-                            {{ profile.professional_name|default:profile.full_name }}
+                        {% if profile.availability_status %}
+                        <p class="mt-5 flex items-center gap-2.5 border border-ink/15 px-4 py-3 text-[0.78rem] text-ink/70">
+                            <span class="h-2 w-2 shrink-0 rounded-full bg-ink"></span>
+                            {{ profile.availability_message|default:"Disponible pour de nouveaux projets" }}
                         </p>
-                        <p class="font-ibm-plex-mono text-[0.6rem] tracking-[0.12em] uppercase text-copal-gray-500 mt-0.5">
-                            {{ profile.professional_title }}
-                        </p>
+                        {% endif %}
+
+                        <dl class="mt-6 border-t border-ink/10">
+                            <div class="flex items-baseline justify-between gap-6 border-b border-ink/10 py-3">
+                                <dt class="label">{% trans "Localisation" %}</dt>
+                                <dd class="text-right text-[0.9rem] font-medium text-ink">{{ profile.location }}, {{ profile.country }}</dd>
+                            </div>
+                            <div class="flex items-baseline justify-between gap-6 border-b border-ink/10 py-3">
+                                <dt class="label">{% trans "Email" %}</dt>
+                                <dd class="text-right text-[0.9rem] font-medium text-ink break-all">
+                                    <a href="mailto:{{ profile.email }}" class="border-b border-ink/20 hover:border-ink">{{ profile.email }}</a>
+                                </dd>
+                            </div>
+                            {% if profile.phone %}
+                            <div class="flex items-baseline justify-between gap-6 border-b border-ink/10 py-3">
+                                <dt class="label">{% trans "Téléphone" %}</dt>
+                                <dd class="text-right text-[0.9rem] font-medium text-ink">{{ profile.phone }}</dd>
+                            </div>
+                            {% endif %}
+                        </dl>
+
+                        <div class="mt-6">
+                            {% if profile.resume_file %}
+                            <a href="{{ profile.resume_file.url }}" download class="btn btn-solid w-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                </svg>
+                                {% trans "Télécharger le CV" %}
+                            </a>
+                            {% endif %}
+                            <a href="{% url 'portfolio:contact' %}" class="arrow-link mt-4 w-fit">
+                                {% trans "Ou parlons-en" %}
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                </svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            {# ═════ COL 2 — TOOLBOX & HOW I WORK ═════ #}
-            <div class="reveal space-y-6" style="transition-delay: 120ms;">
-                {# Tools #}
-                {% if tools %}
-                <div class="p-6 rounded-2xl border bg-white border-copal-gray-200 shadow-[0_6px_24px_rgba(11,13,15,0.04)]">
-                    
-                    <h3 class="font-suez text-[1.25rem] text-copal-black mb-[1.1rem]">
-                        {% trans "Les outils que j'utilise" %}
-                    </h3>
-                    <div class="flex flex-wrap gap-2">
-                        {% for tool in tools %}
-                        <span class="inline-flex items-center gap-2 px-[0.7rem] py-[0.55rem] bg-white border border-copal-gray-200 rounded-[10px] text-[0.82rem] text-copal-gray-700 transition-all duration-[250ms] hover:-translate-y-[3px] hover:border-copal-green/50 hover:shadow-[0_8px_18px_rgba(21,163,74,0.12)] hover:text-copal-black">
-                            <i class="{{ tool.icon }} text-copal-green text-[1rem] w-[1.1rem] text-center shrink-0" aria-hidden="true"></i>
-                            <span>{{ tool.name }}</span>
-                        </span>
-                        {% endfor %}
-                    </div>
+            {# ── Colonne histoire ──────────────────────────── #}
+            <div class="lg:col-span-7">
+                <div class="prose max-w-2xl" data-reveal-item>
+                    {{ profile.biography|linebreaks }}
                 </div>
-                {% endif %}
 
-                {# How I work #}
-                <div class="p-6 rounded-2xl border bg-white border-copal-gray-200 shadow-[0_6px_24px_rgba(11,13,15,0.04)]">
-                   
-                    <div class="flex gap-4">
-                        <span class="font-ibm-plex-mono text-[0.68rem] font-semibold text-copal-green tracking-[0.08em] shrink-0 pt-[0.35rem]">01</span>
-                        <p class="text-copal-gray-600 text-[0.93rem] leading-[1.7]">
+                <div class="mt-10 space-y-4">
+                    <div class="border border-ink/10 bg-white p-6" data-reveal-card>
+                        <span class="label">01</span>
+                        <p class="mt-3 text-[0.97rem] leading-[1.75] text-ink/70">
                             {% trans "Je crois que la technologie doit servir les gens, pas l'inverse. Chaque projet commence par la comprehension du vrai probleme avant d'ecrire une seule ligne de code." %}
                         </p>
                     </div>
-                    <div class="flex gap-4 mt-[1.4rem] pt-[1.4rem] border-t border-copal-gray-100">
-                        <span class="font-ibm-plex-mono text-[0.68rem] font-semibold text-copal-green tracking-[0.08em] shrink-0 pt-[0.35rem]">02</span>
-                        <p class="text-copal-gray-600 text-[0.93rem] leading-[1.7]">
+                    <div class="border border-ink/10 bg-white p-6" data-reveal-card>
+                        <span class="label">02</span>
+                        <p class="mt-3 text-[0.97rem] leading-[1.75] text-ink/70">
                             {% trans "Je travaille etroitement avec mes clients pour transformer leurs besoins en solutions simples, fonctionnelles et efficaces. Le resultat parle de lui-meme." %}
                         </p>
                     </div>
                 </div>
-            </div>
 
-            {# ═════ COL 3 — PROFILE CARD ═════ #}
-            <div class="reveal" style="transition-delay: 240ms;">
-                <div class="rounded-2xl overflow-hidden bg-white border border-copal-gray-200 shadow-[0_14px_40px_rgba(11,13,15,0.07)]">
-                    {# Portrait #}
-                    <div class="relative">
-                        {# Rotating decorative rings #}
-                        <div class="ab-deco-ring w-[120px] h-[120px] -top-6 -right-[30px]"></div>
-                        <div class="ab-deco-ring ab-deco-ring--slow w-[70px] h-[70px] -bottom-[18px] -left-[22px]"></div>
-
-                        <div class="ab-portrait">
-                            {% if profile.profile_image %}
-                            <img src="{{ profile.profile_image.url }}" alt="{{ profile.full_name }}" class="w-full h-full object-cover">
-                            {% else %}
-                            <div class="w-full h-full flex items-center justify-center bg-[linear-gradient(135deg,#0B0D0F_0%,#1a1d21_100%)]">
-                                <span class="font-suez text-[5rem] text-copal-green opacity-85">{{ profile.professional_name|default:profile.full_name|first }}</span>
-                            </div>
-                            {% endif %}
-                        </div>
-
-                        {# Floating badge #}
-                        <div class="ab-float absolute flex items-center justify-center rounded-xl w-12 h-12 bottom-4 right-4 bg-copal-green text-white shadow-[0_10px_24px_rgba(21,163,74,0.35)] z-5">
-                            <i class="fas fa-code" aria-hidden="true" class="text-[1.1rem]"></i>
-                        </div>
-                    </div>
-
-                    {# Card body #}
-                    <div class="p-6">
-                        <h2 class="font-suez text-[1.5rem] text-copal-black leading-[1.2]">
-                            {{ profile.professional_name|default:profile.full_name }}
-                        </h2>
-                        <p class="font-ibm-plex-mono text-[0.64rem] tracking-[0.12em] uppercase text-copal-gray-500 mt-[0.35rem]">
-                            {{ profile.professional_title }}
-                        </p>
-
-                        {# Availability #}
-                        {% if profile.availability_status %}
-                        <div class="flex items-center gap-2 mt-5 rounded-xl bg-copal-green/[0.07] border border-copal-green/[0.18] py-3 px-[0.9rem]">
-                            <span class="ab-pulse-dot w-[9px] h-[9px] rounded-full bg-copal-green shrink-0"></span>
-                            <span class="text-[0.88rem] font-medium text-copal-green-dark">{{ profile.availability_message|default:"Available worldwide" }}</span>
-                        </div>
-                        {% endif %}
-
-                        <div class="mt-6 pt-6 border-t border-copal-gray-100">
-                            <div class="flex items-center gap-[0.8rem]">
-                                <div class="w-9 h-9 rounded-[10px] shrink-0 flex items-center justify-center bg-copal-green/[0.08] text-copal-green text-[0.85rem] border border-copal-green/[0.12]">
-                                    <i class="fas fa-location-dot" aria-hidden="true"></i>
-                                </div>
-                                <div>
-                                    <p class="font-ibm-plex-mono text-[0.58rem] tracking-[0.12em] uppercase text-copal-gray-400 mb-0.5">{% trans "Localisation" %}</p>
-                                    <p class="text-[0.9rem] text-copal-gray-700">{{ profile.location }}, {{ profile.country }}</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-[0.8rem] mt-[0.85rem]">
-                                <div class="w-9 h-9 rounded-[10px] shrink-0 flex items-center justify-center bg-copal-green/[0.08] text-copal-green text-[0.85rem] border border-copal-green/[0.12]">
-                                    <i class="fas fa-envelope" aria-hidden="true"></i>
-                                </div>
-                                <div>
-                                    <p class="font-ibm-plex-mono text-[0.58rem] tracking-[0.12em] uppercase text-copal-gray-400 mb-0.5">{% trans "Email" %}</p>
-                                    <a href="mailto:{{ profile.email }}" class="text-[0.9rem] text-copal-gray-700 no-underline break-all">{{ profile.email }}</a>
-                                </div>
-                            </div>
-                            {% if profile.phone %}
-                            <div class="flex items-center gap-[0.8rem] mt-[0.85rem]">
-                                <div class="w-9 h-9 rounded-[10px] shrink-0 flex items-center justify-center bg-copal-green/[0.08] text-copal-green text-[0.85rem] border border-copal-green/[0.12]">
-                                    <i class="fas fa-phone" aria-hidden="true"></i>
-                                </div>
-                                <div>
-                                    <p class="font-ibm-plex-mono text-[0.58rem] tracking-[0.12em] uppercase text-copal-gray-400 mb-0.5">{% trans "Telephone" %}</p>
-                                    <p class="text-[0.9rem] text-copal-gray-700">{{ profile.phone }}</p>
-                                </div>
-                            </div>
-                            {% endif %}
-                        </div>
-
-                        {# Resume #}
-                        {% if profile.resume_file %}
-                        <div class="mt-6">
-                            <a href="{{ profile.resume_file.url }}" download class="flex items-center justify-center gap-2.5 w-full py-[0.85rem] px-5 rounded-xl font-space-grotesk text-[0.82rem] font-semibold tracking-[0.05em] uppercase bg-copal-black text-white border-2 border-copal-black no-underline transition-all duration-[300ms] hover:bg-copal-green hover:border-copal-green hover:-translate-y-[2px] hover:shadow-[0_12px_24px_rgba(21,163,74,0.25)]">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                                <span>{% trans "Telecharger CV" %}</span>
-                            </a>
-                            <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center w-full mt-3 font-space-grotesk text-[0.8rem] tracking-[0.04em] uppercase text-copal-green no-underline gap-1.5">
-                                {% trans "ou parlons-en" %}
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                            </a>
-                        </div>
-                        {% endif %}
+                {% if tools %}
+                <div class="mt-10 border-t border-ink/10 pt-6" data-reveal-item>
+                    <span class="label">{% trans "Les outils que j'utilise" %}</span>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        {% for tool in tools %}
+                        <span class="chip">{{ tool.name }}</span>
+                        {% endfor %}
                     </div>
                 </div>
+                {% endif %}
             </div>
 
         </div>
     </div>
 </section>
 
-{# CTA #}
-<section class="py-16 bg-copal-black">
-    <div class="max-w-4xl mx-auto px-5 text-center">
-        <h2 class="font-suez text-[1.75rem] text-white mb-3">{% trans "Pret a collaborer ?" %}</h2>
-        <p class="text-copal-gray-400 text-[1rem] max-w-[480px] mx-auto mb-6 leading-[1.6]">{% trans "Discutons de votre projet et de comment je peux vous aider a donner vie a vos idees." %}</p>
-        <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-300 font-space-grotesk text-[0.88rem] tracking-[0.04em] uppercase bg-copal-green text-white border-2 border-copal-green px-[0.85rem] py-[1.75rem]">
-            {% trans "LANCER UN PROJET" %}
-        </a>
+{# ═══════════════ CTA ═══════════════ #}
+<section class="section surface-ink" data-reveal-section data-reveal-stagger="90">
+    <div class="container">
+        <div class="mx-auto max-w-3xl text-center">
+            <span class="eyebrow eyebrow--light" data-reveal-item>{% trans "Projet" %}</span>
+            <h2 class="display-lg mt-6 text-bone" data-reveal-item>
+                {% trans "Intéressé par une collaboration ?" %}
+            </h2>
+            <p class="lead lead--light mt-5 mx-auto max-w-xl" data-reveal-item>
+                {% trans "Discutons de votre projet et de comment je peux vous aider a donner vie a vos idees." %}
+            </p>
+
+            <div class="mt-9 flex flex-wrap items-center justify-center gap-3" data-reveal-item>
+                <a href="{% url 'portfolio:contact' %}" class="btn btn-light">
+                    {% trans "Lancer un projet" %}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </a>
+                {% if profile.email %}
+                <a href="mailto:{{ profile.email }}" class="btn btn-ghost-light">{% trans "Écrire un email" %}</a>
+                {% endif %}
+            </div>
+        </div>
     </div>
 </section>
+
 {% endif %}
 {% endblock %}

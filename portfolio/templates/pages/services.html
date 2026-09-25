@@ -4,94 +4,82 @@
 {% block content %}
 
 {# ═══════════════ HERO ═══════════════ #}
-<section class="relative overflow-hidden bg-copal-black min-h-[60vh] flex items-center">
-    {# Decorative #}
-    <div class="absolute inset-0 opacity-[0.03]">
-        <div class="w-full h-full" style="background-image: repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(255,255,255,0.5) 80px, rgba(255,255,255,0.5) 81px), repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255,255,255,0.5) 80px, rgba(255,255,255,0.5) 81px);"></div>
-    </div>
-
-    <div class="relative max-w-6xl mx-auto px-5 py-24 md:py-32">
-        <div class="max-w-3xl" data-reveal="section" data-reveal-element>
-           
-
-            <h1 class="font-suez text-[clamp(2.5rem,6vw,4.5rem)] text-white leading-none mb-6 tracking-tight" data-reveal="title" data-reveal-delay="2" data-reveal-element>
-                {% trans "Ce que je peux" %}<br>
-                <span class="text-copal-green">{% trans "résoudre pour vous." %}</span>
+<section class="section surface-white" data-reveal-section data-reveal-stagger="80">
+    <div class="container">
+        <div class="max-w-3xl">
+            <span class="eyebrow" data-reveal-item>{% trans "Solutions" %}</span>
+            <h1 class="display-xl mt-6" data-reveal-item>
+                {% trans "Ce que je peux résoudre pour vous." %}
             </h1>
-
-            <p class="text-white/50 text-[1.15rem] leading-[1.7] max-w-[560px]" data-reveal="title" data-reveal-delay="3" data-reveal-element>
+            <p class="lead mt-6 max-w-xl" data-reveal-item>
                 {% trans "Chaque solution commence par la compréhension de votre problème. Explorez les différentes manières dont je peux vous aider." %}
             </p>
         </div>
     </div>
 </section>
 
-
-{# ═══════════════ SERVICES LIST ═══════════════ #}
-<section class="py-20 md:py-28 bg-white">
-    <div class="max-w-6xl mx-auto px-5">
-        {% if services %}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+{# ═══════════════ LISTE DES SOLUTIONS ═══════════════ #}
+{% if services %}
+<section class="section surface-bone" data-reveal-section data-reveal-stagger="80">
+    <div class="container">
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2" data-reveal-grid>
             {% for service in services %}
-            <a href="{% url 'portfolio:service_detail' service.slug %}" class="reveal group relative p-8 md:p-10 rounded-2xl border transition-all duration-[400ms] hover:shadow-xl hover:shadow-black/5 hover:-translate-y-1 overflow-hidden solution-card bg-white border-copal-gray-200 no-underline text-inherit" data-transition="solution" data-transition-label="{{ service.title|upper }}">
-
-                {# Hover accent line #}
-                <div class="absolute top-0 left-0 w-full h-1 transition-all duration-[400ms] opacity-0 group-hover:opacity-100 bg-gradient-to-r from-copal-green to-copal-green-light"></div>
-
-                <div class="flex items-start gap-5">
-                    {# Number #}
-                    <div class="shrink-0 w-14 h-14 flex items-center justify-center rounded-xl transition-all duration-300 bg-copal-green/[0.08]">
-                        <span class="font-ibm-plex-mono text-[0.85rem] font-bold text-copal-green">{{ forloop.counter|stringformat:"02d" }}</span>
-                    </div>
-
-                    <div class="flex-1">
-                        {# Title #}
-                        <h3 class="font-suez text-[1.4rem] text-copal-black mb-2 leading-[1.2]">{{ service.title }}</h3>
-
-                        {# Short description #}
-                        <p class="text-copal-gray-500 text-[0.95rem] leading-[1.65] mb-4">{{ service.short_description|truncatewords:25 }}</p>
-
-                        {# CTA #}
-                        <div class="flex items-center gap-2 transition-all duration-300 font-space-grotesk text-[0.82rem] font-medium tracking-[0.06em] text-copal-green">
-                            <span>{% trans "DÉCOUVRIR CETTE SOLUTION" %}</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                        </div>
-                    </div>
+            <a href="{% url 'portfolio:service_detail' service.slug %}" class="service-card group" data-reveal-card>
+                <div class="service-card__media aspect-[16/10]">
+                    <img src="{{ service.image_url }}"
+                         alt="{{ service.title }}" loading="lazy" decoding="async">
+                    <span class="absolute left-4 top-4 z-10 rounded-full bg-white/95 px-3 py-1 text-[0.66rem] font-medium uppercase tracking-label text-ink shadow-soft">
+                        {{ forloop.counter|stringformat:"02d" }}
+                    </span>
                 </div>
+                <div class="service-card__body">
+                    <h2 class="display-md">{{ service.title }}</h2>
+                    <p class="text-[0.97rem] leading-[1.7] text-ink/65">{{ service.short_description|truncatewords:25 }}</p>
 
-                {# Feature items preview #}
-                {% if service.feature_items.all %}
-                <div class="mt-6 pt-6 border-t border-copal-gray-100">
+                    {% if service.feature_items.all %}
                     <div class="flex flex-wrap gap-2">
                         {% for feature in service.feature_items.all|slice:":3" %}
-                        <span class="px-3 py-1 rounded-full font-ibm-plex-mono text-[0.68rem] tracking-[0.06em] text-copal-gray-500 bg-copal-gray-50">{{ feature.feature }}</span>
+                        <span class="chip">{{ feature.feature }}</span>
                         {% endfor %}
                     </div>
+                    {% endif %}
+
+                    <span class="arrow-link mt-auto w-fit">
+                        {% trans "Découvrir cette solution" %}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </span>
                 </div>
-                {% endif %}
             </a>
             {% endfor %}
         </div>
-        {% endif %}
     </div>
 </section>
-
-
-
+{% endif %}
 
 {# ═══════════════ CTA ═══════════════ #}
-<section class="py-20 md:py-28 bg-copal-gray-50">
-    <div class="max-w-4xl mx-auto px-5 text-center">
-        <h2 class="font-suez text-[clamp(1.8rem,3vw,2.4rem)] text-copal-black mb-3">
-            {% trans "Pas sûr de la solution qu'il vous faut ?" %}
-        </h2>
-        <p class="text-copal-gray-500 text-[1.05rem] max-w-[500px] mx-auto mb-8 leading-[1.65]">
-            {% trans "Décrivez-moi simplement votre problème. Je saurai vous orienter vers la bonne solution." %}
-        </p>
-        <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-3 px-9 py-4 rounded-lg font-medium transition-all duration-300 hover:shadow-lg hover:shadow-green-500/15 font-space-grotesk text-[0.9rem] tracking-[0.06em] uppercase bg-copal-green text-white no-underline" data-transition="page" data-transition-label="CONTACT">
-            {% trans "PARLONS DE VOTRE PROJET" %}
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-        </a>
+<section class="section surface-ink" data-reveal-section data-reveal-stagger="90">
+    <div class="container">
+        <div class="mx-auto max-w-3xl text-center">
+            <span class="eyebrow eyebrow--light" data-reveal-item>{% trans "Orientation" %}</span>
+            <h2 class="display-lg mt-6 text-bone" data-reveal-item>
+                {% trans "Pas sûr de la solution qu'il vous faut ?" %}
+            </h2>
+            <p class="lead lead--light mt-5 mx-auto max-w-xl" data-reveal-item>
+                {% trans "Décrivez-moi simplement votre problème. Je saurai vous orienter vers la bonne solution." %}
+            </p>
+
+            <div class="mt-9 flex flex-wrap items-center justify-center gap-3" data-reveal-item>
+                <a href="{% url 'portfolio:contact' %}" class="btn btn-light">
+                    {% trans "PARLONS DE VOTRE PROJET" %}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </a>
+                <a href="{% url 'portfolio:home' %}#problems" class="btn btn-ghost-light">{% trans "Voir les signaux" %}</a>
+            </div>
+        </div>
     </div>
 </section>
 
