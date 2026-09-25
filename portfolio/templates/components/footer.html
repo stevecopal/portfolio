@@ -1,61 +1,80 @@
 {% load static i18n %}
-<footer class="relative z-10 bg-copal-black text-white">
-    <div class="max-w-6xl mx-auto px-5 py-12 md:py-16">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-            {# About #}
-            <div>
-                <h3 class="font-ibm-plex-mono text-[0.7rem] tracking-[0.12em] uppercase text-copal-green mb-4">{% trans "A PROPOS" %}</h3>
-                <p class="text-copal-gray-400 text-[0.9rem] leading-[1.6] mb-4">{{ site_settings.short_description }}</p>
-                <div class="flex items-center gap-2 text-copal-gray-500 text-[0.85rem]">
-                    <span>{% trans "Base a" %} {{ profile.country }}, {{ profile.city }}</span>
-                </div>
+<footer class="relative z-10 bg-ink text-bone">
+    <div class="container py-16 md:py-20">
+
+        {# ═════════ Tête : accroche + CTA ═════════ #}
+        <div class="flex flex-col gap-8 border-b border-bone/15 pb-12 md:flex-row md:items-end md:justify-between">
+            <div class="max-w-2xl">
+                <span class="eyebrow eyebrow--light">{% trans "Prochaine étape" %}</span>
+                <h2 class="display-lg mt-5 text-bone">
+                    {% trans "Un problème à résoudre ? Parlons-en." %}
+                </h2>
+            </div>
+            <a href="{% url 'portfolio:contact' %}" class="btn btn-light self-start md:self-auto">
+                {% trans "Décrire mon projet" %}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+            </a>
+        </div>
+
+        {# ═════════ Colonnes ═════════ #}
+        <div class="grid grid-cols-2 gap-x-6 gap-y-10 py-12 md:grid-cols-4 md:gap-10">
+
+            <div class="col-span-2 md:col-span-1">
+                <img src="{% static 'images/logo-light.png' %}" alt="Copal Satcheme" class="h-7 w-auto">
+                <p class="mt-5 max-w-xs text-[0.9rem] leading-[1.7] text-bone/60">
+                    {{ site_settings.short_description }}
+                </p>
+                <p class="mt-5 text-[0.78rem] uppercase tracking-[0.14em] text-bone/40">
+                    {% trans "Base à" %} {{ profile.city }}, {{ profile.country }}
+                </p>
             </div>
 
-            {# Solutions #}
             <div>
-                <h3 class="font-ibm-plex-mono text-[0.7rem] tracking-[0.12em] uppercase text-copal-green mb-4">{% trans "SOLUTIONS" %}</h3>
-                <nav class="flex flex-col gap-2">
+                <p class="label label--light mb-5">{% trans "Solutions" %}</p>
+                <nav class="flex flex-col gap-3">
                     {% for service in services %}
-                    <a href="{% url 'portfolio:service_detail' service.slug %}" class="text-copal-gray-400 text-[0.88rem] no-underline hover:text-white transition-colors duration-200">
+                    <a href="{% url 'portfolio:service_detail' service.slug %}" class="text-[0.9rem] text-bone/65 no-underline transition-colors duration-200 hover:text-bone">
                         {{ service.title }}
                     </a>
                     {% endfor %}
                 </nav>
             </div>
 
-            {# Navigation #}
             <div>
-                <h3 class="font-ibm-plex-mono text-[0.7rem] tracking-[0.12em] uppercase text-copal-green mb-4">{% trans "NAVIGATION" %}</h3>
-                <nav class="flex flex-col gap-2">
-                    <a href="{% url 'portfolio:services' %}" class="text-copal-gray-400 text-[0.88rem] no-underline hover:text-white transition-colors duration-200">{% trans "Solutions" %}</a>
-                    <a href="{% url 'portfolio:projects' %}" class="text-copal-gray-400 text-[0.88rem] no-underline hover:text-white transition-colors duration-200">{% trans "Projets" %}</a>
-                    <a href="{% url 'portfolio:experience' %}" class="text-copal-gray-400 text-[0.88rem] no-underline hover:text-white transition-colors duration-200">{% trans "Experience" %}</a>
-                    <a href="{% url 'portfolio:about' %}" class="text-copal-gray-400 text-[0.88rem] no-underline hover:text-white transition-colors duration-200">{% trans "A propos" %}</a>
-                    <a href="{% url 'portfolio:contact' %}" class="text-copal-gray-400 text-[0.88rem] no-underline hover:text-white transition-colors duration-200">{% trans "Contact" %}</a>
+                <p class="label label--light mb-5">{% trans "Navigation" %}</p>
+                <nav class="flex flex-col gap-3">
+                    <a href="{% url 'portfolio:home' %}" class="text-[0.9rem] text-bone/65 no-underline transition-colors duration-200 hover:text-bone">{% trans "Accueil" %}</a>
+                    <a href="{% url 'portfolio:home' %}#solutions" class="text-[0.9rem] text-bone/65 no-underline transition-colors duration-200 hover:text-bone">{% trans "Solutions" %}</a>
+                    <a href="{% url 'portfolio:projects' %}" class="text-[0.9rem] text-bone/65 no-underline transition-colors duration-200 hover:text-bone">{% trans "Réalisations" %}</a>
+                    <a href="{% url 'portfolio:experience' %}" class="text-[0.9rem] text-bone/65 no-underline transition-colors duration-200 hover:text-bone">{% trans "Parcours" %}</a>
+                    <a href="{% url 'portfolio:home' %}#about" class="text-[0.9rem] text-bone/65 no-underline transition-colors duration-200 hover:text-bone">{% trans "À propos" %}</a>
                     {% if profile.resume_file %}
-                    <a href="{{ profile.resume_file.url }}" download class="text-copal-green text-[0.88rem] no-underline hover:text-green-400 transition-colors duration-200">{% trans "Telecharger CV" %}</a>
+                    <a href="{{ profile.resume_file.url }}" download class="text-[0.9rem] text-bone/65 no-underline transition-colors duration-200 hover:text-bone">{% trans "Télécharger le CV" %}</a>
                     {% endif %}
                 </nav>
             </div>
 
-            {# Contact #}
             <div>
-                <h3 class="font-ibm-plex-mono text-[0.7rem] tracking-[0.12em] uppercase text-copal-green mb-4">{% trans "CONTACT" %}</h3>
-                <div class="flex flex-col gap-2">
-                    <a href="mailto:{{ profile.email }}" class="text-copal-gray-400 text-[0.88rem] no-underline hover:text-white transition-colors duration-200">
+                <p class="label label--light mb-5">{% trans "Contact" %}</p>
+                <div class="flex flex-col gap-3">
+                    <a href="mailto:{{ profile.email }}" class="text-[0.9rem] break-all text-bone/65 no-underline transition-colors duration-200 hover:text-bone">
                         {{ profile.email }}
                     </a>
                     {% if profile.phone %}
-                    <a href="tel:{{ profile.phone }}" class="text-copal-gray-400 text-[0.88rem] no-underline hover:text-white transition-colors duration-200">
+                    <a href="tel:{{ profile.phone|cut:' ' }}" class="text-[0.9rem] text-bone/65 no-underline transition-colors duration-200 hover:text-bone">
                         {{ profile.phone }}
                     </a>
                     {% endif %}
                 </div>
+
                 {% if social_links %}
-                <div class="flex gap-3 mt-4">
+                <div class="mt-6 flex flex-wrap gap-2">
                     {% for link in social_links %}
-                    <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="w-9 h-9 flex items-center justify-center rounded-md transition-all duration-200 bg-white/[0.06] text-copal-gray-400 no-underline hover:bg-copal-green hover:text-white" aria-label="{{ link.name }}">
-                        <i class="fab fa-{{ link.platform }} text-sm"></i>
+                    <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer"
+                       class="inline-flex items-center border border-bone/20 px-3 py-2 text-[0.62rem] font-medium uppercase tracking-[0.14em] text-bone/60 no-underline transition-colors duration-200 hover:border-bone hover:text-bone">
+                        {{ link.platform|default:link.name }}
                     </a>
                     {% endfor %}
                 </div>
@@ -63,9 +82,16 @@
             </div>
         </div>
 
-        {# Bottom bar #}
-        <div class="mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 border-t border-white/[0.08]">
-            <p class="text-copal-gray-500 text-[0.8rem]">{{ site_settings.copyright_text|default:'© 2026 Copal Satcheme. Tous droits reserves.' }}</p>
+        {# ═════════ Bas de page ═════════ #}
+        <div class="flex flex-col gap-4 border-t border-bone/15 pt-8 md:flex-row md:items-center md:justify-between">
+            <p class="text-[0.78rem] text-bone/45">
+                {{ site_settings.copyright_text|default:'© 2026 Copal Satcheme. Tous droits réservés.' }}
+            </p>
+            <div class="footer-lang flex items-center gap-6">
+                <span class="text-[0.78rem] text-bone/45">{{ site_settings.slogan }}</span>
+                {% include 'components/language_switcher.html' %}
+            </div>
         </div>
+
     </div>
 </footer>

@@ -1,29 +1,60 @@
 {% load static i18n %}
-<section id="contact" class="relative py-20 md:py-28 overflow-hidden bg-copal-white" data-reveal-section data-reveal="scale">
-    {# Gradient accent #}
-    <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_50%_0%,rgba(21,163,74,0.08)_0%,transparent_60%)]"></div>
 
-    <div class="max-w-4xl mx-auto px-5 relative z-10 text-center">
-        
+<section id="final-cta" class="surface-ink relative overflow-hidden" data-reveal-section data-reveal-stagger="90">
+    <div class="container section">
 
-        <h2 class="font-suez text-[clamp(1.8rem,4vw,2.8rem)] text-black mb-4" data-reveal-item>
-            {% trans "Pret a resoudre votre probleme ?" %}
-        </h2>
+        <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
 
-        <p class="text-copal-black text-[1.1rem] max-w-[520px] mx-auto mb-10 leading-[1.7]" data-reveal-item>
-            {% trans "Parlez-moi de votre projet. Aucune connaissance technique requise — decrivez simplement ce dont vous avez besoin." %}
-        </p>
+            <div class="lg:col-span-7">
+                <span class="eyebrow eyebrow--light" data-reveal-item>{% trans "Projet" %}</span>
+                <h2 class="display-xl mt-6 text-bone" data-reveal-item>
+                    {% trans "Passons à l'action." %}
+                </h2>
+                <p class="lead lead--light mt-6 max-w-xl" data-reveal-item>
+                    {% trans "Parlez-moi de votre projet. Aucune connaissance technique requise : décrivez simplement ce dont vous avez besoin, je m'occupe du reste." %}
+                </p>
 
-        <div class="flex flex-col sm:flex-row justify-center gap-4" data-reveal-item>
-            <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg font-medium transition-all duration-300 font-dm-sans text-[0.92rem] tracking-[0.04em] uppercase bg-copal-green text-copal-black border-2 border-copal-green" data-transition="page" data-transition-label="CONTACT">
-                {% trans "DECRIRE VOTRE PROJET" %}
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-            </a>
-            {% if profile.email %}
-            <a href="mailto:{{ profile.email }}" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg font-medium transition-all duration-300 font-dm-sans text-[0.92rem] tracking-[0.04em] uppercase bg-transparent text-copal-black border-2 border-white/20">
-                {% trans "ENVOYER UN EMAIL" %}
-            </a>
-            {% endif %}
+                <div class="mt-9 flex flex-wrap gap-3" data-reveal-item>
+                    <a href="{% url 'portfolio:contact' %}" class="btn btn-light">
+                        {% trans "Décrire mon projet" %}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </a>
+                    {% if profile.email %}
+                    <a href="mailto:{{ profile.email }}" class="btn btn-ghost-light">{% trans "Écrire un email" %}</a>
+                    {% endif %}
+                </div>
+
+                <ul class="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-t border-bone/15 pt-7" data-reveal-item>
+                    <li class="flex items-center gap-2.5 text-[0.85rem] text-bone/70">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                        {% trans "Réponse sous 24 h ouvrées" %}
+                    </li>
+                    <li class="flex items-center gap-2.5 text-[0.85rem] text-bone/70">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                        {% trans "Premier échange sans engagement" %}
+                    </li>
+                    <li class="flex items-center gap-2.5 text-[0.85rem] text-bone/70">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                        {% trans "Devis clair, périmètre défini" %}
+                    </li>
+                </ul>
+            </div>
+
+            <div class="lg:col-span-5" data-reveal-card>
+                <figure class="relative">
+                    <img src="{% static 'images/team.jpg' %}"
+                         alt="{% trans 'Équipe qui célèbre la livraison d’un projet' %}"
+                         class="aspect-[4/3] w-full rounded-2xl object-cover"
+                         loading="lazy" decoding="async">
+                    <figcaption class="absolute -bottom-5 left-5 rounded-xl bg-white px-5 py-4 shadow-lift">
+                        <span class="block font-display text-[1.6rem] font-medium leading-none tracking-[-0.03em]">25+</span>
+                        <span class="label mt-1.5 block">{% trans "Projets livrés" %}</span>
+                    </figcaption>
+                </figure>
+            </div>
+
         </div>
     </div>
 </section>

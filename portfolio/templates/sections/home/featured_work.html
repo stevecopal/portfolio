@@ -1,59 +1,44 @@
 {% load static i18n %}
 {% if featured_projects %}
-<section id="work" class="relative py-20 md:py-28 bg-[#FAFBFC]" data-reveal-section data-reveal="up">
-    <div class="max-w-6xl mx-auto px-5">
-        {# Section header #}
-        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 mb-12">
-            <div>
-               
-                <h2 class="font-suez text-[clamp(1.8rem,4vw,2.6rem)] text-copal-black" data-reveal-item="slide-up">
+<section id="work" class="section surface-white" data-reveal-section data-reveal-stagger="90">
+    <div class="container">
+
+        <div class="section-head">
+            <div class="max-w-2xl">
+                <span class="eyebrow" data-reveal-item>{% trans "Réalisations" %}</span>
+                <h2 class="display-lg mt-6" data-reveal-item>
                     {% trans "Des solutions construites, pas seulement du code" %}
                 </h2>
             </div>
-            <a href="{% url 'portfolio:projects' %}" class="hidden sm:inline-flex items-center gap-1 font-dm-sans text-[0.85rem] font-medium tracking-[0.04em] text-copal-green no-underline" data-transition="page" data-transition-label="WORK" data-reveal-item="slide-up">
-                {% trans "VOIR TOUT" %}
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+            <a href="{% url 'portfolio:projects' %}" class="arrow-link max-sm:hidden" data-reveal-item>
+                {% trans "Voir tout" %}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
             </a>
         </div>
 
-        {# Project cards #}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" data-reveal-grid>
+        <div class="grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
             {% for project in featured_projects %}
-            <a href="{% url 'portfolio:project_detail' project.slug %}" class="group block rounded-xl overflow-hidden border bg-white border-copal-gray-200 project-card transition-all duration-300 no-underline text-inherit" data-transition="project" data-transition-label="{{ project.title|upper }}" data-reveal-card>
-                {# Cover image #}
-                <div class="overflow-hidden">
-                    <img src="{% if project.cover_image %}{{ project.cover_image.url }}{% else %}{% static 'images/project-placeholder.png' %}{% endif %}" alt="{{ project.title }}" class="w-full h-52 object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+                {% if forloop.first %}
+                <div class="md:col-span-2">
+                    {% include "components/work_card.html" with project=project index=forloop.counter featured=True %}
                 </div>
-                {# Content #}
-                <div class="p-5 space-y-3">
-                    <div class="flex justify-between items-start">
-                        <h3 class="font-suez text-[1.1rem] text-copal-black">{{ project.title }}</h3>
-                        {% if project.status == "completed" %}
-                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-ibm-plex-mono bg-copal-green/[0.1] text-copal-green">{% trans "Termine" %}</span>
-                        {% endif %}
-                    </div>
-                    <p class="text-copal-gray-500 text-[0.9rem] leading-[1.55]">{{ project.short_description|truncatewords:18 }}</p>
-                    <div class="flex flex-wrap gap-1.5">
-                        {% for tech in project.technologies.all|slice:":3" %}
-                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-ibm-plex-mono bg-copal-gray-100 text-copal-gray-600">{{ tech.name }}</span>
-                        {% endfor %}
-                    </div>
-                    <div class="flex items-center gap-1 pt-1 font-dm-sans text-[0.8rem] font-medium tracking-[0.05em] text-copal-green">
-                        <span>{% trans "VOIR L'ETUDE DE CAS" %}</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                    </div>
-                </div>
-            </a>
+                {% else %}
+                {% include "components/work_card.html" with project=project index=forloop.counter %}
+                {% endif %}
             {% endfor %}
         </div>
 
-        {# Mobile view all link #}
-        <div class="text-center mt-8 sm:hidden">
-            <a href="{% url 'portfolio:projects' %}" class="inline-flex items-center gap-1 font-dm-sans text-[0.85rem] font-medium tracking-[0.04em] text-copal-green no-underline" data-transition="page" data-transition-label="WORK" data-reveal-item="slide-up">
-                {% trans "VOIR TOUS LES PROJETS" %}
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+        <div class="mt-12 flex justify-center sm:hidden" data-reveal-item>
+            <a href="{% url 'portfolio:projects' %}" class="btn btn-outline">
+                {% trans "Toutes les réalisations" %}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
             </a>
         </div>
+
     </div>
 </section>
 {% endif %}

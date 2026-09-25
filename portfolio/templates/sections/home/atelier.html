@@ -1,0 +1,60 @@
+{% load static i18n %}
+
+<section class="section surface-bone" data-reveal-section data-reveal-stagger="90">
+    <div class="container">
+        <div class="mb-10 max-w-3xl md:mb-14">
+            <span class="eyebrow" data-reveal-item>{% trans "L'atelier" %}</span>
+            <h2 class="display-lg mt-6" data-reveal-item>
+                {% trans "Trois temps de travail, zéro surprise." %}
+            </h2>
+            <p class="lead mt-5 max-w-2xl" data-reveal-item>
+                {% trans "De la première conversation à la mise en ligne, vous savez toujours où en est votre projet." %}
+            </p>
+        </div>
+    </div>
+
+    {# ── Bande photo pleine largeur ─────────────────────────── #}
+    <div class="grid grid-cols-1 gap-px bg-ink/10 md:grid-cols-3" data-reveal-item>
+        <figure class="group relative isolate overflow-hidden bg-ink">
+            <img src="{% static 'images/process-1.jpg' %}"
+                 alt="{% trans 'Prise de notes et cadrage d’un projet' %}"
+                 class="aspect-[4/3] h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] md:aspect-[3/4]"
+                 loading="lazy" decoding="async">
+            <div class="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-transparent"></div>
+            <figcaption class="absolute inset-x-0 bottom-0 p-6 md:p-7">
+                <span class="text-[0.66rem] font-medium uppercase tracking-label text-bone/70">01 — {% trans "Comprendre" %}</span>
+                <p class="mt-2 max-w-sm text-[0.98rem] leading-[1.6] text-bone">
+                    {% trans "L'écoute d'abord : votre problème, vos contraintes, vos objectifs." %}
+                </p>
+            </figcaption>
+        </figure>
+
+        <figure class="group relative isolate overflow-hidden bg-ink">
+            <img src="{% static 'images/process-2.jpg' %}"
+                 alt="{% trans 'Poste de travail et outils reliés entre eux' %}"
+                 class="aspect-[4/3] h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] md:aspect-[3/4]"
+                 loading="lazy" decoding="async">
+            <div class="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-transparent"></div>
+            <figcaption class="absolute inset-x-0 bottom-0 p-6 md:p-7">
+                <span class="text-[0.66rem] font-medium uppercase tracking-label text-bone/70">02 — {% trans "Concevoir" %}</span>
+                <p class="mt-2 max-w-sm text-[0.98rem] leading-[1.6] text-bone">
+                    {% trans "Une architecture claire et des données bien rangées avant la première ligne de code." %}
+                </p>
+            </figcaption>
+        </figure>
+
+        <figure class="group relative isolate overflow-hidden bg-ink">
+            <img src="{% static 'images/process-3.jpg' %}"
+                 alt="{% trans 'Équipe en réunion de suivi de projet' %}"
+                 class="aspect-[4/3] h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04] md:aspect-[3/4]"
+                 loading="lazy" decoding="async">
+            <div class="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-transparent"></div>
+            <figcaption class="absolute inset-x-0 bottom-0 p-6 md:p-7">
+                <span class="text-[0.66rem] font-medium uppercase tracking-label text-bone/70">03 — {% trans "Livrer" %}</span>
+                <p class="mt-2 max-w-sm text-[0.98rem] leading-[1.6] text-bone">
+                    {% trans "Un produit en ligne, documenté, mesuré, prêt à évoluer avec vous." %}
+                </p>
+            </figcaption>
+        </figure>
+    </div>
+</section>

@@ -57,7 +57,7 @@
         if (!match) return;
         
         var finalValue = parseInt(match[1]);
-        var suffix = text.replace(match[1], '').trim() || '+';
+        var suffix = text.replace(match[1], '').trim();
         var currentValue = 0;
         var increment = finalValue / 80;
         var stepTime = 25;

@@ -22,7 +22,7 @@
     {# ══════════════ Auteur / marque / mobile ══════════════ #}
     <meta name="author" content="{{ profile.full_name|default:'Copal Satcheme' }}">
     <meta name="publisher" content="{{ seo.site_name }}">
-    <meta name="theme-color" content="#15A34A">
+    <meta name="theme-color" content="#0A0A0A">
 
     {# ══════════════ Vérification des moteurs (Search Console, Bing) ══════════════ #}
     {% if seo.google_verification %}
@@ -66,16 +66,14 @@
     <link rel="alternate" type="text/plain" title="robots.txt" href="{{ seo.site_url }}/robots.txt">
 
     {# Favicon #}
-    <link rel="icon" type="image/jpeg" href="{% if profile.profile_image %}{{ profile.profile_image.url }}{% else %}{% static 'images/logo.jpeg' %}{% endif %}">
-    <link rel="apple-touch-icon" href="{% if profile.logo %}{{ profile.logo.url }}{% else %}{% static 'images/logo.jpeg' %}{% endif %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32.png' %}">
+    <link rel="icon" type="image/png" sizes="180x180" href="{% static 'images/favicon-180.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'images/favicon-180.png' %}">
 
-    {# Fonts #}
+    {# Typographie : Bricolage Grotesque (titres) + Instrument Sans (texte) #}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Suez+One&family=Roboto:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    {# Font Awesome #}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
 
     {# Tailwind CSS (compiled output) #}
     <link href="{% static 'css/output.css' %}" rel="stylesheet">
@@ -90,6 +88,7 @@
 </head>
 
 <body class="antialiased">
+    <a href="#content" class="skip-link">{% trans "Aller au contenu" %}</a>
 
     {# Toast Container #}
     <div id="toastContainer"></div>
@@ -97,22 +96,19 @@
     {# Navigation #}
     {% include 'components/navbar.html' %}
 
-    {# Page Content Wrapper (for transitions) #}
-    <div class="page-content">
-        {# Main Content #}
-        <main class="min-h-screen relative z-10">
-            {% block content %}{% endblock %}
-        </main>
+    <main id="content" class="relative z-10 min-h-screen">
+        {% block content %}{% endblock %}
+    </main>
 
-        {# Footer #}
-        {% include 'components/footer.html' %}
-    </div>
+    {# Footer #}
+    {% include 'components/footer.html' %}
 
     {# Back to Top #}
-    <button id="backToTop" class="fixed bottom-6 right-6 z-50 w-10 h-10 flex items-center justify-center rounded-full opacity-0 pointer-events-none transition-all duration-300 bg-copal-green text-white shadow-[0_4px_14px_rgba(21,163,74,0.25)]">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+    <button id="backToTop" class="fixed bottom-6 right-6 z-40 flex h-11 w-11 items-center justify-center border border-ink/15 bg-bone text-ink opacity-0 pointer-events-none transition-all duration-300 hover:border-ink hover:bg-ink hover:text-bone">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 15l7-7 7 7" />
         </svg>
+        <span class="sr-only">{% trans "Retour en haut" %}</span>
     </button>
 
     {# Scripts #}
@@ -131,9 +127,9 @@
             var toast = document.createElement('div');
             toast.className = 'toast ' + (type === 'success' ? 'toast-success' : 'toast-error');
             var icon = type === 'success'
-                ? '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>'
-                : '<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>';
-            toast.innerHTML = icon + '<span style="font-family: var(--font-secondary, sans-serif); font-size: 0.9rem;">' + message + '</span><button class="toast-close" onclick="this.parentElement.remove()">&times;</button>';
+                ? '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>'
+                : '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" /></svg>';
+            toast.innerHTML = icon + '<span class="text-[0.88rem] leading-snug">' + message + '</span><button class="toast-close" aria-label="Fermer" onclick="this.parentElement.remove()">&times;</button>';
             container.appendChild(toast);
             requestAnimationFrame(function() {
                 requestAnimationFrame(function() { toast.classList.add('show'); });

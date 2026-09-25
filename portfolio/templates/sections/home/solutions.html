@@ -1,44 +1,58 @@
 {% load static i18n %}
+
 {% if services %}
-<section id="solutions" class="relative py-20 md:py-28 bg-copal-black" data-reveal-section data-reveal="right">
-    <div class="max-w-6xl mx-auto px-5">
-        {# Section header #}
-        <div class="text-center mb-16">
-           
-            <h2 class="font-suez text-[clamp(1.8rem,4vw,2.6rem)] text-white mb-3" data-reveal-item="slide-up">
-                {% trans "Ce que je peux construire pour vous" %}
-            </h2>
-            <p class="text-copal-gray-400 text-[1.05rem] max-w-[520px] mx-auto leading-[1.7]" data-reveal-item="slide-up">
-                {% trans "Chaque solution commence par la comprehension de votre probleme. Voici comment je peux vous aider." %}
+<section id="solutions" class="section surface-white" data-reveal-section data-reveal-stagger="80">
+    <div class="container">
+
+        <div class="section-head">
+            <div class="max-w-2xl">
+                <span class="eyebrow" data-reveal-item>{% trans "Ce que je construis" %}</span>
+                <h2 class="display-lg mt-6" data-reveal-item>
+                    {% trans "Quatre solutions, un même objectif : vous faire gagner du temps." %}
+                </h2>
+            </div>
+            <p class="lead max-w-sm" data-reveal-item>
+                {% trans "Chaque solution commence par la compréhension de votre problème, jamais par la technologie." %}
             </p>
         </div>
 
-        {# Solution cards #}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5" data-reveal-grid>
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
             {% for service in services %}
-            <a href="{% url 'portfolio:service_detail' service.slug %}" class="group p-6 rounded-xl border bg-white/[0.03] border-white/[0.06] solution-card transition-all duration-300 no-underline text-inherit" data-transition="solution" data-transition-label="{{ service.title|upper }}" data-reveal-card>
-                <div class="flex items-start gap-4">
-                    {% if service.icon %}
-                    <div class="w-11 h-11 flex items-center justify-center rounded-xl shrink-0 bg-copal-green/[0.1]">
-                        <i class="{{ service.icon }} text-copal-green text-[1.15rem]"></i>
-                    </div>
-                    {% endif %}
-                    <div class="flex-1">
-                        <h3 class="font-suez text-[1.1rem] text-white mb-1">{{ service.title }}</h3>
-                        <p class="text-copal-gray-400 text-[0.92rem] leading-[1.6] mb-3">{{ service.short_description|truncatewords:20 }}</p>
-                        <span class="font-dm-sans text-[0.78rem] font-medium tracking-[0.05em] text-copal-green">{% trans "EN SAVOIR PLUS" %} →</span>
-                    </div>
+            <a href="{% url 'portfolio:service_detail' service.slug %}"
+               class="service-card group" data-reveal-card>
+                <div class="service-card__media aspect-[16/10]">
+                    <img src="{{ service.image_url }}"
+                         alt="{{ service.title }}" loading="lazy" decoding="async">
+                    <span class="absolute left-4 top-4 z-10 rounded-full bg-white/95 px-3 py-1 text-[0.66rem] font-medium uppercase tracking-label text-ink shadow-soft">
+                        {{ forloop.counter|stringformat:"02d" }}
+                    </span>
+                </div>
+                <div class="service-card__body">
+                    <h3 class="display-md">{{ service.title }}</h3>
+                    <p class="text-[0.97rem] leading-[1.7] text-ink/65">{{ service.short_description }}</p>
+                    <span class="arrow-link mt-auto w-fit">
+                        {% trans "Découvrir cette solution" %}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </span>
                 </div>
             </a>
             {% endfor %}
         </div>
 
-        {# CTA #}
-        <div class="text-center mt-12">
-            <a href="{% url 'portfolio:contact' %}" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg font-medium transition-all duration-300 font-dm-sans text-[0.88rem] tracking-[0.04em] uppercase bg-copal-green text-white border-2 border-copal-green" data-reveal-item="slide-up">
-                {% trans "UN PROJET EN TETE ?" %}
+        <div class="mt-12 flex flex-wrap items-center justify-between gap-5" data-reveal-item>
+            <p class="max-w-md text-[0.95rem] leading-[1.7] text-ink/60">
+                {% trans "Vous ne savez pas laquelle vous convient ? Décrivez votre situation, je vous oriente sans engagement." %}
+            </p>
+            <a href="{% url 'portfolio:contact' %}" class="btn btn-solid">
+                {% trans "Un projet en tête ?" %}
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
             </a>
         </div>
+
     </div>
 </section>
 {% endif %}

@@ -1,0 +1,51 @@
+{% load i18n media_extras %}
+{% comment %}
+  Carte de projet réutilisée (accueil, liste des réalisations).
+  Attend : project, et éventuellement index (numéro d'ordre).
+{% endcomment %}
+<a href="{% url 'portfolio:project_detail' project.slug %}" class="group work-card" data-reveal-card>
+
+    <div class="work-card__media rounded-xl {% if featured %}aspect-[16/9] md:aspect-[2/1]{% else %}aspect-[16/10]{% endif %}">
+        {% if project.cover_image|file_exists %}
+        <img src="{{ project.cover_image.url }}" alt="{{ project.title }}" loading="lazy" decoding="async">
+        {% else %}
+        <div class="work-placeholder">
+            <span class="work-placeholder__mark">
+                {% if index %}{{ index }}{% else %}{{ project.project_date|date:"Y" }}{% endif %}
+            </span>
+            <span class="work-placeholder__mark">{% trans "Aperçu bientôt disponible" %}</span>
+        </div>
+        {% endif %}
+
+        {% if project.status == "completed" %}
+        <span class="absolute right-3 top-3 rounded-full bg-white/95 px-3 py-1 text-[0.62rem] font-medium uppercase tracking-label text-ink shadow-soft">
+            {% trans "En ligne" %}
+        </span>
+        {% endif %}
+    </div>
+
+    <div class="work-card__body">
+        <div class="flex items-baseline justify-between gap-4">
+            <h3 class="font-display text-[1.2rem] font-medium leading-snug tracking-[-0.02em] md:text-[1.35rem]">
+                {{ project.title }}
+            </h3>
+            <span class="label shrink-0">{{ project.project_date|date:"Y" }}</span>
+        </div>
+
+        <p class="text-[0.93rem] leading-[1.65] text-ink/60">{{ project.short_description|truncatewords:22 }}</p>
+
+        <div class="mt-auto flex flex-wrap items-center gap-2 pt-1">
+            {% for tech in project.technologies.all|slice:":3" %}
+            <span class="chip">{{ tech.name }}</span>
+            {% endfor %}
+        </div>
+
+        <span class="arrow-link mt-1 w-fit">
+            {% trans "Voir l'étude de cas" %}
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+        </span>
+    </div>
+
+</a>

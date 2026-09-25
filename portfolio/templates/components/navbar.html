@@ -1,94 +1,81 @@
 {% load static i18n %}
 
-<!-- ==================== NAVBAR ==================== -->
-<header id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-white backdrop-blur-lg border-b border-black/[0.06] transition-transform duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] has-[-dark]:bg-[#0F1114]/90 has-[-dark]:border-b-white/[0.06]">
-  <div class="max-w-6xl mx-auto px-5 md:px-8 h-16 md:h-[4.5rem] flex items-center justify-between gap-4">
+{# ══════════════════════════ NAVBAR ══════════════════════════ #}
+<header id="navbar">
+  <div class="container flex h-[4.25rem] items-center justify-between gap-6 md:h-[5rem]">
 
     {# ---------- Logo ---------- #}
-    <a href="{% url 'portfolio:home' %}" class="flex items-center gap-2.5 shrink-0 no-underline" aria-label="{{ site_settings.site_name|default:'COPAL' }}">
-      <img
-        src="{% if profile.logo %}{{ profile.logo.url }}{% else %}{% static 'images/logo.jpeg' %}{% endif %}"
-        alt="{{ site_settings.site_name|default:'COPAL' }}"
-        class="h-16 md:h-20 w-auto rounded-md">
+    <a href="{% url 'portfolio:home' %}" class="flex shrink-0 items-center no-underline" aria-label="{{ site_settings.site_name|default:'Copal Satcheme' }}">
+      <img src="{% static 'images/logo.png' %}" alt="Copal Satcheme" class="h-7 w-auto md:h-8">
     </a>
 
     {# ---------- Navigation desktop ---------- #}
-    <nav class="hidden lg:flex items-center gap-1" aria-label="{% trans 'Navigation principale' %}">
-      <a href="{% url 'portfolio:home' %}" class="nav-link" data-transition="page" data-transition-label="HOME">{% trans "ACCUEIL" %}</a>
-      <a href="{% url 'portfolio:services' %}" class="nav-link" data-transition="page" data-transition-label="SOLUTIONS">{% trans "SOLUTIONS" %}</a>
-      <a href="{% url 'portfolio:projects' %}" class="nav-link" data-transition="page" data-transition-label="PROJETS">{% trans "PROJETS" %}</a>
-      <a href="{% url 'portfolio:experience' %}" class="nav-link" data-transition="page" data-transition-label="EXPERIENCE">{% trans "EXPERIENCE" %}</a>
-      <a href="{% url 'portfolio:about' %}" class="nav-link" data-transition="page" data-transition-label="A PROPOS">{% trans "A PROPOS" %}</a>
+    <nav class="hidden items-center lg:flex" aria-label="{% trans 'Navigation principale' %}">
+      <a href="{% url 'portfolio:home' %}" class="nav-link">{% trans "Accueil" %}</a>
+      <a href="{% url 'portfolio:home' %}#solutions" class="nav-link">{% trans "Solutions" %}</a>
+      <a href="{% url 'portfolio:projects' %}" class="nav-link">{% trans "Réalisations" %}</a>
+      <a href="{% url 'portfolio:experience' %}" class="nav-link">{% trans "Parcours" %}</a>
+      <a href="{% url 'portfolio:home' %}#about" class="nav-link">{% trans "À propos" %}</a>
     </nav>
 
     {# ---------- Actions droite ---------- #}
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2 md:gap-4">
       <div class="max-md:hidden">{% include 'components/language_switcher.html' %}</div>
-
-      <a href="{% url 'portfolio:contact' %}" class="nav-cta" data-transition="page" data-transition-label="CONTACT">
-        {% trans "PARLONS-EN" %}
+      <a href="{% url 'portfolio:contact' %}" class="btn btn-solid btn-sm max-sm:hidden">
+        {% trans "Parlons-en" %}
       </a>
 
-      <button id="hamburgerBtn" class="hamburger lg:hidden flex flex-col justify-center items-center gap-[5px] w-10 h-10 rounded-lg bg-transparent border-none p-0 cursor-pointer hover:bg-black/[0.04] dark:hover:bg-white/[0.06]" type="button"
+      <button id="hamburgerBtn" class="hamburger lg:hidden" type="button"
               aria-label="{% trans 'Ouvrir le menu' %}"
               aria-expanded="false" aria-controls="mobileMenu">
-        <span class="block w-5 h-0.5 bg-copal-black dark:bg-white rounded-sm transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] origin-center"></span>
-        <span class="block w-5 h-0.5 bg-copal-black dark:bg-white rounded-sm transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] origin-center"></span>
-        <span class="block w-5 h-0.5 bg-copal-black dark:bg-white rounded-sm transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] origin-center"></span>
+        <span></span><span></span><span></span>
       </button>
     </div>
 
   </div>
 </header>
 
-<!-- ==================== OVERLAY ==================== -->
-<div id="mobileOverlay" class="fixed inset-0 z-[200] bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)]" aria-hidden="true"></div>
+{# ══════════════════════════ OVERLAY ══════════════════════════ #}
+<div id="mobileOverlay" aria-hidden="true"></div>
 
-<!-- ==================== MENU MOBILE (plein ecran) ==================== -->
-<aside id="mobileMenu" class="fixed inset-0 z-[210] bg-white dark:bg-[#0F1114] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-y-auto overflow-x-hidden flex flex-col" aria-hidden="true" aria-label="{% trans 'Menu mobile' %}">
+{# ══════════════════════ MENU MOBILE ══════════════════════ #}
+<aside id="mobileMenu" aria-hidden="true" aria-label="{% trans 'Menu mobile' %}">
 
-  <div class="flex items-center justify-between px-5 py-4 border-b border-black/[0.06] dark:border-white/[0.06] shrink-0">
-    <a href="{% url 'portfolio:home' %}" class="flex items-center gap-2.5 no-underline" tabindex="-1" aria-hidden="true">
-      <img src="{% if profile.logo %}{{ profile.logo.url }}{% else %}{% static 'images/logo.jpeg' %}{% endif %}"
-           alt="" class="h-20 w-auto rounded-md">
+  <div class="flex h-[4.25rem] shrink-0 items-center justify-between border-b border-ink/10 px-5 md:h-[5rem]">
+    <a href="{% url 'portfolio:home' %}" class="flex items-center no-underline" tabindex="-1" aria-hidden="true">
+      <img src="{% static 'images/logo.png' %}" alt="" class="h-7 w-auto">
     </a>
-
-    <button id="mobileCloseBtn" class="w-10 h-10 flex items-center justify-center rounded-[10px] bg-copal-gray-100 text-copal-gray-600 border-none cursor-pointer hover:bg-copal-gray-200 hover:text-copal-black hover:rotate-90 transition-all duration-200 shrink-0 dark:bg-[#1A1D21] dark:text-copal-gray-400 dark:hover:bg-[#2D3139] dark:hover:text-white" type="button" aria-label="{% trans 'Fermer le menu' %}">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none"
-           stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+    <button id="mobileCloseBtn" class="flex h-10 w-10 items-center justify-center border border-ink/15 bg-transparent text-ink transition-all duration-200 hover:rotate-90 hover:border-ink" type="button" aria-label="{% trans 'Fermer le menu' %}">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
         <path d="M6 6l12 12M18 6L6 18"/>
       </svg>
     </button>
   </div>
 
-  <nav class="flex-1 flex flex-col justify-center px-7 py-8 gap-0">
-    <a href="{% url 'portfolio:home' %}" class="mobile-nav-link" data-transition="page" data-transition-label="HOME">
-      <span class="mobile-nav-link__num">01</span>
-      <span class="mobile-nav-link__text">{% trans "ACCUEIL" %}</span>
+  <nav class="flex flex-1 flex-col justify-center px-5 py-6">
+    <a href="{% url 'portfolio:home' %}" class="mobile-nav-link">
+      <span class="mobile-nav-link__text">{% trans "Accueil" %}</span>
     </a>
-    <a href="{% url 'portfolio:services' %}" class="mobile-nav-link" data-transition="page" data-transition-label="SOLUTIONS">
-      <span class="mobile-nav-link__num">02</span>
-      <span class="mobile-nav-link__text">{% trans "SOLUTIONS" %}</span>
+    <a href="{% url 'portfolio:home' %}#solutions" class="mobile-nav-link">
+      <span class="mobile-nav-link__text">{% trans "Solutions" %}</span>
     </a>
-    <a href="{% url 'portfolio:projects' %}" class="mobile-nav-link" data-transition="page" data-transition-label="PROJETS">
-      <span class="mobile-nav-link__num">03</span>
-      <span class="mobile-nav-link__text">{% trans "PROJETS" %}</span>
+    <a href="{% url 'portfolio:projects' %}" class="mobile-nav-link">
+      <span class="mobile-nav-link__text">{% trans "Réalisations" %}</span>
     </a>
-    <a href="{% url 'portfolio:experience' %}" class="mobile-nav-link" data-transition="page" data-transition-label="EXPERIENCE">
-      <span class="mobile-nav-link__num">04</span>
-      <span class="mobile-nav-link__text">{% trans "EXPERIENCE" %}</span>
+    <a href="{% url 'portfolio:experience' %}" class="mobile-nav-link">
+      <span class="mobile-nav-link__text">{% trans "Parcours" %}</span>
     </a>
-    <a href="{% url 'portfolio:about' %}" class="mobile-nav-link" data-transition="page" data-transition-label="A PROPOS">
-      <span class="mobile-nav-link__num">05</span>
-      <span class="mobile-nav-link__text">{% trans "A PROPOS" %}</span>
+    <a href="{% url 'portfolio:home' %}#about" class="mobile-nav-link">
+      <span class="mobile-nav-link__text">{% trans "À propos" %}</span>
     </a>
-    <a href="{% url 'portfolio:contact' %}" class="mobile-nav-link" data-transition="page" data-transition-label="CONTACT">
-      <span class="mobile-nav-link__num">06</span>
-      <span class="mobile-nav-link__text">{% trans "CONTACT" %}</span>
+    <a href="{% url 'portfolio:contact' %}" class="mobile-nav-link">
+      <span class="mobile-nav-link__text">{% trans "Contact" %}</span>
     </a>
-    <div class="mobile-nav-link__text mobile-nav-link" >{% include 'components/language_switcher.html' %}</div>
-
-   
   </nav>
+
+  <div class="flex shrink-0 items-center justify-between gap-4 border-t border-ink/10 px-5 py-5">
+    {% include 'components/language_switcher.html' %}
+    <a href="mailto:{{ profile.email }}" class="text-[0.8rem] text-ink/60 no-underline hover:text-ink">{{ profile.email }}</a>
+  </div>
 
 </aside>

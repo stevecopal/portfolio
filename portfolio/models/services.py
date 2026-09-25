@@ -1,4 +1,5 @@
 from django.db import models
+from django.templatetags.static import static
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
@@ -12,6 +13,12 @@ class Service(models.Model):
     icon = models.CharField(max_length=50, verbose_name=_("Icon"), null=True, blank=True)
     image = models.ImageField(
         upload_to="services/", verbose_name=_("Image"), null=True, blank=True
+    )
+    projects = models.ManyToManyField(
+        "portfolio.Project",
+        related_name="services",
+        verbose_name=_("Related Projects"),
+        blank=True,
     )
 
     # Rich content for detail page
@@ -89,6 +96,22 @@ class Service(models.Model):
     def get_absolute_url(self):
         """URL publique du service (utilisée par le sitemap et le SEO)."""
         return reverse("portfolio:service_detail", kwargs={"slug": self.slug})
+
+    #: Visuels de secours, utilisés tant qu'aucune image n'est téléversée.
+    FALLBACK_IMAGES = [
+        "images/service-web.jpg",
+        "images/service-conseil.jpg",
+        "images/service-api.jpg",
+        "images/service-support.jpg",
+    ]
+
+    @property
+    def image_url(self):
+        """Image du service, avec repli automatique sur un visuel statique."""
+        if self.image:
+            return self.image.url
+        index = (self.display_order - 1) % len(self.FALLBACK_IMAGES)
+        return static(self.FALLBACK_IMAGES[index])
 
 
 class ServiceFeature(models.Model):

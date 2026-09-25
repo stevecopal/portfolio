@@ -1,72 +1,82 @@
 {% load static i18n %}
-<section id="problems" class="relative py-20 md:py-28 bg-[#FAFBFC]" data-reveal-section data-reveal="left">
-    <div class="max-w-6xl mx-auto px-5">
-        {# Section header #}
-        <div class="text-center mb-16">
-           
-            <h2 class="font-suez text-[clamp(1.8rem,4vw,2.6rem)] text-copal-black mb-3" data-reveal-item="slide-up">
-                {% trans "Cela vous parle ?" %}
-            </h2>
-            <p class="text-copal-gray-500 text-[1.05rem] max-w-[520px] mx-auto leading-[1.7]" data-reveal-item="slide-up">
-                {% trans "Ce sont les situations que je vous aide a resoudre au quotidien." %}
-            </p>
-        </div>
 
-        {# Problem cards #}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" data-reveal-grid>
-            {# Problem 1 #}
-            <div class="p-6 rounded-xl border bg-white border-copal-gray-200 transition-all duration-300" data-reveal-card>
-                <div class="w-10 h-10 flex items-center justify-center rounded-lg mb-4 bg-copal-green/[0.08]">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="#15A34A" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>
+<section id="problems" class="section surface-bone" data-reveal-section data-reveal-stagger="70">
+    <div class="container">
+
+        <div class="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
+
+            {# ── En-tête collant ────────────────────────────── #}
+            <div class="lg:col-span-4">
+                <div class="lg:sticky lg:top-32">
+                    <span class="eyebrow" data-reveal-item>{% trans "Les signaux" %}</span>
+                    <h2 class="display-lg mt-6" data-reveal-item>{% trans "Cela vous parle ?" %}</h2>
+                    <p class="lead mt-5 max-w-sm" data-reveal-item>
+                        {% trans "Ce sont les situations que je vous aide à résoudre au quotidien." %}
+                    </p>
+                    <a href="{% url 'portfolio:contact' %}" class="arrow-link mt-8" data-reveal-item>
+                        {% trans "Décrire ma situation" %}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </a>
                 </div>
-                <h3 class="font-suez text-[1.1rem] text-copal-black mb-2">{% trans "Pas de presence en ligne" %}</h3>
-                <p class="text-copal-gray-500 text-[0.92rem] leading-[1.65]">{% trans "Votre activite existe mais n'a aucune visibilite sur internet. Les clients potentiels ne vous trouvent pas." %}</p>
             </div>
 
-            {# Problem 2 #}
-            <div class="p-6 rounded-xl border bg-white border-copal-gray-200 transition-all duration-300" data-reveal-card>
-                <div class="w-10 h-10 flex items-center justify-center rounded-lg mb-4 bg-copal-green/[0.08]">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="#15A34A" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                </div>
-                <h3 class="font-suez text-[1.1rem] text-copal-black mb-2">{% trans "Processus manuels" %}</h3>
-                <p class="text-copal-gray-500 text-[0.92rem] leading-[1.65]">{% trans "Vous perdez des heures sur des taches repetitives qui pourraient etre automatisees. Tableurs, papiers, coups de telephone." %}</p>
+            {# ── Liste ──────────────────────────────────────── #}
+            <div class="lg:col-span-8">
+                <ol class="border-t border-ink/10">
+
+                    <li class="grid grid-cols-1 gap-2 border-b border-ink/10 py-7 sm:grid-cols-[3.5rem_1fr] sm:gap-6" data-reveal-card>
+                        <span class="label pt-1">01</span>
+                        <div>
+                            <h3 class="text-[1.25rem] leading-snug md:text-[1.45rem]">{% trans "Pas de présence en ligne" %}</h3>
+                            <p class="mt-2 text-[0.95rem] leading-[1.7] text-ink/65">{% trans "Votre activité existe mais n'a aucune visibilité sur internet. Les clients potentiels ne vous trouvent pas." %}</p>
+                        </div>
+                    </li>
+
+                    <li class="grid grid-cols-1 gap-2 border-b border-ink/10 py-7 sm:grid-cols-[3.5rem_1fr] sm:gap-6" data-reveal-card>
+                        <span class="label pt-1">02</span>
+                        <div>
+                            <h3 class="text-[1.25rem] leading-snug md:text-[1.45rem]">{% trans "Processus manuels" %}</h3>
+                            <p class="mt-2 text-[0.95rem] leading-[1.7] text-ink/65">{% trans "Vous perdez des heures sur des tâches répétitives qui pourraient être automatisées. Tableurs, papiers, coups de téléphone." %}</p>
+                        </div>
+                    </li>
+
+                    <li class="grid grid-cols-1 gap-2 border-b border-ink/10 py-7 sm:grid-cols-[3.5rem_1fr] sm:gap-6" data-reveal-card>
+                        <span class="label pt-1">03</span>
+                        <div>
+                            <h3 class="text-[1.25rem] leading-snug md:text-[1.45rem]">{% trans "Informations éparpillées" %}</h3>
+                            <p class="mt-2 text-[0.95rem] leading-[1.7] text-ink/65">{% trans "Vos données sont partout : notes, emails, applications. Il vous faut un endroit central pour tout gérer." %}</p>
+                        </div>
+                    </li>
+
+                    <li class="grid grid-cols-1 gap-2 border-b border-ink/10 py-7 sm:grid-cols-[3.5rem_1fr] sm:gap-6" data-reveal-card>
+                        <span class="label pt-1">04</span>
+                        <div>
+                            <h3 class="text-[1.25rem] leading-snug md:text-[1.45rem]">{% trans "Idée d'application bloquée" %}</h3>
+                            <p class="mt-2 text-[0.95rem] leading-[1.7] text-ink/65">{% trans "Vous avez une idée d'application mais ne savez pas comment la transformer en quelque chose de concret et utilisable." %}</p>
+                        </div>
+                    </li>
+
+                    <li class="grid grid-cols-1 gap-2 border-b border-ink/10 py-7 sm:grid-cols-[3.5rem_1fr] sm:gap-6" data-reveal-card>
+                        <span class="label pt-1">05</span>
+                        <div>
+                            <h3 class="text-[1.25rem] leading-snug md:text-[1.45rem]">{% trans "Pas de système de réservation" %}</h3>
+                            <p class="mt-2 text-[0.95rem] leading-[1.7] text-ink/65">{% trans "Vous gérez les rendez-vous par téléphone ou message. Un système de réservation automatisé vous ferait gagner un temps précieux." %}</p>
+                        </div>
+                    </li>
+
+                    <li class="grid grid-cols-1 gap-2 border-b border-ink/10 py-7 sm:grid-cols-[3.5rem_1fr] sm:gap-6" data-reveal-card>
+                        <span class="label pt-1">06</span>
+                        <div>
+                            <h3 class="text-[1.25rem] leading-snug md:text-[1.45rem]">{% trans "Besoin d'un tableau de bord" %}</h3>
+                            <p class="mt-2 text-[0.95rem] leading-[1.7] text-ink/65">{% trans "Vous devez visualiser vos données, suivre les performances ou gérer les opérations depuis un seul endroit." %}</p>
+                        </div>
+                    </li>
+
+                </ol>
             </div>
 
-            {# Problem 3 #}
-            <div class="p-6 rounded-xl border bg-white border-copal-gray-200 transition-all duration-300" data-reveal-card>
-                <div class="w-10 h-10 flex items-center justify-center rounded-lg mb-4 bg-copal-green/[0.08]">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="#15A34A" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" /></svg>
-                </div>
-                <h3 class="font-suez text-[1.1rem] text-copal-black mb-2">{% trans "Informations eparpillees" %}</h3>
-                <p class="text-copal-gray-500 text-[0.92rem] leading-[1.65]">{% trans "Vos donnees sont partout — notes, emails, applications. Vous avez besoin d'un endroit central pour tout gerer." %}</p>
-            </div>
-
-            {# Problem 4 #}
-            <div class="p-6 rounded-xl border bg-white border-copal-gray-200 transition-all duration-300" data-reveal-card>
-                <div class="w-10 h-10 flex items-center justify-center rounded-lg mb-4 bg-copal-green/[0.08]">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="#15A34A" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                </div>
-                <h3 class="font-suez text-[1.1rem] text-copal-black mb-2">{% trans "Idee d'application bloque" %}</h3>
-                <p class="text-copal-gray-500 text-[0.92rem] leading-[1.65]">{% trans "Vous avez une idee d'application mais ne savez pas comment la transformer en quelque chose de concret et utilisable." %}</p>
-            </div>
-
-            {# Problem 5 #}
-            <div class="p-6 rounded-xl border bg-white border-copal-gray-200 transition-all duration-300" data-reveal-card>
-                <div class="w-10 h-10 flex items-center justify-center rounded-lg mb-4 bg-copal-green/[0.08]">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="#15A34A" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                </div>
-                <h3 class="font-suez text-[1.1rem] text-copal-black mb-2">{% trans "Pas de systeme de reservation" %}</h3>
-                <p class="text-copal-gray-500 text-[0.92rem] leading-[1.65]">{% trans "Vous gérez les rendez-vous par telephone ou message. Vous avez besoin d'un systeme de reservation automatise." %}</p>
-            </div>
-
-            {# Problem 6 #}
-            <div class="p-6 rounded-xl border bg-white border-copal-gray-200 transition-all duration-300" data-reveal-card>
-                <div class="w-10 h-10 flex items-center justify-center rounded-lg mb-4 bg-copal-green/[0.08]">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="#15A34A" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" /><path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" /></svg>
-                </div>
-                <h3 class="font-suez text-[1.1rem] text-copal-black mb-2">{% trans "Besoin d'un tableau de bord" %}</h3>
-                <p class="text-copal-gray-500 text-[0.92rem] leading-[1.65]">{% trans "Vous avez besoin de visualiser vos donnees, suivre les performances ou gerer les operations depuis un seul endroit." %}</p>
-            </div>
         </div>
     </div>
 </section>

@@ -1,104 +1,83 @@
 {% load static i18n %}
 {% if profile %}
-<section id="about" class="relative py-14 md:py-28 bg-white">
-    <div class="max-w-5xl mx-auto px-5">
+<section id="about" class="section surface-white" data-reveal-section data-reveal-stagger="80">
+    <div class="container">
 
-        {# Header — left-aligned #}
-        <div class="mb-10 md:mb-14">
-           
-            <h2 class="font-suez text-[clamp(1.6rem,3.4vw,2.4rem)] text-copal-black leading-[1.12] mb-3">
-                {% trans "La personne derriere les solutions" %}
-            </h2>
-        </div>
+        <div class="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
 
-        {# 2-column layout: photo+tools | bio+philosophy #}
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start">
+            {# ── Visuel ─────────────────────────────────────── #}
+            <div class="lg:col-span-5">
+                <div class="lg:sticky lg:top-32">
+                    <span class="eyebrow" data-reveal-item>{% trans "À propos" %}</span>
+                    <h2 class="display-lg mt-6" data-reveal-item>
+                        {% trans "La personne derrière les solutions" %}
+                    </h2>
 
-            {# LEFT — Photo + Tools #}
-            <div>
-                {# Centered photo #}
-                <div class="flex justify-center mb-8">
-                    <div class="relative w-[180px] h-[180px] rounded-full bg-[linear-gradient(135deg,#0B0D0F_0%,#1a1d21_100%)] shadow-[0_0_0_4px_rgba(21,163,74,0.15),0_20px_40px_rgba(0,0,0,0.12)]">
-                        {% if profile.profile_image %}
-                        <img src="{{ profile.profile_image.url }}" alt="{{ profile.full_name }}" class="w-full h-full object-cover rounded-full">
-                        {% else %}
-                        <div class="w-full h-full flex items-center justify-center rounded-full">
-                            <span class="font-suez text-[3rem] text-copal-green opacity-85">{{ profile.professional_name|default:profile.full_name|first }}</span>
+                    <figure class="mt-8" data-reveal-card>
+                        <div class="relative overflow-hidden bg-ink/5 aspect-[4/5]">
+                            <img src="{% static 'images/about.jpg' %}"
+                                 alt="{% trans 'Développeurs au travail sur une application web' %}"
+                                 class="h-full w-full object-cover"
+                                 loading="lazy" decoding="async">
                         </div>
-                        {% endif %}
-                    </div>
+                        <figcaption class="fig-cap">
+                            <strong>{{ profile.professional_name|default:profile.full_name }}</strong>
+                            <span>{{ profile.professional_title }}</span>
+                        </figcaption>
+                    </figure>
                 </div>
-
-                {# Name + title #}
-                <div class="text-center mb-8">
-                    <p class="font-suez text-[1.3rem] font-bold text-copal-black tracking-[0.02em]">{{ profile.professional_name|default:profile.full_name }}</p>
-                    <p class="font-ibm-plex-mono text-[0.68rem] tracking-[0.12em] uppercase text-copal-gray-500 mt-1">{{ profile.professional_title }}</p>
-                </div>
-
-                {# Tools grid #}
-                {% if tools %}
-                <div class="flex flex-wrap justify-center gap-2.5">
-                    {% for tool in tools %}
-                    <div class="inline-flex items-center gap-[0.45rem] px-[0.5rem] py-[0.5rem] rounded-full bg-[#F8F9FA] border border-copal-gray-200 text-[0.8rem] text-copal-gray-600 transition-all duration-250 hover:border-copal-green/50 hover:shadow-[0_4px_12px_rgba(21,163,74,0.1)]">
-                        <i class="{{ tool.icon }} text-copal-green text-[0.85rem]" aria-hidden="true"></i>
-                        <span class="font-ibm-plex-mono text-[0.72rem] tracking-[0.03em]">{{ tool.name }}</span>
-                    </div>
-                    {% endfor %}
-                </div>
-                {% endif %}
             </div>
 
-            {# RIGHT — Bio + Philosophy #}
-            <div>
-                {# Bio #}
-                <div class="text-copal-gray-600 leading-[1.85] text-[0.95rem] mb-8">
+            {# ── Texte ──────────────────────────────────────── #}
+            <div class="lg:col-span-7">
+                <div class="prose max-w-2xl" data-reveal-item>
                     {{ profile.biography|linebreaks }}
                 </div>
 
-                {# Approach card #}
-                <div class="flex gap-4 p-5 rounded-[14px] bg-[#F8F9FA] border border-copal-gray-200 mb-3">
-                    <div class="w-10 h-10 rounded-[10px] shrink-0 flex items-center justify-center bg-copal-green/[0.1] text-copal-green text-[0.95rem]">
-                        <i class="fas fa-compass" aria-hidden="true"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-ibm-plex-mono text-[0.65rem] tracking-[0.12em] uppercase text-copal-green mb-1">{% trans "APPROCHE" %}</h3>
-                        <p class="text-copal-gray-600 text-[0.88rem] leading-[1.65]">{% trans "Chaque projet commence par la comprehension du vrai probleme. J'ecoute d'abord, puis je conçois, puis je construis. Le resultat doit simplifier votre activite, pas la compliquer." %}</p>
-                    </div>
-                </div>
-
-                {# Philosophy card #}
-                <div class="flex gap-4 p-5 rounded-[14px] bg-[#F8F9FA] border border-copal-gray-200 mb-6">
-                    <div class="w-10 h-10 rounded-[10px] shrink-0 flex items-center justify-center bg-copal-green/[0.1] text-copal-green text-[0.95rem]">
-                        <i class="fas fa-lightbulb" aria-hidden="true"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-ibm-plex-mono text-[0.65rem] tracking-[0.12em] uppercase text-copal-green mb-1">{% trans "PHILOSOPHIE" %}</h3>
-                        <p class="text-copal-gray-600 text-[0.88rem] leading-[1.65]">{% trans "La technologie doit servir les gens, pas l'inverse. Je construis des solutions simples, fonctionnelles et adaptees a la maniere dont vous travaillez reellement." %}</p>
-                    </div>
-                </div>
-
-                {# Links + Availability #}
-                <div class="flex flex-wrap gap-3 items-center">
-                    {% if profile.resume_file %}
-                    <a href="{{ profile.resume_file.url }}" download class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-dm-sans text-[0.78rem] tracking-[0.04em] uppercase bg-transparent text-copal-green border-2 border-copal-green/30 no-underline transition-all duration-300 hover:bg-copal-green hover:text-white hover:border-copal-green hover:shadow-[0_4px_14px_rgba(21,163,74,0.3)]">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                        {% trans "TELECHARGER CV" %}
-                    </a>
-                    {% endif %}
-                    <a href="{% url 'portfolio:experience' %}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-dm-sans text-[0.78rem] tracking-[0.04em] uppercase bg-transparent text-copal-black border-2 border-copal-gray-200 no-underline transition-all duration-300 hover:border-copal-green hover:text-copal-green">
-                        {% trans "VOIR L'EXPERIENCE" %}
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                    </a>
-
-                    {% if profile.availability_status %}
-                    <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-copal-green/[0.07] border border-copal-green/20">
-                        <span class="w-2 h-2 rounded-full bg-copal-green shrink-0"></span>
-                        <p class="text-[0.78rem] font-medium text-copal-green-dark leading-[1.4]">
-                            {{ profile.availability_message|default:"Disponible pour de nouveaux projets" }}
+                <div class="mt-10 space-y-4">
+                    <div class="border border-ink/10 bg-white p-6" data-reveal-card>
+                        <span class="label">{% trans "Approche" %}</span>
+                        <p class="mt-3 text-[0.97rem] leading-[1.75] text-ink/70">
+                            {% trans "Chaque projet commence par la compréhension du vrai problème. J'écoute d'abord, puis je conçois, puis je construis. Le résultat doit simplifier votre activité, pas la compliquer." %}
                         </p>
                     </div>
+                    <div class="border border-ink/10 bg-white p-6" data-reveal-card>
+                        <span class="label">{% trans "Philosophie" %}</span>
+                        <p class="mt-3 text-[0.97rem] leading-[1.75] text-ink/70">
+                            {% trans "La technologie doit servir les gens, pas l'inverse. Je construis des solutions simples, fonctionnelles et adaptées à la manière dont vous travaillez réellement." %}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex flex-wrap items-center gap-3" data-reveal-item>
+                    {% if profile.resume_file %}
+                    <a href="{{ profile.resume_file.url }}" download class="btn btn-outline btn-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        {% trans "Télécharger le CV" %}
+                    </a>
+                    {% endif %}
+                    <a href="{% url 'portfolio:experience' %}" class="btn btn-outline btn-sm">{% trans "Voir le parcours" %}</a>
+
+                    {% if profile.availability_status %}
+                    <span class="inline-flex items-center gap-2.5 border border-ink/15 px-4 py-3 text-[0.72rem] text-ink/70">
+                        <span class="h-2 w-2 shrink-0 rounded-full bg-ink"></span>
+                        {{ profile.availability_message|default:"Disponible pour de nouveaux projets" }}
+                    </span>
                     {% endif %}
                 </div>
+
+                {% if tools %}
+                <div class="mt-10 border-t border-ink/10 pt-6" data-reveal-item>
+                    <span class="label">{% trans "Outils & technologies" %}</span>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        {% for tool in tools %}
+                        <span class="chip">{{ tool.name }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
             </div>
 
         </div>

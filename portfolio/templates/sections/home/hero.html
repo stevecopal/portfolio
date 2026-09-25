@@ -1,67 +1,77 @@
 {% load static i18n %}
 
-<section id="hero" class="hero">
-    {# Background layers #}
-    <div class="hero__bg hero__bg--grid" aria-hidden="true"></div>
-    <div class="hero__bg hero__bg--glow" aria-hidden="true"></div>
+<section id="hero" class="relative isolate flex min-h-[34rem] items-end overflow-hidden md:min-h-[88vh]">
+    <img src="{% static 'images/hero-bg.jpg' %}"
+         alt=""
+         class="absolute inset-0 -z-20 h-full w-full object-cover"
+         width="2400" height="1602" fetchpriority="high">
+    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-ink/75 via-ink/45 to-ink/85"></div>
 
-    <div class="hero__container">
-        <div class="hero__grid">
-            {# ── LEFT : copy ─────────────────────────────────── #}
-            <div class="hero__left" data-reveal-element>
-                
-                <h1 class="hero__title" data-hero-reveal="150" data-reveal-element>
-                    <span class="hero__title-line">{% trans "Gagnez du" %} <span class="hero__title-accent">{% trans "temps." %}</span></span>
-                    <span class="hero__title-line">{% trans "Construisons ensemble" %}</span>
-                    <span class="hero__title-line">{% trans "votre prochaine" %} <span class="hero__title-accent">{% trans "solution." %}</span></span>
-                </h1>
+    <div class="container w-full pb-14 pt-32 md:pb-20 md:pt-44">
 
-                <p class="hero__desc" data-hero-reveal="350" data-reveal-element>
-                    {% trans "Développeur passionné, je crée des outils qui simplifient votre quotidien et accélèrent votre croissance. Mon objectif : vous faire gagner du temps sur ce qui compte." %}
-                </p>
+        {% if profile.availability_status %}
+        <p class="eyebrow eyebrow--light mb-7 flex items-center gap-3" data-hero-reveal="0">
+            <span class="relative flex h-2 w-2">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-bone/50"></span>
+                <span class="relative inline-flex h-2 w-2 rounded-full bg-bone"></span>
+            </span>
+            {{ profile.availability_message|default:"Disponible pour de nouveaux projets" }}
+        </p>
+        {% endif %}
 
-                <div class="hero__ctas" data-hero-reveal="550" data-reveal-element>
-                    <a href="#work" class="hero__cta hero__cta--green">
-                        {% trans "DÉCOUVRIR MON TRAVAIL" %}
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M7 7h10v10" />
-                        </svg>
-                    </a>
-                    <a href="#contact" class="hero__cta hero__cta--ghost">
-                        {% trans "EN PARLER ENSEMBLE" %}
-                    </a>
-                </div>
+        <h1 class="display-xl text-bone" data-hero-reveal="120">
+            <span class="block">{% trans "Gagnez du temps." %}</span>
+            <span class="block">{% trans "Construisons votre" %}</span>
+            <span class="block">{% trans "prochaine solution." %}</span>
+        </h1>
 
-                {# ── Trust indicator ────────────────────────── #}
-                <div class="hero__trust" data-hero-reveal="700" data-reveal-element>
-                    {% if profile.availability_status %}
-                    <span class="hero__trust-item">
-                        <span class="hero__trust-dot"></span>
-                        {{ profile.availability_message|default:"Disponible pour de nouveaux projets" }}
-                    </span>
-                    {% endif %}
-                    <span class="hero__trust-sep" aria-hidden="true"></span>
-                    <span class="hero__trust-item">{{ profile.professional_name}}</span>
-                </div>
+        <div class="mt-8 flex flex-col gap-8 md:flex-row md:items-end md:justify-between" data-hero-reveal="320">
+            <p class="lead max-w-xl text-bone/80">
+                {% trans "Développeur full-stack basé au Cameroun, je conçois des applications web qui simplifient votre quotidien et accélèrent votre croissance." %}
+            </p>
 
-            </div>
-
-            {# ── RIGHT : THE CORE ────────────────────────────── #}
-            <div class="hero__right" data-hero-reveal="500">
-                <div id="theCore" class="core" role="img" aria-label="Animation visuelle du coeur d'un systeme numerique en construction">
-                    <canvas id="coreCanvas" class="core__canvas" aria-hidden="true"></canvas>
-
-                    <span class="core__label core__label--tr" data-core-label="tr" aria-hidden="true"><b>01</b> ANALYSER</span>
-                    <span class="core__label core__label--r" data-core-label="r" aria-hidden="true"><b>02</b> CONCEVOIR</span>
-                    <span class="core__label core__label--br" data-core-label="br" aria-hidden="true"><b>03</b> CONSTRUIRE</span>
-                    <span class="core__label core__label--bl" data-core-label="bl" aria-hidden="true"><b>04</b> DEPLOYER</span>
-                    <span class="core__label core__label--tl" data-core-label="tl" aria-hidden="true"><b>05</b> EVOLUER</span>
-                </div>
+            <div class="flex shrink-0 flex-wrap items-center gap-3">
+                <a href="#work" class="btn btn-light">
+                    {% trans "Découvrir mon travail" %}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </a>
+                <a href="{% url 'portfolio:contact' %}" class="btn btn-ghost-light">{% trans "En parler ensemble" %}</a>
             </div>
         </div>
-    </div>
 
-    
+    </div>
 </section>
 
-<script src="{% static 'js/hero.js' %}" defer></script>
+{# ── Bandeau de preuves (blanc, sous la photo) ───────────────── #}
+<div class="border-b border-ink/10 bg-white" data-reveal-section>
+    <div class="container py-10 md:py-14" data-reveal-item>
+        <dl class="grid grid-cols-2 gap-y-8 md:grid-cols-4">
+            <div class="border-l border-ink/10 pl-5 first:border-l-0 first:pl-0 md:pl-8">
+                <dt class="font-display text-[clamp(1.9rem,3vw,2.8rem)] font-medium leading-none tracking-[-0.04em]">
+                    <span class="counter">25+</span>
+                </dt>
+                <dd class="label mt-2.5">{% trans "Projets livrés" %}</dd>
+            </div>
+            <div class="border-l border-ink/10 pl-5 md:pl-8">
+                <dt class="font-display text-[clamp(1.9rem,3vw,2.8rem)] font-medium leading-none tracking-[-0.04em]">
+                    <span class="counter">10</span>
+                </dt>
+                <dd class="label mt-2.5">{% trans "Ans d'expérience" %}</dd>
+            </div>
+            <div class="border-l border-ink/10 pl-5 md:pl-8">
+                <dt class="font-display text-[clamp(1.9rem,3vw,2.8rem)] font-medium leading-none tracking-[-0.04em]">
+                    <span class="counter">100%</span>
+                </dt>
+                <dd class="label mt-2.5">{% trans "Satisfaction client" %}</dd>
+            </div>
+            <div class="border-l border-ink/10 pl-5 md:pl-8">
+                <dt class="font-display text-[clamp(1.9rem,3vw,2.8rem)] font-medium leading-none tracking-[-0.04em]">
+                    <span class="counter">4</span>
+                </dt>
+                <dd class="label mt-2.5">{% trans "Solutions maîtrisées" %}</dd>
+            </div>
+        </dl>
+    </div>
+</div>
