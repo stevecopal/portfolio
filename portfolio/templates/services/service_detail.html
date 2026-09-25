@@ -8,7 +8,7 @@
     <div class="container">
         <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
 
-            <div class="lg:col-span-7">
+            <div class="lg:col-span-7 relative z-10">
                 <span class="eyebrow eyebrow--light" data-reveal-item>{% trans "Solution" %}</span>
                 <h1 class="display-xl mt-6 text-bone" data-reveal-item>{{ service.title }}</h1>
                 <p class="lead lead--light mt-6 max-w-xl" data-reveal-item>
@@ -26,12 +26,13 @@
                 </div>
             </div>
 
-            <div class="lg:col-span-5" data-reveal-card>
-                <div class="overflow-hidden rounded-2xl bg-bone/10">
+            <div class="lg:col-span-5 absolute inset-0 z-0 sm:static sm:z-auto" data-reveal-card>
+                <div class="relative h-full overflow-hidden bg-bone/10 sm:h-auto sm:rounded-2xl">
                     <img src="{{ service.image_url }}"
                          alt="{{ service.title }}"
-                         class="aspect-[4/3] w-full object-cover"
+                         class="h-full w-full object-cover sm:aspect-[4/3] sm:h-auto"
                          loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-gradient-to-b from-ink via-ink/90 to-ink/65 sm:hidden" aria-hidden="true"></div>
                 </div>
             </div>
 

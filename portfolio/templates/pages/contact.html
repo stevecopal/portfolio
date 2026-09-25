@@ -38,10 +38,10 @@
 
 
 {# ═══════════════ HERO ═══════════════ #}
-<section class="section surface-white" data-reveal-section data-reveal-stagger="80">
+<section class="section surface-white relative" data-reveal-section data-reveal-stagger="80">
     <div class="container">
         <div class="grid grid-cols-1 items-end gap-10 lg:grid-cols-12 lg:gap-14">
-            <div class="lg:col-span-6">
+            <div class="lg:col-span-6 relative z-10">
                 <span class="eyebrow" data-reveal-item>{% trans "Contact" %}</span>
                 <h1 class="display-xl mt-6" data-reveal-item>
                     {% trans "Construisons votre solution" %}
@@ -60,12 +60,13 @@
                 </p>
             </div>
 
-            <div class="lg:col-span-6" data-reveal-card>
-                <div class="relative overflow-hidden rounded-2xl bg-bone">
+            <div class="lg:col-span-6 absolute inset-0 z-0 sm:static sm:z-auto" data-reveal-card>
+                <div class="relative h-full overflow-hidden bg-bone sm:h-auto sm:rounded-2xl">
                     <img src="{% static 'images/contact.jpg' %}"
                          alt="{% trans 'Discussion autour d’un projet' %}"
-                         class="aspect-[16/10] w-full object-cover"
+                         class="h-full w-full object-cover sm:aspect-[16/10] sm:h-auto"
                          loading="lazy" decoding="async">
+                    <div class="absolute inset-0 bg-gradient-to-b from-white via-white/90 to-white/65 sm:hidden" aria-hidden="true"></div>
                 </div>
             </div>
         </div>
