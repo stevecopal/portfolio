@@ -2,22 +2,7 @@
 <footer class="relative z-10 bg-ink text-bone">
     <div class="container py-16 md:py-20">
 
-        {# ═════════ Tête : accroche + CTA ═════════ #}
-        <div class="flex flex-col gap-8 border-b border-bone/15 pb-12 md:flex-row md:items-end md:justify-between">
-            <div class="max-w-2xl">
-                <span class="eyebrow eyebrow--light">{% trans "Prochaine étape" %}</span>
-                <h2 class="display-lg mt-5 text-bone">
-                    {% trans "Un problème à résoudre ? Parlons-en." %}
-                </h2>
-            </div>
-            <a href="{% url 'portfolio:contact' %}" class="btn btn-light self-start md:self-auto">
-                {% trans "Décrire mon projet" %}
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-            </a>
-        </div>
-
+        
         {# ═════════ Colonnes ═════════ #}
         <div class="grid grid-cols-2 gap-x-6 gap-y-10 py-12 md:grid-cols-4 md:gap-10">
 
@@ -87,10 +72,7 @@
             <p class="text-[0.78rem] text-bone/45">
                 {{ site_settings.copyright_text|default:'© 2026 Copal Satcheme. Tous droits réservés.' }}
             </p>
-            <div class="footer-lang flex items-center gap-6">
-                <span class="text-[0.78rem] text-bone/45">{{ site_settings.slogan }}</span>
-                {% include 'components/language_switcher.html' %}
-            </div>
+            
         </div>
 
     </div>

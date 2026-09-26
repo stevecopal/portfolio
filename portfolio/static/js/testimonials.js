@@ -65,9 +65,22 @@
       if (currentEl) currentEl.textContent = pad(index + 1);
     }
 
+    /* Rotation automatique : avis suivant toutes les 2 secondes
+       (desktop et mobile). Chaque navigation manuelle redémarre le minuteur. */
+    var autoTimer = null;
+
+    function restartAuto() {
+      if (autoTimer) clearInterval(autoTimer);
+      autoTimer = setInterval(function () {
+        index = (index + 1) % total;
+        render();
+      }, 10000);
+    }
+
     function go(delta) {
       index = (index + delta + total) % total;
       render();
+      restartAuto();
     }
 
     if (prevBtn) {
@@ -122,6 +135,9 @@
     );
 
     render();
+
+    /* Lancer la rotation automatique (si plus d'un avis). */
+    if (total > 1) restartAuto();
   }
 
   function initAll() {
